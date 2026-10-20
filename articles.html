@@ -313,6 +313,12 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 .lines a.last { background: var(--beige); color: var(--on-beige); }
 .lines a.last small { color: var(--on-beige); opacity: .75; }
 .lines a.last:hover { color: var(--green); filter: none; }
+
+/* bannière partenaire */
+.pub { margin: 18px 0 22px; text-align: center; }
+.pub a { display: block; position: relative; border: 1px solid var(--line); background: var(--surface); }
+.pub img { display: block; width: 100%; height: auto; max-height: 160px; object-fit: contain; }
+.pub small { position: absolute; top: 6px; left: 8px; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 11px; color: var(--on-green); background: var(--green); padding: 3px 8px; }
 </style>
 </head>
 <body>
@@ -329,6 +335,7 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
       <a href="/proposer.html">Proposer un sujet</a>
     </nav>
   </div>
+  <div class="pub" id="pub" hidden></div>
 
   <section id="articles"></section>
   <footer id="pied"></footer>
@@ -420,6 +427,16 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
   }
 
   function render(d) {
+    (function () {
+      var b = d.banniere || {}, box = document.getElementById("pub");
+      if (!box) return;
+      var today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
+      var ok = b.actif && b.image && (!b.debut || today >= String(b.debut).slice(0, 10)) && (!b.fin || today <= String(b.fin).slice(0, 10));
+      if (!ok) { box.hidden = true; return; }
+      var img = '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '"><small>Partenaire</small>';
+      box.innerHTML = b.lien ? '<a href="' + esc(safeUrl(b.lien)) + '" target="_blank" rel="sponsored noopener">' + img + "</a>" : '<a style="pointer-events:none">' + img + "</a>";
+      box.hidden = false;
+    })();
     function $(id) { return document.getElementById(id) || {}; }
     /* le titre de chaque page est défini dans son HTML */
     var c = d.couverture || {};

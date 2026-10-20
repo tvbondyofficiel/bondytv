@@ -398,5 +398,13 @@
       "etiquette": "À l'honneur",
       "image_portrait": false
     }
-  ]
+  ],
+  "banniere": {
+    "actif": false,
+    "annonceur": "Jess-One",
+    "image": "",
+    "lien": "",
+    "debut": "",
+    "fin": ""
+  }
 }
