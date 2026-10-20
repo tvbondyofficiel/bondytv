@@ -55,7 +55,7 @@
         "en_rouge": false
       },
       {
-        "titre": "L’e-commerce à Bondy…",
+        "titre": "L'e-commerce à Bondy",
         "sous_titre": "",
         "cible": "entreprises",
         "en_rouge": true
@@ -80,22 +80,6 @@
       }
     ],
     "cartes": [
-      {
-        "lien_video": "",
-        "texte_visible": "",
-        "rubrique": "",
-        "pleine_largeur": true,
-        "titre": "Mur Blanc : Pablo, le cœur sur la main",
-        "texte": "",
-        "image_description": "",
-        "credit": "Archive vidéo · 12 min",
-        "id": "archives-murblanc",
-        "image": "",
-        "chapo": "Mur Blanc, c'est l'émission créée par Bondy TV : un mur blanc, une personne, une histoire.",
-        "visuel": "play",
-        "etiquette": "Archives · Mur Blanc",
-        "image_portrait": false
-      },
       {
         "lien_video": "",
         "texte_visible": "",
@@ -291,13 +275,13 @@
       "texte_visible": "",
       "rubrique": "Économie",
       "pleine_largeur": true,
-      "titre": "Riyad, L'Atelier, Le Petit Atelier : trois adresses bondynoises ont fermé",
-      "texte": "À Bondy, on le remarque en passant : le restaurant Riyad a fermé. L'Atelier, restaurant de cuisine française, et Le Petit Atelier, spécialisé dans les burgers et les bagels, ont fermé eux aussi. Trois adresses, un même créateur : Younes Bourimèche.\n\nAncien Bondynois devenu chef d'entreprise, il a grandi dans la ville. Il y a monté ces restaurants, et il dirige aujourd'hui plusieurs sociétés. Il a aussi ouvert un restaurant, Majaz, à Saint-Denis. Son parcours, publié dans la presse, en fait une figure de l'entrepreneuriat en Seine-Saint-Denis.\n\n« ==[ce qu'il dit de ses établissements bondynois et de leur fermeture]== », explique-t-il à Bondy TV. Derrière un rideau baissé, il y a des salariés, des années de travail et des lieux où les Bondynois se retrouvaient.\n\nPourquoi ces fermetures ? ==[raison donnée par l'intéressé, avec ses propres mots : démarches, loyers, autorisations, projets ailleurs, etc.]==. Bondy TV rapporte ce qui lui est dit et ce qui est vérifié, sans tirer de conclusion à sa place.\n\nNous avons proposé à la municipalité de s'exprimer sur l'accompagnement des commerçants et des entrepreneurs de la ville. ==[réponse de la mairie, ou « sans réponse à ce jour »]==\n\nUne chose est sûre : une ville a besoin de ses commerces pour vivre. Bondy TV continuera de suivre ce sujet et de donner la parole aux entrepreneurs bondynois, qu'ils ouvrent, qu'ils tiennent ou qu'ils ferment. Vous avez tenu un commerce à Bondy ? Racontez-nous votre histoire.\n\n@ Rédigé par Alex\n\n> Les passages surlignés sont à compléter avec les déclarations de l'intéressé. Faites-lui relire le texte avant publication, vérifiez les dates de fermeture, et laissez un droit de réponse à la municipalité.",
+      "titre": "L'e-commerce à Bondy : des boutiques qui vont plus loin que le quartier",
+      "texte": "Vendre à Bondy, c'est une chose. Vendre depuis Bondy à toute la France, voire plus loin, en est une autre. De plus en plus de Bondynois se lancent dans l'e-commerce : boutiques en ligne, créateurs, commerçants qui complètent leur magasin par un site.\n\nDans ce numéro, Bondy TV commence à les mettre en avant.\n\n**Qui sont-ils ?**\n==[nom de la boutique ou du créateur, ce qu'il vend, depuis quand]==\n\n**Comment ça marche ?**\n==[comment il a démarré en ligne, ses conseils, ses difficultés]==\n\n**Où les trouver ?**\n==[site, réseaux sociaux, téléphone]==\n\nVous avez une boutique en ligne à Bondy ? Écrivez-nous : nous serons heureux de vous présenter dans le prochain numéro.\n\n@ Rédigé par ==[nom]==",
       "image_description": "",
       "credit": "",
       "id": "entreprises",
       "image": "",
-      "chapo": "Un entrepreneur qui a grandi à Bondy y avait ouvert plusieurs restaurants. Aujourd'hui, ils ont fermé. Rencontre avec Younes Bourimèche.",
+      "chapo": "À Bondy, de plus en plus de commerçants et de créateurs vendent aussi en ligne. Ce numéro commence à les présenter.",
       "visuel": "none",
       "etiquette": "Économie",
       "image_portrait": false
