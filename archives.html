@@ -319,6 +319,13 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 .pub a { display: block; position: relative; border: 1px solid var(--line); background: var(--surface); }
 .pub img { display: block; width: 100%; height: auto; max-height: 160px; object-fit: contain; }
 .pub small { position: absolute; top: 6px; left: 8px; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 11px; color: var(--on-green); background: var(--green); padding: 3px 8px; }
+
+.pub .pub-txt { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; text-align: left; padding: 42px 28px 24px; text-decoration: none; background: #0c0e16; color: #f4f2ee; border: 0; border-left: 10px solid var(--red); }
+.pub .pub-txt::after { content: ""; display: none; }
+.pub .pub-txt b { display: block; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(30px, 4.6vw, 52px); line-height: .95; letter-spacing: .01em; }
+.pub .pub-txt span { display: block; margin-top: 6px; color: #d9d6cf; font-size: 16px; }
+.pub .pub-txt em { font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 17px; background: var(--green); color: var(--on-green); padding: 12px 20px; white-space: nowrap; }
+.pub .pub-txt small { background: var(--beige); color: #12141c; }
 </style>
 </head>
 <body>
@@ -431,10 +438,12 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
       var b = d.banniere || {}, box = document.getElementById("pub");
       if (!box) return;
       var today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
-      var ok = b.actif && b.image && (!b.debut || today >= String(b.debut).slice(0, 10)) && (!b.fin || today <= String(b.fin).slice(0, 10));
+      var ok = b.actif && (b.image || b.titre) && (!b.debut || today >= String(b.debut).slice(0, 10)) && (!b.fin || today <= String(b.fin).slice(0, 10));
       if (!ok) { box.hidden = true; return; }
-      var img = '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '"><small>Partenaire</small>';
-      box.innerHTML = b.lien ? '<a href="' + esc(safeUrl(b.lien)) + '" target="_blank" rel="sponsored noopener">' + img + "</a>" : '<a style="pointer-events:none">' + img + "</a>";
+      var tag = "<small>" + esc(b.etiquette || "Partenaire") + "</small>", inner, cls = "", ext = /^https?:/i.test(safeUrl(b.lien || ""));
+      if (b.image) inner = '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '">' + tag;
+      else { cls = "pub-txt"; inner = "<div><b>" + esc(b.titre) + "</b>" + (b.sous_titre ? "<span>" + esc(b.sous_titre) + "</span>" : "") + "</div>" + (b.bouton ? "<em>" + esc(b.bouton) + " →</em>" : "") + tag; }
+      box.innerHTML = b.lien ? '<a class="' + cls + '" href="' + esc(safeUrl(b.lien)) + '"' + (ext ? ' target="_blank" rel="sponsored noopener"' : "") + ">" + inner + "</a>" : '<a class="' + cls + '" style="pointer-events:none">' + inner + "</a>";
       box.hidden = false;
     })();
     function $(id) { return document.getElementById(id) || {}; }
