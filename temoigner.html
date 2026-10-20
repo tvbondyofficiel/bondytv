@@ -134,6 +134,17 @@ a { color: inherit; }
 .toc a em { font-style: normal; color: var(--red); font-weight: 700; }
 .arch-intro, .arch-more { color: var(--muted); font-size: 18px; line-height: 1.5; margin: 0 0 18px; max-width: 62ch; }
 .arch-more { margin-top: 18px; }
+.grid.arch-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; }
+.arch-grid .art .vis { aspect-ratio: 16 / 10; }
+.arch-grid .art .txt { padding: 16px 16px 18px; gap: 8px; }
+.arch-grid .art h3 { font-size: clamp(24px, 2.6vw, 30px); }
+.arch-grid .art .chapo { font-size: 15px; }
+.arch-grid .art .vis .play { transform: scale(.7); }
+.arch-soon { margin: 22px 0 0; padding: 14px 18px; border-left: 4px solid var(--red); background: var(--surface); font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-weight: 600; font-size: 16px; color: var(--muted); }
+.arch-soon strong { color: var(--red); margin-right: 8px; }
+@media (max-width: 900px) { .grid.arch-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 620px) { .grid.arch-grid { grid-template-columns: minmax(0, 1fr); } }
+
 .arch-sub { font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: 26px; letter-spacing: .04em; margin: 34px 0 16px; }
 .vgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); gap: 22px; }
 .vcard { margin: 0; border: 1px solid var(--line); background: var(--surface); }
@@ -423,8 +434,10 @@ body { margin: 0; }
 
     var ah = '<h2 class="sec-title">' + esc(arch.titre) + "</h2>";
     if (arch.introduction) ah += '<p class="arch-intro">' + inline(arch.introduction) + "</p>";
-    if ((arch.numeros || []).length) ah += '<ul class="toc arch">' + arch.numeros.map(function (n) { return '<li><a href="' + esc(safeUrl(n.lien)) + '">' + esc(n.titre) + (n.etiquette ? " <em>" + esc(n.etiquette) + "</em>" : "") + "</a></li>"; }).join("") + "</ul>";
-    if ((arch.cartes || []).length) ah += '<div class="grid arch-grid">' + arch.cartes.map(article).join("") + "</div>";
+    if ((arch.numeros || []).length) ah += '<h3 class="arch-sub">Les numéros</h3><ul class="toc arch">' + arch.numeros.map(function (n) { return '<li><a href="' + esc(safeUrl(n.lien)) + '">' + esc(n.titre) + (n.etiquette ? " <em>" + esc(n.etiquette) + "</em>" : "") + "</a></li>"; }).join("") + "</ul>";
+    var cs = arch.cartes || [], prets = cs.filter(function (c) { return !/bient[ôo]t/i.test(c.credit || ""); }), bientot = cs.filter(function (c) { return /bient[ôo]t/i.test(c.credit || ""); });
+    if (prets.length) ah += '<h3 class="arch-sub">Les vidéos d\'archives</h3><div class="grid arch-grid">' + prets.map(article).join("") + "</div>";
+    if (bientot.length) ah += '<p class="arch-soon"><strong>Bientôt</strong> ' + bientot.map(function (c) { return esc((c.etiquette || c.titre).replace(/^Archives\s*·\s*/, "")); }).join(" · ") + "</p>";
     if (arch.suite) ah += '<p class="arch-more">' + inline(arch.suite) + "</p>";
     $("archives").innerHTML = ah;
 
