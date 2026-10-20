@@ -287,6 +287,22 @@
       "image_portrait": false
     },
     {
+      "id": "food-trucks",
+      "rubrique": "Économie",
+      "etiquette": "Économie",
+      "pleine_largeur": false,
+      "titre": "Les food trucks de Bondy : la bonne cuisine vient à vous",
+      "chapo": "Pizzas, burgers, plats du monde : les food trucks s'installent dans la ville. Bondy TV part à la rencontre de ceux qui les font vivre.",
+      "visuel": "none",
+      "image": "",
+      "image_description": "",
+      "image_portrait": false,
+      "lien_video": "",
+      "credit": "",
+      "texte_visible": "",
+      "texte": "Un camion, une plaque de cuisson, et des clients qui font la queue : le food truck est devenu un vrai visage de la restauration à Bondy. Il se déplace, il s'installe près des écoles, des marchés, des entreprises, et il met de la vie dans les quartiers.\n\nBondy TV va à la rencontre de celles et ceux qui les font vivre.\n\n**Qui sont-ils ?**\n==[nom du food truck, ce qu'il propose, depuis quand il est à Bondy]==\n\n**Où les trouver ?**\n==[lieux et jours de présence à Bondy, horaires]==\n\n**Leur histoire**\n==[pourquoi ils se sont lancés, ce qu'ils aiment dans leur métier, un souvenir marquant]==\n\n**Contact**\n==[téléphone, réseaux sociaux, page de commande]==\n\nVous tenez un food truck à Bondy ? Écrivez-nous : nous serons heureux de vous présenter dans le prochain numéro.\n\n@ Rédigé par ==[nom]=="
+    },
+    {
       "lien_video": "",
       "texte_visible": "",
       "rubrique": "Témoignage",
