@@ -304,19 +304,20 @@
     },
     {
       "lien_video": "",
-      "texte_visible": "Cette semaine : ==[nom du citoyen et sujet de son appel]==\n\n[Je veux lancer mon appel](#temoigner)\n\n> Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées.",
+      "texte_visible": "Durée : environ 12 minutes. ==[sujet de l'appel en une phrase]==\n\n[Je veux lancer mon appel](#temoigner)\n\n> Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées.",
       "rubrique": "Témoignage",
       "pleine_largeur": false,
-      "titre": "L'appel d'un citoyen",
+      "titre": "L'appel d'un citoyen : Pablo, le cœur sur la main",
       "texte": "",
-      "image_description": "",
+      "image_description": "Pablo, filmé devant un mur blanc, s'adresse aux Bondynois",
       "credit": "",
       "id": "appel-citoyen",
-      "image": "",
-      "chapo": "Un habitant prend la parole et s'adresse aux Bondynois.",
-      "visuel": "play",
+      "image": "/images/appel-citoyen.jpg",
+      "chapo": "Pablo s'adresse aux Bondynois : une voix, un mur blanc, une histoire.",
+      "visuel": "image",
       "etiquette": "Témoignage · appel d'un citoyen",
-      "image_portrait": false
+      "image_portrait": false,
+      "fichier_video": "/images/appel-citoyen.mp4"
     },
     {
       "lien_video": "https://www.youtube.com/@Bondytvofficiel/podcasts",
