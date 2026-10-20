@@ -13,7 +13,7 @@
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="apple-mobile-web-app-title" content="Bondy TV">
 <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,700;1,800&family=Barlow:wght@400;500;600&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:ital,wght@0,500;0,600;0,700;1,800&family=Barlow:wght@400;500;600&display=swap">
 <style>
 
 /* Concept : une de magazine noir, rouge et blanc. Logo géant, titres condensés en majuscules, trame de points en motif, articles en grille éditoriale. */
@@ -114,7 +114,7 @@ a { color: inherit; }
 .stamp { position: absolute; left: 14px; bottom: 14px; border: 3px double var(--fg); border-radius: 50%; width: 92px; height: 92px; display: grid; place-items: center; text-align: center; font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1; letter-spacing: .04em; color: var(--fg); transform: rotate(-8deg); background: var(--bg); }
 
 .lines { display: flex; flex-direction: column; gap: 22px; }
-.lines a { text-decoration: none; font-family: var(--display); text-transform: uppercase; line-height: .98; font-weight: 500; font-size: clamp(34px, 5vw, 56px); border-bottom: 1px solid var(--line); padding-bottom: 20px; display: block; }
+.lines a { text-decoration: none; font-family: var(--display); text-transform: uppercase; line-height: .98; font-weight: 600; font-size: clamp(34px, 5vw, 56px); border-bottom: 1px solid var(--line); padding-bottom: 20px; display: block; }
 .lines a small { display: block; font-size: .5em; text-transform: none; color: var(--muted); letter-spacing: .02em; margin-top: 6px; }
 .lines a:hover { color: var(--red); }
 .lines a.last { background: var(--red); color: var(--on-red); padding: 16px 18px; border: 0; }
@@ -127,9 +127,10 @@ a { color: inherit; }
 
 /* sommaire */
 #sommaire { padding: 8px 0 44px; }
-.toc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 0 40px; }
+.toc { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(340px, 1fr)); gap: 0 56px; }
+.toc a em { white-space: nowrap; }
 .toc li { border-bottom: 1px solid var(--line); }
-.toc a { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; text-decoration: none; font-family: var(--display); font-size: 24px; text-transform: uppercase; font-weight: 500; }
+.toc a { display: flex; justify-content: space-between; gap: 16px; padding: 14px 0; text-decoration: none; font-family: var(--display); font-size: 24px; text-transform: uppercase; font-weight: 600; }
 .toc a em { font-style: normal; color: var(--red); font-weight: 700; }
 .arch-intro, .arch-more { color: var(--muted); font-size: 18px; line-height: 1.5; margin: 0 0 18px; max-width: 62ch; }
 .arch-more { margin-top: 18px; }
@@ -224,6 +225,11 @@ footer { margin-top: 36px; display: flex; justify-content: space-between; gap: 1
 }
 
 
+
+.btn-all { display: inline-block; font: 700 18px/1 var(--display); text-transform: uppercase; letter-spacing: .12em; background: var(--red); color: var(--on-red); padding: 16px 28px; text-decoration: none; }
+.fbtn { margin: 36px 0 8px; }
+.bar nav a[aria-current="page"] { border-bottom: 2px solid var(--red); }
+.pagehead { margin: 40px 0 0; }
 [hidden] { display: none !important; }
 a.vis { text-decoration: none; color: inherit; }
 .vis.has-play:hover .play { filter: brightness(1.1); }
@@ -240,52 +246,19 @@ body { margin: 0; }
 <body>
 <div class="wrap">
   <div class="bar">
-    <a class="mini" href="#top" aria-label="Bondy TV, retour en haut"><img src="/images/logo.png" alt="Bondy TV" width="67" height="44"></a>
+    <a class="mini" href="/" aria-label="Bondy TV, retour en haut"><img src="/images/logo.png" alt="Bondy TV" width="67" height="44"></a>
     <nav aria-label="Navigation du magazine">
-      <a href="#sommaire">Sommaire</a>
-      <a href="#articles">Articles</a>
-      <a href="#archives">Archives</a>
-      <a href="#temoigner">Témoigner</a>
-      <a href="#proposer">Proposer un sujet</a>
+      <a href="/" aria-current="page">Accueil</a>
+      <a href="/sommaire.html">Sommaire</a>
+      <a href="/articles.html">Articles</a>
+      <a href="/archives.html">Archives</a>
+      <a href="/temoigner.html">Témoigner</a>
+      <a href="/proposer.html">Proposer un sujet</a>
     </nav>
   </div>
 
   <section class="une" id="top"><p class="loading">Chargement du magazine…</p></section>
-  <section id="sommaire"></section>
-  <section id="articles"></section>
-  <section id="archives"></section>
-
-  <section class="temoigner" id="temoigner">
-    <h2 class="sec-title" id="temoigner-titre"></h2>
-    <p class="intro" id="temoigner-intro"></p>
-    <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
-<input name="access_key" type="hidden" value="a10cef59-fca0-479e-81ab-13a661ab12b5"/>
-<input name="subject" type="hidden" value="Nouveau message depuis Bondy TV Magazine"/>
-<input name="from_name" type="hidden" value="Bondy TV Magazine"/>
-<p aria-hidden="true" class="hp"><label>Ne pas remplir <input autocomplete="off" name="botcheck" tabindex="-1" type="checkbox"/></label></p>
-<div class="row2">
-<div class="fld"><label for="f-nom">Prénom ou pseudo</label><input autocomplete="given-name" id="f-nom" name="nom" type="text"/></div>
-<div class="fld"><label for="f-contact">Téléphone ou e-mail</label><input autocomplete="off" id="f-contact" name="contact" required="" type="text"/></div>
-</div>
-<div class="fld">
-<label for="f-type">Vous voulez nous envoyer</label>
-<select id="f-type" name="type">
-<option>Un témoignage</option>
-<option>Une vidéo</option>
-<option>Une photo</option>
-<option>Une idée de sujet</option>
-</select>
-</div>
-<div class="fld"><label for="f-msg">Votre message</label><textarea id="f-msg" name="message" required=""></textarea></div>
-<div class="fld"><label for="f-lien">Lien de votre vidéo <span class="opt">(facultatif : YouTube, TikTok, Drive...)</span></label><input id="f-lien" name="lien" placeholder="https://" type="url"/></div>
-<p class="hint">Pour une photo ou une vidéo, envoyez-nous le lien ci-dessus, écrivez à tvbondy@gmail.com ou <a class="walink" href="https://wa.me/33749554391" rel="noopener" target="_blank">écrivez-nous sur WhatsApp</a>.</p>
-<label class="check" for="f-ok"><input id="f-ok" name="accord" required="" type="checkbox" value="oui"/><span>J'accepte que Bondy TV puisse publier mon message dans le magazine. Je peux demander son retrait à tout moment.</span></label>
-<button class="send" id="f-send" type="submit">Envoyer</button>
-<p aria-live="polite" class="status" id="f-status" role="status"></p>
-</form>
-  </section>
-
-  <section class="cta" id="proposer"></section>
+  <p class="fbtn"><a class="btn-all" href="/sommaire.html">Ouvrir le magazine</a></p>
   <footer id="pied"></footer>
 </div>
 <noscript><p style="padding:24px">Ce magazine a besoin de JavaScript pour s'afficher.</p></noscript>
@@ -375,41 +348,42 @@ body { margin: 0; }
   }
 
   function render(d) {
-    document.title = d.titre_site || "Bondy TV Magazine";
+    function $(id) { return document.getElementById(id) || {}; }
+    /* le titre de chaque page est défini dans son HTML */
     var c = d.couverture || {};
     var une = '<div><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="no1">' + esc(d.numero) + '</div></div></div><div class="mag">Magazine</div>';
     if (c.image) une += '<div class="photo has-img has-plain"><img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high"></div>';
     une += '</div><div class="lines">' + (c.lignes || []).map(function (l) {
-      return '<a href="#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
+      return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div>";
-    document.getElementById("top").innerHTML = une;
+    $("top").innerHTML = une;
 
     var arts = d.articles || [];
     var arch = d.archives || {};
-    var toc = arts.map(function (a) { return '<li><a href="#' + esc(a.id) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
-    toc += '<li><a href="#archives">' + esc(arch.titre || "Les archives") + " <em>Depuis 2018</em></a></li>";
-    document.getElementById("sommaire").innerHTML = '<h2 class="sec-title">' + esc(d.sommaire_titre) + '</h2><ul class="toc">' + toc + "</ul>";
+    var toc = arts.map(function (a) { return '<li><a href="/articles.html#' + esc(a.id) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
+    toc += '<li><a href="/archives.html">' + esc(arch.titre || "Les archives") + " <em>Depuis 2018</em></a></li>";
+    $("sommaire").innerHTML = '<h2 class="sec-title">' + esc(d.sommaire_titre) + '</h2><ul class="toc">' + toc + "</ul>";
 
     var cats = [];
     arts.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
     var f = '<h2 class="sec-title">' + esc(d.articles_titre) + '</h2><div class="filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tout</button>';
     f += cats.map(function (k) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="false">' + esc(k) + "</button>"; }).join("");
     f += '</div><div class="grid">' + arts.map(article).join("") + "</div>";
-    document.getElementById("articles").innerHTML = f;
+    $("articles").innerHTML = f;
 
     var ah = '<h2 class="sec-title">' + esc(arch.titre) + "</h2>";
     if (arch.introduction) ah += '<p class="arch-intro">' + inline(arch.introduction) + "</p>";
     if ((arch.numeros || []).length) ah += '<ul class="toc arch">' + arch.numeros.map(function (n) { return '<li><a href="' + esc(safeUrl(n.lien)) + '">' + esc(n.titre) + (n.etiquette ? " <em>" + esc(n.etiquette) + "</em>" : "") + "</a></li>"; }).join("") + "</ul>";
     if ((arch.cartes || []).length) ah += '<div class="grid arch-grid">' + arch.cartes.map(article).join("") + "</div>";
     if (arch.suite) ah += '<p class="arch-more">' + inline(arch.suite) + "</p>";
-    document.getElementById("archives").innerHTML = ah;
+    $("archives").innerHTML = ah;
 
     var t = d.temoigner || {};
-    document.getElementById("temoigner-titre").textContent = t.titre || "";
-    document.getElementById("temoigner-intro").textContent = t.introduction || "";
+    $("temoigner-titre").textContent = t.titre || "";
+    $("temoigner-intro").textContent = t.introduction || "";
 
     var p = d.proposer || {};
-    document.getElementById("proposer").innerHTML = "<h2>" + esc(p.titre) + "</h2><p>" + esc(p.texte) + '</p><div class="contact">' +
+    $("proposer").innerHTML = "<h2>" + esc(p.titre) + "</h2><p>" + esc(p.texte) + '</p><div class="contact">' +
       '<div class="c-row"><a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a><button type="button" class="copy" data-copy="' + esc(p.email) + '">Copier</button></div>' +
       '<div class="c-row"><a href="tel:' + esc(p.telephone_lien) + '">' + esc(p.telephone) + '</a><button type="button" class="copy" data-copy="' + esc(p.telephone_lien) + '">Copier</button>' +
       '<a class="wa" href="' + esc(safeUrl(p.whatsapp)) + '" target="_blank" rel="noopener" aria-label="Écrire à Bondy TV sur WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="' + WA + '"/></svg></a></div></div>';
@@ -420,12 +394,11 @@ body { margin: 0; }
       var inner = ICONS[k] || esc(r.reseau);
       return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur ' + esc(r.reseau) + '" title="' + esc(r.reseau) + '">' + inner + "</a>";
     }).join("");
-    document.getElementById("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + "</span>";
+    $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + "</span>";
 
     behaviours();
     if (location.hash) {
-      var el = document.querySelector(location.hash);
-      if (el) el.scrollIntoView();
+      try { var el = document.querySelector(location.hash); if (el) el.scrollIntoView(); } catch (e) {}
     }
   }
 
