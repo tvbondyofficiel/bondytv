@@ -308,7 +308,7 @@
       "rubrique": "Témoignage",
       "pleine_largeur": true,
       "titre": "Témoignage",
-      "texte": "Chaque témoignage est une vidéo courte, tournée avec les habitants. Retrouvez ci-dessous les quatre formats de la rubrique.\n\nChaîne de Bondy TV : [YouTube](https://www.youtube.com/@Bondytvofficiel)\n\nVous voulez témoigner ? [Envoyez votre vidéo ou votre message avec le formulaire](#temoigner).\n\n> Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées.",
+      "texte": "Chaque témoignage est une vidéo courte, tournée avec les habitants. Retrouvez ci-dessous les cinq formats de la rubrique.\n\nChaîne de Bondy TV : [YouTube](https://www.youtube.com/@Bondytvofficiel)\n\nVous voulez témoigner ? [Envoyez votre vidéo ou votre message avec le formulaire](#temoigner).\n\n> Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées.",
       "image_description": "",
       "credit": "Le prochain témoignage arrive bientôt.",
       "id": "temoignages",
@@ -349,6 +349,22 @@
       "visuel": "play",
       "etiquette": "Témoignage · du mois",
       "image_portrait": false
+    },
+    {
+      "id": "temoignage-sujet",
+      "rubrique": "Témoignage",
+      "etiquette": "Témoignage · sujet du mois",
+      "pleine_largeur": false,
+      "titre": "Le sujet du mois",
+      "chapo": "Un thème, une question, et la parole des Bondynois.",
+      "visuel": "play",
+      "image": "",
+      "image_description": "",
+      "image_portrait": false,
+      "lien_video": "",
+      "credit": "",
+      "texte_visible": "Le sujet de ce mois-ci : ==[thème]==\n\n[Je veux témoigner](#temoigner)",
+      "texte": ""
     },
     {
       "lien_video": "",
