@@ -123,6 +123,22 @@
         "image_portrait": false
       },
       {
+        "lien_video": "https://www.youtube.com/@Bondytvofficiel/podcasts",
+        "texte_visible": "",
+        "rubrique": "Vidéos",
+        "pleine_largeur": false,
+        "titre": "Les podcasts",
+        "texte": "",
+        "image_description": "Trois personnes rient autour d'une table de podcast, devant des micros",
+        "credit": "Tous les podcasts sur YouTube",
+        "id": "archives-podcasts",
+        "image": "/images/podcast.jpg",
+        "chapo": "Des voix, des histoires, en vidéo.",
+        "visuel": "image",
+        "etiquette": "Archives · Podcasts",
+        "image_portrait": false
+      },
+      {
         "lien_video": "",
         "texte_visible": "",
         "rubrique": "",
