@@ -24,6 +24,7 @@
   --muted: #a6aab8;
   --red: #e8222d;
   --green: #2fb36d;
+  --on-green: #04140b;
   --on-red: #ffffff;
   --line: rgba(255,255,255,.16);
   --dot: rgba(255,255,255,.22);
@@ -34,13 +35,13 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --bg: #f6f4f1; --surface: #ffffff; --fg: #12141c; --muted: #555a69;
-    --red: #d3141f; --green: #006233; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
+    --red: #d3141f; --green: #006233; --on-green: #ffffff; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
     color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --bg: #f6f4f1; --surface: #ffffff; --fg: #12141c; --muted: #555a69;
-  --red: #d3141f; --green: #006233; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
+  --red: #d3141f; --green: #006233; --on-green: #ffffff; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -289,6 +290,21 @@ body::before { content: ""; display: block; height: 6px; margin: 0 calc(-1 * max
 .arch-soon { border-left-color: var(--green); }
 .arch-soon strong { color: var(--green); }
 .social a:hover { color: var(--green); border-color: var(--green); }
+
+/* équilibre rouge / vert */
+body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green) 50% 100%); }
+.toc li:nth-child(even) a em { color: var(--green); }
+.toc a:hover, .lines a:hover { color: var(--green); }
+.grid > .art:nth-child(even) .tag { color: var(--green); }
+.grid > .art:nth-child(even) .play { background: var(--green); }
+.grid > .art:nth-child(even) .play::after { border-left-color: var(--on-green); }
+.btn-all { background: var(--green); color: var(--on-green); }
+.filters button[aria-pressed="true"] { background: var(--green); border-color: var(--green); color: var(--on-green); }
+.edito-page .corps p:first-child::first-letter { color: var(--green); }
+.bar nav a[aria-current="page"] { border-bottom-color: var(--green); }
+.walink { color: var(--green); }
+.tform .check input { accent-color: var(--green); }
+.social a:hover { background: var(--green); border-color: var(--green); color: var(--on-green); }
 </style>
 </head>
 <body>
