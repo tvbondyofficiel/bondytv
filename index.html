@@ -341,7 +341,12 @@ body { margin: 0; }
       return '<div class="vis has-video"><video controls playsinline preload="none"' + (a.image ? ' poster="' + esc(a.image) + '"' : "") + ' src="' + esc(a.fichier_video) + '"></video></div>';
     }
     if (v === "image" && a.image) {
-      return '<div class="vis has-img' + (a.image_portrait ? " is-portrait" : "") + '"><img src="' + esc(a.image) + '" alt="' + esc(a.image_description) + '" loading="lazy"></div>';
+      var cls = "vis has-img" + (a.image_portrait ? " is-portrait" : "");
+      var im = '<img src="' + esc(a.image) + '" alt="' + esc(a.image_description) + '" loading="lazy">';
+      if (a.lien_video) {
+        return '<a class="' + cls + '" href="' + esc(safeUrl(a.lien_video)) + '" target="_blank" rel="noopener" aria-label="Voir la vidéo">' + im + "</a>";
+      }
+      return '<div class="' + cls + '">' + im + "</div>";
     }
     if (v === "logo") {
       return '<div class="vis has-logo"><img src="' + esc(a.image || "/images/logo.png") + '" alt="Bondy TV"></div>';
