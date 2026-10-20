@@ -1,0 +1,141 @@
+backend:
+  name: github
+  repo: tvbondyofficiel/bondytv
+  branch: main
+  base_url: https://bondytv.pages.dev
+  auth_endpoint: api/auth
+
+locale: fr
+site_url: https://bondytv.pages.dev
+display_url: https://bondytv.pages.dev
+publish_mode: simple
+media_folder: "images"
+public_folder: "/images"
+
+collections:
+  - name: magazine
+    label: "Le magazine"
+    files:
+      - name: contenu
+        label: "Tout le contenu du magazine"
+        file: "content/site.json"
+        fields:
+          - {label: "Nom du magazine", name: titre_site, widget: string}
+          - {label: "Numéro (ex: N°2)", name: numero, widget: string}
+          - label: "Couverture"
+            name: couverture
+            widget: object
+            fields:
+              - {label: "Photo de couverture", name: image, widget: image}
+              - {label: "Description de la photo", name: image_description, widget: string}
+              - label: "Lignes de la couverture"
+                name: lignes
+                widget: list
+                summary: "{{fields.titre}}"
+                fields:
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Sous-titre", name: sous_titre, widget: string, required: false}
+                  - {label: "Ouvre cet article", name: cible, widget: relation, collection: magazine, file: contenu, search_fields: ["articles.*.titre"], value_field: "articles.*.id", display_fields: ["articles.*.titre"]}
+                  - {label: "Sur fond rouge", name: en_rouge, widget: boolean, default: false}
+          - {label: "Titre du sommaire", name: sommaire_titre, widget: string}
+          - {label: "Titre de la section articles", name: articles_titre, widget: string}
+          - label: "Articles"
+            name: articles
+            widget: list
+            summary: "{{fields.titre}}"
+            fields:
+          - {label: "Identifiant (une seule fois, sans espace ni accent, ex: portrait-hassiba)", name: id, widget: string}
+          - {label: "Rubrique (sert au filtre, ex: Ville, Portrait)", name: rubrique, widget: string, required: false}
+          - {label: "Étiquette au-dessus du titre", name: etiquette, widget: string}
+          - {label: "Article en pleine largeur", name: pleine_largeur, widget: boolean, default: false}
+          - {label: "Titre", name: titre, widget: string}
+          - {label: "Résumé sous le titre", name: chapo, widget: text, required: false}
+          - label: "Visuel"
+            name: visuel
+            widget: select
+            options:
+              - {label: "Aucune image pour l'instant", value: none}
+              - {label: "Une image", value: image}
+              - {label: "Logo Bondy TV", value: logo}
+              - {label: "Illustration du pont", value: pont}
+              - {label: "Bouton lecture (vidéo)", value: play}
+            default: none
+          - {label: "Image (si Visuel = Une image)", name: image, widget: image, required: false}
+          - {label: "Description de l'image (pour les malvoyants)", name: image_description, widget: string, required: false}
+          - {label: "Image verticale (portrait)", name: image_portrait, widget: boolean, default: false}
+          - {label: "Lien de la vidéo (YouTube, TikTok, Instagram)", name: lien_video, widget: string, required: false}
+          - {label: "Ligne sous le résumé (crédit, durée...)", name: credit, widget: string, required: false}
+          - {label: "Texte toujours visible", name: texte_visible, widget: text, required: false}
+          - {label: "Texte de l'article (après « Lire la suite »)", name: texte, widget: text, required: false, hint: "Ligne vide = nouveau paragraphe. **gras**. [mot](adresse) = lien. Ligne qui commence par « - » = liste."}
+          - label: "Archives"
+            name: archives
+            widget: object
+            fields:
+              - {label: "Titre", name: titre, widget: string}
+              - {label: "Introduction", name: introduction, widget: text, required: false}
+              - label: "Anciens numéros"
+                name: numeros
+                widget: list
+                summary: "{{fields.titre}}"
+                fields:
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Petite étiquette", name: etiquette, widget: string, required: false}
+                  - {label: "Adresse du lien (ex: #top ou https://...)", name: lien, widget: string}
+              - label: "Cartes vidéo d'archives"
+                name: cartes
+                widget: list
+                summary: "{{fields.titre}}"
+                fields:
+                - {label: "Identifiant (une seule fois, sans espace ni accent, ex: portrait-hassiba)", name: id, widget: string}
+                - {label: "Rubrique (sert au filtre, ex: Ville, Portrait)", name: rubrique, widget: string, required: false}
+                - {label: "Étiquette au-dessus du titre", name: etiquette, widget: string}
+                - {label: "Article en pleine largeur", name: pleine_largeur, widget: boolean, default: false}
+                - {label: "Titre", name: titre, widget: string}
+                - {label: "Résumé sous le titre", name: chapo, widget: text, required: false}
+                - label: "Visuel"
+                  name: visuel
+                  widget: select
+                  options:
+                    - {label: "Aucune image pour l'instant", value: none}
+                    - {label: "Une image", value: image}
+                    - {label: "Logo Bondy TV", value: logo}
+                    - {label: "Illustration du pont", value: pont}
+                    - {label: "Bouton lecture (vidéo)", value: play}
+                  default: none
+                - {label: "Image (si Visuel = Une image)", name: image, widget: image, required: false}
+                - {label: "Description de l'image (pour les malvoyants)", name: image_description, widget: string, required: false}
+                - {label: "Image verticale (portrait)", name: image_portrait, widget: boolean, default: false}
+                - {label: "Lien de la vidéo (YouTube, TikTok, Instagram)", name: lien_video, widget: string, required: false}
+                - {label: "Ligne sous le résumé (crédit, durée...)", name: credit, widget: string, required: false}
+                - {label: "Texte toujours visible", name: texte_visible, widget: text, required: false}
+                - {label: "Texte de l'article (après « Lire la suite »)", name: texte, widget: text, required: false, hint: "Ligne vide = nouveau paragraphe. **gras**. [mot](adresse) = lien. Ligne qui commence par « - » = liste."}
+              - {label: "Phrase de fin (liens vers vos réseaux)", name: suite, widget: text, required: false}
+          - label: "Section Racontez-nous votre histoire"
+            name: temoigner
+            widget: object
+            fields:
+              - {label: "Titre", name: titre, widget: string}
+              - {label: "Introduction", name: introduction, widget: text}
+          - label: "Section Un sujet pour le prochain numéro"
+            name: proposer
+            widget: object
+            fields:
+              - {label: "Titre", name: titre, widget: string}
+              - {label: "Texte", name: texte, widget: text}
+              - {label: "E-mail", name: email, widget: string}
+              - {label: "Téléphone (affiché)", name: telephone, widget: string}
+              - {label: "Téléphone (sans espaces, pour le bouton Copier)", name: telephone_lien, widget: string}
+              - {label: "Lien WhatsApp (https://wa.me/33...)", name: whatsapp, widget: string}
+          - label: "Bas de page"
+            name: pied_de_page
+            widget: object
+            fields:
+              - {label: "Texte à gauche", name: gauche, widget: string}
+              - {label: "Texte à droite", name: droite, widget: string}
+              - label: "Réseaux sociaux"
+                name: reseaux
+                widget: list
+                summary: "{{fields.reseau}}"
+                fields:
+                  - {label: "Réseau (Facebook, TikTok, Instagram ou YouTube)", name: reseau, widget: string}
+                  - {label: "Adresse", name: adresse, widget: string}
