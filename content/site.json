@@ -255,6 +255,22 @@
       "image_portrait": false
     },
     {
+      "id": "pepitheque",
+      "rubrique": "Ville",
+      "etiquette": "Ville · Culture",
+      "pleine_largeur": true,
+      "titre": "La Pépithèque Mariama Bâ : une bibliothèque qui donne des ailes aux projets",
+      "chapo": "Inaugurée le 24 janvier 2026 dans le nord de Bondy, la Pépithèque réunit sous un même toit une bibliothèque et une pépinière d'entreprises. Un lieu rare, et un nom qui porte une histoire.",
+      "visuel": "image",
+      "image": "/images/une-pepitheque.jpg",
+      "image_description": "L'entrée de la Pépithèque Mariama Bâ à Bondy",
+      "image_portrait": false,
+      "lien_video": "",
+      "credit": "28 avenue Henri Varagnat, Bondy · quartier de la Noue Caillet",
+      "texte_visible": "",
+      "texte": "Une bibliothèque est déjà un trésor. Quand elle s'associe à une pépinière d'entreprises, elle devient un tremplin. C'est le pari de la **Pépithèque Mariama Bâ**, ouverte à Bondy, dans le quartier de la Noue Caillet.\n\n**Un lieu pensé pour tous les âges**\n\nLe rez-de-chaussée accueille une bibliothèque tournée vers la formation, l'emploi et la création d'activité, mais ouverte à tous : enfants, familles, jeunes, demandeurs d'emploi, habitants qui apprennent le français. Elle travaille avec les structures de la petite enfance, les écoles, la maison de quartier et la Maison France Services.\n\n**Un tremplin pour les entrepreneurs**\n\nÀ côté des livres, la pépinière propose 17 bureaux, 6 postes de coworking et plusieurs salles de réunion. Les jeunes entreprises y bénéficient de locaux à coût modéré et d'un accompagnement renforcé, jusqu'à quatre ans. Des partenaires de l'emploi et de la création d'entreprise y tiennent aussi des permanences : Mission locale, PLIE, Agence locale d'insertion, ADIE, BGE Parif ou encore le Carrefour de l'entrepreneuriat.\n\n**Lire, se former, entreprendre au même endroit**\n\nRencontres pour l'emploi, mini-forums, ateliers CV, découverte des métiers : le lieu rassemble la lecture, la formation, la recherche d'emploi et le développement de projets. De quoi passer, en quelques mètres, d'une idée à sa réalisation.\n\n**Un bâtiment qui regarde l'avenir**\n\nL'ancien site de la MGEN, racheté en 2019 par Est Ensemble, a été réhabilité plutôt que démoli, pour limiter l'empreinte carbone. Conception bioclimatique, récupération des eaux de pluie, panneaux photovoltaïques, structure en bois, isolation en fibres de bois, arbres existants préservés : le chantier a fait le choix du durable. L'investissement total s'élève à 11,7 millions d'euros hors taxes.\n\n**Le jour de l'inauguration**\n\nLe samedi 24 janvier 2026, de 10 h à 18 h, la Ville de Bondy et Est Ensemble ont ouvert grand les portes : concerts, spectacles, ateliers, lectures, jeux vidéo, goûter et visites guidées, le tout gratuit et ouvert à tous.\n\n**Qui était Mariama Bâ ?**\n\nLe nom rend hommage à une grande voix de la littérature africaine. Née à Dakar le 17 avril 1929 et disparue le 17 août 1981, **Mariama Bâ** était une écrivaine sénégalaise, institutrice puis inspectrice de l'enseignement, mère de neuf enfants. Son premier roman, *Une si longue lettre* (1979), est une lettre d'une veuve à son amie : un texte devenu un classique, qui parle de la place des femmes, du mariage et de la liberté. Il lui vaut en 1980 le prix Noma de l'édition africaine. Elle s'est battue pour l'accès au savoir et l'émancipation, deux idées qui résonnent dans une bibliothèque de quartier.\n\n**Pratique**\n\nAdresse : 28 avenue Henri Varagnat, 93140 Bondy.\nHoraires et programme : ==[à compléter avec les horaires officiels]==\n\n> Vous avez fréquenté la Pépithèque ? Racontez-nous votre expérience avec le [formulaire](#temoigner).\n\nSources : Est Ensemble, [Ville de Bondy](https://www.ville-bondy.fr/evenement/inauguration-pepitheque-mariama-ba/)."
+    },
+    {
       "lien_video": "",
       "texte_visible": "",
       "rubrique": "Portrait",
