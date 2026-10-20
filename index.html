@@ -190,6 +190,15 @@ details .more { display: flex; flex-direction: column; gap: 12px; }
 .copy:focus-visible, .c-row a:focus-visible { outline-color: var(--on-red); }
 .temoigner { margin-top: 56px; }
 .temoigner .intro { max-width: 62ch; margin: 0 0 22px; color: var(--muted); }
+.temoigner { display: grid; grid-template-columns: minmax(0, 1fr) 340px; column-gap: 56px; align-items: start; }
+.temoigner .sec-title, .temoigner .intro { grid-column: 1 / -1; }
+.temoigner .tform { grid-column: 1; }
+.t-side { grid-column: 2; grid-row: 3; position: sticky; top: 24px; border-left: 4px solid var(--red); background: var(--surface); padding: 28px 26px; }
+.t-side blockquote { margin: 0 0 14px; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(32px, 3.4vw, 42px); line-height: .98; }
+.t-side .t-auteur { font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 14px; color: var(--red); margin: 0 0 16px; }
+.t-side p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.55; }
+@media (max-width: 900px) { .temoigner { grid-template-columns: minmax(0, 1fr); } .t-side { grid-column: 1; grid-row: auto; position: static; margin-top: 28px; } }
+
 .tform { display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
 .tform .row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .tform .fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
@@ -417,6 +426,7 @@ body { margin: 0; }
     var t = d.temoigner || {};
     $("temoigner-titre").textContent = t.titre || "";
     $("temoigner-intro").textContent = t.introduction || "";
+    if (t.encart && t.encart.citation && document.getElementById("t-side")) { var sd = document.getElementById("t-side"); sd.innerHTML = "<blockquote>" + esc(t.encart.citation) + '</blockquote><p class="t-auteur">' + esc(t.encart.auteur || "") + "</p><p>" + esc(t.encart.texte || "") + "</p>"; sd.hidden = false; }
 
     var p = d.proposer || {};
     $("proposer").innerHTML = "<h2>" + esc(p.titre) + "</h2><p>" + esc(p.texte) + '</p><div class="contact">' +

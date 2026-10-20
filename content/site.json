@@ -24,7 +24,12 @@
   "sommaire_titre": "Dans ce numéro",
   "temoigner": {
     "titre": "La parole est à vous",
-    "introduction": "Racontez-nous votre histoire. Un témoignage, une vidéo, une photo, une idée de sujet : dites-nous comment vous voyez le nouveau visage de Bondy. Quelques lignes suffisent."
+    "introduction": "Racontez-nous votre histoire. Un témoignage, une vidéo, une photo, une idée de sujet : dites-nous comment vous voyez le nouveau visage de Bondy. Quelques lignes suffisent.",
+    "encart": {
+      "citation": "Chacun mérite d'être vu et entendu.",
+      "auteur": "Mohammed, fondateur de Bondy TV",
+      "texte": "Bondy TV existe depuis 2018 : un projet 100 % gratuit, ouvert à toutes et à tous. Votre message sera peut-être au sommaire du prochain numéro."
+    }
   },
   "couverture": {
     "image": "/images/une-pepitheque.jpg",

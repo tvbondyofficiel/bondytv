@@ -118,6 +118,13 @@ collections:
             fields:
               - {label: "Titre", name: titre, widget: string}
               - {label: "Introduction", name: introduction, widget: text}
+              - label: "Encadré à droite du formulaire"
+                name: encart
+                widget: object
+                fields:
+                  - {label: "Citation", name: citation, widget: string}
+                  - {label: "Auteur", name: auteur, widget: string}
+                  - {label: "Texte", name: texte, widget: text}
           - label: "Section Un sujet pour le prochain numéro"
             name: proposer
             widget: object
