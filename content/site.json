@@ -261,14 +261,14 @@
       "pleine_largeur": false,
       "titre": "Portrait de Mohammed",
       "texte": "Il y a des gens qui regardent une ville. Lui, il la dessine, la peint, la fait avancer. Mohammed est artiste, chef d'entreprise et homme de cœur, et il a choisi Bondy pour créer.\n\nNé au Maroc, il porte en lui un don : celui du dessin. Depuis tout petit, il est fasciné par la peinture et par l'art sous toutes ses formes. Les tableaux, les couleurs, les traits qui donnent vie à une idée : c'est son premier langage, et il ne l'a jamais quitté.\n\nCe talent, il l'a travaillé. En 1992, il suit trois ans d'arts graphiques au CNA-CFAG, centre de formation professionnelle, à Créteil et à Paris. Viennent ensuite de nombreux travaux, de nombreux métiers, plusieurs domaines. Puis un choix : travailler à son compte. Ainsi naît Urban Graphic, son entreprise. Peintre et dessinateur professionnel, il vit de son art.\n\nIl a fait ce choix en sachant qu'il pouvait compter sur lui-même. Solide, doué, déterminé, il avance avec ses propres forces. Mais il n'avance pas seul : les Bondynois lui ont fait confiance, ont cru en lui et construisent avec lui.\n\nCar Mohammed n'est pas qu'un artiste. C'est un homme tourné vers les autres. Il a soutenu de nombreuses associations de la ville, et il est là pour aider les Bondynois à se développer, à imaginer avec eux des projets concrets, qui changent vraiment le quotidien.\n\nEn 2018, il lance Bondy TV, pour les Bondynois et avec eux : une télévision de proximité qui donne la parole aux habitants, aux associations, aux commerçants et à celles et ceux qui font vivre la ville.\n\nSon talent ne se lit pas seulement sur un visage. Il se voit dans ce qu'il crée, et il se ressent dans le cœur de celles et ceux qui le connaissent.\n\nCe n'est qu'un début. D'autres projets arrivent très bientôt.\n\n@ Rédigé par Zineb · Photo : Jessie",
-      "image_description": "Portrait de Mohammed, artiste et chef d'entreprise à Bondy",
+      "image_description": "Portrait de Mohammed, souriant, la main sous le menton",
       "credit": "",
       "id": "portrait",
-      "image": "/images/portrait-lahmidi.jpg",
+      "image": "/images/portrait-mohamed.jpg",
       "chapo": "Artiste. Chef d'entreprise. Homme de cœur. Il a choisi Bondy pour créer.",
       "visuel": "image",
       "etiquette": "Portrait",
-      "image_portrait": true
+      "image_portrait": false
     },
     {
       "lien_video": "",
