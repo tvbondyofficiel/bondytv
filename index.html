@@ -256,9 +256,11 @@ body { margin: 0; }
   <section class="temoigner" id="temoigner">
     <h2 class="sec-title" id="temoigner-titre"></h2>
     <p class="intro" id="temoigner-intro"></p>
-    <form action="/" class="tform" data-netlify="true" enctype="multipart/form-data" id="tform" method="POST" name="temoignage" netlify-honeypot="bot-field">
-<input name="form-name" type="hidden" value="temoignage"/>
-<p aria-hidden="true" class="hp"><label>Ne pas remplir <input autocomplete="off" name="bot-field" tabindex="-1"/></label></p>
+    <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
+<input name="access_key" type="hidden" value="a10cef59-fca0-479e-81ab-13a661ab12b5"/>
+<input name="subject" type="hidden" value="Nouveau message depuis Bondy TV Magazine"/>
+<input name="from_name" type="hidden" value="Bondy TV Magazine"/>
+<p aria-hidden="true" class="hp"><label>Ne pas remplir <input autocomplete="off" name="botcheck" tabindex="-1" type="checkbox"/></label></p>
 <div class="row2">
 <div class="fld"><label for="f-nom">Prénom ou pseudo</label><input autocomplete="given-name" id="f-nom" name="nom" type="text"/></div>
 <div class="fld"><label for="f-contact">Téléphone ou e-mail</label><input autocomplete="off" id="f-contact" name="contact" required="" type="text"/></div>
@@ -274,8 +276,7 @@ body { margin: 0; }
 </div>
 <div class="fld"><label for="f-msg">Votre message</label><textarea id="f-msg" name="message" required=""></textarea></div>
 <div class="fld"><label for="f-lien">Lien de votre vidéo <span class="opt">(facultatif : YouTube, TikTok, Drive...)</span></label><input id="f-lien" name="lien" placeholder="https://" type="url"/></div>
-<div class="fld"><label for="f-file">Une photo <span class="opt">(facultatif, 5 Mo maximum)</span></label><input accept="image/*" id="f-file" name="photo" type="file"/></div>
-<p class="hint">Pour une vidéo, envoyez le lien ci-dessus ou <a class="walink" href="https://wa.me/33749554391" rel="noopener" target="_blank">écrivez-nous sur WhatsApp</a>.</p>
+<p class="hint">Pour une photo ou une vidéo, envoyez-nous le lien ci-dessus, écrivez à tvbondy@gmail.com ou <a class="walink" href="https://wa.me/33749554391" rel="noopener" target="_blank">écrivez-nous sur WhatsApp</a>.</p>
 <label class="check" for="f-ok"><input id="f-ok" name="accord" required="" type="checkbox" value="oui"/><span>J'accepte que Bondy TV puisse publier mon message dans le magazine. Je peux demander son retrait à tout moment.</span></label>
 <button class="send" id="f-send" type="submit">Envoyer</button>
 <p aria-live="polite" class="status" id="f-status" role="status"></p>
@@ -462,11 +463,10 @@ body { margin: 0; }
   function say(msg, err) { status.textContent = msg; status.className = "status" + (err ? " err" : ""); }
   form.addEventListener("submit", function (e) {
     e.preventDefault();
-    var file = document.getElementById("f-file").files[0];
-    if (file && file.size > 5 * 1024 * 1024) { say("Cette photo dépasse 5 Mo. Choisissez une photo plus légère.", true); return; }
     send.disabled = true; say("Envoi en cours...", false);
-    fetch("/", { method: "POST", body: new FormData(form) })
-      .then(function (r) { if (!r.ok) throw new Error("http " + r.status); form.reset(); say("Merci ! Votre message est bien envoyé. Nous vous répondrons vite.", false); })
+    fetch("https://api.web3forms.com/submit", { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) })
+      .then(function (r) { return r.json(); })
+      .then(function (r) { if (!r.success) throw new Error("fail"); form.reset(); say("Merci ! Votre message est bien envoyé. Nous vous répondrons vite.", false); })
       .catch(function () { say("L'envoi n'a pas marché. Écrivez-nous à tvbondy@gmail.com.", true); })
       .then(function () { send.disabled = false; });
   });
