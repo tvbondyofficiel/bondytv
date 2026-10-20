@@ -239,18 +239,18 @@
       "image_portrait": false
     },
     {
-      "lien_video": "",
+      "lien_video": "https://www.youtube.com/watch?v=5tBiSEFapGk",
       "texte_visible": "",
       "rubrique": "Reportage",
       "pleine_largeur": false,
       "titre": "Au cœur de la ville",
       "texte": "Il est ==[heure]== et la ville s'éveille. Nous avons passé la journée à ==[lieu]== pour voir Bondy comme ceux qui y vivent. Première scène : ==[ce que vous voyez, entendez, sentez]==.\n\nAu fil des heures, nous avons rencontré ==[prénom]==, ==[métier ou rôle]==. « ==[phrase marquante]== », nous confie-t-il.\n\nPour construire le reportage : cinq lieux, trois rencontres, une phrase marquante par personne, et une photo pour chaque moment de la journée.\n\n> Les passages surlignés sont à compléter avec vos informations.",
-      "image_description": "",
+      "image_description": "Le canal de l'Ourcq à Bondy, entre les arbres, sous un ciel bleu",
       "credit": "",
       "id": "coeur",
-      "image": "",
+      "image": "/images/coeur-canal.jpg",
       "chapo": "Une journée sur le terrain, au plus près des lieux où Bondy se retrouve.",
-      "visuel": "none",
+      "visuel": "image",
       "etiquette": "Reportage",
       "image_portrait": false
     },
