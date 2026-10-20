@@ -224,6 +224,21 @@ footer { margin-top: 36px; display: flex; justify-content: space-between; gap: 1
 }
 
 
+
+.fgrid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 28px; }
+.fcard { display: flex; flex-direction: column; background: var(--surface); border: 1px solid var(--line); text-decoration: none; color: inherit; }
+.fcard:hover h3 { text-decoration: underline; text-decoration-color: var(--red); text-underline-offset: 4px; }
+.fimg { aspect-ratio: 4 / 3; overflow: hidden; border-bottom: 1px solid var(--line); background: var(--bg); }
+.fimg img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.fph { display: block; width: 100%; height: 100%; }
+.ftxt { padding: 20px 22px 24px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+.ftxt .tag { font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 14px; color: var(--red); }
+.ftxt h3 { margin: 0; font-family: var(--display); text-transform: uppercase; font-size: 28px; line-height: 1.02; }
+.ftxt p { margin: 0; color: var(--muted); font-size: 16px; }
+.more-link { margin-top: auto; font-family: var(--display); text-transform: uppercase; letter-spacing: .12em; font-weight: 700; font-size: 15px; border-bottom: 2px solid var(--red); align-self: flex-start; }
+.fbtn { margin: 32px 0 0; }
+.btn-all { display: inline-block; font: 700 18px/1 var(--display); text-transform: uppercase; letter-spacing: .12em; background: var(--red); color: var(--on-red); padding: 16px 28px; text-decoration: none; }
+@media (max-width: 820px) { .fgrid { grid-template-columns: minmax(0, 1fr); } }
 [hidden] { display: none !important; }
 a.vis { text-decoration: none; color: inherit; }
 .vis.has-play:hover .play { filter: brightness(1.1); }
@@ -240,20 +255,17 @@ body { margin: 0; }
 <body>
 <div class="wrap">
   <div class="bar">
-    <a class="mini" href="#top" aria-label="Bondy TV, retour en haut"><img src="/images/logo.png" alt="Bondy TV" width="67" height="44"></a>
+    <a class="mini" href="/" aria-label="Bondy TV, retour en haut"><img src="/images/logo.png" alt="Bondy TV" width="67" height="44"></a>
     <nav aria-label="Navigation du magazine">
-      <a href="#sommaire">Sommaire</a>
-      <a href="#articles">Articles</a>
-      <a href="#archives">Archives</a>
+      <a href="/magazine.html">Le magazine</a>
+      <a href="/magazine.html#archives">Archives</a>
       <a href="#temoigner">Témoigner</a>
       <a href="#proposer">Proposer un sujet</a>
     </nav>
   </div>
 
   <section class="une" id="top"><p class="loading">Chargement du magazine…</p></section>
-  <section id="sommaire"></section>
-  <section id="articles"></section>
-  <section id="archives"></section>
+  <section id="alaune"></section>
 
   <section class="temoigner" id="temoigner">
     <h2 class="sec-title" id="temoigner-titre"></h2>
@@ -380,29 +392,21 @@ body { margin: 0; }
     var une = '<div><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="no1">' + esc(d.numero) + '</div></div></div><div class="mag">Magazine</div>';
     if (c.image) une += '<div class="photo has-img has-plain"><img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high"></div>';
     une += '</div><div class="lines">' + (c.lignes || []).map(function (l) {
-      return '<a href="#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
+      return '<a href="/magazine.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div>";
     document.getElementById("top").innerHTML = une;
 
     var arts = d.articles || [];
-    var arch = d.archives || {};
-    var toc = arts.map(function (a) { return '<li><a href="#' + esc(a.id) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
-    toc += '<li><a href="#archives">' + esc(arch.titre || "Les archives") + " <em>Depuis 2018</em></a></li>";
-    document.getElementById("sommaire").innerHTML = '<h2 class="sec-title">' + esc(d.sommaire_titre) + '</h2><ul class="toc">' + toc + "</ul>";
-
-    var cats = [];
-    arts.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
-    var f = '<h2 class="sec-title">' + esc(d.articles_titre) + '</h2><div class="filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tout</button>';
-    f += cats.map(function (k) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="false">' + esc(k) + "</button>"; }).join("");
-    f += '</div><div class="grid">' + arts.map(article).join("") + "</div>";
-    document.getElementById("articles").innerHTML = f;
-
-    var ah = '<h2 class="sec-title">' + esc(arch.titre) + "</h2>";
-    if (arch.introduction) ah += '<p class="arch-intro">' + inline(arch.introduction) + "</p>";
-    if ((arch.numeros || []).length) ah += '<ul class="toc arch">' + arch.numeros.map(function (n) { return '<li><a href="' + esc(safeUrl(n.lien)) + '">' + esc(n.titre) + (n.etiquette ? " <em>" + esc(n.etiquette) + "</em>" : "") + "</a></li>"; }).join("") + "</ul>";
-    if ((arch.cartes || []).length) ah += '<div class="grid arch-grid">' + arch.cartes.map(article).join("") + "</div>";
-    if (arch.suite) ah += '<p class="arch-more">' + inline(arch.suite) + "</p>";
-    document.getElementById("archives").innerHTML = ah;
+    var byId = {};
+    arts.forEach(function (x) { byId[x.id] = x; });
+    var ids = (d.a_la_une || []).map(function (x) { return x && x.article; }).filter(function (i) { return byId[i]; }).slice(0, 3);
+    if (!ids.length) ids = arts.slice(0, 3).map(function (x) { return x.id; });
+    var cards = ids.map(function (i) {
+      var x = byId[i];
+      var img = (x.image && x.visuel === "image") ? '<img src="' + esc(x.image) + '" alt="' + esc(x.image_description) + '" loading="lazy">' : '<span class="fph"></span>';
+      return '<a class="fcard" href="/magazine.html#' + esc(x.id) + '"><div class="fimg">' + img + '</div><div class="ftxt"><div class="tag">' + esc(x.etiquette) + '</div><h3>' + esc(x.titre) + '</h3>' + (x.chapo ? '<p>' + inline(x.chapo) + '</p>' : "") + '<span class="more-link">Lire</span></div></a>';
+    }).join("");
+    document.getElementById("alaune").innerHTML = '<h2 class="sec-title">' + esc(d.alaune_titre || "À la une") + '</h2><div class="fgrid">' + cards + '</div><p class="fbtn"><a class="btn-all" href="/magazine.html#articles">Tous les articles</a></p>';
 
     var t = d.temoigner || {};
     document.getElementById("temoigner-titre").textContent = t.titre || "";

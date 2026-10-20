@@ -399,5 +399,17 @@
       "etiquette": "À l'honneur",
       "image_portrait": false
     }
+  ],
+  "alaune_titre": "À la une",
+  "a_la_une": [
+    {
+      "article": "pepitheque"
+    },
+    {
+      "article": "visage"
+    },
+    {
+      "article": "coeur"
+    }
   ]
 }

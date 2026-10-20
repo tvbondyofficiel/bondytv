@@ -39,6 +39,14 @@ collections:
                   - {label: "Sur fond rouge", name: en_rouge, widget: boolean, default: false}
           - {label: "Titre du sommaire", name: sommaire_titre, widget: string}
           - {label: "Titre de la section articles", name: articles_titre, widget: string}
+          - {label: "Titre de la page d'accueil (articles à la une)", name: alaune_titre, widget: string}
+          - label: "Les 3 articles à la une (page d'accueil)"
+            name: a_la_une
+            widget: list
+            max: 3
+            summary: "{{fields.article}}"
+            fields:
+              - {label: "Article", name: article, widget: relation, collection: magazine, file: contenu, search_fields: ["articles.*.titre"], value_field: "articles.*.id", display_fields: ["articles.*.titre"]}
           - label: "Articles"
             name: articles
             widget: list
