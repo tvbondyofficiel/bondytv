@@ -320,12 +320,19 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 .pub img { display: block; width: 100%; height: auto; max-height: 160px; object-fit: contain; }
 .pub small { position: absolute; top: 6px; left: 8px; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 11px; color: var(--on-green); background: var(--green); padding: 3px 8px; }
 
-.pub .pub-txt { display: flex; align-items: center; justify-content: space-between; gap: 24px; flex-wrap: wrap; text-align: left; padding: 42px 28px 24px; text-decoration: none; background: #0c0e16; color: #f4f2ee; border: 0; border-left: 10px solid var(--red); }
-.pub .pub-txt::after { content: ""; display: none; }
-.pub .pub-txt b { display: block; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(30px, 4.6vw, 52px); line-height: .95; letter-spacing: .01em; }
-.pub .pub-txt span { display: block; margin-top: 6px; color: #d9d6cf; font-size: 16px; }
-.pub .pub-txt em { font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 17px; background: var(--green); color: var(--on-green); padding: 12px 20px; white-space: nowrap; }
-.pub .pub-txt small { background: var(--beige); color: #12141c; }
+.pub .pub-txt { display: block; position: relative; overflow: hidden; text-align: left; padding: 0; background: #0c0e16; color: #f4f2ee; border: 0; border-left: 10px solid var(--red); text-decoration: none; }
+.pub .pub-txt .tk { display: flex; width: max-content; animation: pubtk 28s linear infinite; }
+.pub .pub-txt:hover .tk { animation-play-state: paused; }
+.pub .pub-txt .it { display: flex; align-items: center; gap: 22px; padding: 30px 0 18px 36px; white-space: nowrap; }
+.pub .pub-txt b { display: block; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(30px, 4.6vw, 48px); line-height: 1; letter-spacing: .01em; }
+.pub .pub-txt span { display: block; color: #d9d6cf; font-size: 17px; }
+.pub .pub-txt em { font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 17px; background: var(--green); color: var(--on-green); padding: 11px 20px; }
+.pub .pub-txt i { display: block; width: 12px; height: 12px; background: var(--red); transform: rotate(45deg); flex: none; margin: 0 6px 0 14px; }
+.pub .pub-txt small { z-index: 2; background: var(--beige); color: #12141c; }
+@keyframes pubtk { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+@keyframes pubin { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: none; } }
+.pub:not(:empty) a:not(.pub-txt) { animation: pubin .8s ease-out both; }
+@media (prefers-reduced-motion: reduce) { .pub .pub-txt .tk, .pub:not(:empty) a:not(.pub-txt) { animation: none; } .pub .pub-txt { overflow-x: auto; } }
 </style>
 </head>
 <body>
@@ -443,7 +450,7 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
       if (!ok) { box.hidden = true; return; }
       var tag = "<small>" + esc(b.etiquette || "Partenaire") + "</small>", inner, cls = "", ext = /^https?:/i.test(safeUrl(b.lien || ""));
       if (b.image) inner = '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '">' + tag;
-      else { cls = "pub-txt"; inner = "<div><b>" + esc(b.titre) + "</b>" + (b.sous_titre ? "<span>" + esc(b.sous_titre) + "</span>" : "") + "</div>" + (b.bouton ? "<em>" + esc(b.bouton) + " →</em>" : "") + tag; }
+      else { cls = "pub-txt"; var item = '<div class="it"><b>' + esc(b.titre) + "</b>" + (b.sous_titre ? "<span>" + esc(b.sous_titre) + "</span>" : "") + (b.bouton ? "<em>" + esc(b.bouton) + " →</em>" : "") + "<i></i></div>"; inner = '<div class="tk" aria-label="' + esc(b.titre) + '">' + item + item.replace("<div", '<div aria-hidden="true"') + item.replace("<div", '<div aria-hidden="true"') + item.replace("<div", '<div aria-hidden="true"') + "</div>" + tag; }
       box.innerHTML = b.lien ? '<a class="' + cls + '" href="' + esc(safeUrl(b.lien)) + '"' + (ext ? ' target="_blank" rel="sponsored noopener"' : "") + ">" + inner + "</a>" : '<a class="' + cls + '" style="pointer-events:none">' + inner + "</a>";
       box.hidden = false;
     })();
