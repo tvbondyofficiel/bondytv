@@ -23,6 +23,7 @@
   --fg: #f4f2ee;
   --muted: #a6aab8;
   --red: #e8222d;
+  --green: #2fb36d;
   --on-red: #ffffff;
   --line: rgba(255,255,255,.16);
   --dot: rgba(255,255,255,.22);
@@ -33,13 +34,13 @@
 @media (prefers-color-scheme: light) {
   :root:not([data-theme="dark"]) {
     --bg: #f6f4f1; --surface: #ffffff; --fg: #12141c; --muted: #555a69;
-    --red: #d3141f; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
+    --red: #d3141f; --green: #006233; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
     color-scheme: light;
   }
 }
 :root[data-theme="light"] {
   --bg: #f6f4f1; --surface: #ffffff; --fg: #12141c; --muted: #555a69;
-  --red: #d3141f; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
+  --red: #d3141f; --green: #006233; --line: rgba(18,20,28,.16); --dot: rgba(18,20,28,.2);
   color-scheme: light;
 }
 * { box-sizing: border-box; }
@@ -277,6 +278,17 @@ html { padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area
 body { margin: 0; }
 #install { font: 700 15px/1 "Barlow Condensed", "Arial Narrow", sans-serif; text-transform: uppercase; letter-spacing: .1em; background: #e8222d; color: #fff; border: 0; padding: 11px 16px; cursor: pointer; }
 #iosHint { margin: 12px 0 0; padding: 12px 14px; border: 1px solid var(--line); font-size: 15px; color: var(--muted); }
+
+/* vert : touche du drapeau du Maroc */
+body::before { content: ""; display: block; height: 6px; margin: 0 calc(-1 * max(16px, env(safe-area-inset-left, 0px))); background: linear-gradient(90deg, var(--red) 0 78%, var(--green) 78% 100%); }
+.sec-title::before { content: ""; width: 12px; height: 12px; background: var(--green); flex: none; }
+.bar nav a:hover { color: var(--green); }
+.edito-page .lede { border-left-color: var(--green); }
+.t-side { border-left-color: var(--green); }
+.t-side .t-auteur { color: var(--green); }
+.arch-soon { border-left-color: var(--green); }
+.arch-soon strong { color: var(--green); }
+.social a:hover { color: var(--green); border-color: var(--green); }
 </style>
 </head>
 <body>
