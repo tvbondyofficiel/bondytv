@@ -112,13 +112,15 @@ collections:
                   - {label: "Texte toujours visible", name: texte_visible, widget: text, required: false}
                   - {label: "Texte de l'article (après « Lire la suite »)", name: texte, widget: text, required: false, hint: "Ligne vide = nouveau paragraphe. **gras**. [mot](adresse) = lien. Ligne qui commence par « - » = liste."}
               - {label: "Phrase de fin (liens vers vos réseaux)", name: suite, widget: text, required: false}
-          - label: "Bannière partenaire (publicité)"
+          - label: "Publicité en fenêtre (location d'espace)"
             name: banniere
             widget: object
             collapsed: false
             fields:
               - {label: "Afficher la bannière", name: actif, widget: boolean, default: false}
               - {label: "Nom de l'annonceur", name: annonceur, widget: string, required: false}
+              - {label: "Apparaît après (secondes)", name: delai, widget: number, value_type: int, min: 0, max: 60, default: 2, required: false}
+              - {label: "Disparaît toute seule après (secondes)", name: duree, widget: number, value_type: int, min: 4, max: 300, default: 12, required: false, hint: "Le lecteur peut aussi la fermer avec la croix. Elle ne s'affiche qu'une fois par visite."}
               - {label: "Mention sur la bannière", name: etiquette, widget: string, required: false, default: "Partenaire", hint: "Ex. Partenaire, Publicité"}
               - {label: "Image de la bannière (format large, ex. 1200 × 200)", name: image, widget: image, required: false, hint: "Si vous n'avez pas d'image, remplissez le titre ci-dessous : la bannière sera faite en texte."}
               - {label: "Titre (bannière en texte, sans image)", name: titre, widget: string, required: false}

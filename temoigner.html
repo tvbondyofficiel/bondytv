@@ -314,25 +314,25 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 .lines a.last small { color: var(--on-beige); opacity: .75; }
 .lines a.last:hover { color: var(--green); filter: none; }
 
-/* bannière partenaire */
-.pub { margin: 18px 0 22px; text-align: center; }
-.pub a { display: block; position: relative; border: 1px solid var(--line); background: var(--surface); }
-.pub img { display: block; width: 100%; height: auto; max-height: 160px; object-fit: contain; }
-.pub small { position: absolute; top: 6px; left: 8px; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 11px; color: var(--on-green); background: var(--green); padding: 3px 8px; }
 
-.pub .pub-txt { display: block; position: relative; overflow: hidden; text-align: left; padding: 0; background: #0c0e16; color: #f4f2ee; border: 0; border-left: 10px solid var(--red); text-decoration: none; }
-.pub .pub-txt .tk { display: flex; width: max-content; animation: pubtk 28s linear infinite; }
-.pub .pub-txt:hover .tk { animation-play-state: paused; }
-.pub .pub-txt .it { display: flex; align-items: center; gap: 22px; padding: 30px 0 18px 36px; white-space: nowrap; }
-.pub .pub-txt b { display: block; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(30px, 4.6vw, 48px); line-height: 1; letter-spacing: .01em; }
-.pub .pub-txt span { display: block; color: #d9d6cf; font-size: 17px; }
-.pub .pub-txt em { font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 17px; background: var(--green); color: var(--on-green); padding: 11px 20px; }
-.pub .pub-txt i { display: block; width: 12px; height: 12px; background: var(--red); transform: rotate(45deg); flex: none; margin: 0 6px 0 14px; }
-.pub .pub-txt small { z-index: 2; background: var(--beige); color: #12141c; }
-@keyframes pubtk { from { transform: translateX(0); } to { transform: translateX(-50%); } }
-@keyframes pubin { from { opacity: 0; transform: translateX(60px); } to { opacity: 1; transform: none; } }
-.pub:not(:empty) a:not(.pub-txt) { animation: pubin .8s ease-out both; }
-@media (prefers-reduced-motion: reduce) { .pub .pub-txt .tk, .pub:not(:empty) a:not(.pub-txt) { animation: none; } .pub .pub-txt { overflow-x: auto; } }
+/* publicité en fenêtre (location d'espace) */
+.pubpop { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 20px; background: rgba(8,10,16,.82); opacity: 0; transition: opacity .35s ease; }
+.pubpop.on { opacity: 1; }
+.pubpop .box { position: relative; width: min(680px, 100%); max-height: 90vh; overflow: auto; background: #0c0e16; color: #f4f2ee; border-top: 8px solid var(--red); box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: translateY(24px) scale(.97); transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+.pubpop.on .box { transform: none; }
+.pubpop .box a.go { display: block; text-decoration: none; color: inherit; }
+.pubpop .box img { display: block; width: 100%; height: auto; }
+.pubpop .txt { padding: 70px 36px 36px; }
+.pubpop .txt b { display: block; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: .95; text-wrap: balance; }
+.pubpop .txt span { display: block; margin: 14px 0 24px; color: #d9d6cf; font-size: 19px; line-height: 1.45; max-width: 46ch; }
+.pubpop .txt em { display: inline-block; font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 19px; background: var(--green); color: var(--on-green); padding: 14px 24px; }
+.pubpop .tag2 { position: absolute; top: 14px; left: 14px; z-index: 2; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 12px; background: var(--beige); color: #12141c; padding: 4px 10px; }
+.pubpop .x { position: absolute; top: 10px; right: 10px; z-index: 3; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(12,14,22,.85); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; display: grid; place-items: center; }
+.pubpop .x:hover { background: var(--red); }
+.pubpop .bar2 { height: 5px; background: rgba(255,255,255,.16); }
+.pubpop .bar2 i { display: block; height: 100%; width: 100%; background: var(--green); transform-origin: left; animation: pubbar linear forwards; }
+@keyframes pubbar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
+@media (prefers-reduced-motion: reduce) { .pubpop, .pubpop .box { transition: none; } .pubpop .bar2 i { animation: none; } }
 </style>
 </head>
 <body>
@@ -349,7 +349,6 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
       <a href="/proposer.html">Proposer un sujet</a>
     </nav>
   </div>
-  <div class="pub" id="pub" hidden></div>
 
   <section class="temoigner" id="temoigner">
     <h2 class="sec-title" id="temoigner-titre"></h2>
@@ -471,16 +470,31 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 
   function render(d) {
     (function () {
-      var b = d.banniere || {}, box = document.getElementById("pub");
-      if (!box) return;
+      var b = d.banniere || {};
+      if (document.getElementById("pubpop")) return;
       var today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
       var ok = b.actif && (b.image || b.titre) && (!b.debut || today >= String(b.debut).slice(0, 10)) && (!b.fin || today <= String(b.fin).slice(0, 10));
-      if (!ok) { box.hidden = true; return; }
-      var tag = "<small>" + esc(b.etiquette || "Partenaire") + "</small>", inner, cls = "", ext = /^https?:/i.test(safeUrl(b.lien || ""));
-      if (b.image) inner = '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '">' + tag;
-      else { cls = "pub-txt"; var item = '<div class="it"><b>' + esc(b.titre) + "</b>" + (b.sous_titre ? "<span>" + esc(b.sous_titre) + "</span>" : "") + (b.bouton ? "<em>" + esc(b.bouton) + " →</em>" : "") + "<i></i></div>"; inner = '<div class="tk" aria-label="' + esc(b.titre) + '">' + item + item.replace("<div", '<div aria-hidden="true"') + item.replace("<div", '<div aria-hidden="true"') + item.replace("<div", '<div aria-hidden="true"') + "</div>" + tag; }
-      box.innerHTML = b.lien ? '<a class="' + cls + '" href="' + esc(safeUrl(b.lien)) + '"' + (ext ? ' target="_blank" rel="sponsored noopener"' : "") + ">" + inner + "</a>" : '<a class="' + cls + '" style="pointer-events:none">' + inner + "</a>";
-      box.hidden = false;
+      if (!ok) return;
+      var key = "pub-" + [b.image, b.titre, b.debut, b.fin].join("|");
+      try { if (sessionStorage.getItem(key)) return; } catch (e) {}
+      var delai = Math.max(0, Number(b.delai) || 2), duree = Math.max(4, Number(b.duree) || 12), prev = null, timer = null;
+      setTimeout(function () {
+        var ext = /^https?:/i.test(safeUrl(b.lien || ""));
+        var body = b.image ? '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '">' : '<div class="txt"><b>' + esc(b.titre) + "</b>" + (b.sous_titre ? "<span>" + esc(b.sous_titre) + "</span>" : "") + (b.bouton ? "<em>" + esc(b.bouton) + " →</em>" : "") + "</div>";
+        var wrap = b.lien ? '<a class="go" href="' + esc(safeUrl(b.lien)) + '"' + (ext ? ' target="_blank" rel="sponsored noopener"' : "") + ">" + body + "</a>" : body;
+        var el = document.createElement("div");
+        el.className = "pubpop"; el.id = "pubpop"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", b.annonceur || "Publicité");
+        el.innerHTML = '<div class="box"><span class="tag2">' + esc(b.etiquette || "Partenaire") + '</span><button class="x" type="button" aria-label="Fermer">×</button>' + wrap + '<div class="bar2"><i style="animation-duration:' + duree + 's"></i></div></div>';
+        function close() { clearTimeout(timer); document.removeEventListener("keydown", onkey); el.classList.remove("on"); document.body.style.overflow = prev; setTimeout(function () { el.remove(); }, 400); if (window.__pubprev && window.__pubprev.focus) window.__pubprev.focus(); }
+        function onkey(e) { if (e.key === "Escape") close(); }
+        window.__pubprev = document.activeElement; prev = document.body.style.overflow; document.body.style.overflow = "hidden";
+        document.body.appendChild(el); document.addEventListener("keydown", onkey);
+        el.querySelector(".x").addEventListener("click", close);
+        el.addEventListener("click", function (e) { if (e.target === el) close(); });
+        requestAnimationFrame(function () { el.classList.add("on"); el.querySelector(".x").focus(); });
+        timer = setTimeout(close, duree * 1000);
+        try { sessionStorage.setItem(key, "1"); } catch (e) {}
+      }, delai * 1000);
     })();
     function $(id) { return document.getElementById(id) || {}; }
     /* le titre de chaque page est défini dans son HTML */

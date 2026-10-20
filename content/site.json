@@ -409,6 +409,8 @@
     "etiquette": "Bondy TV",
     "titre": "La parole est à vous",
     "sous_titre": "Racontez votre histoire, partagez votre regard sur Bondy.",
-    "bouton": "Témoigner"
+    "bouton": "Témoigner",
+    "delai": 2,
+    "duree": 12
   }
 }
