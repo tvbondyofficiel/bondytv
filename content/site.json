@@ -367,14 +367,14 @@
       "texte": ""
     },
     {
-      "lien_video": "",
-      "texte_visible": "Dernier épisode : ==[titre de l'épisode]==",
+      "lien_video": "https://www.youtube.com/@Bondytvofficiel/podcasts",
+      "texte_visible": "",
       "rubrique": "Vidéos",
       "pleine_largeur": false,
       "titre": "Le podcast",
       "texte": "",
       "image_description": "Trois personnes rient autour d'une table de podcast, devant des micros",
-      "credit": "",
+      "credit": "Sur la chaîne YouTube de Bondy TV",
       "id": "podcast",
       "image": "/images/podcast.jpg",
       "chapo": "Le podcast de Bondy TV : des voix, des histoires, en vidéo.",
