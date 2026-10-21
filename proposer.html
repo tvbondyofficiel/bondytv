@@ -678,11 +678,25 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
       faq.slice(0, 4).forEach(function (q) { var b = document.createElement("button"); b.type = "button"; b.textContent = q.question; b.onclick = function () { say(q.question, "me"); say(q.reponse); }; C.appendChild(b); });
       var l = document.createElement("button"); l.type = "button"; l.className = "lead"; l.textContent = A.bouton_contact || "Je veux témoigner ou présenter un projet"; l.onclick = lead; C.appendChild(l);
     }
-    function answer(txt) {
+    var hist = [];
+    function local(txt) {
       var w = norm(txt).split(" ").filter(function (x) { return x.length > 2; }), best = null, bs = 0;
       faq.forEach(function (q) { var hay = " " + norm((q.mots_cles || "") + " " + q.question) + " ", s = 0; w.forEach(function (x) { if (hay.indexOf(" " + x) >= 0) s++; }); if (s > bs) { bs = s; best = q; } });
-      say(txt, "me");
-      if (best && bs > 0) say(best.reponse); else { say(A.inconnu || "Je n'ai pas la réponse à cette question. Laissez-nous vos coordonnées : l'équipe vous répondra."); }
+      return best && bs > 0 ? best.reponse : (A.inconnu || "Je n'ai pas la réponse à cette question. Laissez-nous vos coordonnées : l'équipe vous répondra.");
+    }
+    function answer(txt) {
+      say(txt, "me"); hist.push({ role: "user", content: txt });
+      var wait = document.createElement("div"); wait.className = "bt-b bot"; wait.textContent = "…"; M.appendChild(wait); M.scrollTop = M.scrollHeight;
+      var ctrl = new AbortController(), to = setTimeout(function () { ctrl.abort(); }, 20000);
+      fetch("/api/chat", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ messages: hist.slice(-8) }), signal: ctrl.signal })
+        .then(function (r) { if (!r.ok) throw new Error("ia"); return r.json(); })
+        .then(function (j) {
+          clearTimeout(to); wait.remove();
+          var t = String(j.reply || ""), wantsLead = /\[\[CONTACT\]\]/.test(t); t = t.replace(/\s*\[\[CONTACT\]\]\s*/g, " ").trim();
+          if (!t) throw new Error("vide");
+          hist.push({ role: "assistant", content: t }); say(t); if (wantsLead) lead();
+        })
+        .catch(function () { clearTimeout(to); wait.remove(); var t = local(txt); hist.push({ role: "assistant", content: t.replace(/\[([^\]]+)\]\([^)]+\)/g, "$1") }); say(t); });
     }
     function lead() {
       if (panel.querySelector(".bt-lead")) return;
