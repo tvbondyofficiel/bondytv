@@ -565,7 +565,7 @@
   },
   "elus": {
     "titre": "Vos élus, votre avis",
-    "introduction": "Le maire, ses adjoints, les conseillers de la majorité et ceux de l'opposition : tous les 45 élus du conseil municipal. Donnez une note de 0 à 10 à chacun. Chaque habitant ne peut voter qu'une seule fois par élu.",
+    "introduction": "Le maire, ses adjoints, les conseillers de la majorité et ceux de l'opposition : tous les 45 élus du conseil municipal. Donnez une note de 0 à 10 à chacun, et dites en une phrase ce qu'il ou elle a fait pour vous. Chaque habitant ne peut voter qu'une seule fois par élu.",
     "source": "Noms et fonctions : site officiel de la ville de Bondy (ville-bondy.fr) et compte rendu du conseil municipal du 18 avril 2026.",
     "avertissement": "Avis déclaratifs d'habitants, non vérifiés et non représentatifs : ce n'est pas un sondage officiel. La moyenne d'un élu n'apparaît qu'à partir de 5 avis. Les notes portent sur l'action publique de l'élu, jamais sur sa vie privée.",
     "droit_de_reponse": "Vous êtes élu(e) et souhaitez répondre ? Écrivez à tvbondy@gmail.com : votre réponse sera publiée sur cette page.",
@@ -841,6 +841,6 @@
         "groupe": "Opposition municipale"
       }
     ],
-    "phrases_actives": false
+    "phrases_actives": true
   }
 }
