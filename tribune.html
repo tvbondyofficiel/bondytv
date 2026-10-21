@@ -396,6 +396,12 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 /* nav 12 */
 @media (min-width: 900px) { .bar nav { gap: 6px 11px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .03em !important; } }
+.temoigner .t-big { grid-column: 1 / -1; margin: 0 0 18px; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(44px, 8vw, 104px); line-height: .94; color: #12141c; }
+.temoigner .t-big em { font-style: normal; color: #b8975a; }
+.temoigner .intro { font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; max-width: 56ch; margin-bottom: 30px; }
+.t-side { background: #f3ead6; border-left: 6px solid #b8975a; padding: 30px 28px; grid-row: 3; }
+.t-side h3 { margin: 0 0 12px; font-family: var(--display); text-transform: uppercase; font-size: clamp(28px, 3vw, 38px); line-height: 1; color: #12141c; }
+.t-side p { color: #12141c; font-size: 18px; line-height: 1.5; }
 </style>
 </head>
 <body>
@@ -419,7 +425,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   </div>
 
   <section class="temoigner" id="temoigner">
-    <h2 class="sec-title" id="temoigner-titre"></h2>
+    <h1 class="t-big" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
     <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
 <input name="access_key" type="hidden" value="a10cef59-fca0-479e-81ab-13a661ab12b5"/>
@@ -586,7 +592,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 
     var t = d.tribune || {};
-    $("temoigner-titre").textContent = t.titre || "Tribune des élus";
+    $("temoigner-titre").innerHTML = "Espace réservé <em>aux élus</em>";
+    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.hidden = false;
     $("temoigner-intro").textContent = t.introduction || "";
 
     var p = d.proposer || {};
