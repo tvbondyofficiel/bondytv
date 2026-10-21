@@ -394,6 +394,12 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 
 /* titres : mot fort en beige doré, le reste de l'écriture en noir */
 h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { color: #b8975a !important; }
+
+.pq { display: flex; align-items: center; justify-content: space-between; gap: 24px; }
+.pq-qr { display: flex; flex-direction: column; align-items: center; gap: 6px; flex: none; background: #fff; padding: 10px 12px; }
+.pq-qr img { display: block; width: 110px; height: 110px; }
+.pq-qr b { font-size: 13px; letter-spacing: .08em; text-transform: uppercase; color: #12141c; }
+@media (max-width: 560px) { .pq { flex-direction: column; align-items: flex-start; } }
 </style>
 </head>
 <body>
@@ -577,10 +583,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (t.encart && t.encart.citation && document.getElementById("t-side")) { var sd = document.getElementById("t-side"); sd.innerHTML = "<blockquote>" + esc(t.encart.citation) + '</blockquote><p class="t-auteur">' + esc(t.encart.auteur || "") + "</p><p>" + esc(t.encart.texte || "") + "</p>"; sd.hidden = false; }
 
     var p = d.proposer || {};
-    $("proposer").innerHTML = "<h2>" + esc(p.titre) + "</h2><p>" + esc(p.texte) + '</p><div class="contact">' +
-      '<div class="c-row"><a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a><button type="button" class="copy" data-copy="' + esc(p.email) + '">Copier</button></div>' +
-      '<div class="c-row"><a href="tel:' + esc(p.telephone_lien) + '">' + esc(p.telephone) + '</a><button type="button" class="copy" data-copy="' + esc(p.telephone_lien) + '">Copier</button>' +
-      '<a class="wa" href="' + esc(safeUrl(p.whatsapp)) + '" target="_blank" rel="noopener" aria-label="Écrire à Bondy TV sur WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="' + WA + '"/></svg></a></div></div>';
+    $("proposer").innerHTML = '<div class="pq"><div><h2>' + esc(p.titre) + '</h2><p>' + esc(p.texte) + '</p></div>' + (ed && ed.contact_qr ? '<div class="pq-qr"><img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="110" height="110"><b>Scannez-moi</b></div>' : '') + '</div>';
     if (document.getElementById("galerie") && (p.galerie || []).length) document.getElementById("galerie").innerHTML = '<ul class="gal">' + p.galerie.map(function (g) { var fig = "<figure><img src=\"" + esc(g.image) + "\" alt=\"" + esc(g.legende) + "\" loading=\"lazy\"><figcaption>" + esc(g.legende) + "</figcaption></figure>"; return "<li>" + (g.lien ? "<a href=\"" + esc(safeUrl(g.lien)) + "\">" + fig + "</a>" : fig) + "</li>"; }).join("") + "</ul>";
 
     var pied = d.pied_de_page || {};
