@@ -32,8 +32,8 @@
     }
   },
   "couverture": {
-    "image": "/images/une-pepitheque.jpg",
-    "image_description": "L'entrée de la Pépithèque Mariama Bâ, bâtiment en bois et enduit clair avec des menuiseries vertes",
+    "image": "/images/une-ville.jpg",
+    "image_description": "Des agents en tenue orange nettoient une place de Bondy avec une balayeuse, sous un ciel d'automne",
     "lignes": [
       {
         "titre": "Bondy TV",
@@ -502,6 +502,13 @@
     "titre": "Bondy en images",
     "introduction": "La ville, ses visages, ses moments. Une image vaut mille mots : regardez, partagez, réagissez.",
     "photos": [
+      {
+        "image": "/images/pepitheque-portail.jpg",
+        "date": "",
+        "titre": "Pépithèque Mariama Bâ",
+        "legende": "Sur le portail, un hommage à l'écrivaine sénégalaise Mariama Bâ (1929–1981).",
+        "description": "Le portail de la Pépithèque Mariama Bâ avec l'affichette des horaires et le panneau consacré à Mariama Bâ"
+      },
       {
         "image": "/images/coeur-canal.jpg",
         "date": "",
