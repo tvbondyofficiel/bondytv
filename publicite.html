@@ -422,6 +422,46 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 
 /* menu resserré (9 onglets) */
 .bar nav { gap: 8px 13px; font-size: 13.5px; letter-spacing: .05em; }
+
+/* planche de cases A5 */
+.pg-head { margin: 26px 0 0; }
+.pg-head h1 { margin: 0; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(46px, 8vw, 100px); line-height: .92; }
+.pg-head h1 em { font-style: normal; color: var(--green); }
+.pg-head p { margin: 14px 0 0; font-size: clamp(18px, 2vw, 22px); line-height: 1.5; max-width: 62ch; border-left: 4px solid var(--green); padding-left: 18px; color: var(--muted); }
+.a5s { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 22px; margin-top: 28px; }
+.a5 { position: relative; display: block; aspect-ratio: 148 / 210; overflow: hidden; text-decoration: none; color: inherit; background: var(--surface); box-shadow: 6px 6px 0 var(--beige); }
+.a5.on { box-shadow: 6px 6px 0 var(--green); }
+.a5 > img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.a5 .tx { position: absolute; inset: 0; padding: 22px 20px; display: flex; flex-direction: column; gap: 8px; justify-content: center; text-align: center; }
+.a5 .tx em { font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .16em; font-weight: 700; font-size: 14px; color: var(--green); }
+.a5 .tx h2 { margin: 0; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(30px, 3.4vw, 44px); line-height: .95; }
+.a5 .tx p { margin: 0; font-size: 16px; line-height: 1.45; }
+.a5 .tx strong { font-family: var(--display); font-size: 22px; letter-spacing: .06em; color: var(--green); }
+.a5 .tx .go { align-self: center; background: var(--green); color: var(--on-green); font-family: var(--display); text-transform: uppercase; letter-spacing: .12em; font-weight: 700; font-size: 16px; padding: 10px 18px; }
+.a5.free { background: var(--beige); color: var(--on-beige); border: 3px dashed #b8975a; box-shadow: none; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; gap: 12px; padding: 18px 16px; }
+.a5.free b { font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(34px, 4vw, 52px); line-height: .9; color: var(--green); }
+.a5.free > span { font-size: 15px; line-height: 1.4; }
+.acts { display: flex; flex-wrap: wrap; gap: 8px; justify-content: center; }
+.acts a { text-decoration: none; text-align: center; font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; font-size: 15px; padding: 10px 14px; background: var(--green); color: var(--on-green); }
+.acts a.alt { background: transparent; color: inherit; border: 2px solid currentColor; }
+.tarif { margin: 22px 0 0; font-size: 16px; color: var(--muted); }
+.pg-cta { margin-top: 34px; background: var(--green); color: var(--on-green); padding: clamp(20px, 3vw, 34px); display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; box-shadow: 8px 8px 0 var(--beige); }
+.pg-cta b { font-family: var(--display); text-transform: uppercase; font-size: clamp(26px, 3.6vw, 40px); line-height: 1; }
+.pg-cta .acts a { background: var(--beige); color: var(--on-beige); }
+.pg-cta .acts a.alt { background: transparent; color: var(--on-green); }
+@media (max-width: 900px) { .a5s { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; } }
+@media (max-width: 520px) { .a5 .tx { padding: 14px 12px; } .a5 .tx h2 { font-size: 26px; } .a5 .tx p { font-size: 14px; } .a5.free b { font-size: 34px; } .a5.free > span { font-size: 13px; } .pg-cta { box-shadow: 5px 5px 0 var(--beige); } }
+@media (max-width: 600px) {
+  .a5s { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .a5.on { max-width: 400px; width: 100%; margin: 0 auto; }
+  .a5.free { aspect-ratio: auto; padding: 24px 18px; }
+  .a5.free b { font-size: 44px; }
+  .a5.free b span { display: inline; }
+  .a5 .tx h2 { font-size: 34px; }
+  .a5 .tx p { font-size: 17px; }
+}
+.a5.free b span { display: block; }
+@media (max-width: 600px) { .a5.free b span { display: inline; } }
 </style>
 </head>
 <body>
@@ -572,20 +612,22 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
     var arts = d.articles || [];
     var pp = d.page_pub || {}, pr = d.proposer || {};
     if (document.getElementById("pub")) {
-      var ent = '<div class="mention"><span>' + esc(pp.etiquette || "Publicité") + (pp.annonceur ? " · " + esc(pp.annonceur) : "") + '</span><a href="/edito.html">Passer à l\'édito →</a></div>';
-      var corps;
-      if (pp.image) {
-        var im = '<img src="' + esc(pp.image) + '" alt="' + esc(pp.image_description || pp.annonceur || "Publicité") + '">';
-        var u = safeUrl(pp.lien);
-        corps = '<div class="affiche">' + (u ? '<a href="' + esc(u) + '" target="_blank" rel="noopener sponsored">' + im + '</a>' : im) + '</div>';
-      } else if (pp.titre) {
-        var u2 = safeUrl(pp.lien);
-        corps = '<div class="txtpub"><h1>' + esc(pp.titre) + '</h1>' + (pp.texte ? '<p>' + esc(pp.texte) + '</p>' : "") + (u2 ? '<a class="btn-all" href="' + esc(u2) + '" target="_blank" rel="noopener sponsored">' + esc(pp.bouton || "Découvrir") + '</a>' : "") + '</div>';
-      } else {
-        var mail = pr.email ? "mailto:" + esc(pr.email) + "?subject=" + encodeURIComponent("Publicité dans Bondy TV Magazine") : "";
-        corps = '<div class="ici"><div class="g"><h1>Votre <em>publicité</em> ici</h1><p>Une page entière, lue par les Bondynois, entre la couverture et l\'édito.</p></div><div class="d"><b>Pourquoi ici ?</b><ul><li>La première page que lit le lecteur</li><li>Une page entière rien que pour vous</li><li>Un magazine 100% gratuit, ouvert à tous</li></ul><div class="acts">' + (pr.whatsapp ? '<a href="' + esc(pr.whatsapp) + '" target="_blank" rel="noopener">Nous écrire sur WhatsApp</a>' : "") + (mail ? '<a class="alt" href="' + mail + '">Écrire un e-mail</a>' : "") + (pr.telephone_lien ? '<a class="alt" href="tel:' + esc(pr.telephone_lien) + '">' + esc(pr.telephone) + '</a>' : "") + '</div></div></div>';
+      var ems = pp.emplacements || [], total = Math.max(+pp.nombre_cases || 6, ems.length);
+      var mail = pr.email ? "mailto:" + esc(pr.email) + "?subject=" + encodeURIComponent("Publicité dans Bondy TV Magazine") : "";
+      var contact = (pr.whatsapp ? '<a href="' + esc(safeUrl(pr.whatsapp)) + '" target="_blank" rel="noopener">WhatsApp</a>' : "") + (mail ? '<a class="alt" href="' + mail + '">E-mail</a>' : "") + (pr.telephone_lien ? '<a class="alt" href="tel:' + esc(pr.telephone_lien) + '">' + esc(pr.telephone) + '</a>' : "");
+      var tt = esc(pp.titre || "Votre publicité ici").split(" "), lw = tt.pop();
+      var html = '<div class="pubpage"><div class="mention"><span>' + esc(pp.etiquette || "Publicité") + '</span><a href="/edito.html">Passer à l\'édito →</a></div>';
+      html += '<div class="pg-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (pp.introduction ? '<p>' + esc(pp.introduction) + '</p>' : "") + '</div><div class="a5s">';
+      for (var k = 0; k < total; k++) {
+        var e = ems[k];
+        if (!e) { html += '<div class="a5 free"><b><span>Votre</span> <span>pub</span> <span>ici</span></b><span>Une case A5 pour vous faire connaître à Bondy.</span><div class="acts">' + contact + '</div></div>'; continue; }
+        var u = e.lien ? safeUrl(e.lien) : "", inner;
+        if (e.image) inner = '<img src="' + esc(e.image) + '" alt="' + esc(e.image_description || e.nom) + '" loading="lazy">';
+        else inner = '<div class="tx">' + (e.activite ? '<em>' + esc(e.activite) + '</em>' : "") + '<h2>' + esc(e.nom) + '</h2>' + (e.texte ? '<p>' + esc(e.texte) + '</p>' : "") + (e.telephone ? '<strong>' + esc(e.telephone) + '</strong>' : "") + (u ? '<span class="go">Découvrir</span>' : "") + '</div>';
+        html += u ? '<a class="a5 on" href="' + esc(u) + '" target="_blank" rel="noopener sponsored">' + inner + '</a>' : '<div class="a5 on">' + inner + '</div>';
       }
-      document.getElementById("pub").innerHTML = '<div class="pubpage">' + ent + corps + '<div class="suite"><span></span><a class="btn-all" href="/edito.html">Lire l\'édito</a></div></div>';
+      html += '</div>' + (pp.tarif ? '<p class="tarif">' + esc(pp.tarif) + '</p>' : "") + '<div class="pg-cta"><b>Vous démarrez ? On vous aide.</b><div class="acts">' + contact + '</div></div><div class="suite"><span></span><a class="btn-all" href="/edito.html">Lire l\'édito</a></div></div>';
+      document.getElementById("pub").innerHTML = html;
     }
 
     var list = arts.filter(function (x) { return x.id !== "edito"; });

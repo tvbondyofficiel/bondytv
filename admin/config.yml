@@ -192,6 +192,84 @@ collections:
                   - {label: "Titre", name: titre, widget: string}
                   - {label: "Légende (une ou deux phrases)", name: legende, widget: text, required: false}
                   - {label: "Description de la photo (pour les malvoyants)", name: description, widget: string, required: false}
+          - label: "Page de publicité « Votre publicité ici » (après la couverture)"
+            name: page_pub
+            widget: object
+            collapsed: false
+            fields:
+              - {label: "Mention en haut de page", name: etiquette, widget: string, required: false, default: "Publicité"}
+              - {label: "Grand titre", name: titre, widget: string}
+              - {label: "Message d'aide aux commerces qui démarrent", name: introduction, widget: text, required: false}
+              - {label: "Tarif ou conditions (affiché sous les cases, laissez vide si vous ne voulez rien afficher)", name: tarif, widget: string, required: false, hint: "Ex. Case offerte pour les commerces qui démarrent. Ne mettez que ce que vous avez décidé."}
+              - {label: "Nombre de cases au total (les cases libres affichent « Votre pub ici »)", name: nombre_cases, widget: number, value_type: int, min: 1, max: 24, default: 6}
+              - label: "Les cases déjà occupées (la première apparaît en premier)"
+                name: emplacements
+                widget: list
+                summary: "{{fields.nom}}"
+                fields:
+                  - {label: "Nom du commerce", name: nom, widget: string}
+                  - {label: "Activité (ex. Boulangerie, Coiffeur, Association)", name: activite, widget: string, required: false}
+                  - {label: "Affiche A5 (image verticale, de préférence 1480 × 2100)", name: image, widget: image, required: false, hint: "Si vous mettez une affiche, elle remplit toute la case. Sinon la case est faite avec le texte ci-dessous."}
+                  - {label: "Description de l'affiche (pour les malvoyants)", name: image_description, widget: string, required: false}
+                  - {label: "Texte court (2 ou 3 phrases, que des faits)", name: texte, widget: text, required: false}
+                  - {label: "Téléphone (ex. 07 00 00 00 00)", name: telephone, widget: string, required: false}
+                  - {label: "Lien (site, Instagram, Facebook...)", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
+          - label: "Page « Les bonnes infos »"
+            name: bonnes_infos
+            widget: object
+            collapsed: false
+            fields:
+              - {label: "Titre de la page", name: titre, widget: string}
+              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
+              - {label: "Titre du bloc réseaux sociaux", name: reseaux_titre, widget: string, required: false}
+              - label: "Les infos (la plus récente en premier)"
+                name: cartes
+                widget: list
+                summary: "{{fields.rubrique}} · {{fields.titre}}"
+                fields:
+                  - {label: "Rubrique", name: rubrique, widget: select, options: ["Actualités", "Événements", "Vie locale", "Infos pratiques"]}
+                  - {label: "Date (ex. 12 novembre)", name: date, widget: string, required: false}
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Texte (quelques phrases, que des faits sûrs)", name: texte, widget: text}
+                  - {label: "Lien (adresse complète ou /page.html)", name: lien, widget: string, required: false}
+                  - {label: "Texte du bouton du lien", name: lien_texte, widget: string, required: false}
+          - label: "Page « Vos élus, votre avis » (notes des habitants)"
+            name: elus
+            widget: object
+            collapsed: true
+            fields:
+              - {label: "Titre de la page", name: titre, widget: string}
+              - {label: "Introduction", name: introduction, widget: text}
+              - {label: "Autoriser les phrases des habitants (laisser décoché au lancement)", name: phrases_actives, widget: boolean, default: false, required: false, hint: "Décoché : seules les notes sont demandées et affichées. Coché : les habitants peuvent ajouter une phrase, publiée seulement si vous l'approuvez. Si vous cochez, pensez à modifier l'introduction ci-dessus."}
+              - {label: "Source des noms (affichée sur la page)", name: source, widget: string, required: false}
+              - {label: "Avertissement (ne pas supprimer : il vous protège)", name: avertissement, widget: text}
+              - {label: "Droit de réponse des élus", name: droit_de_reponse, widget: text, required: false}
+              - label: "Les élus à noter"
+                name: liste
+                widget: list
+                summary: "{{fields.nom}}"
+                fields:
+                  - {label: "Identifiant (sans espace ni accent, ex: marie-dupont ; ne plus le changer ensuite)", name: id, widget: string}
+                  - {label: "Nom et prénom (comme sur le site officiel de la ville)", name: nom, widget: string}
+                  - {label: "Fonction (comme sur le site officiel de la ville)", name: fonction, widget: string}
+                  - {label: "Groupe (écrire exactement comme les autres : Le maire et les adjoints / Conseillers municipaux délégués (majorité) / Opposition municipale)", name: groupe, widget: string}
+          - label: "Page « Bondy en images »"
+            name: en_images
+            widget: object
+            collapsed: false
+            fields:
+              - {label: "Titre de la page", name: titre, widget: string}
+              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
+              - label: "Photos (la première est affichée en très grand)"
+                name: photos
+                widget: list
+                summary: "{{fields.titre}}"
+                fields:
+                  - {label: "Photo (de préférence en largeur, bien nette)", name: image, widget: image}
+                  - {label: "Date (ex. 9 juillet)", name: date, widget: string, required: false}
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Légende (une ou deux phrases)", name: legende, widget: text, required: false}
+                  - {label: "Description de la photo (pour les malvoyants)", name: description, widget: string, required: false}
           - label: "Page de publicité (entre la couverture et l'édito)"
             name: page_pub
             widget: object

@@ -496,13 +496,11 @@
   },
   "page_pub": {
     "etiquette": "Publicité",
-    "annonceur": "",
-    "image": "",
-    "image_description": "",
-    "titre": "",
-    "texte": "",
-    "bouton": "",
-    "lien": ""
+    "titre": "Votre publicité ici",
+    "introduction": "Commerçants, artisans, associations : vous démarrez ou vous êtes installés à Bondy, mais vous n'avez pas encore les moyens de vous faire connaître ? Bondy TV vous aide à démarrer. Prenez une case.",
+    "tarif": "",
+    "nombre_cases": 6,
+    "emplacements": []
   },
   "en_images": {
     "titre": "Bondy en images",
