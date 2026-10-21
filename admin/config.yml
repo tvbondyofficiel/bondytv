@@ -130,6 +130,25 @@ collections:
               - {label: "Lien de l'annonceur", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
               - {label: "Premier jour (AAAA-MM-JJ)", name: debut, widget: string, required: false, hint: "Ex. 2026-11-02. Vide = tout de suite."}
               - {label: "Dernier jour (AAAA-MM-JJ)", name: fin, widget: string, required: false, hint: "Ex. 2026-11-08. La bannière disparaît toute seule le lendemain."}
+          - label: "Page « Les bonnes infos »"
+            name: bonnes_infos
+            widget: object
+            collapsed: false
+            fields:
+              - {label: "Titre de la page", name: titre, widget: string}
+              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
+              - {label: "Titre du bloc réseaux sociaux", name: reseaux_titre, widget: string, required: false}
+              - label: "Les infos (la plus récente en premier)"
+                name: cartes
+                widget: list
+                summary: "{{fields.rubrique}} · {{fields.titre}}"
+                fields:
+                  - {label: "Rubrique", name: rubrique, widget: select, options: ["Actualités", "Événements", "Vie locale", "Infos pratiques"]}
+                  - {label: "Date (ex. 12 novembre)", name: date, widget: string, required: false}
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Texte (quelques phrases, que des faits sûrs)", name: texte, widget: text}
+                  - {label: "Lien (adresse complète ou /page.html)", name: lien, widget: string, required: false}
+                  - {label: "Texte du bouton du lien", name: lien_texte, widget: string, required: false}
           - label: "Page « Bondy en images »"
             name: en_images
             widget: object
