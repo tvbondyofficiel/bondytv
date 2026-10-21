@@ -460,6 +460,15 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 
 /* titres : mot fort en beige doré, le reste de l'écriture en noir */
 h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { color: #b8975a !important; }
+
+/* colonne gauche de l'édito : témoignage + photo de la ville */
+.ed-more { display: flex; flex-direction: column; gap: 22px; }
+.ed-tem { background: var(--beige); border-left: 6px solid #b8975a; padding: 20px 20px 22px; }
+.ed-tem h3 { margin: 0 0 8px; font-family: var(--display); text-transform: uppercase; font-size: 24px; line-height: 1.05; color: #12141c; }
+.ed-tem p { margin: 0 0 14px; font-size: 16px; line-height: 1.5; color: #12141c; }
+.ed-ville { margin: 0; background: #fff; border: 1px solid var(--line); padding: 8px 8px 10px; box-shadow: 7px 7px 0 var(--beige); }
+.ed-ville img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 60% 45%; }
+.ed-ville figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
 </style>
 </head>
 <body>
@@ -623,7 +632,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       }
       var cr = (ed.credit || "").split(",");
       var ph = ed.image ? '<figure class="ed-photo"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '" fetchpriority="high"><figcaption>' + esc(cr[0]) + '</figcaption></figure>' : "";
-      document.getElementById("edito").innerHTML = '<div class="edito-page"><div class="ed-top">' + ph + '<div class="ed-head"><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="ed-lede">' + inline(ed.chapo) + '</p>' : "") + '</div></div><div class="ed-body">' + '<div class="ed-side">' + (ed.citation ? '<blockquote class="ed-quote">' + esc(ed.citation) + '</blockquote>' : "") + contactCard(ed, d) + '</div>' + '<div class="corps">' + md(ed.texte) + '<p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div></div></div>';
+      document.getElementById("edito").innerHTML = '<div class="edito-page"><div class="ed-top">' + ph + '<div class="ed-head"><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="ed-lede">' + inline(ed.chapo) + '</p>' : "") + '</div></div><div class="ed-body">' + '<div class="ed-side">' + (ed.citation ? '<blockquote class="ed-quote">' + esc(ed.citation) + '</blockquote>' : "") + contactCard(ed, d) + '<aside class="ed-more"><div class="ed-tem"><h3>Vous avez quelque chose à dire ?</h3><p>Racontez-le avec vos mots. Votre histoire, votre projet, votre quartier : ici, la parole est à vous.</p><a class="btn-all" href="/temoigner.html">Témoigner</a></div><figure class="ed-ville"><img src="/images/bondy-rue-automne.jpg" alt="Une rue de Bondy en automne" loading="lazy"><figcaption>Bondy</figcaption></figure></aside></div>' + '<div class="corps">' + md(ed.texte) + '<p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div></div></div>';
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
     var arch = d.archives || {};
