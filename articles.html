@@ -700,8 +700,8 @@ details[open] > summary { margin-bottom: 6px; }
 
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
-    var f = '<h2 class="sec-title">' + esc(d.articles_titre) + '</h2><div class="filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tout</button>';
-    f += cats.map(function (k) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="false">' + esc(k) + "</button>"; }).join("");
+    var f = '<h2 class="sec-title">' + esc(d.articles_titre) + '</h2><div class="filters" role="group" aria-label="Filtrer par rubrique">';
+    f += cats.map(function (k, i) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="' + (i === 0 ? "true" : "false") + '">' + esc(k) + "</button>"; }).join("");
     f += '</div><div class="grid">' + list.map(article).join("") + "</div>";
     $("articles").innerHTML = f;
 
@@ -736,7 +736,7 @@ details[open] > summary { margin-bottom: 6px; }
 
     behaviours();
     if (location.hash) {
-      try { var el = document.querySelector(location.hash); if (el) { el.scrollIntoView(); if (el.classList.contains("art")) el.classList.add("cible"); } } catch (e) {}
+      try { var el = document.querySelector(location.hash); if (el && el.classList.contains("art") && el.dataset.cat) { var bb = document.querySelector('.filters button[data-f="' + el.dataset.cat.replace(/"/g, "") + '"]'); if (bb) bb.click(); } if (el) { el.scrollIntoView(); if (el.classList.contains("art")) el.classList.add("cible"); } } catch (e) {}
     }
   }
 
@@ -748,12 +748,13 @@ details[open] > summary { margin-bottom: 6px; }
       arts.forEach(function (a) { a.hidden = !(f === "all" || a.dataset.cat === f); });
     }
     buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.f); }); });
+    if (buttons.length) apply(buttons[0].dataset.f);
     document.querySelectorAll('a[href^="#"]').forEach(function (l) {
       l.addEventListener("click", function () {
         var h = l.getAttribute("href");
         if (h.length < 2) return;
         var t = document.querySelector(h);
-        if (t && t.classList.contains("art") && t.hidden) apply("all");
+        if (t && t.classList.contains("art") && t.hidden) apply(t.dataset.cat);
       });
     });
     document.querySelectorAll(".copy").forEach(function (b) {
