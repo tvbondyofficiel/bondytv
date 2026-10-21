@@ -462,6 +462,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 }
 .a5.free b span { display: block; }
 @media (max-width: 600px) { .a5.free b span { display: inline; } }
+.a5.free .gratuit { font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 18px; background: var(--green); color: var(--on-green); padding: 9px 16px; }
 </style>
 </head>
 <body>
@@ -620,7 +621,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
       html += '<div class="pg-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (pp.introduction ? '<p>' + esc(pp.introduction) + '</p>' : "") + '</div><div class="a5s">';
       for (var k = 0; k < total; k++) {
         var e = ems[k];
-        if (!e) { html += '<div class="a5 free"><b><span>Votre</span> <span>pub</span> <span>ici</span></b><span>Une case A5 pour vous faire connaître à Bondy.</span><div class="acts">' + contact + '</div></div>'; continue; }
+        if (!e) { html += '<div class="a5 free"><b><span>Votre</span> <span>pub</span> <span>ici</span></b><span>Pour votre commerce, pour vous aider à démarrer.</span><em class="gratuit">C\'est gratuit</em></div>'; continue; }
         var u = e.lien ? safeUrl(e.lien) : "", inner;
         if (e.image) inner = '<img src="' + esc(e.image) + '" alt="' + esc(e.image_description || e.nom) + '" loading="lazy">';
         else inner = '<div class="tx">' + (e.activite ? '<em>' + esc(e.activite) + '</em>' : "") + '<h2>' + esc(e.nom) + '</h2>' + (e.texte ? '<p>' + esc(e.texte) + '</p>' : "") + (e.telephone ? '<strong>' + esc(e.telephone) + '</strong>' : "") + (u ? '<span class="go">Découvrir</span>' : "") + '</div>';
