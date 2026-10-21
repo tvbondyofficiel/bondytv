@@ -249,7 +249,7 @@ footer { margin-top: 36px; display: flex; justify-content: space-between; gap: 1
 
 
 .btn-all { display: inline-block; font: 700 18px/1 var(--display); text-transform: uppercase; letter-spacing: .12em; background: var(--red); color: var(--on-red); padding: 16px 28px; text-decoration: none; }
-.fbtn { margin: 36px 0 8px; }
+.fbtn { margin: 28px 0 6px; }
 .bar nav a[aria-current="page"] { border-bottom: 2px solid var(--red); }
 .pagehead { margin: 40px 0 0; }
 
@@ -400,11 +400,12 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 /* menu resserré (9 onglets) */
 .bar nav { gap: 8px 13px; font-size: 13.5px; letter-spacing: .05em; }
 .bar nav a { font-size: 13.5px !important; letter-spacing: .05em !important; }
-.qrbox { display: flex; align-items: center; gap: 22px; max-width: 520px; margin: 26px 0 8px; padding: 14px 20px 14px 14px; background: var(--beige); color: var(--on-beige); border-left: 6px solid var(--green); }
-.qrbox img { display: block; width: 132px; height: 132px; background: #fff; padding: 6px; flex: none; }
-.qrbox b { display: block; font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 22px; line-height: 1.1; }
-.qrbox span { display: block; margin-top: 6px; font-size: 15px; }
-@media (max-width: 480px) { .qrbox { flex-direction: column; text-align: center; padding: 18px; } }
+.cbar { display: flex; align-items: center; justify-content: space-between; gap: 18px 28px; margin: 28px 0 6px; padding: 14px 0 0; border-top: 3px solid var(--green); }
+.cbar .fbtn { margin: 0; }
+.qrbox { display: flex; align-items: center; gap: 14px; }
+.qrbox img { display: block; width: 76px; height: 76px; background: #fff; padding: 4px; border: 1px solid var(--line); flex: none; }
+.qrbox b { display: block; max-width: 17ch; font-family: var(--display); text-transform: uppercase; letter-spacing: .08em; font-size: 15px; line-height: 1.2; color: var(--fg); }
+@media (max-width: 480px) { .cbar { flex-direction: column; align-items: flex-start; } }
 </style>
 </head>
 <body>
@@ -549,10 +550,12 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
     (function () {
       var ed = ((d.articles || []).filter(function (a) { return a.id === "edito"; })[0]) || {};
       var fb = document.querySelector(".fbtn");
-      if (ed.contact_qr && fb && !document.querySelector(".qrbox")) {
+      if (ed.contact_qr && fb && !document.querySelector(".cbar")) {
+        var bar = document.createElement("div"); bar.className = "cbar";
+        fb.parentNode.insertBefore(bar, fb); bar.appendChild(fb);
         var q = document.createElement("div"); q.className = "qrbox";
-        q.innerHTML = '<img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="132" height="132"><div><b>' + esc(ed.contact_qr_legende || "Flashez pour ouvrir Bondy TV") + '</b><span>Bondy TV, dans votre poche.</span></div>';
-        fb.parentNode.insertBefore(q, fb.nextSibling);
+        q.innerHTML = '<img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="76" height="76"><div><b>' + esc(ed.contact_qr_legende || "Flashez pour ouvrir Bondy TV") + '</b></div>';
+        bar.appendChild(q);
       }
     })();
     var c = d.couverture || {};
