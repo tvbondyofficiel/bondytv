@@ -723,9 +723,42 @@ details[open] > summary { margin-bottom: 6px; }
     $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + ' · <a href="/confidentialite.html">Confidentialité</a></span>';
 
     behaviours();
+    community();
     if (location.hash) {
       try { var el = document.querySelector(location.hash); if (el && el.classList.contains("art") && el.dataset.cat) { var bb = document.querySelector('.filters button[data-f="' + el.dataset.cat.replace(/"/g, "") + '"]'); if (bb) bb.click(); } if (el) { el.scrollIntoView(); if (el.classList.contains("art")) el.classList.add("cible"); } } catch (e) {}
     }
+  }
+
+
+  // Tribunes d'élus et paroles d'habitants publiées : rubriques ajoutées seulement s'il y en a.
+  function community() {
+    var groups = [
+      { url: "/api/tribunes", key: "tribunes", cat: "Tribune des élus", tag: "Tribune des élus", sig: function (t) { return esc(t.nom) + " · " + esc(t.fonction) + (t.groupe ? " · " + esc(t.groupe) : ""); } },
+      { url: "/api/habitants", key: "textes", cat: "Paroles d\u2019habitants", tag: "Parole d\u2019habitant", sig: function (t) { return esc(t.nom) + ", habitant de Bondy"; } }
+    ];
+    groups.forEach(function (g) {
+      fetch(g.url).then(function (r) { return r.json(); }).then(function (j) {
+        var L = (j && j[g.key]) || [];
+        if (!L.length) return;
+        var bar = document.querySelector(".filters"), grid = document.querySelector("#articles .grid");
+        if (!bar || !grid) return;
+        var btn = document.createElement("button");
+        btn.type = "button"; btn.dataset.f = g.cat; btn.setAttribute("aria-pressed", "false"); btn.textContent = g.cat;
+        bar.appendChild(btn);
+        var html = L.map(function (t, i) {
+          var paras = String(t.texte || "").split(/\n{2,}/).filter(Boolean);
+          var first = (paras[0] || "").slice(0, 260);
+          var body = paras.map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
+          return '<article class="art" id="' + (g.key === "tribunes" ? "tribune-" : "habitant-") + i + '" data-cat="' + esc(g.cat) + '" hidden><div class="txt"><div class="tag">' + esc(g.tag) + '</div><h3>' + esc(t.titre) + '</h3><p class="chapo">' + esc(first) + (paras[0] && paras[0].length > 260 ? "\u2026" : "") + '</p><p class="credit">' + g.sig(t) + " \u00b7 " + new Date(t.ts).toLocaleDateString("fr-FR") + '</p><details><summary>Lire la suite</summary><div class="more">' + body + '</div></details></div></article>';
+        }).join("");
+        grid.insertAdjacentHTML("beforeend", html);
+        btn.addEventListener("click", function () {
+          document.querySelectorAll(".filters button").forEach(function (b) { b.setAttribute("aria-pressed", b === btn ? "true" : "false"); });
+          document.querySelectorAll("#articles .art").forEach(function (a) { a.hidden = a.dataset.cat !== g.cat; });
+        });
+        // les autres boutons doivent aussi masquer ces nouveaux articles : ils filtrent déjà par data-cat
+      }).catch(function () {});
+    });
   }
 
   function behaviours() {
@@ -733,7 +766,7 @@ details[open] > summary { margin-bottom: 6px; }
     var arts = document.querySelectorAll("#articles .art");
     function apply(f) {
       buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.f === f ? "true" : "false"); });
-      arts.forEach(function (a) { a.hidden = !(f === "all" || a.dataset.cat === f); });
+      document.querySelectorAll("#articles .art").forEach(function (a) { a.hidden = !(f === "all" || a.dataset.cat === f); });
     }
     buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.f); }); });
     if (buttons.length) apply(buttons[0].dataset.f);
