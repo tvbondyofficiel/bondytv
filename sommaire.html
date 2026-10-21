@@ -382,6 +382,8 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 .sc:hover { border-left-color: var(--green); transform: translateX(3px); color: var(--fg); }
 .sc .th { flex: none; width: 64px; height: 64px; background: var(--beige); color: var(--on-beige); display: grid; place-items: center; overflow: hidden; }
 .sc .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sc .th.logo { width: 92px; background: #fff; border: 1px solid #e3d6b8; }
+.sc .th.logo img { object-fit: contain; padding: 4px; }
 .sc .nb { font-family: var(--display); font-weight: 700; font-size: 30px; }
 .sc .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
 .sc .no { font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 13px; color: var(--green); }
@@ -553,8 +555,8 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
     var som = arts.map(function (a, i) {
       var n = String(i + 1); if (n.length < 2) n = "0" + n;
       var href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
-      var th = a.image ? '<img src="' + esc(a.image) + '" alt="" loading="lazy">' : '<span class="nb">' + n + '</span>';
-      return '<li><a class="sc" href="' + href + '"><span class="th">' + th + '</span><span class="tx"><span class="no">' + (a.image ? n + (a.rubrique ? ' · ' : '') : '') + (a.rubrique ? esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
+      var th = (a.vignette || a.image) ? '<img src="' + esc(a.vignette || a.image) + '" alt="" loading="lazy">' : '<span class="nb">' + n + '</span>';
+      return '<li><a class="sc" href="' + href + '"><span class="th' + (a.vignette ? ' logo' : '') + '">' + th + '</span><span class="tx"><span class="no">' + (a.image ? n + (a.rubrique ? ' · ' : '') : '') + (a.rubrique ? esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     }).join("");
     som += '<li><a class="sc arch" href="/archives.html"><span class="th"><span class="nb">∞</span></span><span class="tx"><span class="no">Depuis 2018</span><b>' + esc(arch.titre || "Les archives") + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     $("sommaire").innerHTML = '<div class="som-head"><div class="som-no">N°' + esc(String(d.numero || "").replace(/\D/g, "") || "1") + '</div><h2>' + esc(d.sommaire_titre) + '</h2><p>' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><ul class="som">' + som + "</ul>";
