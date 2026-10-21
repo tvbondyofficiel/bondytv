@@ -371,6 +371,25 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 
 /* menu resserré (9 onglets) */
 .bar nav { gap: 8px 13px; font-size: 13.5px; letter-spacing: .05em; }
+
+/* sommaire de magazine */
+.som-head { margin: 36px 0 26px; display: flex; align-items: flex-end; gap: 18px 24px; flex-wrap: wrap; }
+.som-no { background: var(--green); color: var(--on-green); font-family: var(--display); font-weight: 700; font-size: 44px; line-height: 1; padding: 10px 16px; }
+.som-head h2 { margin: 0; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(44px, 7vw, 84px); line-height: .9; }
+.som-head p { margin: 0 0 6px; flex-basis: 100%; color: var(--muted); font-size: 17px; border-left: 4px solid var(--beige); padding-left: 14px; }
+.som { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.sc { display: flex; align-items: center; gap: 14px; text-decoration: none; color: var(--fg); background: var(--surface); border-left: 5px solid var(--beige); padding: 10px 14px 10px 10px; min-height: 84px; transition: border-color .15s ease, transform .15s ease; }
+.sc:hover { border-left-color: var(--green); transform: translateX(3px); color: var(--fg); }
+.sc .th { flex: none; width: 64px; height: 64px; background: var(--beige); color: var(--on-beige); display: grid; place-items: center; overflow: hidden; }
+.sc .th img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.sc .nb { font-family: var(--display); font-weight: 700; font-size: 30px; }
+.sc .tx { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 3px; }
+.sc .no { font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 13px; color: var(--green); }
+.sc b { font-family: var(--display); text-transform: uppercase; font-weight: 600; font-size: 19px; line-height: 1.08; }
+.sc .ar { flex: none; font-size: 22px; color: var(--green); }
+.sc.arch { background: var(--beige); color: var(--on-beige); }
+.sc.arch .th { background: var(--green); color: var(--on-green); }
+@media (max-width: 760px) { .som { grid-template-columns: minmax(0, 1fr); gap: 10px; } .som-no { font-size: 34px; } .sc b { font-size: 18px; } .sc .th { width: 56px; height: 56px; } }
 </style>
 </head>
 <body>
@@ -526,9 +545,14 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
     var arch = d.archives || {};
-    var toc = arts.map(function (a) { return '<li><a href="' + (a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id)) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
-    toc += '<li><a href="/archives.html">' + esc(arch.titre || "Les archives") + " <em>Depuis 2018</em></a></li>";
-    $("sommaire").innerHTML = '<h2 class="sec-title">' + esc(d.sommaire_titre) + '</h2><ul class="toc">' + toc + "</ul>";
+    var som = arts.map(function (a, i) {
+      var n = String(i + 1); if (n.length < 2) n = "0" + n;
+      var href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
+      var th = a.image ? '<img src="' + esc(a.image) + '" alt="" loading="lazy">' : '<span class="nb">' + n + '</span>';
+      return '<li><a class="sc" href="' + href + '"><span class="th">' + th + '</span><span class="tx"><span class="no">' + (a.image ? n + (a.rubrique ? ' · ' : '') : '') + (a.rubrique ? esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
+    }).join("");
+    som += '<li><a class="sc arch" href="/archives.html"><span class="th"><span class="nb">∞</span></span><span class="tx"><span class="no">Depuis 2018</span><b>' + esc(arch.titre || "Les archives") + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
+    $("sommaire").innerHTML = '<div class="som-head"><div class="som-no">N°' + esc(String(d.numero || "").replace(/\D/g, "") || "1") + '</div><h2>' + esc(d.sommaire_titre) + '</h2><p>' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><ul class="som">' + som + "</ul>";
 
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
