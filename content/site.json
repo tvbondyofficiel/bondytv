@@ -346,7 +346,7 @@
     }
   ],
   "banniere": {
-    "actif": true,
+    "actif": false,
     "annonceur": "Bondy TV (test)",
     "image": "",
     "lien": "/temoigner.html",
