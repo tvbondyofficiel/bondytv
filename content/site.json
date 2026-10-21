@@ -222,11 +222,6 @@
         "image": "/images/une-studio.jpg",
         "legende": "Le studio",
         "lien": "/articles.html#podcast"
-      },
-      {
-        "image": "/images/appel-citoyen.jpg",
-        "legende": "L'appel d'un citoyen",
-        "lien": "/articles.html#appel-citoyen"
       }
     ]
   },
@@ -369,21 +364,20 @@
       "texte": "À Bondy, il y a des food trucks. C'est une chance pour la ville : de la bonne cuisine, de l'ambiance, des gens qui se battent pour réussir. Et c'est une chance pour eux d'avoir Bondy TV, un média de la ville, fait pour les mettre en valeur.\n\n**Un commerce comme les autres**\n\nUn food truck est un commerce comme tous les commerces, et il mérite notre attention, tout simplement.\n\n**Venez à nous**\n\nVous êtes food truck à Bondy ? Contactez-nous. Si vous voulez qu'on parle de vous, il suffit de nous écrire : la porte est ouverte.\n\n**Filmez-vous, c'est votre vidéo**\n\nVous avez le droit de vous filmer et de nous envoyer votre propre vidéo. Nous la publierons sur le site de Bondy TV et sur notre chaîne YouTube. Et pourquoi pas à la une.\n\n[Je suis food truck, je veux participer](/temoigner.html)"
     },
     {
-      "lien_video": "",
-      "texte_visible": "Durée : environ 12 minutes. ==[sujet de l'appel en une phrase]==\n\n[Je veux lancer mon appel](#temoigner)\n\n> Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées.",
+      "id": "idee",
       "rubrique": "Témoignage",
-      "pleine_largeur": false,
-      "titre": "L'appel d'un citoyen : Pablo, le cœur sur la main",
-      "texte": "",
-      "image_description": "Pablo, filmé devant un mur blanc, s'adresse aux Bondynois",
-      "credit": "",
-      "id": "appel-citoyen",
-      "image": "/images/appel-citoyen.jpg",
-      "chapo": "Pablo s'adresse aux Bondynois : une voix, un mur blanc, une histoire.",
-      "visuel": "image",
-      "etiquette": "Témoignage · appel d'un citoyen",
+      "etiquette": "Témoignage · Une idée pour Bondy",
+      "titre": "Une idée pour Bondy ?",
+      "chapo": "Vous connaissez votre ville mieux que personne. Vous avez une idée pour la rendre plus belle, plus vivante, plus agréable ? Ce magazine est à vous.",
+      "visuel": "icone-ampoule",
+      "image": "",
+      "image_description": "",
       "image_portrait": false,
-      "fichier_video": "/images/appel-citoyen.mp4"
+      "lien_video": "",
+      "credit": "",
+      "texte_visible": "",
+      "pleine_largeur": false,
+      "texte": "Une ville, ce sont ses habitants qui la connaissent le mieux. Vous y vivez, vous y passez chaque jour, vous voyez ce qui marche et ce qui pourrait être encore mieux. Et si votre idée pouvait inspirer toute une ville ?\n\n**Chaque idée compte**\n\nUne animation pour le quartier, un coin à embellir, un service utile, une initiative pour les jeunes ou pour les aînés. Petite ou grande, une bonne idée mérite d'être entendue.\n\n**Venez nous la dire**\n\nÉcrivez-nous, ou envoyez-nous une courte vidéo. Racontez votre idée avec vos mots : ce que vous imaginez, et pourquoi cela ferait du bien à Bondy.\n\n**Nous la publions**\n\nLes meilleures idées sont publiées dans le magazine, avec votre nom si vous le souhaitez. Une idée partagée, c'est une ville qui avance.\n\n**Ensemble pour Bondy**\n\nBondy TV est là pour donner de la visibilité à celles et ceux qui ont quelque chose à dire. Prenez la parole : votre idée est peut-être la prochaine.\n\n[Je partage mon idée](/temoigner.html)"
     },
     {
       "lien_video": "https://www.youtube.com/@Bondytvofficiel/podcasts",

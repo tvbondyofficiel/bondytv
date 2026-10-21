@@ -589,13 +589,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       pen: '<path d="M4 20l1-4L16 5l3 3L8 19l-4 1zM14 7l3 3"/>',
       pin: '<path d="M12 21s6-5.5 6-11a6 6 0 0 0-12 0c0 5.5 6 11 6 11z"/><circle cx="12" cy="10" r="2"/>',
       book: '<path d="M4 5h7a2 2 0 0 1 1 2v13a2 2 0 0 0-1-1H4zM20 5h-7a2 2 0 0 0-1 2v13a2 2 0 0 1 1-1h7z"/>',
-      bubble: '<path d="M4 5h16v11H10l-5 4v-4H4z"/>',
+      bulb: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>',
       phones: '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/>',
       town: '<path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/>',
       heart: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z"/>',
       cam: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.5"/>'
     };
-    var BYID = { "bondytv": "tv", "attention": "food", "edito": "pen", "visage": "bridge", "coeur": "pin", "pepitheque": "book", "entreprises": "bag", "food-trucks": "truck", "appel-citoyen": "bubble", "podcast": "phones", "micro-trottoir": "mic", "politique": "town", "action14": "heart" };
+    var BYID = { "bondytv": "tv", "attention": "food", "edito": "pen", "visage": "bridge", "coeur": "pin", "pepitheque": "book", "entreprises": "bag", "food-trucks": "truck", "idee": "bulb", "podcast": "phones", "micro-trottoir": "mic", "politique": "town", "action14": "heart" };
     function ico(k) { return IC[k] ? '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#12141c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + "</svg>" : ""; }
     var som = arts.map(function (a, i) {
       var n = String(i + 1); if (n.length < 2) n = "0" + n;
