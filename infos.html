@@ -515,11 +515,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .bi-util .note { margin: 20px 0 0; font-size: 15px; color: #555a69; }
 @media (max-width: 900px) { .bi-util h3 { min-height: 0; } .bi-util-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .bi-util-grid { grid-template-columns: minmax(0, 1fr); } }
-body { overflow-x: clip; }
-.bi-photo { grid-column: 1 / -1; position: relative; margin: 26px 0 0 calc(50% - 50vw); width: 100vw; box-shadow: none; }
-.bi-photo img { display: block; width: 100%; height: clamp(300px, 46vw, 640px); aspect-ratio: auto; object-fit: cover; object-position: 50% 52%; }
-.bi-photo figcaption { left: max(16px, calc(50vw - 560px)); }
-@media (max-width: 620px) { .bi-photo { box-shadow: none; } .bi-photo img { height: 300px; aspect-ratio: auto; } }
+.bi-photo { grid-column: 1 / -1; position: relative; margin: 28px 0 10px; width: auto; box-shadow: 10px 10px 0 var(--beige); }
+.bi-photo img { display: block; width: 100%; height: auto; aspect-ratio: 2.7 / 1; object-fit: cover; object-position: 50% 64%; }
+.bi-photo figcaption { left: 0; }
+@media (max-width: 620px) { .bi-photo { box-shadow: 6px 6px 0 var(--beige); } .bi-photo img { aspect-ratio: 4 / 3; } }
 </style>
 </head>
 <body>
