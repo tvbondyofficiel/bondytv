@@ -129,6 +129,27 @@ collections:
               - {label: "Lien de l'annonceur", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
               - {label: "Premier jour (AAAA-MM-JJ)", name: debut, widget: string, required: false, hint: "Ex. 2026-11-02. Vide = tout de suite."}
               - {label: "Dernier jour (AAAA-MM-JJ)", name: fin, widget: string, required: false, hint: "Ex. 2026-11-08. La bannière disparaît toute seule le lendemain."}
+          - label: "Assistant du site (bulle « Une question ? »)"
+            name: assistant
+            widget: object
+            collapsed: true
+            fields:
+              - {label: "Afficher l'assistant", name: actif, widget: boolean, default: true}
+              - {label: "Nom de l'assistant", name: nom, widget: string}
+              - {label: "Texte du bouton flottant", name: bouton, widget: string}
+              - {label: "Texte du bouton vert (contact)", name: bouton_contact, widget: string}
+              - {label: "Message d'accueil", name: accueil, widget: text}
+              - {label: "Quand il ne sait pas répondre", name: inconnu, widget: text}
+              - {label: "Message après l'envoi des coordonnées", name: merci, widget: text}
+              - {label: "Phrase d'accord à cocher (données personnelles)", name: consentement, widget: text}
+              - label: "Questions et réponses"
+                name: faq
+                widget: list
+                summary: "{{fields.question}}"
+                fields:
+                  - {label: "Question (bouton affiché)", name: question, widget: string}
+                  - {label: "Mots-clés (séparés par des espaces)", name: mots_cles, widget: string, required: false, hint: "Les mots que les gens peuvent écrire pour cette question"}
+                  - {label: "Réponse", name: reponse, widget: text, hint: "[texte](adresse) = lien. Nouvelle ligne = retour à la ligne."}
           - label: "Section Racontez-nous votre histoire"
             name: temoigner
             widget: object

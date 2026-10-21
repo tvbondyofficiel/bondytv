@@ -644,5 +644,68 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
   }
 })();
 </script>
+<!-- assistant du site -->
+<script>
+(function () {
+  var KEY = "a10cef59-fca0-479e-81ab-13a661ab12b5";
+  function esc(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function safe(u) { u = String(u || "").trim(); return /^(https?:|mailto:|tel:|#|\/)/i.test(u) ? u : "#"; }
+  function rich(t) { return esc(t).replace(/\[([^\]]+)\]\(([^)\s]+)\)/g, function (m, a, b) { return '<a href="' + safe(b.replace(/&amp;/g, "&")) + '"' + (/^https?:/i.test(b) ? ' target="_blank" rel="noopener"' : "") + ">" + a + "</a>"; }).replace(/\n/g, "<br>"); }
+  function norm(t) { return String(t || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/[^a-z0-9 ]/g, " "); }
+  fetch("/content/site.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
+    var A = d.assistant; if (!A || !A.actif) return;
+    var css = document.createElement("style");
+    css.textContent = ".bt-fab{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:900;display:flex;align-items:center;gap:10px;background:var(--green);color:var(--on-green);border:0;border-radius:999px;padding:14px 20px;font:700 17px/1 var(--display);text-transform:uppercase;letter-spacing:.08em;box-shadow:0 8px 28px rgba(0,0,0,.28);cursor:pointer}.bt-fab:hover{filter:brightness(1.08)}.bt-fab svg{width:22px;height:22px}" +
+      ".bt-panel{position:fixed;right:max(16px,env(safe-area-inset-right,0px));bottom:max(16px,env(safe-area-inset-bottom,0px));z-index:950;width:min(380px,calc(100vw - 32px));height:min(600px,calc(100vh - 32px));display:none;flex-direction:column;background:var(--bg);color:var(--fg);border:1px solid var(--line);box-shadow:0 20px 60px rgba(0,0,0,.38);border-top:6px solid var(--red)}.bt-panel.on{display:flex}" +
+      ".bt-h{display:flex;align-items:center;justify-content:space-between;padding:12px 14px;border-bottom:1px solid var(--line)}.bt-h b{font:700 22px/1 var(--display);text-transform:uppercase;letter-spacing:.04em}.bt-h button{width:36px;height:36px;border-radius:50%;border:1px solid var(--line);background:var(--bg);color:var(--fg);font-size:20px;cursor:pointer}" +
+      ".bt-m{flex:1;overflow:auto;padding:14px;display:flex;flex-direction:column;gap:10px;font-size:15px;line-height:1.45}.bt-b{max-width:88%;padding:10px 13px;border-radius:14px}.bt-b.bot{background:var(--surface);align-self:flex-start;border-bottom-left-radius:4px}.bt-b.me{background:var(--fg);color:var(--bg);align-self:flex-end;border-bottom-right-radius:4px}.bt-b a{color:var(--green);font-weight:600}" +
+      ".bt-c{display:flex;flex-wrap:wrap;gap:6px;padding:0 14px 10px}.bt-c button{background:transparent;color:var(--fg);border:1px solid var(--line);border-radius:999px;padding:7px 12px;font:600 14px/1.2 var(--body);cursor:pointer;text-align:left}.bt-c button:hover{border-color:var(--green);color:var(--green)}.bt-c button.lead{background:var(--green);color:var(--on-green);border-color:var(--green)}" +
+      ".bt-f{display:flex;gap:8px;padding:10px 14px;border-top:1px solid var(--line)}.bt-f input{flex:1;min-width:0;border:1px solid var(--line);border-radius:999px;padding:10px 14px;background:var(--bg);color:var(--fg);font:inherit}.bt-f button{background:var(--fg);color:var(--bg);border:0;border-radius:999px;padding:0 16px;font:700 15px/1 var(--display);text-transform:uppercase;letter-spacing:.08em;cursor:pointer}" +
+      ".bt-lead{display:flex;flex-direction:column;gap:8px;padding:14px;border-top:1px solid var(--line);overflow:auto;max-height:78%}.bt-lead label{font:700 13px/1 var(--display);text-transform:uppercase;letter-spacing:.1em}.bt-lead input,.bt-lead select,.bt-lead textarea{width:100%;border:1px solid var(--line);border-radius:8px;padding:9px 11px;background:var(--bg);color:var(--fg);font:inherit}.bt-lead label.ck{font:400 13px/1.4 var(--body);text-transform:none;letter-spacing:0}.bt-lead textarea{min-height:76px;resize:vertical}.bt-lead>*{flex-shrink:0}.bt-lead .ck{display:flex;gap:8px;align-items:flex-start;font-size:13px;color:var(--muted)}.bt-lead .ck input{width:auto;margin-top:3px;accent-color:var(--green)}.bt-lead .go{background:var(--green);color:var(--on-green);border:0;border-radius:999px;padding:12px;font:800 17px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer}.bt-lead .go:disabled{opacity:.5}.bt-err{color:var(--red);font-size:13px;min-height:16px;margin:0}" +
+      "@media (prefers-reduced-motion:reduce){.bt-fab{transition:none}}";
+    document.head.appendChild(css);
+    var fab = document.createElement("button"); fab.className = "bt-fab"; fab.type = "button"; fab.setAttribute("aria-label", "Ouvrir l'assistant");
+    fab.innerHTML = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20l1-4.6A8 8 0 1 1 21 12z"/></svg><span>' + esc(A.bouton || "Une question ?") + "</span>";
+    var panel = document.createElement("div"); panel.className = "bt-panel"; panel.setAttribute("role", "dialog"); panel.setAttribute("aria-label", A.nom || "Assistant");
+    panel.innerHTML = '<div class="bt-h"><b>' + esc(A.nom || "Assistant Bondy TV") + '</b><button type="button" aria-label="Fermer">×</button></div><div class="bt-m" aria-live="polite"></div><div class="bt-c"></div><form class="bt-f"><input type="text" aria-label="Votre question" placeholder="Posez votre question…" autocomplete="off"><button type="submit">Envoyer</button></form>';
+    document.body.appendChild(fab); document.body.appendChild(panel);
+    var M = panel.querySelector(".bt-m"), C = panel.querySelector(".bt-c"), F = panel.querySelector(".bt-f"), I = F.querySelector("input"), started = false, faq = A.faq || [];
+    function say(t, who) { var b = document.createElement("div"); b.className = "bt-b " + (who || "bot"); if (who === "me") b.textContent = t; else b.innerHTML = rich(t); M.appendChild(b); M.scrollTop = M.scrollHeight; }
+    function chips() {
+      C.innerHTML = "";
+      faq.slice(0, 4).forEach(function (q) { var b = document.createElement("button"); b.type = "button"; b.textContent = q.question; b.onclick = function () { say(q.question, "me"); say(q.reponse); }; C.appendChild(b); });
+      var l = document.createElement("button"); l.type = "button"; l.className = "lead"; l.textContent = A.bouton_contact || "Je veux témoigner ou présenter un projet"; l.onclick = lead; C.appendChild(l);
+    }
+    function answer(txt) {
+      var w = norm(txt).split(" ").filter(function (x) { return x.length > 2; }), best = null, bs = 0;
+      faq.forEach(function (q) { var hay = " " + norm((q.mots_cles || "") + " " + q.question) + " ", s = 0; w.forEach(function (x) { if (hay.indexOf(" " + x) >= 0) s++; }); if (s > bs) { bs = s; best = q; } });
+      say(txt, "me");
+      if (best && bs > 0) say(best.reponse); else { say(A.inconnu || "Je n'ai pas la réponse à cette question. Laissez-nous vos coordonnées : l'équipe vous répondra."); }
+    }
+    function lead() {
+      if (panel.querySelector(".bt-lead")) return;
+      say("Avec plaisir. Laissez-nous vos coordonnées et quelques mots, l'équipe vous recontacte.");
+      F.hidden = true; C.hidden = true;
+      var f = document.createElement("form"); f.className = "bt-lead";
+      f.innerHTML = '<label for="bt-n">Prénom ou pseudo</label><input id="bt-n" name="nom" required><label for="bt-c">Téléphone ou e-mail</label><input id="bt-c" name="contact" required placeholder="06 00 00 00 00 ou nom@mail.fr"><label for="bt-t">Je souhaite</label><select id="bt-t" name="type"><option>Témoigner</option><option>Présenter un projet</option><option>Proposer un sujet</option><option>Autre demande</option></select><label for="bt-m">Votre message</label><textarea id="bt-m" name="message" rows="3" required></textarea><p aria-hidden="true" style="display:none"><input type="checkbox" name="botcheck" tabindex="-1"></p><label class="ck"><input type="checkbox" id="bt-ok" required><span>' + esc(A.consentement || "J'accepte que Bondy TV utilise ces informations pour me recontacter. Elles ne sont pas partagées.") + '</span></label><p class="bt-err" role="status"></p><button class="go" type="submit">Envoyer</button>';
+      panel.insertBefore(f, F);
+      f.addEventListener("submit", function (e) {
+        e.preventDefault(); var er = f.querySelector(".bt-err"), btn = f.querySelector(".go"); er.textContent = "";
+        var contact = f.contact.value.trim(); if (!/@/.test(contact) && contact.replace(/\D/g, "").length < 8) { er.textContent = "Indiquez un numéro de téléphone ou une adresse e-mail valide."; return; }
+        btn.disabled = true; btn.textContent = "Envoi…";
+        var body = { access_key: KEY, subject: "Assistant Bondy TV : " + f.type.value, from_name: "Assistant Bondy TV", nom: f.nom.value.trim(), contact: contact, souhait: f.type.value, message: f.message.value.trim(), page: location.pathname, botcheck: f.botcheck.checked };
+        fetch("https://api.web3forms.com/submit", { method: "POST", headers: { "Content-Type": "application/json", Accept: "application/json" }, body: JSON.stringify(body) }).then(function (r) { return r.json(); }).then(function (j) {
+          if (!j.success) throw new Error("x"); f.remove(); say(A.merci || "Merci ! Votre message est bien arrivé. L'équipe de Bondy TV vous recontacte très vite."); F.hidden = false; C.hidden = false; chips();
+        }).catch(function () { btn.disabled = false; btn.textContent = "Envoyer"; er.textContent = "L'envoi n'a pas marché. Écrivez-nous à tvbondy@gmail.com."; });
+      });
+    }
+    function open() { panel.classList.add("on"); fab.hidden = true; if (!started) { started = true; say(A.accueil || "Bonjour ! Je réponds à vos questions sur Bondy TV."); chips(); } I.focus(); }
+    function close() { panel.classList.remove("on"); fab.hidden = false; fab.focus(); }
+    fab.onclick = open; panel.querySelector(".bt-h button").onclick = close;
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape" && panel.classList.contains("on")) close(); });
+    F.addEventListener("submit", function (e) { e.preventDefault(); var t = I.value.trim(); if (!t) return; I.value = ""; answer(t); });
+  }).catch(function () {});
+})();
+</script>
 </body>
 </html>

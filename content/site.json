@@ -439,5 +439,52 @@
     "bouton": "Témoigner",
     "delai": 2,
     "duree": 12
+  },
+  "assistant": {
+    "actif": true,
+    "nom": "Assistant Bondy TV",
+    "bouton": "Une question ?",
+    "bouton_contact": "Je veux témoigner ou présenter un projet",
+    "accueil": "Bonjour ! Je réponds à vos questions sur Bondy TV. Choisissez une question ci-dessous ou écrivez la vôtre. Si vous voulez témoigner ou présenter un projet, je prends vos coordonnées.",
+    "inconnu": "Je n'ai pas la réponse précise à cette question. Laissez-nous vos coordonnées avec le bouton vert ci-dessous : l'équipe vous répondra.",
+    "merci": "Merci ! Votre message est bien arrivé. L'équipe de Bondy TV vous recontacte très vite.",
+    "consentement": "J'accepte que Bondy TV utilise ces informations pour me recontacter. Elles ne sont ni vendues ni partagées.",
+    "faq": [
+      {
+        "question": "C'est quoi Bondy TV ?",
+        "mots_cles": "bondy tv quoi presentation qui association magazine",
+        "reponse": "Bondy TV existe depuis 2018. Créé par Mohammed, c'est un magazine gratuit, ouvert à toutes et à tous, avec une conviction simple : chacun mérite d'être vu et entendu. Lisez [l'édito](/edito.html)."
+      },
+      {
+        "question": "C'est gratuit ?",
+        "mots_cles": "gratuit prix payant cout tarif combien",
+        "reponse": "Oui, Bondy TV est 100 % gratuit : l'information et la parole ne doivent pas avoir de prix."
+      },
+      {
+        "question": "Comment témoigner ?",
+        "mots_cles": "temoigner temoignage raconter histoire parole video",
+        "reponse": "Vous pouvez passer par la page [La parole est à vous](/temoigner.html), ou laisser vos coordonnées ici avec le bouton vert : l'équipe vous recontacte. Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées."
+      },
+      {
+        "question": "Comment proposer un sujet ?",
+        "mots_cles": "proposer sujet idee article projet association commerce",
+        "reponse": "Associations, commerçants, habitants : écrivez à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Tout est sur la page [Proposer un sujet](/proposer.html)."
+      },
+      {
+        "question": "Où voir les vidéos ?",
+        "mots_cles": "video voir youtube tiktok instagram facebook reseaux podcast",
+        "reponse": "Sur [YouTube](https://www.youtube.com/@Bondytvofficiel), [TikTok](https://www.tiktok.com/@bondytvofficiel), [Instagram](https://www.instagram.com/bondy_tv/) et [Facebook](https://www.facebook.com/profile.php?id=61595506318556). Les podcasts sont sur la chaîne YouTube."
+      },
+      {
+        "question": "Comment installer l'application ?",
+        "mots_cles": "installer application appli app telephone iphone android",
+        "reponse": "Touchez le bouton « Installer l'app » dans le menu. Sur iPhone : bouton Partager de Safari, puis « Sur l'écran d'accueil »."
+      },
+      {
+        "question": "Mon message sera-t-il publié ?",
+        "mots_cles": "publie publier retrait supprimer accord confidentialite donnees",
+        "reponse": "Votre message n'est publié qu'avec votre accord, et vous pouvez demander son retrait à tout moment."
+      }
+    ]
   }
 }
