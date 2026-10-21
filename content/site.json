@@ -487,5 +487,15 @@
         "reponse": "Votre message n'est publié qu'avec votre accord, et vous pouvez demander son retrait à tout moment."
       }
     ]
+  },
+  "page_pub": {
+    "etiquette": "Publicité",
+    "annonceur": "",
+    "image": "",
+    "image_description": "",
+    "titre": "",
+    "texte": "",
+    "bouton": "",
+    "lien": ""
   }
 }

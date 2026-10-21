@@ -130,6 +130,19 @@ collections:
               - {label: "Lien de l'annonceur", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
               - {label: "Premier jour (AAAA-MM-JJ)", name: debut, widget: string, required: false, hint: "Ex. 2026-11-02. Vide = tout de suite."}
               - {label: "Dernier jour (AAAA-MM-JJ)", name: fin, widget: string, required: false, hint: "Ex. 2026-11-08. La bannière disparaît toute seule le lendemain."}
+          - label: "Page de publicité (entre la couverture et l'édito)"
+            name: page_pub
+            widget: object
+            collapsed: false
+            fields:
+              - {label: "Mention en haut de page", name: etiquette, widget: string, required: false, default: "Publicité"}
+              - {label: "Nom de l'annonceur", name: annonceur, widget: string, required: false, hint: "Laissez vide tant que la page n'est pas louée : elle affichera « Votre publicité ici »."}
+              - {label: "Affiche de l'annonceur (grand format, de préférence vertical)", name: image, widget: image, required: false, hint: "Si vous mettez une affiche, elle prend toute la page."}
+              - {label: "Description de l'affiche (pour les malvoyants)", name: image_description, widget: string, required: false}
+              - {label: "Titre (publicité en texte, sans affiche)", name: titre, widget: string, required: false}
+              - {label: "Texte (publicité en texte)", name: texte, widget: text, required: false}
+              - {label: "Texte du bouton", name: bouton, widget: string, required: false}
+              - {label: "Lien de l'annonceur", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
           - label: "Assistant du site (bulle « Une question ? »)"
             name: assistant
             widget: object
