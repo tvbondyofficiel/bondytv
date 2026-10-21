@@ -358,6 +358,15 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 .art.cible { outline: 4px solid var(--green); outline-offset: 6px; animation: cible 2.4s ease-out 1; }
 @keyframes cible { 0% { outline-color: var(--red); outline-offset: 14px; } 100% { outline-color: var(--green); outline-offset: 6px; } }
 @media (prefers-reduced-motion: reduce) { .art.cible { animation: none; } }
+
+/* pied de page : trois blocs alignés, réseaux sociaux au centre exact */
+footer { display: grid; grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr); align-items: center; column-gap: 24px; row-gap: 14px; }
+footer > span:first-child { justify-self: start; }
+footer > span:last-child { justify-self: end; text-align: right; }
+footer .follow { display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 10px; text-align: center; }
+footer .follow-t { display: block; text-align: center; letter-spacing: .18em; }
+footer .social { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; padding: 0; }
+@media (max-width: 760px) { footer { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; } footer > span:first-child, footer > span:last-child { justify-self: center; text-align: center; } footer .follow { order: -1; } }
 </style>
 </head>
 <body>
