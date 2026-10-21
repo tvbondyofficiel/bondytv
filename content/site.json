@@ -90,12 +90,12 @@
       {
         "image": "/images/une-terrain.jpg",
         "legende": "Sur le terrain",
-        "lien": "/videos.html"
+        "lien": "/images-videos.html#videos"
       },
       {
         "image": "/images/une-studio.jpg",
         "legende": "Le studio",
-        "lien": "/videos.html"
+        "lien": "/images-videos.html#videos"
       }
     ]
   },

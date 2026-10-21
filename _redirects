@@ -1,2 +1,6 @@
 /archives /sommaire.html 301
 /archives.html /sommaire.html 301
+/images /images-videos.html 301
+/images.html /images-videos.html 301
+/videos /images-videos.html#videos 301
+/videos.html /images-videos.html#videos 301
