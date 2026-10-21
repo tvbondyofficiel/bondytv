@@ -497,5 +497,32 @@
     "texte": "",
     "bouton": "",
     "lien": ""
+  },
+  "en_images": {
+    "titre": "Bondy en images",
+    "introduction": "La ville, ses visages, ses moments. Une image vaut mille mots : regardez, partagez, réagissez.",
+    "photos": [
+      {
+        "image": "/images/coeur-canal.jpg",
+        "date": "",
+        "titre": "Le canal de l'Ourcq",
+        "legende": "Entre les arbres, sous un ciel bleu.",
+        "description": "Le canal de l'Ourcq à Bondy, entre les arbres, sous un ciel bleu"
+      },
+      {
+        "image": "/images/conseil.jpg",
+        "date": "",
+        "titre": "Le conseil municipal",
+        "legende": "Les élus autour de la table, le public au premier plan.",
+        "description": "Séance du conseil municipal : élus autour de la table, public au premier plan"
+      },
+      {
+        "image": "/images/podcast.jpg",
+        "date": "",
+        "titre": "Au micro, dans la bonne humeur",
+        "legende": "Trois voix, un podcast, beaucoup de rires.",
+        "description": "Trois personnes rient autour d'une table de podcast, devant des micros"
+      }
+    ]
   }
 }

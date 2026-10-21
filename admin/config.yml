@@ -130,6 +130,23 @@ collections:
               - {label: "Lien de l'annonceur", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
               - {label: "Premier jour (AAAA-MM-JJ)", name: debut, widget: string, required: false, hint: "Ex. 2026-11-02. Vide = tout de suite."}
               - {label: "Dernier jour (AAAA-MM-JJ)", name: fin, widget: string, required: false, hint: "Ex. 2026-11-08. La bannière disparaît toute seule le lendemain."}
+          - label: "Page « Bondy en images »"
+            name: en_images
+            widget: object
+            collapsed: false
+            fields:
+              - {label: "Titre de la page", name: titre, widget: string}
+              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
+              - label: "Photos (la première est affichée en très grand)"
+                name: photos
+                widget: list
+                summary: "{{fields.titre}}"
+                fields:
+                  - {label: "Photo (de préférence en largeur, bien nette)", name: image, widget: image}
+                  - {label: "Date (ex. 9 juillet)", name: date, widget: string, required: false}
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Légende (une ou deux phrases)", name: legende, widget: text, required: false}
+                  - {label: "Description de la photo (pour les malvoyants)", name: description, widget: string, required: false}
           - label: "Page de publicité (entre la couverture et l'édito)"
             name: page_pub
             widget: object
