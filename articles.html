@@ -446,6 +446,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .yt-go .play { position: relative; }
 .yt-go:hover .play { filter: brightness(1.12); }
 .yt-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
+
+/* maquette : images larges plus basses, texte qui occupe sa colonne, colonne latérale remontée */
+.art.wide .vis.has-img { aspect-ratio: 21 / 9; }
+.art.wide .vis.yt-box.on { aspect-ratio: 16 / 9; }
+.more.has-side .tx > p, .more.has-side .tx > ul { max-width: none; }
+.more.has-side { grid-template-columns: minmax(0, 1fr) 280px; column-gap: 40px; margin-top: 4px; }
+details[open] > summary { margin-bottom: 6px; }
+
+/* bouton lecture : toujours rouge */
+.play, .grid > .art:nth-child(even) .play, .yt-go .play { background: #e8222d !important; }
+.play::after, .grid > .art:nth-child(even) .play::after { border-left-color: #ffffff !important; }
 </style>
 </head>
 <body>
@@ -587,7 +598,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var s = '<aside class="side" aria-label="Autour de cet article">';
     var ids = (d.articles || []).map(function (x) { return x.id; });
     var all = (d.articles || []).filter(function (x) { return x.id !== "edito" && x.image && x.id !== a.id; });
-    var i = ids.indexOf(a.id), rel = all.filter(function (x) { return ids.indexOf(x.id) > i; }).concat(all).slice(0, 2);
+    var i = ids.indexOf(a.id), rel = all.filter(function (x) { return ids.indexOf(x.id) > i; }).concat(all).slice(0, String(a.texte || "").length < 1300 ? 1 : 2);
     if (rel.length) s += '<div class="phs">' + rel.map(function (x) { return '<figure><a href="#' + esc(x.id) + '"><img src="' + esc(x.image) + '" alt="' + esc(x.image_description || x.titre) + '" loading="lazy"></a><figcaption>' + esc(x.titre) + "</figcaption></figure>"; }).join("") + "</div>";
     s += '<div class="sb sb-media"><h4>Un média complet</h4><a class="sb-btn" href="' + yt + '/podcasts" target="_blank" rel="noopener">Écouter le podcast</a><a class="sb-btn" href="' + yt + '" target="_blank" rel="noopener">Voir la chaîne YouTube</a></div>';
     if (String(a.texte || "").length < 1300) return s + "</aside>";
@@ -600,7 +611,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var f = document.createElement("iframe");
     f.src = "https://www.youtube-nocookie.com/embed/" + b.getAttribute("data-yt") + "?autoplay=1&rel=0";
     f.title = "Vidéo Bondy TV"; f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true; f.referrerPolicy = "strict-origin-when-cross-origin";
-    b.parentNode.replaceChild(f, b);
+    b.parentNode.classList.add("on"); b.parentNode.replaceChild(f, b);
   });
 
   function article(a) {
@@ -611,7 +622,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (a.chapo) h += '<p class="chapo">' + inline(a.chapo) + "</p>";
     if (a.credit) h += '<p class="credit">' + inline(a.credit) + "</p>";
     if (a.texte_visible) h += md(a.texte_visible);
-    if (a.lien_video) h += "<p>" + link("Voir la vidéo", a.lien_video) + "</p>";
+    if (a.lien_video && !ytId(a.lien_video)) h += "<p>" + link("Voir la vidéo", a.lien_video) + "</p>";
     if (a.texte) { var body = md(a.texte), ph = body.match(/<div class="phs">[\s\S]*?<\/div>/g) || []; body = body.replace(/<div class="phs">[\s\S]*?<\/div>/g, ""); h += "<details><summary>Lire la suite</summary><div class=\"more" + (ph.length ? " has-ph" : " has-side") + "\">" + (ph.length ? "<div class=\"tx\">" + body + "</div>" + ph.join("") : "<div class=\"tx\">" + body + "</div>" + sidebar(a)) + "</div></details>"; }
     return h + "</div></article>";
   }
