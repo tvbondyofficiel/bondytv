@@ -167,6 +167,7 @@ collections:
                   - {label: "Identifiant (sans espace ni accent, ex: marie-dupont ; ne plus le changer ensuite)", name: id, widget: string}
                   - {label: "Nom et prénom (comme sur le site officiel de la ville)", name: nom, widget: string}
                   - {label: "Fonction (comme sur le site officiel de la ville)", name: fonction, widget: string}
+                  - {label: "Groupe (écrire exactement comme les autres : Le maire et les adjoints / Conseillers municipaux délégués (majorité) / Opposition municipale)", name: groupe, widget: string}
           - label: "Page « Bondy en images »"
             name: en_images
             widget: object

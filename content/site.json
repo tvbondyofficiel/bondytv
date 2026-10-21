@@ -559,100 +559,280 @@
   },
   "elus": {
     "titre": "Vos élus, votre avis",
-    "introduction": "Le maire et ses adjoints travaillent pour les Bondynois. Donnez une note de 0 à 10 à chacun, et dites en une phrase ce qu'il ou elle a fait pour vous. Chaque habitant ne peut voter qu'une seule fois par élu.",
-    "source": "Noms et délégations : site officiel de la ville de Bondy (ville-bondy.fr).",
+    "introduction": "Le maire, ses adjoints, les conseillers de la majorité et ceux de l'opposition : tous les 45 élus du conseil municipal. Donnez une note de 0 à 10 à chacun, et dites en une phrase ce qu'il ou elle a fait pour vous. Chaque habitant ne peut voter qu'une seule fois par élu.",
+    "source": "Noms et fonctions : site officiel de la ville de Bondy (ville-bondy.fr) et compte rendu du conseil municipal du 18 avril 2026.",
     "avertissement": "Avis déclaratifs d'habitants, non vérifiés et non représentatifs : ce n'est pas un sondage officiel. La moyenne d'un élu n'apparaît qu'à partir de 5 avis. Les notes portent sur l'action publique de l'élu, jamais sur sa vie privée.",
     "droit_de_reponse": "Vous êtes élu(e) et souhaitez répondre ? Écrivez à tvbondy@gmail.com : votre réponse sera publiée sur cette page.",
     "liste": [
       {
         "id": "stephen-herve",
         "nom": "Stephen Hervé",
-        "fonction": "Maire de Bondy"
+        "fonction": "Maire de Bondy",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "alexandre-cote",
         "nom": "Alexandre Cote",
-        "fonction": "1er adjoint · Médiation et sécurité"
+        "fonction": "1er adjoint · Médiation et sécurité",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "alison-poncet",
         "nom": "Alison Poncet",
-        "fonction": "2e adjointe · Affaires scolaires et périscolaires"
+        "fonction": "2e adjointe · Affaires scolaires et périscolaires",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "onur-sagkan",
         "nom": "Onur Sagkan",
-        "fonction": "3e adjoint · Grands projets d'aménagement, urbanisme"
+        "fonction": "3e adjoint · Grands projets d'aménagement, urbanisme",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "joelle-motte",
         "nom": "Joëlle Motte",
-        "fonction": "4e adjointe · Action sociale"
+        "fonction": "4e adjointe · Action sociale",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "samba-traore",
         "nom": "Samba Traoré",
-        "fonction": "5e adjoint · Habitat, logement et lutte contre l'habitat indigne"
+        "fonction": "5e adjoint · Habitat, logement et lutte contre l'habitat indigne",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "nazha-el-mahmoudi",
         "nom": "Nazha El Mahmoudi",
-        "fonction": "6e adjointe · Réussite éducative et lutte contre le décrochage scolaire"
+        "fonction": "6e adjointe · Réussite éducative et lutte contre le décrochage scolaire",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "laurent-cotte",
         "nom": "Laurent Cotte",
-        "fonction": "7e adjoint · Cadre de vie, requalification des espaces publics, patrimoine bâti"
+        "fonction": "7e adjoint · Cadre de vie, requalification des espaces publics, patrimoine bâti",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "auriane-calambe",
         "nom": "Auriane Calambe",
-        "fonction": "8e adjointe · Vie associative"
+        "fonction": "8e adjointe · Vie associative",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "othman-asaadi",
         "nom": "Othman Asaadi",
-        "fonction": "9e adjoint · Culture et patrimoine culturel"
+        "fonction": "9e adjoint · Culture et patrimoine culturel",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "christelle-le-gouallec",
         "nom": "Christelle Le Gouallec",
-        "fonction": "10e adjointe · Attractivité, développement économique"
+        "fonction": "10e adjointe · Attractivité, développement économique",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "andres-henao-santa",
         "nom": "Andrès Henao Santa",
-        "fonction": "11e adjoint · Lutte contre la précarité et devoir de mémoire"
+        "fonction": "11e adjoint · Lutte contre la précarité et devoir de mémoire",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "chanaz-rodrigues",
         "nom": "Chanaz Rodrigues",
-        "fonction": "12e adjointe · Égalité hommes-femmes, lutte contre les discriminations, accessibilité et handicap"
+        "fonction": "12e adjointe · Égalité hommes-femmes, lutte contre les discriminations, accessibilité et handicap",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "azzedine-drif",
         "nom": "Azzedine Drif",
-        "fonction": "13e adjoint · Propreté urbaine et lutte contre les incivilités"
+        "fonction": "13e adjoint · Propreté urbaine et lutte contre les incivilités",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "rouguiatou-ndiaye",
         "nom": "Rouguiatou N’Diaye",
-        "fonction": "14e adjointe · Politique jeunesse"
+        "fonction": "14e adjointe · Politique jeunesse",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "patrick-gibert",
         "nom": "Patrick Gibert",
-        "fonction": "15e adjoint · Sport, équipements sportifs et sport-santé"
+        "fonction": "15e adjoint · Sport, équipements sportifs et sport-santé",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "roseline-morelli",
         "nom": "Roseline Morelli",
-        "fonction": "16e adjointe · Politique de la Ville et égalité territoriale"
+        "fonction": "16e adjointe · Politique de la Ville et égalité territoriale",
+        "groupe": "Le maire et les adjoints"
       },
       {
         "id": "theo-fonseca",
         "nom": "Théo Fonseca",
-        "fonction": "17e adjoint · Voirie et mobilités"
+        "fonction": "17e adjoint · Voirie et mobilités",
+        "groupe": "Le maire et les adjoints"
+      },
+      {
+        "id": "oldhynn-pierre",
+        "nom": "Oldhynn Pierre",
+        "fonction": "Conseillère municipale déléguée · Prévention et santé",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "nezha-decourriere",
+        "nom": "Nezha Decourrière",
+        "fonction": "Conseillère municipale déléguée · Séniors et activités intergénérationnelles",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "banuja-baskaran",
+        "nom": "Banuja Baskaran",
+        "fonction": "Conseillère municipale déléguée · Marketing territorial et coopérations décentralisées",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "yves-parra",
+        "nom": "Yves Parra",
+        "fonction": "Conseiller municipal délégué · Dialogue social, ressources humaines",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "mariata-berte",
+        "nom": "Mariata Berté",
+        "fonction": "Conseillère municipale déléguée · Développement social des quartiers",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "sebastien-leite",
+        "nom": "Sébastien Leite",
+        "fonction": "Conseiller municipal délégué · Développement durable, transition écologique, biodiversité",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "sergul-celik",
+        "nom": "Sergul Celik",
+        "fonction": "Conseillère municipale déléguée · Bien-être et santé mentale",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "smaila-camara",
+        "nom": "Smaïla Camara",
+        "fonction": "Conseiller municipal délégué · Finances et commande publique",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "sophie-george",
+        "nom": "Sophie George",
+        "fonction": "Conseillère municipale déléguée · Nouvelles solidarités et alimentation durable",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "jacques-ferrand",
+        "nom": "Jacques Ferrand",
+        "fonction": "Conseiller municipal délégué · Commerces et marchés forains",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "fadila-tekkouk",
+        "nom": "Fadila Tekkouk",
+        "fonction": "Conseillère municipale déléguée · Citoyenneté et valeurs républicaines",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "mustapha-lachheb",
+        "nom": "Mustapha Lachheb",
+        "fonction": "Conseiller municipal délégué · Emploi, insertion professionnelle, régies de quartiers",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "sofia-yenbou",
+        "nom": "Sofia Yenbou",
+        "fonction": "Conseillère municipale déléguée · Conseil municipal des jeunes, événements jeunes",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "adam-abbas",
+        "nom": "Adam Abbas",
+        "fonction": "Conseiller municipal délégué · Éducation populaire",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "zoran-pavlovic",
+        "nom": "Zoran Pavlovic",
+        "fonction": "Conseiller municipal délégué · Espaces verts, parcs et jardins, lieux de vie",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "malyna-su",
+        "nom": "Malyna Su",
+        "fonction": "Conseillère municipale déléguée · Petite enfance, famille et parentalité",
+        "groupe": "Conseillers municipaux délégués (majorité)"
+      },
+      {
+        "id": "mehmet-ozguner",
+        "nom": "Mehmet Özgüner",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "nadege-abomangoli",
+        "nom": "Nadège Abomangoli",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "christian-billotte",
+        "nom": "Christian Billotte",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "medina-harfouche",
+        "nom": "Medina Harfouche",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "abirathan-pathmarajah",
+        "nom": "Abirathan Pathmarajah",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "sabine-duran",
+        "nom": "Sabine Duran",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "myriam-mansouri",
+        "nom": "Myriam Mansouri",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "samia-ben-jerad",
+        "nom": "Samia Ben Jerad",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "nicolas-schena",
+        "nom": "Nicolas Schena",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "sumeljyot-singh",
+        "nom": "Sumeljyot Singh",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
+      },
+      {
+        "id": "amine-ghedas",
+        "nom": "Amine Ghedas",
+        "fonction": "Conseil municipal · groupe d'opposition « Être Bondy »",
+        "groupe": "Opposition municipale"
       }
     ]
   }
