@@ -492,6 +492,14 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .pubpage .pg-cta .acts { display: flex; gap: 12px; flex-wrap: wrap; }
 .pubpage .pg-cta .acts a { min-width: 150px; text-align: center; padding: 14px 20px; }
 .a5.free a.gratuit { text-decoration: none; display: inline-block; cursor: pointer; }
+.bi-mini { margin: 40px 0 0; background: #f3ead6; border-left: 6px solid #b8975a; padding: 20px 24px; color: #12141c; }
+.bi-mini h2 { margin: 0 0 14px; font-family: var(--display); text-transform: uppercase; font-size: 28px; line-height: 1; }
+.bi-mini-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 18px; }
+.bi-mini h3 { margin: 0 0 6px; font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 15px; color: #006233; }
+.bi-mini p { margin: 0; font-size: 15px; line-height: 1.5; }
+.bi-mini .note { margin: 14px 0 0; font-size: 14px; color: #555a69; }
+@media (max-width: 900px) { .bi-mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .bi-mini-grid { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -508,7 +516,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <a href="/tribune.html">Tribune</a>
       <a href="/habitants.html">Habitants</a>
       <a href="/temoigner.html">Témoigner ou proposer</a>
-      <a href="/infos.html">Bonnes infos</a>
       <a href="/publicite.html" aria-current="page">Votre pub</a>
     </nav>
   </div>
@@ -658,6 +665,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         html += u ? '<a class="a5 on" href="' + esc(u) + '" target="_blank" rel="noopener sponsored">' + inner + '</a>' : '<div class="a5 on">' + inner + '</div>';
       }
       html += '</div>' + (pp.tarif ? '<p class="tarif">' + esc(pp.tarif) + '</p>' : "") + '<div class="suite"><span></span><a class="btn-all" href="/edito.html">Lire l\'édito</a></div></div>';
+      var ut = (d.bonnes_infos || {}).utiles || {};
+      if ((ut.items || []).length) html = html.replace(/<div class="suite">/, '<section class="bi-mini" id="infos"><h2>' + esc(ut.titre || "Infos utiles") + '</h2><div class="bi-mini-grid">' + ut.items.map(function (i) { return '<div><h3>' + esc(i.titre) + '</h3><p>' + esc(i.texte).replace(/\n/g, "<br>") + '</p></div>'; }).join("") + '</div>' + (ut.note ? '<p class="note">' + esc(ut.note) + '</p>' : "") + '</section><div class="suite">');
       document.getElementById("pub").innerHTML = html;
     }
 
