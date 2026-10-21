@@ -469,6 +469,12 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .ed-ville { margin: 0; background: #fff; border: 1px solid var(--line); padding: 8px 8px 10px; box-shadow: 7px 7px 0 var(--beige); }
 .ed-ville img { display: block; width: 100%; aspect-ratio: 4 / 3; object-fit: cover; object-position: 60% 45%; }
 .ed-ville figcaption { margin-top: 8px; font-size: 13px; color: var(--muted); }
+
+/* homogène : les deux blocs ont le même cadre, la même ombre beige, la même largeur */
+.ed-tem, .ed-ville { box-sizing: border-box; width: 100%; background: #fff; border: 1px solid var(--line); border-left: 1px solid var(--line); box-shadow: 7px 7px 0 var(--beige); }
+.ed-tem { padding: 22px 20px 24px; border-top: 5px solid #b8975a; }
+.ed-tem h3 { font-size: 22px; }
+.ed-more { gap: 26px; padding-right: 7px; }
 </style>
 </head>
 <body>
