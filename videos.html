@@ -511,6 +511,18 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .art .vis.has-icon { background: var(--beige); aspect-ratio: 16 / 6; border-bottom: 1px solid #c9b58a; }
 .art .vis.has-icon::before { display: none; }
 .art .vis.has-icon svg { height: 62%; width: auto; }
+
+.vtiles { list-style: none; margin: 34px 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(400px, 1fr)); gap: 28px; }
+.vtiles a { display: block; text-decoration: none; color: #12141c; background: #fff; border: 1px solid var(--line); box-shadow: 7px 7px 0 var(--beige); }
+.vtiles .im { position: relative; display: block; aspect-ratio: 16 / 9; overflow: hidden; }
+.vtiles img { width: 100%; height: 100%; object-fit: cover; display: block; transition: transform .3s ease; }
+.vtiles a:hover img { transform: scale(1.03); }
+.vtiles .play { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); width: 72px; height: 72px; border-radius: 50%; background: #e8222d; }
+.vtiles .play::after { content: ""; position: absolute; left: 28px; top: 20px; border-left: 24px solid #fff; border-top: 16px solid transparent; border-bottom: 16px solid transparent; }
+.vtiles .cap { display: block; padding: 14px 16px 16px; }
+.vtiles .cap b { display: block; font-family: var(--display); text-transform: uppercase; font-size: 26px; line-height: 1.05; }
+.vtiles .cap small { display: block; margin-top: 6px; font-size: 14px; line-height: 1.4; color: var(--muted); }
+@media (max-width: 560px) { .vtiles { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -669,7 +681,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var V = d.videos || {};
     if (document.getElementById("vid")) {
       var tt = esc(V.titre || "Bondy en vidéos").split(" "); var last = tt.pop();
-      document.getElementById("vid").innerHTML = '<div class="ph-head"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><div class="grid vid-grid">' + (V.cartes || []).map(article).join("") + '</div><div class="ph-cta"><b>Toutes nos vidéos sont sur YouTube</b><a href="' + esc(safeUrl(V.lien || "")) + '" target="_blank" rel="noopener">' + esc(V.bouton || "Voir la chaîne YouTube") + '</a></div>';
+      document.getElementById("vid").innerHTML = '<div class="ph-head"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><ul class="vtiles">' + (V.items || []).map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></a></li>'; }).join("") + '</ul><div class="ph-cta"><b>Toutes nos vidéos sont sur YouTube</b><a href="' + esc(safeUrl(V.lien || "")) + '" target="_blank" rel="noopener">' + esc(V.bouton || "Voir la chaîne YouTube") + '</a></div>';
     }
 
     var list = arts.filter(function (x) { return x.id !== "edito"; });

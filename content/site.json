@@ -823,41 +823,15 @@
   },
   "videos": {
     "titre": "Bondy en vidéos",
-    "introduction": "Les podcasts, les micro-trottoirs, les reportages : toutes les vidéos de Bondy TV sont sur notre chaîne YouTube.",
+    "introduction": "La ville en mouvement. Cliquez sur une image pour regarder la vidéo sur notre chaîne YouTube.",
     "lien": "https://www.youtube.com/@Bondytvofficiel",
     "bouton": "Voir la chaîne YouTube",
-    "cartes": [
+    "items": [
       {
-        "lien_video": "https://www.youtube.com/@Bondytvofficiel/podcasts",
-        "texte_visible": "",
-        "rubrique": "Vidéos",
-        "pleine_largeur": false,
-        "titre": "Le podcast",
-        "texte": "",
-        "image_description": "Trois personnes rient autour d'une table de podcast, devant des micros",
-        "credit": "Sur la chaîne YouTube de Bondy TV",
-        "id": "podcast",
-        "image": "/images/podcast.jpg",
-        "chapo": "Des voix, des histoires, en vidéo : artistes, citoyens, tous ceux qui ont envie de parler de Bondy.",
-        "visuel": "image",
-        "etiquette": "Vidéos · Podcast",
-        "image_portrait": false
-      },
-      {
-        "lien_video": "",
-        "texte_visible": "Vous voulez répondre ? Venez nous le dire.\n\n[Je veux témoigner](/temoigner.html)",
-        "rubrique": "Témoignage",
-        "pleine_largeur": false,
-        "titre": "Le micro-trottoir",
-        "texte": "",
-        "image_description": "",
-        "credit": "",
-        "id": "micro-trottoir",
-        "image": "",
-        "chapo": "« Comment voyez-vous le nouveau visage de Bondy ? » Les Bondynois répondent face caméra.",
-        "visuel": "icone-micro",
-        "etiquette": "Vidéos · Micro-trottoir",
-        "image_portrait": false
+        "image": "/images/coeur-canal.jpg",
+        "titre": "Au cœur de la ville",
+        "legende": "Une journée sur le terrain, au plus près des lieux où Bondy se retrouve.",
+        "lien": "https://www.youtube.com/watch?v=5tBiSEFapGk"
       }
     ]
   }
