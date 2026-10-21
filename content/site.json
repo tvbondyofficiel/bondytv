@@ -33,7 +33,7 @@
   },
   "couverture": {
     "image": "/images/une-ville.jpg",
-    "image_description": "Des agents en tenue orange nettoient une place de Bondy avec une balayeuse, sous un ciel d'automne",
+    "image_description": "Des agents en tenue orange nettoient la place du marché de Bondy Nord avec une balayeuse, sous un ciel d'automne",
     "lignes": [
       {
         "titre": "Bondy TV",
@@ -506,8 +506,8 @@
         "image": "/images/une-ville.jpg",
         "date": "",
         "titre": "Au service de la ville",
-        "legende": "Des agents en tenue orange nettoient une place de Bondy.",
-        "description": "Des agents en tenue orange nettoient une place de Bondy avec une balayeuse, sous un ciel d'automne"
+        "legende": "Des agents en tenue orange nettoient la place du marché de Bondy Nord.",
+        "description": "Des agents en tenue orange nettoient la place du marché de Bondy Nord avec une balayeuse, sous un ciel d'automne"
       },
       {
         "image": "/images/pepitheque-portail.jpg",
