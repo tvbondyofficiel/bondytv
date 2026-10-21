@@ -216,12 +216,12 @@
       {
         "image": "/images/une-terrain.jpg",
         "legende": "Sur le terrain",
-        "lien": "/articles.html#micro-trottoir"
+        "lien": "/videos.html"
       },
       {
         "image": "/images/une-studio.jpg",
         "legende": "Le studio",
-        "lien": "/articles.html#podcast"
+        "lien": "/videos.html"
       }
     ]
   },
@@ -378,38 +378,6 @@
       "texte_visible": "",
       "pleine_largeur": false,
       "texte": "Une ville, ce sont ses habitants qui la connaissent le mieux. Vous y vivez, vous y passez chaque jour, vous voyez ce qui marche et ce qui pourrait être encore mieux. Et si votre idée pouvait inspirer toute une ville ?\n\n**Chaque idée compte**\n\nUne animation pour le quartier, un coin à embellir, un service utile, une initiative pour les jeunes ou pour les aînés. Petite ou grande, une bonne idée mérite d'être entendue.\n\n**Venez nous la dire**\n\nÉcrivez-nous, ou envoyez-nous une courte vidéo. Racontez votre idée avec vos mots : ce que vous imaginez, et pourquoi cela ferait du bien à Bondy.\n\n**Nous la publions**\n\nLes meilleures idées sont publiées dans le magazine, avec votre nom si vous le souhaitez. Une idée partagée, c'est une ville qui avance.\n\n**Ensemble pour Bondy**\n\nBondy TV est là pour donner de la visibilité à celles et ceux qui ont quelque chose à dire. Prenez la parole : votre idée est peut-être la prochaine.\n\n[Je partage mon idée](/temoigner.html)"
-    },
-    {
-      "lien_video": "https://www.youtube.com/@Bondytvofficiel/podcasts",
-      "texte_visible": "",
-      "rubrique": "Vidéos",
-      "pleine_largeur": false,
-      "titre": "Le podcast",
-      "texte": "",
-      "image_description": "Trois personnes rient autour d'une table de podcast, devant des micros",
-      "credit": "Sur la chaîne YouTube de Bondy TV",
-      "id": "podcast",
-      "image": "/images/podcast.jpg",
-      "chapo": "Le podcast de Bondy TV : des voix, des histoires, en vidéo.",
-      "visuel": "image",
-      "etiquette": "Vidéos · podcast",
-      "image_portrait": false
-    },
-    {
-      "lien_video": "",
-      "texte_visible": "Prochain micro-trottoir : ==[lieu et date de tournage]==\n\n[Je veux témoigner](#temoigner)",
-      "rubrique": "Témoignage",
-      "pleine_largeur": false,
-      "titre": "Le micro-trottoir",
-      "texte": "",
-      "image_description": "",
-      "credit": "",
-      "id": "micro-trottoir",
-      "image": "",
-      "chapo": "« Comment voyez-vous le nouveau visage de Bondy ? »",
-      "visuel": "play",
-      "etiquette": "Témoignage · micro-trottoir",
-      "image_portrait": false
     },
     {
       "lien_video": "",
@@ -852,5 +820,45 @@
       }
     ],
     "phrases_actives": true
+  },
+  "videos": {
+    "titre": "Bondy en vidéos",
+    "introduction": "Les podcasts, les micro-trottoirs, les reportages : toutes les vidéos de Bondy TV sont sur notre chaîne YouTube.",
+    "lien": "https://www.youtube.com/@Bondytvofficiel",
+    "bouton": "Voir la chaîne YouTube",
+    "cartes": [
+      {
+        "lien_video": "https://www.youtube.com/@Bondytvofficiel/podcasts",
+        "texte_visible": "",
+        "rubrique": "Vidéos",
+        "pleine_largeur": false,
+        "titre": "Le podcast",
+        "texte": "",
+        "image_description": "Trois personnes rient autour d'une table de podcast, devant des micros",
+        "credit": "Sur la chaîne YouTube de Bondy TV",
+        "id": "podcast",
+        "image": "/images/podcast.jpg",
+        "chapo": "Des voix, des histoires, en vidéo : artistes, citoyens, tous ceux qui ont envie de parler de Bondy.",
+        "visuel": "image",
+        "etiquette": "Vidéos · Podcast",
+        "image_portrait": false
+      },
+      {
+        "lien_video": "",
+        "texte_visible": "Vous voulez répondre ? Venez nous le dire.\n\n[Je veux témoigner](/temoigner.html)",
+        "rubrique": "Témoignage",
+        "pleine_largeur": false,
+        "titre": "Le micro-trottoir",
+        "texte": "",
+        "image_description": "",
+        "credit": "",
+        "id": "micro-trottoir",
+        "image": "",
+        "chapo": "« Comment voyez-vous le nouveau visage de Bondy ? » Les Bondynois répondent face caméra.",
+        "visuel": "icone-micro",
+        "etiquette": "Vidéos · Micro-trottoir",
+        "image_portrait": false
+      }
+    ]
   }
 }

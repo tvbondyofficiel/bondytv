@@ -419,6 +419,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .sc .th.logo { width: 64px; }
 .sc .th.logo img { padding: 3px; }
 @media (max-width: 760px) { .sc .th.logo { width: 56px; } }
+
+/* nav 12 */
+@media (min-width: 900px) { .bar nav { gap: 6px 11px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .03em !important; } }
 </style>
 </head>
 <body>
@@ -433,6 +436,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <a href="/articles.html">Articles</a>
       <a href="/archives.html">Archives</a>
       <a href="/images.html">En images</a>
+      <a href="/videos.html">Vidéos</a>
       <a href="/infos.html">Bonnes infos</a>
       <a href="/elus.html">Vos élus</a>
       <a href="/temoigner.html">Témoigner</a>
@@ -605,6 +609,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     }).join("");
     var pages = [
       { href: "/images.html", ic: "cam", rub: "En images", t: (d.en_images || {}).titre || "Bondy en images", img: (((d.en_images || {}).photos || [])[0] || {}).image },
+      { href: "/videos.html", ic: "phones", rub: "Vidéos", t: (d.videos || {}).titre || "Bondy en vidéos" },
       { href: "/infos.html", ic: "info", rub: "Bonnes infos", t: (d.bonnes_infos || {}).titre || "Les bonnes infos" },
       { href: "/elus.html", ic: "vote", rub: "Vos élus", t: (d.elus || {}).titre || "Vos élus" },
       { href: "/publicite.html", ic: "mega", rub: "Publicité", t: (d.page_pub || {}).titre || "Votre publicité ici" }
