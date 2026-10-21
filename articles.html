@@ -179,17 +179,15 @@ details[open] summary { margin-bottom: 14px; }
 details .more { display: flex; flex-direction: column; gap: 12px; }
 .fill { background: color-mix(in srgb, var(--red) 22%, transparent); color: inherit; padding: 0 4px; border-radius: 2px; }
 .more ul { margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 6px; max-width: 62ch; }
-.more.has-ph { display: block; }
-.more.has-ph > p, .more.has-ph > ul { margin: 0 0 14px; }
-.more.has-ph > p.note { margin-bottom: 14px; }
-.more.has-ph::after { content: ""; display: block; clear: both; }
-.phs { float: right; width: 340px; margin: 4px 0 24px 44px; display: flex; flex-direction: column; gap: 26px; }
+.more.has-ph { display: grid; grid-template-columns: minmax(0, 1fr) var(--phw, 330px); column-gap: 44px; align-items: start; }
+.more.has-ph .tx { display: flex; flex-direction: column; gap: 12px; min-width: 0; }
+.phs { display: flex; flex-direction: column; gap: 20px; margin: 4px 0 0; }
 .phs figure { margin: 0; background: var(--surface); border: 1px solid var(--line); padding: 8px 8px 10px; box-shadow: 7px 7px 0 var(--green); }
 .phs a { display: block; line-height: 0; }
 .phs img { display: block; width: 100%; height: auto; }
 .phs figcaption { margin-top: 9px; font-size: 13px; line-height: 1.35; color: var(--muted); }
-@media (max-width: 860px) { .more.has-ph { display: flex; flex-direction: column; gap: 12px; } .more.has-ph > p, .more.has-ph > ul { margin: 0; } .phs { float: none; order: 99; width: auto; max-width: 440px; margin: 14px 0 6px; } }
-.phs.row { float: none; width: auto; max-width: none; margin: 18px 0 26px; flex-direction: row; gap: 22px; align-items: stretch; order: 0; }
+@media (max-width: 860px) { .more.has-ph { display: flex; flex-direction: column; gap: 12px; } .phs { max-width: 440px; margin: 14px 0 6px; } }
+.phs.row { width: auto; max-width: none; margin: 18px 0 26px; flex-direction: row; gap: 22px; align-items: stretch; order: 0; }
 .phs.row figure { flex: 1 1 0; min-width: 0; display: flex; flex-direction: column; }
 .phs.row figcaption { flex: 1; }
 @media (max-width: 620px) { .phs.row { flex-direction: column; max-width: 440px; } }
@@ -445,6 +443,19 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
     t = t.replace(/==(.+?)==/g, '<mark class="fill">$1</mark>');
     return t;
   }
+      function fitPhotos(det) {
+      var m = det.querySelector(".more.has-ph"); if (!m) return;
+      m.style.removeProperty("--phw");
+      if (window.matchMedia("(max-width: 860px)").matches) return;
+      var tx = m.querySelector(".tx"), ph = m.querySelector(".phs"); if (!tx || !ph) return;
+      var H = tx.offsetHeight, lo = 190, hi = 340, w = hi;
+      for (var i = 0; i < 9; i++) { w = (lo + hi) / 2; m.style.setProperty("--phw", w + "px"); if (ph.offsetHeight > H) hi = w; else lo = w; }
+      m.style.setProperty("--phw", Math.floor(lo) + "px");
+    }
+    document.addEventListener("toggle", function (e) { if (e.target && e.target.tagName === "DETAILS" && e.target.open) fitPhotos(e.target); }, true);
+    window.addEventListener("resize", function () { document.querySelectorAll("details[open]").forEach(fitPhotos); });
+    window.addEventListener("load", function () { document.querySelectorAll("details[open]").forEach(fitPhotos); });
+
   function md(text) {
     if (!text) return "";
     return String(text).replace(/\r/g, "").split(/\n{2,}/).map(function (b) {
@@ -499,7 +510,7 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
     if (a.credit) h += '<p class="credit">' + inline(a.credit) + "</p>";
     if (a.texte_visible) h += md(a.texte_visible);
     if (a.lien_video) h += "<p>" + link("Voir la vidéo", a.lien_video) + "</p>";
-    if (a.texte) { var body = md(a.texte), ph = body.match(/<div class="phs">[\s\S]*?<\/div>/g) || []; body = body.replace(/<div class="phs">[\s\S]*?<\/div>/g, ""); h += "<details><summary>Lire la suite</summary><div class=\"more" + (ph.length ? " has-ph" : "") + "\">" + ph.join("") + body + "</div></details>"; }
+    if (a.texte) { var body = md(a.texte), ph = body.match(/<div class="phs">[\s\S]*?<\/div>/g) || []; body = body.replace(/<div class="phs">[\s\S]*?<\/div>/g, ""); h += "<details><summary>Lire la suite</summary><div class=\"more" + (ph.length ? " has-ph" : "") + "\">" + (ph.length ? "<div class=\"tx\">" + body + "</div>" + ph.join("") : body) + "</div></details>"; }
     return h + "</div></article>";
   }
 
