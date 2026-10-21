@@ -263,7 +263,13 @@
       "visuel": "image",
       "etiquette": "L'édito de Mohammed",
       "image_portrait": false,
-      "citation": "Chacun mérite d'être vu et entendu."
+      "citation": "Chacun mérite d'être vu et entendu.",
+      "contact_actif": true,
+      "contact_nom": "Mohammed",
+      "contact_role": "Fondateur de Bondy TV",
+      "contact_texte": "Je suis joignable et à votre écoute. Appelez-moi, écrivez-moi : je suis là pour vous.",
+      "contact_qr": "/images/qr-bondytv.png",
+      "contact_qr_legende": "Flashez pour ouvrir l'appli Bondy TV"
     },
     {
       "lien_video": "",
