@@ -558,6 +558,16 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
       var th = (a.vignette || a.image) ? '<img src="' + esc(a.vignette || a.image) + '" alt="" loading="lazy">' : '<span class="nb">' + n + '</span>';
       return '<li><a class="sc" href="' + href + '"><span class="th' + (a.vignette ? ' logo' : '') + '">' + th + '</span><span class="tx"><span class="no">' + (a.image ? n + (a.rubrique ? ' · ' : '') : '') + (a.rubrique ? esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     }).join("");
+    var pages = [
+      { href: "/images.html", rub: "En images", t: (d.en_images || {}).titre || "Bondy en images", img: (((d.en_images || {}).photos || [])[0] || {}).image },
+      { href: "/infos.html", rub: "Bonnes infos", t: (d.bonnes_infos || {}).titre || "Les bonnes infos" },
+      { href: "/elus.html", rub: "Vos élus", t: (d.elus || {}).titre || "Vos élus" },
+      { href: "/publicite.html", rub: "Publicité", t: (d.page_pub || {}).titre || "Votre publicité ici" }
+    ];
+    pages.forEach(function (p) {
+      var th = p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '<span class="nb">→</span>';
+      som += '<li><a class="sc" href="' + p.href + '"><span class="th">' + th + '</span><span class="tx"><span class="no">' + esc(p.rub) + '</span><b>' + esc(p.t) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
+    });
     som += '<li><a class="sc arch" href="/archives.html"><span class="th"><span class="nb">∞</span></span><span class="tx"><span class="no">Depuis 2018</span><b>' + esc(arch.titre || "Les archives") + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     $("sommaire").innerHTML = '<div class="som-head"><div class="som-no">N°' + esc(String(d.numero || "").replace(/\D/g, "") || "1") + '</div><h2>' + esc(d.sommaire_titre) + '</h2><p>' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><ul class="som">' + som + "</ul>";
 
