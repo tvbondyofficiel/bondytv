@@ -50,6 +50,7 @@ collections:
               - {label: "Article en pleine largeur", name: pleine_largeur, widget: boolean, default: false}
               - {label: "Titre", name: titre, widget: string}
               - {label: "Résumé sous le titre", name: chapo, widget: text, required: false}
+              - {label: "Grande citation (affichée en vert dans l'édito)", name: citation, widget: text, required: false, hint: "Une phrase forte, sincère, qui donne envie de lire. Ex : Chacun mérite d'être vu et entendu."}
               - label: "Visuel"
                 name: visuel
                 widget: select

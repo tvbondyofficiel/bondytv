@@ -367,6 +367,31 @@ footer .follow { display: flex; flex-direction: column; align-items: center; jus
 footer .follow-t { display: block; text-align: center; letter-spacing: .18em; }
 footer .social { display: flex; justify-content: center; align-items: center; gap: 12px; margin: 0; padding: 0; }
 @media (max-width: 760px) { footer { grid-template-columns: minmax(0, 1fr); justify-items: center; text-align: center; } footer > span:first-child, footer > span:last-child { justify-self: center; text-align: center; } footer .follow { order: -1; } }
+
+/* édito en une de magazine : grande photo, titre qui chevauche, grande citation */
+.edito-page { display: block; margin-top: 36px; }
+.ed-top { display: grid; grid-template-columns: minmax(0, 400px) minmax(0, 1fr); align-items: end; }
+.ed-photo { position: relative; margin: 0; z-index: 1; }
+.ed-photo img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; box-shadow: 10px 10px 0 var(--green); }
+.ed-photo figcaption { position: absolute; left: 0; bottom: 0; background: var(--beige); color: var(--on-beige); font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 14px; padding: 8px 14px; }
+.ed-head { position: relative; z-index: 2; margin: 0 0 0 -56px; padding: 26px 0 0 26px; background: var(--bg); align-self: end; }
+.ed-head .tag { font-family: var(--display); text-transform: uppercase; letter-spacing: .18em; font-weight: 700; font-size: 16px; color: var(--green); }
+.ed-head h1 { margin: 10px 0 0; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(40px, 6vw, 78px); line-height: .94; text-wrap: balance; }
+.ed-head h1 em { font-style: normal; color: var(--green); display: block; }
+.ed-lede { font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; color: var(--muted); margin: 34px 0 0; max-width: 60ch; border-left: 4px solid var(--green); padding-left: 18px; }
+.ed-body { display: grid; grid-template-columns: minmax(0, 320px) minmax(0, 1fr); gap: 48px; margin-top: 40px; align-items: start; }
+.ed-quote { position: sticky; top: 24px; margin: 0; color: var(--green); font-family: var(--display); font-weight: 700; text-transform: uppercase; font-size: clamp(34px, 4.2vw, 52px); line-height: 1; }
+.ed-quote::before { content: "\201C"; display: block; font-size: 2.4em; line-height: .7; height: .5em; margin-bottom: 8px; }
+.ed-body .corps p { font-size: 19px; line-height: 1.65; margin: 0 0 18px; max-width: 62ch; }
+.ed-body .corps p:first-child::first-letter { font-family: var(--display); font-weight: 700; font-size: 3.6em; line-height: .8; float: left; padding: 6px 10px 0 0; color: var(--green); }
+.ed-body .corps strong { font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 1.15em; }
+@media (max-width: 820px) {
+  .ed-top { grid-template-columns: minmax(0, 1fr); }
+  .ed-photo img { aspect-ratio: 1 / 1; object-position: 50% 20%; box-shadow: 8px 8px 0 var(--green); }
+  .ed-head { margin: -48px 0 0 14px; padding: 18px 0 0 18px; }
+  .ed-body { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .ed-quote { position: static; }
+}
 </style>
 </head>
 <body>
@@ -514,8 +539,9 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
     var arts = d.articles || [];
     var ed = (d.articles || []).filter(function (x) { return x.id === "edito"; })[0];
     if (ed && document.getElementById("edito")) {
-      var ph = (ed.image && ed.visuel === "image") ? '<figure class="edito-photo"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '"><figcaption><strong>' + esc((ed.credit || "").split(",")[0]) + '</strong><span>' + esc((ed.credit || "").split(",").slice(1).join(",").trim()) + '</span></figcaption></figure>' : "";
-      document.getElementById("edito").innerHTML = '<div class="edito-page"><div><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="lede">' + inline(ed.chapo) + '</p>' : "") + '<div class="corps">' + md(ed.texte) + '</div><p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div>' + ph + '</div>';
+      var cr = (ed.credit || "").split(",");
+      var ph = ed.image ? '<figure class="ed-photo"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '" fetchpriority="high"><figcaption>' + esc(cr[0]) + '</figcaption></figure>' : "";
+      document.getElementById("edito").innerHTML = '<div class="edito-page"><div class="ed-top">' + ph + '<div class="ed-head"><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1></div></div>' + (ed.chapo ? '<p class="ed-lede">' + inline(ed.chapo) + '</p>' : "") + '<div class="ed-body">' + (ed.citation ? '<blockquote class="ed-quote">' + esc(ed.citation) + '</blockquote>' : "<div></div>") + '<div class="corps">' + md(ed.texte) + '<p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div></div></div>';
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
     var arch = d.archives || {};
