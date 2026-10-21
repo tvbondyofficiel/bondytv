@@ -414,6 +414,11 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 
 /* titres : mot fort en beige doré, le reste de l'écriture en noir */
 h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { color: #b8975a !important; }
+
+/* vignettes toutes carrées, même taille */
+.sc .th.logo { width: 64px; }
+.sc .th.logo img { padding: 3px; }
+@media (max-width: 760px) { .sc .th.logo { width: 56px; } }
 </style>
 </head>
 <body>
@@ -570,23 +575,35 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
     var arch = d.archives || {};
+    var IC = {
+      bag: '<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
+      truck: '<path d="M2 7h11v9H2z"/><path d="M13 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
+      mic: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/>',
+      info: '<circle cx="12" cy="12" r="9"/><path d="M12 11v6"/><circle cx="12" cy="7.6" r=".6"/>',
+      vote: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12l3 3 5-6"/>',
+      mega: '<path d="M3 10v4h3l8 4V6L6 10H3z"/><path d="M17 9a4 4 0 0 1 0 6"/>',
+      box: '<rect x="3" y="4" width="18" height="4"/><path d="M5 8v11h14V8M10 12h4"/>',
+      bridge: '<path d="M2 16h20M4 16c2-6 6-6 8-6s6 0 8 6M6 16v3M18 16v3"/>'
+    };
+    var BYID = { "entreprises": "bag", "food-trucks": "truck", "micro-trottoir": "mic", "visage": "bridge", "politique": "vote" };
+    function ico(k) { return IC[k] ? '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#12141c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + "</svg>" : ""; }
     var som = arts.map(function (a, i) {
       var n = String(i + 1); if (n.length < 2) n = "0" + n;
       var href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
-      var th = (a.vignette || a.image) ? '<img src="' + esc(a.vignette || a.image) + '" alt="" loading="lazy">' : '<span class="nb">' + n + '</span>';
-      return '<li><a class="sc" href="' + href + '"><span class="th' + (a.vignette ? ' logo' : '') + '">' + th + '</span><span class="tx"><span class="no">' + (a.image ? n + (a.rubrique ? ' · ' : '') : '') + (a.rubrique ? esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
+      var th = (a.vignette || a.image) ? '<img src="' + esc(a.vignette || a.image) + '" alt="" loading="lazy">' : (ico(BYID[a.id]) || '<span class="nb">' + n + '</span>');
+      return '<li><a class="sc" href="' + href + '"><span class="th' + (a.vignette ? ' logo' : '') + '">' + th + '</span><span class="tx"><span class="no">' + n + (a.rubrique ? ' · ' + esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     }).join("");
     var pages = [
       { href: "/images.html", rub: "En images", t: (d.en_images || {}).titre || "Bondy en images", img: (((d.en_images || {}).photos || [])[0] || {}).image },
-      { href: "/infos.html", rub: "Bonnes infos", t: (d.bonnes_infos || {}).titre || "Les bonnes infos" },
-      { href: "/elus.html", rub: "Vos élus", t: (d.elus || {}).titre || "Vos élus" },
-      { href: "/publicite.html", rub: "Publicité", t: (d.page_pub || {}).titre || "Votre publicité ici" }
+      { href: "/infos.html", ic: "info", rub: "Bonnes infos", t: (d.bonnes_infos || {}).titre || "Les bonnes infos" },
+      { href: "/elus.html", ic: "vote", rub: "Vos élus", t: (d.elus || {}).titre || "Vos élus" },
+      { href: "/publicite.html", ic: "mega", rub: "Publicité", t: (d.page_pub || {}).titre || "Votre publicité ici" }
     ];
     pages.forEach(function (p) {
-      var th = p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '<span class="nb">→</span>';
+      var th = p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : ico(p.ic);
       som += '<li><a class="sc" href="' + p.href + '"><span class="th">' + th + '</span><span class="tx"><span class="no">' + esc(p.rub) + '</span><b>' + esc(p.t) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     });
-    som += '<li><a class="sc arch" href="/archives.html"><span class="th"><span class="nb">∞</span></span><span class="tx"><span class="no">Depuis 2018</span><b>' + esc(arch.titre || "Les archives") + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
+    som += '<li><a class="sc arch" href="/archives.html"><span class="th">' + ico("box") + '</span><span class="tx"><span class="no">Depuis 2018</span><b>' + esc(arch.titre || "Les archives") + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     $("sommaire").innerHTML = '<div class="som-head"><div class="som-no">N°' + esc(String(d.numero || "").replace(/\D/g, "") || "1") + '</div><h2>' + esc(d.sommaire_titre) + '</h2><p>' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><ul class="som">' + som + "</ul>";
 
     var cats = [];
