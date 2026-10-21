@@ -408,7 +408,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <a href="/edito.html">Édito</a>
       <a href="/sommaire.html">Sommaire</a>
       <a href="/articles.html">Articles</a>
-      <a href="/archives.html">Archives</a>
       <a href="/images.html">En images</a>
       <a href="/videos.html">Vidéos</a>
       <a href="/infos.html">Bonnes infos</a>
@@ -574,9 +573,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       document.getElementById("edito").innerHTML = '<div class="edito-page"><div><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="lede">' + inline(ed.chapo) + '</p>' : "") + '<div class="corps">' + md(ed.texte) + '</div><p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div>' + ph + '</div>';
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
-    var arch = d.archives || {};
     var toc = arts.map(function (a) { return '<li><a href="' + (a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id)) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
-    toc += '<li><a href="/archives.html">' + esc(arch.titre || "Les archives") + " <em>Depuis 2018</em></a></li>";
     $("sommaire").innerHTML = '<h2 class="sec-title">' + esc(d.sommaire_titre) + '</h2><ul class="toc">' + toc + "</ul>";
 
     var cats = [];
@@ -586,14 +583,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     f += '</div><div class="grid">' + list.map(article).join("") + "</div>";
     $("articles").innerHTML = f;
 
-    var ah = '<h2 class="sec-title">' + esc(arch.titre) + "</h2>";
-    if (arch.introduction) ah += '<p class="arch-intro">' + inline(arch.introduction) + "</p>";
-    if ((arch.numeros || []).length) ah += '<h3 class="arch-sub">Les numéros</h3><ul class="toc arch">' + arch.numeros.map(function (n) { return '<li><a href="' + esc(safeUrl(n.lien)) + '">' + esc(n.titre) + (n.etiquette ? " <em>" + esc(n.etiquette) + "</em>" : "") + "</a></li>"; }).join("") + "</ul>";
-    var cs = arch.cartes || [], prets = cs.filter(function (c) { return !/bient[ôo]t/i.test(c.credit || ""); }), bientot = cs.filter(function (c) { return /bient[ôo]t/i.test(c.credit || ""); });
-    if (prets.length) ah += '<h3 class="arch-sub">Les vidéos d\'archives</h3><div class="grid arch-grid">' + prets.map(article).join("") + "</div>";
-    if (bientot.length) ah += '<p class="arch-soon"><strong>Bientôt</strong> ' + bientot.map(function (c) { return esc((c.etiquette || c.titre).replace(/^Archives\s*·\s*/, "")); }).join(" · ") + "</p>";
-    if (arch.suite) ah += '<p class="arch-more">' + inline(arch.suite) + "</p>";
-    $("archives").innerHTML = ah;
 
     var t = d.tribune || {};
     $("temoigner-titre").textContent = t.titre || "Tribune des élus";

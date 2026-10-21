@@ -68,68 +68,6 @@
     ]
   },
   "articles_titre": "Les articles",
-  "archives": {
-    "titre": "Les archives",
-    "introduction": "Bondy TV existe depuis 2018. Retrouvez ici les numéros du magazine et les contenus déjà publiés.",
-    "numeros": [
-      {
-        "titre": "N°1 · Octobre 2026",
-        "etiquette": "Ce numéro",
-        "lien": "#top"
-      }
-    ],
-    "cartes": [
-      {
-        "lien_video": "",
-        "texte_visible": "",
-        "rubrique": "",
-        "pleine_largeur": false,
-        "titre": "Les événements d'hier",
-        "texte": "",
-        "image_description": "",
-        "credit": "Archives vidéo depuis 2018 · bientôt en ligne",
-        "id": "archives-evenements",
-        "image": "",
-        "chapo": "Les temps forts de la ville, filmés sur le vif.",
-        "visuel": "play",
-        "etiquette": "Archives · Événements",
-        "image_portrait": false
-      },
-      {
-        "lien_video": "",
-        "texte_visible": "",
-        "rubrique": "",
-        "pleine_largeur": false,
-        "titre": "Les interviews d'hier",
-        "texte": "",
-        "image_description": "",
-        "credit": "Archives vidéo depuis 2018 · bientôt en ligne",
-        "id": "archives-interviews",
-        "image": "",
-        "chapo": "Rencontres avec celles et ceux qui font Bondy.",
-        "visuel": "play",
-        "etiquette": "Archives · Interviews",
-        "image_portrait": false
-      },
-      {
-        "lien_video": "",
-        "texte_visible": "",
-        "rubrique": "",
-        "pleine_largeur": false,
-        "titre": "Les associations d'hier",
-        "texte": "",
-        "image_description": "",
-        "credit": "Archives vidéo depuis 2018 · bientôt en ligne",
-        "id": "archives-associations",
-        "image": "",
-        "chapo": "Celles et ceux qui agissent pour les autres.",
-        "visuel": "play",
-        "etiquette": "Archives · Associations",
-        "image_portrait": false
-      }
-    ],
-    "suite": "D'autres numéros et les vidéos plus anciennes seront ajoutés ici au fil du temps. En attendant, suivez-nous sur [YouTube](https://www.youtube.com/@Bondytvofficiel), [Facebook](https://www.facebook.com/profile.php?id=61595506318556), [TikTok](https://www.tiktok.com/@bondytvofficiel) et [Instagram](https://www.instagram.com/bondy_tv/)."
-  },
   "titre_site": "Bondy TV Mag",
   "proposer": {
     "titre": "Un sujet pour le prochain numéro ?",

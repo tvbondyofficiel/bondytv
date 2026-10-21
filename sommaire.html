@@ -434,7 +434,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <a href="/edito.html">Édito</a>
       <a href="/sommaire.html" aria-current="page">Sommaire</a>
       <a href="/articles.html">Articles</a>
-      <a href="/archives.html">Archives</a>
       <a href="/images.html">En images</a>
       <a href="/videos.html">Vidéos</a>
       <a href="/infos.html">Bonnes infos</a>
@@ -578,7 +577,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       document.getElementById("edito").innerHTML = '<div class="edito-page"><div><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="lede">' + inline(ed.chapo) + '</p>' : "") + '<div class="corps">' + md(ed.texte) + '</div><p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div>' + ph + '</div>';
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
-    var arch = d.archives || {};
     var IC = {
       bag: '<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>',
       truck: '<path d="M2 7h11v9H2z"/><path d="M13 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>',
@@ -618,7 +616,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var th = ico(p.ic) || (p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '');
       som += '<li><a class="sc" href="' + p.href + '"><span class="th">' + th + '</span><span class="tx"><span class="no">' + esc(p.rub) + '</span><b>' + esc(p.t) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     });
-    som += '<li><a class="sc arch" href="/archives.html"><span class="th">' + ico("box") + '</span><span class="tx"><span class="no">Depuis 2018</span><b>' + esc(arch.titre || "Les archives") + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     $("sommaire").innerHTML = '<div class="som-head"><div class="som-no">N°' + esc(String(d.numero || "").replace(/\D/g, "") || "1") + '</div><h2>' + esc(d.sommaire_titre) + '</h2><p>' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><ul class="som">' + som + "</ul>";
 
     var cats = [];
@@ -628,14 +625,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     f += '</div><div class="grid">' + list.map(article).join("") + "</div>";
     $("articles").innerHTML = f;
 
-    var ah = '<h2 class="sec-title">' + esc(arch.titre) + "</h2>";
-    if (arch.introduction) ah += '<p class="arch-intro">' + inline(arch.introduction) + "</p>";
-    if ((arch.numeros || []).length) ah += '<h3 class="arch-sub">Les numéros</h3><ul class="toc arch">' + arch.numeros.map(function (n) { return '<li><a href="' + esc(safeUrl(n.lien)) + '">' + esc(n.titre) + (n.etiquette ? " <em>" + esc(n.etiquette) + "</em>" : "") + "</a></li>"; }).join("") + "</ul>";
-    var cs = arch.cartes || [], prets = cs.filter(function (c) { return !/bient[ôo]t/i.test(c.credit || ""); }), bientot = cs.filter(function (c) { return /bient[ôo]t/i.test(c.credit || ""); });
-    if (prets.length) ah += '<h3 class="arch-sub">Les vidéos d\'archives</h3><div class="grid arch-grid">' + prets.map(article).join("") + "</div>";
-    if (bientot.length) ah += '<p class="arch-soon"><strong>Bientôt</strong> ' + bientot.map(function (c) { return esc((c.etiquette || c.titre).replace(/^Archives\s*·\s*/, "")); }).join(" · ") + "</p>";
-    if (arch.suite) ah += '<p class="arch-more">' + inline(arch.suite) + "</p>";
-    $("archives").innerHTML = ah;
 
     var t = d.temoigner || {};
     $("temoigner-titre").textContent = t.titre || "";
