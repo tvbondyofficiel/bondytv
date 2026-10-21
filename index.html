@@ -429,6 +429,15 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .head { position: relative; }
 .no1-r { position: absolute; top: 14px; right: 0; background: var(--beige); color: #12141c; border: 1px solid #c9b58a; font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1; padding: 6px 12px; letter-spacing: .04em; }
 @media (max-width: 560px) { .no1-r { font-size: 17px; padding: 5px 10px; top: 8px; } }
+
+/* MAGAZINE : sous TV, plus fin */
+.logo .side { gap: 4px; }
+.logo .side .mag, .une2 .logo .side .mag { margin: 0; font-weight: 400; font-size: 15px; letter-spacing: .3em; line-height: 1; }
+/* N°1 + Gratuit */
+.no1-r { display: flex; flex-direction: column; align-items: center; gap: 5px; background: none; border: 0; padding: 0; }
+.no1-r b { background: var(--beige); border: 1px solid #c9b58a; padding: 6px 12px; font-weight: 700; color: #12141c; }
+.no1-r span { font-family: var(--display); font-weight: 400; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: #12141c; }
+@media (max-width: 560px) { .no1-r { position: static; flex-direction: row; align-items: center; gap: 10px; margin-top: 8px; } .logo .side .mag, .une2 .logo .side .mag { font-size: 12px; letter-spacing: .24em; } }
 </style>
 </head>
 <body>
@@ -582,7 +591,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       }
     })();
     var c = d.couverture || {};
-    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div></div></div><div class="mag">Magazine</div><div class="no1-r">' + esc(d.numero) + '</div></div>';
+    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
     une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {
       return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div></div>";
