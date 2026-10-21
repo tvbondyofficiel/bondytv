@@ -246,7 +246,17 @@
       "chapo": "Bondy TV existe depuis 2018. Aujourd'hui, c'est enfin un média complet, pensé pour être utile aux Bondynois.",
       "visuel": "image",
       "etiquette": "À la une",
-      "image_portrait": false
+      "image_portrait": false,
+      "photos_cote": [
+        {
+          "image": "/images/bondy-rue-automne.jpg",
+          "legende": "Bondy Nord"
+        },
+        {
+          "image": "/images/bondy-carrefour.jpg",
+          "legende": "Bondy Nord"
+        }
+      ]
     },
     {
       "id": "attention",
