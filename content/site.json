@@ -317,7 +317,7 @@
       "rubrique": "Politique",
       "pleine_largeur": false,
       "titre": "Politique locale : la ville, c'est vous",
-      "texte": "La politique locale, ce n'est pas réservé aux spécialistes. Une rue refaite, une école rénovée, un logement, un équipement : **les décisions prises à Bondy se voient dans la vie de tous les jours.**\n\n**Comprendre simplement**\n\nAu conseil municipal, les élus discutent et votent des décisions qui concernent toute la ville. Bondy TV les explique avec des mots simples, **pour que chacun puisse comprendre.**\n\n**La parole à chacun**\n\nMajorité ou opposition, chaque sensibilité peut s'exprimer. **Nous posons les mêmes questions à tous**, et nous publions les réponses.\n\n**Et vous, qu'en pensez-vous ?**\n\nUne décision vous intéresse, une question vous préoccupe ? Écrivez-nous : elle sera peut-être traitée dans le prochain numéro.\n\n[Poser ma question](/proposer.html)",
+      "texte": "La politique locale, ce n'est pas réservé aux spécialistes. Une rue refaite, une école rénovée, un logement, un équipement : **les décisions prises à Bondy se voient dans la vie de tous les jours.**\n\n**Comprendre simplement**\n\nAu conseil municipal, les élus discutent et votent des décisions qui concernent toute la ville. Bondy TV les explique avec des mots simples, **pour que chacun puisse comprendre.**\n\n**La parole à chacun**\n\nMajorité ou opposition, chaque sensibilité peut s'exprimer. **Nous posons les mêmes questions à tous**, et nous publions les réponses.\n\n**Et vous, qu'en pensez-vous ?**\n\nUne décision vous intéresse, une question vous préoccupe ? Écrivez-nous : elle sera peut-être traitée dans le prochain numéro.\n\n[Poser ma question](/temoigner.html)",
       "image_description": "Séance du conseil municipal : élus autour de la table, public au premier plan",
       "credit": "Séance du conseil municipal",
       "id": "politique",
@@ -387,7 +387,7 @@
       {
         "question": "Comment proposer un sujet ?",
         "mots_cles": "proposer sujet idee article projet association commerce",
-        "reponse": "Associations, commerçants, habitants : écrivez à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Tout est sur la page [Proposer un sujet](/proposer.html)."
+        "reponse": "Associations, commerçants, habitants : écrivez à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Tout est sur la page [Témoigner ou proposer](/temoigner.html)."
       },
       {
         "question": "Où voir les vidéos ?",

@@ -538,8 +538,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <a href="/elus.html">Vos élus</a>
       <a href="/tribune.html">Tribune</a>
       <a href="/habitants.html">Habitants</a>
-      <a href="/temoigner.html">Témoigner</a>
-      <a href="/proposer.html">Proposer un sujet</a>
+      <a href="/temoigner.html">Témoigner ou proposer</a>
       <a href="/infos.html">Bonnes infos</a>
       <a href="/publicite.html">Votre pub</a>
     </nav>
@@ -683,7 +682,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         var cls = i === 0 ? "ph big" : "ph tile" + (i % 3 === 0 ? " wide" : "");
         html += '<button type="button" class="' + cls + '" data-i="' + i + '"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.description || x.titre) + '" loading="' + (i < 2 ? "eager" : "lazy") + '"></span><span class="cap">' + (x.date ? '<span class="dt">' + esc(x.date) + '</span>' : "") + '<h2>' + esc(x.titre) + '</h2>' + (x.legende ? '<p>' + esc(x.legende) + '</p>' : "") + '</span></button>';
       });
-      html += '</div><div class="ph-cta"><b>Une image qui compte pour Bondy ?</b><a href="/proposer.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
+      html += '</div><div class="ph-cta"><b>Une image qui compte pour Bondy ?</b><a href="/temoigner.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
       document.getElementById("gal").innerHTML = html;
       var lb = document.querySelector(".lb"), cur = 0;
       function show(i) { cur = (i + ph.length) % ph.length; var x = ph[cur]; lb.querySelector("img").src = x.image; lb.querySelector("img").alt = x.description || x.titre; lb.querySelector("figcaption").innerHTML = "<b>" + esc(x.titre) + "</b>" + esc(x.legende || ""); lb.hidden = false; }
