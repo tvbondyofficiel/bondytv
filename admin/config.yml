@@ -149,6 +149,14 @@ collections:
               - {label: "Titre", name: titre, widget: string}
               - {label: "Texte", name: texte, widget: text}
               - {label: "E-mail", name: email, widget: string}
+              - label: "Galerie de photos sous le bloc (4 ou 5 photos)"
+                name: galerie
+                widget: list
+                required: false
+                summary: "{{fields.legende}}"
+                fields:
+                  - {label: "Photo", name: image, widget: image}
+                  - {label: "Légende", name: legende, widget: string}
               - {label: "Téléphone (affiché)", name: telephone, widget: string}
               - {label: "Téléphone (sans espaces, pour le bouton Copier)", name: telephone_lien, widget: string}
               - {label: "Lien WhatsApp (https://wa.me/33...)", name: whatsapp, widget: string}

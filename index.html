@@ -333,6 +333,24 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 .pubpop .bar2 i { display: block; height: 100%; width: 100%; background: var(--green); transform-origin: left; animation: pubbar linear forwards; }
 @keyframes pubbar { from { transform: scaleX(1); } to { transform: scaleX(0); } }
 @media (prefers-reduced-motion: reduce) { .pubpop, .pubpop .box { transition: none; } .pubpop .bar2 i { animation: none; } }
+
+/* bloc contact : beige doux, vert en accent */
+.cta { background: var(--beige); color: var(--on-beige); border-left: 10px solid #006233; }
+.copy { color: #006233; border-color: #006233; background: transparent; }
+.copy:hover { background: #006233; color: #ffffff; }
+.copy:focus-visible, .c-row a:focus-visible { outline-color: #006233; }
+.c-row a.wa { color: #006233; }
+.cta .c-row a:not(.wa), .cta a:not(.wa) { color: var(--on-beige); }
+.cta .c-row a:not(.wa):hover { color: #006233; }
+
+/* galerie sous le bloc contact */
+.gal { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
+.gal figure { margin: 0; }
+.gal img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--surface); }
+.gal figcaption { margin-top: 8px; font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; font-size: 14px; color: var(--muted); }
+.gal li:nth-child(odd) figcaption { border-top: 3px solid var(--green); padding-top: 6px; }
+.gal li:nth-child(even) figcaption { border-top: 3px solid var(--red); padding-top: 6px; }
+@media (max-width: 820px) { .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); } .gal li:last-child { grid-column: 1 / -1; } .gal li:last-child img { aspect-ratio: 16 / 9; } }
 </style>
 </head>
 <body>
@@ -516,6 +534,7 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
       '<div class="c-row"><a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a><button type="button" class="copy" data-copy="' + esc(p.email) + '">Copier</button></div>' +
       '<div class="c-row"><a href="tel:' + esc(p.telephone_lien) + '">' + esc(p.telephone) + '</a><button type="button" class="copy" data-copy="' + esc(p.telephone_lien) + '">Copier</button>' +
       '<a class="wa" href="' + esc(safeUrl(p.whatsapp)) + '" target="_blank" rel="noopener" aria-label="Écrire à Bondy TV sur WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="' + WA + '"/></svg></a></div></div>';
+    if (document.getElementById("galerie") && (p.galerie || []).length) document.getElementById("galerie").innerHTML = '<ul class="gal">' + p.galerie.map(function (g) { return "<li><figure><img src=\"" + esc(g.image) + "\" alt=\"" + esc(g.legende) + "\" loading=\"lazy\"><figcaption>" + esc(g.legende) + "</figcaption></figure></li>"; }).join("") + "</ul>";
 
     var pied = d.pied_de_page || {};
     var soc = (pied.reseaux || []).map(function (r) {

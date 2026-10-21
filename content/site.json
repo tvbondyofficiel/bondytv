@@ -201,7 +201,29 @@
     "email": "tvbondy@gmail.com",
     "telephone": "07 49 55 43 91",
     "telephone_lien": "0749554391",
-    "whatsapp": "https://wa.me/33749554391"
+    "whatsapp": "https://wa.me/33749554391",
+    "galerie": [
+      {
+        "image": "/images/une-pepitheque.jpg",
+        "legende": "La Pépithèque Mariama Bâ"
+      },
+      {
+        "image": "/images/coeur-canal.jpg",
+        "legende": "Au cœur de la ville"
+      },
+      {
+        "image": "/images/une-terrain.jpg",
+        "legende": "Sur le terrain"
+      },
+      {
+        "image": "/images/une-studio.jpg",
+        "legende": "Le studio"
+      },
+      {
+        "image": "/images/appel-citoyen.jpg",
+        "legende": "L'appel d'un citoyen"
+      }
+    ]
   },
   "numero": "N°1",
   "articles": [
