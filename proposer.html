@@ -577,7 +577,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (t.encart && t.encart.citation && document.getElementById("t-side")) { var sd = document.getElementById("t-side"); sd.innerHTML = "<blockquote>" + esc(t.encart.citation) + '</blockquote><p class="t-auteur">' + esc(t.encart.auteur || "") + "</p><p>" + esc(t.encart.texte || "") + "</p>"; sd.hidden = false; }
 
     var p = d.proposer || {};
-    $("proposer").innerHTML = '<div class="pq"><div><h2>' + esc(p.titre) + '</h2><p>' + esc(p.texte) + '</p></div>' + (ed && ed.contact_qr ? '<div class="pq-qr"><img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="110" height="110"><b>Scannez-moi</b></div>' : '') + '</div>';
+    $("proposer").innerHTML = '<div class="pq"><div><h2>' + esc(p.titre) + '</h2><p>' + esc(p.texte) + '</p></div>' + '' + '</div>';
     if (document.getElementById("galerie") && (p.galerie || []).length) document.getElementById("galerie").innerHTML = '<ul class="gal" style="--n:' + p.galerie.length + '">' + p.galerie.map(function (g) { var fig = "<figure><img src=\"" + esc(g.image) + "\" alt=\"" + esc(g.legende) + "\" loading=\"lazy\"><figcaption>" + esc(g.legende) + "</figcaption></figure>"; return "<li>" + (g.lien ? "<a href=\"" + esc(safeUrl(g.lien)) + "\">" + fig + "</a>" : fig) + "</li>"; }).join("") + "</ul>";
 
     var pied = d.pied_de_page || {};
