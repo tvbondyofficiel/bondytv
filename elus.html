@@ -562,6 +562,13 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 .el-form { margin-top: 36px; }
 @media (max-width: 1000px) { .el-tiles { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
 @media (max-width: 700px) { .el-tiles { grid-template-columns: repeat(2, minmax(0, 1fr)); } .el-tile { font-size: 15px; padding: 8px 10px; } .el-bar2 { right: 90px; } }
+
+/* cases des élus : vert pâle (teinte proche de celle de la ville) */
+.el-tile { background: #dcebc8; color: #12141c; border: 1px solid #c4dcab; border-left: 4px solid #7fb35a; }
+.el-tile:hover { background: #cfe4b6; color: #0a4a22; border-left-color: var(--green); }
+.el-tile .bd { color: #0a4a22; }
+.el-tile.on { background: #bfdba0; border-left-color: var(--green); }
+.el-grp { border-bottom-color: #7fb35a; }
 </style>
 </head>
 <body>
