@@ -346,6 +346,10 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 /* galerie sous le bloc contact */
 .gal { list-style: none; margin: 28px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 12px; }
 .gal figure { margin: 0; }
+.gal a { display: block; text-decoration: none; color: inherit; }
+.gal a:hover img { filter: brightness(1.08); }
+.gal a:hover figcaption { color: var(--fg); }
+.gal img { transition: filter .2s ease; }
 .gal img { display: block; width: 100%; aspect-ratio: 4 / 5; object-fit: cover; background: var(--surface); }
 .gal figcaption { margin-top: 8px; font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; font-size: 14px; color: var(--muted); }
 .gal li:nth-child(odd) figcaption { border-top: 3px solid var(--green); padding-top: 6px; }
@@ -562,7 +566,7 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
       '<div class="c-row"><a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a><button type="button" class="copy" data-copy="' + esc(p.email) + '">Copier</button></div>' +
       '<div class="c-row"><a href="tel:' + esc(p.telephone_lien) + '">' + esc(p.telephone) + '</a><button type="button" class="copy" data-copy="' + esc(p.telephone_lien) + '">Copier</button>' +
       '<a class="wa" href="' + esc(safeUrl(p.whatsapp)) + '" target="_blank" rel="noopener" aria-label="Écrire à Bondy TV sur WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="' + WA + '"/></svg></a></div></div>';
-    if (document.getElementById("galerie") && (p.galerie || []).length) document.getElementById("galerie").innerHTML = '<ul class="gal">' + p.galerie.map(function (g) { return "<li><figure><img src=\"" + esc(g.image) + "\" alt=\"" + esc(g.legende) + "\" loading=\"lazy\"><figcaption>" + esc(g.legende) + "</figcaption></figure></li>"; }).join("") + "</ul>";
+    if (document.getElementById("galerie") && (p.galerie || []).length) document.getElementById("galerie").innerHTML = '<ul class="gal">' + p.galerie.map(function (g) { var fig = "<figure><img src=\"" + esc(g.image) + "\" alt=\"" + esc(g.legende) + "\" loading=\"lazy\"><figcaption>" + esc(g.legende) + "</figcaption></figure>"; return "<li>" + (g.lien ? "<a href=\"" + esc(safeUrl(g.lien)) + "\">" + fig + "</a>" : fig) + "</li>"; }).join("") + "</ul>";
 
     var pied = d.pied_de_page || {};
     var soc = (pied.reseaux || []).map(function (r) {

@@ -205,23 +205,28 @@
     "galerie": [
       {
         "image": "/images/une-pepitheque.jpg",
-        "legende": "La Pépithèque Mariama Bâ"
+        "legende": "La Pépithèque Mariama Bâ",
+        "lien": "/articles.html#pepitheque"
       },
       {
         "image": "/images/coeur-canal.jpg",
-        "legende": "Au cœur de la ville"
+        "legende": "Au cœur de la ville",
+        "lien": "/articles.html#coeur"
       },
       {
         "image": "/images/une-terrain.jpg",
-        "legende": "Sur le terrain"
+        "legende": "Sur le terrain",
+        "lien": "/articles.html#micro-trottoir"
       },
       {
         "image": "/images/une-studio.jpg",
-        "legende": "Le studio"
+        "legende": "Le studio",
+        "lien": "/articles.html#podcast"
       },
       {
         "image": "/images/appel-citoyen.jpg",
-        "legende": "L'appel d'un citoyen"
+        "legende": "L'appel d'un citoyen",
+        "lien": "/articles.html#appel-citoyen"
       }
     ]
   },

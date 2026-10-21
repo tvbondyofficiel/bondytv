@@ -157,6 +157,7 @@ collections:
                 fields:
                   - {label: "Photo", name: image, widget: image}
                   - {label: "Légende", name: legende, widget: string}
+                  - {label: "Lien au clic (ex. /articles.html#podcast)", name: lien, widget: string, required: false}
               - {label: "Téléphone (affiché)", name: telephone, widget: string}
               - {label: "Téléphone (sans espaces, pour le bouton Copier)", name: telephone_lien, widget: string}
               - {label: "Lien WhatsApp (https://wa.me/33...)", name: whatsapp, widget: string}
