@@ -444,7 +444,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <div class="fld"><label for="h-nom">Prénom et nom</label><input autocomplete="name" id="h-nom" required type="text"/></div>
         <div class="fld"><label for="h-tel">Numéro de téléphone (obligatoire)</label><input autocomplete="tel" id="h-tel" inputmode="tel" placeholder="06 12 34 56 78" required type="tel"/></div>
       </div>
-      <div class="fld"><label for="h-quartier">Votre quartier <span class="opt">(facultatif)</span></label><input id="h-quartier" type="text"/></div>
+      <div class="fld"><label for="h-adresse">Votre adresse à Bondy</label><input autocomplete="street-address" id="h-adresse" placeholder="Numéro, rue" required type="text"/></div>
+      <p class="hint">Votre nom, votre téléphone et votre adresse nous servent à vérifier que vous habitez Bondy. Ils ne sont jamais publiés.</p>
       <label class="check" for="h-ok"><input id="h-ok" required type="checkbox"/><span>J'accepte d'être contacté par téléphone pour recevoir mon accès.</span></label>
       <button class="send" id="h-send" type="submit">Envoyer ma demande</button>
       <p aria-live="polite" class="status" id="h-status" role="status"></p>
@@ -614,18 +615,18 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     (function () {
       var f = $("hform"), st = $("h-status"), bt = $("h-send");
       function say(m, e) { st.textContent = m; st.className = "status" + (e ? " err" : ""); }
-      var ER = { nom: "Écrivez votre prénom et votre nom.", tel: "Le numéro de téléphone est obligatoire (10 chiffres).", trop_de_tentatives: "Trop de demandes. Réessayez plus tard.", non_branche: "Le service n'est pas encore activé. Écrivez-nous sur WhatsApp." };
+      var ER = { adresse: "L\u2019adresse est obligatoire.", nom: "Écrivez votre prénom et votre nom.", tel: "Le numéro de téléphone est obligatoire (10 chiffres).", trop_de_tentatives: "Trop de demandes. Réessayez plus tard.", non_branche: "Le service n'est pas encore activé. Écrivez-nous sur WhatsApp." };
       f.addEventListener("submit", function (e) {
         e.preventDefault();
         if (!$("h-ok").checked) { say("Cochez la case pour continuer.", true); return; }
         bt.disabled = true; say("Envoi en cours...", false);
-        var body = { nom: $("h-nom").value, tel: $("h-tel").value, quartier: $("h-quartier").value, botcheck: $("h-bot").checked };
+        var body = { nom: $("h-nom").value, tel: $("h-tel").value, adresse: $("h-adresse").value, botcheck: $("h-bot").checked };
         fetch("/api/habitants", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
           .then(function (r) { return r.json(); })
           .then(function (j) {
             if (!j.ok) { say(ER[j.error] || "L'envoi n'a pas marché. Réessayez.", true); return; }
             f.reset(); say("Merci ! Votre demande est envoyée. Nous vous contactons par téléphone.", false);
-            try { var fd = new FormData(); fd.append("access_key", "a10cef59-fca0-479e-81ab-13a661ab12b5"); fd.append("subject", "Demande d'accès : La parole aux habitants"); fd.append("from_name", "Bondy TV Magazine"); fd.append("nom", body.nom); fd.append("telephone", body.tel); fd.append("quartier", body.quartier); fetch("https://api.web3forms.com/submit", { method: "POST", body: fd }).catch(function () {}); } catch (x) {}
+            try { var fd = new FormData(); fd.append("access_key", "a10cef59-fca0-479e-81ab-13a661ab12b5"); fd.append("subject", "Demande d'accès : La parole aux habitants"); fd.append("from_name", "Bondy TV Magazine"); fd.append("nom", body.nom); fd.append("telephone", body.tel); fd.append("adresse", body.adresse); fetch("https://api.web3forms.com/submit", { method: "POST", body: fd }).catch(function () {}); } catch (x) {}
           })
           .catch(function () { say("L'envoi n'a pas marché. Réessayez.", true); })
           .then(function () { bt.disabled = false; });

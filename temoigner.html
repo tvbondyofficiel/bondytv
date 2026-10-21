@@ -206,7 +206,7 @@ details .more { display: flex; flex-direction: column; gap: 12px; }
 .tform .fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .tform label { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; font-size: 15px; }
 .tform .opt { color: var(--muted); text-transform: none; letter-spacing: 0; font-weight: 500; font-family: var(--body); font-size: 14px; }
-.tform input[type="text"], .tform input[type="url"], .tform select, .tform textarea { font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 0; padding: 12px 14px; width: 100%; min-width: 0; }
+.tform input[type="text"], .tform input[type="tel"], .tform input[type="url"], .tform select, .tform textarea { font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 0; padding: 12px 14px; width: 100%; min-width: 0; }
 .tform input[type="file"] { font: inherit; color: var(--fg); max-width: 100%; }
 .tform textarea { min-height: 130px; resize: vertical; }
 .tform .check { display: flex; gap: 10px; align-items: flex-start; font-family: var(--body); text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 15px; }
@@ -425,9 +425,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 <input name="from_name" type="hidden" value="Bondy TV Magazine"/>
 <p aria-hidden="true" class="hp"><label>Ne pas remplir <input autocomplete="off" name="botcheck" tabindex="-1" type="checkbox"/></label></p>
 <div class="row2">
-<div class="fld"><label for="f-nom">Prénom ou pseudo</label><input autocomplete="given-name" id="f-nom" name="nom" type="text"/></div>
-<div class="fld"><label for="f-contact">Téléphone ou e-mail</label><input autocomplete="off" id="f-contact" name="contact" required="" type="text"/></div>
+<div class="fld"><label for="f-nom">Prénom et nom</label><input autocomplete="name" id="f-nom" name="nom" required="" type="text"/></div>
+<div class="fld"><label for="f-contact">Numéro de téléphone</label><input autocomplete="tel" id="f-contact" inputmode="tel" name="telephone" placeholder="06 12 34 56 78" required="" type="tel"/></div>
 </div>
+<div class="fld"><label for="f-adresse">Votre adresse à Bondy</label><input autocomplete="street-address" id="f-adresse" name="adresse" placeholder="Numéro, rue" required="" type="text"/></div>
+<p class="hint">Votre nom, votre téléphone et votre adresse nous servent à vérifier que vous habitez Bondy. Ils ne sont jamais publiés.</p>
 <div class="fld">
 <label for="f-type">Vous voulez nous envoyer</label>
 <select id="f-type" name="type">
@@ -660,6 +662,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   function say(msg, err) { status.textContent = msg; status.className = "status" + (err ? " err" : ""); }
   form.addEventListener("submit", function (e) {
     e.preventDefault();
+    var nm = (document.getElementById("f-nom").value || "").trim(), tl = (document.getElementById("f-contact").value || "").replace(/\D/g, ""), ad = (document.getElementById("f-adresse").value || "").trim();
+    if (nm.length < 3 || nm.indexOf(" ") < 0) { say("Écrivez votre prénom et votre nom.", true); return; }
+    if (tl.length < 9) { say("Le numéro de téléphone est obligatoire.", true); return; }
+    if (ad.length < 5) { say("L'adresse est obligatoire.", true); return; }
     send.disabled = true; say("Envoi en cours...", false);
     fetch("https://api.web3forms.com/submit", { method: "POST", headers: { Accept: "application/json" }, body: new FormData(form) })
       .then(function (r) { return r.json(); })
