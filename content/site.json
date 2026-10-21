@@ -361,7 +361,7 @@
       "credit": "",
       "texte_visible": "",
       "pleine_largeur": false,
-      "texte": "Les habitants veulent connaître celles et ceux qui les représentent, et entendre ce qu'ils font pour la ville. Bondy TV vous offre un espace pour vous adresser à eux, directement et avec vos mots.\n\n**Une tribune chaque mois**\n\nChaque mois, le magazine ouvre une tribune aux élus de Bondy. C'est un espace libre : vous y présentez une action, un projet, une idée, ce qui compte pour vous et pour la ville.\n\n**La même place pour tous**\n\nMajorité ou opposition, chaque élu et chaque groupe a la même place, la même taille et la même visibilité. Personne n'est favorisé.\n\n**Gratuit et sans condition**\n\nCette tribune est gratuite. Vous écrivez ce que vous voulez dire, nous le publions dans le respect de la loi, et chaque habitant peut le lire.\n\n**Comment participer ?**\n\nContactez-nous. Envoyez-nous votre texte, ou une courte vidéo, et nous le publions dans le prochain numéro.\n\n[Je veux ma tribune](/proposer.html)"
+      "texte": "Les habitants veulent connaître celles et ceux qui les représentent, et entendre ce qu'ils font pour la ville. Bondy TV vous offre un espace pour vous adresser à eux, directement et avec vos mots.\n\n**Une tribune chaque mois**\n\nChaque mois, le magazine ouvre une tribune aux élus de Bondy. C'est un espace libre : vous y présentez une action, un projet, une idée, ce qui compte pour vous et pour la ville.\n\n**La même place pour tous**\n\nMajorité ou opposition, chaque élu et chaque groupe a la même place, la même taille et la même visibilité. Personne n'est favorisé.\n\n**Gratuit et sans condition**\n\nCette tribune est gratuite. Vous écrivez ce que vous voulez dire, nous le publions dans le respect de la loi, et chaque habitant peut le lire.\n\n**Comment participer ?**\n\nContactez-nous. Envoyez-nous votre texte, ou une courte vidéo, et nous le publions dans le prochain numéro.\n\n[Je veux ma tribune](/tribune.html)"
     },
     {
       "lien_video": "",
@@ -818,5 +818,9 @@
         "lien": "https://www.youtube.com/watch?v=5tBiSEFapGk"
       }
     ]
+  },
+  "tribune": {
+    "titre": "Tribune des élus",
+    "introduction": "Majorité, opposition : chaque mois, le magazine vous ouvre une tribune, gratuite et à égalité pour tous. Écrivez votre texte ou envoyez votre vidéo."
   }
 }
