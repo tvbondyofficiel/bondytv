@@ -400,6 +400,11 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 /* menu resserré (9 onglets) */
 .bar nav { gap: 8px 13px; font-size: 13.5px; letter-spacing: .05em; }
 .bar nav a { font-size: 13.5px !important; letter-spacing: .05em !important; }
+.qrbox { display: flex; align-items: center; gap: 22px; max-width: 520px; margin: 26px 0 8px; padding: 14px 20px 14px 14px; background: var(--beige); color: var(--on-beige); border-left: 6px solid var(--green); }
+.qrbox img { display: block; width: 132px; height: 132px; background: #fff; padding: 6px; flex: none; }
+.qrbox b { display: block; font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 22px; line-height: 1.1; }
+.qrbox span { display: block; margin-top: 6px; font-size: 15px; }
+@media (max-width: 480px) { .qrbox { flex-direction: column; text-align: center; padding: 18px; } }
 </style>
 </head>
 <body>
@@ -541,6 +546,15 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
     })();
     function $(id) { return document.getElementById(id) || {}; }
     /* le titre de chaque page est défini dans son HTML */
+    (function () {
+      var ed = ((d.articles || []).filter(function (a) { return a.id === "edito"; })[0]) || {};
+      var fb = document.querySelector(".fbtn");
+      if (ed.contact_qr && fb && !document.querySelector(".qrbox")) {
+        var q = document.createElement("div"); q.className = "qrbox";
+        q.innerHTML = '<img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="132" height="132"><div><b>' + esc(ed.contact_qr_legende || "Flashez pour ouvrir Bondy TV") + '</b><span>Bondy TV, dans votre poche.</span></div>';
+        fb.parentNode.insertBefore(q, fb.nextSibling);
+      }
+    })();
     var c = d.couverture || {};
     var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="no1">' + esc(d.numero) + '</div></div></div><div class="mag">Magazine</div></div>';
     une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {

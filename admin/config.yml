@@ -54,8 +54,8 @@ collections:
               - {label: "Édito : nom dans l'encart", name: contact_nom, widget: string, required: false}
               - {label: "Édito : fonction dans l'encart", name: contact_role, widget: string, required: false}
               - {label: "Édito : votre message (je suis joignable, à votre écoute...)", name: contact_texte, widget: text, required: false}
-              - {label: "Édito : QR code (image carrée)", name: contact_qr, widget: image, required: false}
-              - {label: "Édito : phrase sous le QR code", name: contact_qr_legende, widget: string, required: false}
+              - {label: "QR code affiché sur la page d'accueil (image carrée)", name: contact_qr, widget: image, required: false}
+              - {label: "Phrase à côté du QR code (page d'accueil)", name: contact_qr_legende, widget: string, required: false}
               - {label: "Grande citation (affichée en vert dans l'édito)", name: citation, widget: text, required: false, hint: "Une phrase forte, sincère, qui donne envie de lire. Ex : Chacun mérite d'être vu et entendu."}
               - label: "Visuel"
                 name: visuel
