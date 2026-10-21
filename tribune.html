@@ -602,7 +602,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     var t = d.tribune || {};
     $("temoigner-titre").innerHTML = "Espace réservé <em>aux élus</em>";
-    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.innerHTML += '<p style="margin-top:16px"><a class="btn-all" href="/elu.html">Espace des élus : se connecter</a></p>'; ts.hidden = false;
+    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.innerHTML += '<h3 style="margin-top:22px;font-size:24px">Comment obtenir votre accès</h3><ol style="margin:0;padding-left:22px;font-size:17px;line-height:1.55"><li><strong>Vous nous contactez par WhatsApp</strong> avec votre nom, votre fonction et un justificatif d\u2019élu.</li><li><strong>Nous vérifions</strong> votre identité.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel.</li><li><strong>Vous vous connectez</strong>, vous écrivez votre tribune, nous la relisons, puis elle est publiée.</li></ol>'; ts.innerHTML += '<p style="margin-top:16px"><a class="btn-all" href="/elu.html">Espace des élus : se connecter</a></p>'; ts.hidden = false;
     fetch("/api/tribunes").then(function (r) { return r.json(); }).then(function (j) {
       var L = (j && j.tribunes) || [];
       if (!L.length) return;
