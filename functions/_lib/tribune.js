@@ -5,7 +5,23 @@ import { json, sha } from "./vote.js";
 
 export { json, sha };
 export const SESSION_TTL = 60 * 60 * 24 * 7;
-export const MAX_TITRE = 120, MAX_TEXTE = 5000, PAR_MOIS = 4;
+export const MAX_TITRE = 120, MAX_TEXTE = 5000, PAR_MOIS = 4, PAR_MOIS_HAB = 2;
+export function parMois(role) { return role === "habitant" ? PAR_MOIS_HAB : PAR_MOIS; }
+// Numéro de téléphone : on garde les chiffres (et + au début). Retourne "" si invalide.
+export function normTel(t) {
+  let x = String(t || "").replace(/[^\d+]/g, "");
+  if (x.startsWith("00")) x = "+" + x.slice(2);
+  if (!x.startsWith("+") && /^0\d{9}$/.test(x)) x = "+33" + x.slice(1);
+  const d = x.replace(/\D/g, "");
+  if (d.length < 9 || d.length > 15) return "";
+  return "+" + d;
+}
+// « Karim Benali » → « Karim B. »
+export function abrege(nom) {
+  const p = String(nom || "").trim().split(/\s+/);
+  if (p.length < 2) return p[0] || "";
+  return p[0] + " " + p[p.length - 1].charAt(0).toUpperCase() + ".";
+}
 
 export function clean(t, n) {
   return String(t == null ? "" : t).replace(/[\u0000-\u0008\u000b\u000c\u000e-\u001f\u007f]/g, " ").trim().slice(0, n);
@@ -91,9 +107,11 @@ export async function listPrefix(env, prefix) {
 export async function rebuildPub(env) {
   const all = (await listPrefix(env, "tt:")).filter((t) => t.statut === "publie");
   all.sort((a, b) => (b.pub_ts || b.ts) - (a.pub_ts || a.ts));
-  const list = all.map((t) => ({ nom: t.nom, fonction: t.fonction, groupe: t.groupe || "", titre: t.titre, texte: t.texte, lien: t.lien || "", ts: t.pub_ts || t.ts }));
-  await env.VOTES.put("tpub", JSON.stringify(list));
-  return list;
+  const elus = all.filter((t) => t.role !== "habitant").map((t) => ({ nom: t.nom, fonction: t.fonction, groupe: t.groupe || "", titre: t.titre, texte: t.texte, lien: t.lien || "", ts: t.pub_ts || t.ts }));
+  const habs = all.filter((t) => t.role === "habitant").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
+  await env.VOTES.put("tpub", JSON.stringify(elus));
+  await env.VOTES.put("hpub", JSON.stringify(habs));
+  return elus;
 }
 
 export function validLink(u) {

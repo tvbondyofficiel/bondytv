@@ -1,5 +1,5 @@
 // Espace de l'élu : connexion par code, voir ses tribunes, en envoyer une.
-import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, PAR_MOIS, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
+import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, parMois, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
 
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
@@ -7,7 +7,7 @@ export async function onRequestGet({ request, env }) {
   if (!acc) return json({ connecte: false });
   const mes = (await listPrefix(env, "tt:" + acc.id + ":")).sort((a, b) => b.ts - a.ts)
     .map((t) => ({ titre: t.titre, texte: t.texte, lien: t.lien, statut: t.statut, motif: t.motif || "", ts: t.ts }));
-  return json({ connecte: true, nom: acc.nom, fonction: acc.fonction, groupe: acc.groupe, tribunes: mes, max_titre: MAX_TITRE, max_texte: MAX_TEXTE, par_mois: PAR_MOIS });
+  return json({ connecte: true, role: acc.role || "elu", nom: acc.nom, fonction: acc.fonction, groupe: acc.groupe, tribunes: mes, max_titre: MAX_TITRE, max_texte: MAX_TEXTE, par_mois: parMois(acc.role) });
 }
 
 export async function onRequestPost({ request, env }) {
@@ -46,17 +46,18 @@ export async function onRequestPost({ request, env }) {
   if (b.action === "envoyer") {
     if (!(await limit(env, request, "send", 20, 3600))) return json({ error: "trop_de_tentatives" }, 429);
     const titre = cleanLine(b.titre, MAX_TITRE), texte = clean(b.texte, MAX_TEXTE);
-    const lien = validLink(b.lien);
+    const hab = acc.role === "habitant";
+    const lien = hab ? "" : validLink(b.lien);
     if (titre.length < 3) return json({ error: "titre" }, 400);
     if (texte.length < 20 && !lien) return json({ error: "texte" }, 400);
     if (lien === null) return json({ error: "lien" }, 400);
     if (!b.accord) return json({ error: "accord" }, 400);
     const debut = new Date(); debut.setUTCDate(1); debut.setUTCHours(0, 0, 0, 0);
     const ceMois = (await listPrefix(env, "tt:" + acc.id + ":")).filter((t) => t.ts >= debut.getTime() && t.statut !== "retire").length;
-    if (ceMois >= PAR_MOIS) return json({ error: "quota", par_mois: PAR_MOIS }, 429);
+    if (ceMois >= parMois(acc.role)) return json({ error: "quota", par_mois: parMois(acc.role) }, 429);
     const ts = Date.now();
     const suf = Array.from(crypto.getRandomValues(new Uint8Array(3))).map((x) => x.toString(16).padStart(2, "0")).join("");
-    await env.VOTES.put("tt:" + acc.id + ":" + ts + "-" + suf, JSON.stringify({ nom: acc.nom, fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, statut: "attente", ts }));
+    await env.VOTES.put("tt:" + acc.id + ":" + ts + "-" + suf, JSON.stringify({ role: acc.role || "elu", nom: acc.nom, fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, statut: "attente", ts }));
     return json({ ok: true });
   }
   return json({ error: "action" }, 400);

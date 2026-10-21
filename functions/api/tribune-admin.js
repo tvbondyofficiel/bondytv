@@ -1,13 +1,14 @@
 // Page privée de Mohammed : créer les comptes des élus, relire et valider les tribunes.
 // Protégée par MOD_TOKEN (le même mot de passe que la modération).
-import { json, clean, cleanLine, slug, newCode, codeHash, modAllowed, listPrefix, rebuildPub, sameOrigin } from "../_lib/tribune.js";
+import { json, clean, cleanLine, normTel, slug, newCode, codeHash, modAllowed, listPrefix, rebuildPub, sameOrigin } from "../_lib/tribune.js";
 
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
   if (!modAllowed(request, env)) return json({ error: "refuse" }, 401);
-  const comptes = (await listPrefix(env, "ta:")).map((a) => ({ id: a.id, nom: a.nom, fonction: a.fonction, groupe: a.groupe, actif: a.actif, created: a.created }));
+  const comptes = (await listPrefix(env, "ta:")).map((a) => ({ id: a.id, nom: a.nom, fonction: a.fonction, groupe: a.groupe, actif: a.actif, created: a.created, role: a.role || "elu", tel: a.tel || "" }));
+  const demandes = (await listPrefix(env, "hd:")).sort((a, b) => b.ts - a.ts);
   const tribunes = (await listPrefix(env, "tt:")).sort((a, b) => b.ts - a.ts);
-  return json({ comptes, tribunes });
+  return json({ comptes, tribunes, demandes });
 }
 
 export async function onRequestPost({ request, env }) {
@@ -27,6 +28,27 @@ export async function onRequestPost({ request, env }) {
     const code = newCode();
     await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction, groupe, actif: true, created: Date.now(), ch: await codeHash(env, id, code) }));
     return json({ ok: true, id, code });
+  }
+  if (a === "accepter") {
+    const cle = String(b.cle || "");
+    if (!cle.startsWith("hd:")) return json({ error: "cle" }, 400);
+    const d = await env.VOTES.get(cle, "json");
+    if (!d) return json({ error: "introuvable" }, 404);
+    const nom = cleanLine(d.nom, 80);
+    let id = slug(nom) || "habitant", n = 1;
+    while (await env.VOTES.get("ta:" + id)) { n++; id = (slug(nom) || "habitant") + "-" + n; }
+    const code = newCode();
+    await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction: "Habitant de Bondy", groupe: "", role: "habitant", tel: d.tel, actif: true, created: Date.now(), ch: await codeHash(env, id, code) }));
+    d.statut = "accepte"; d.compte = id;
+    await env.VOTES.put(cle, JSON.stringify(d));
+    return json({ ok: true, id, code, nom, tel: d.tel });
+  }
+  if (a === "refuser_demande" || a === "supprimer_demande") {
+    const cle = String(b.cle || "");
+    if (!cle.startsWith("hd:")) return json({ error: "cle" }, 400);
+    if (a === "supprimer_demande") await env.VOTES.delete(cle);
+    else { const d = await env.VOTES.get(cle, "json"); if (!d) return json({ error: "introuvable" }, 404); d.statut = "refuse"; await env.VOTES.put(cle, JSON.stringify(d)); }
+    return json({ ok: true });
   }
   if (a === "nouveau_code" || a === "desactiver" || a === "activer") {
     const id = String(b.id || "");
