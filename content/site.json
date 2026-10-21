@@ -339,7 +339,7 @@
     {
       "lien_video": "",
       "texte_visible": "",
-      "rubrique": "Économie",
+      "rubrique": "Ville",
       "pleine_largeur": false,
       "titre": "L'e-commerce à Bondy : des boutiques qui vont plus loin que le quartier",
       "texte": "Vendre à Bondy, c'est une chose. Vendre depuis Bondy à toute la France, voire plus loin, en est une autre. De plus en plus de Bondynois se lancent : boutiques en ligne, créateurs, commerçants qui complètent leur magasin par un site.\n\n**Une idée, un écran, une ville derrière**\n\nDerrière chaque boutique en ligne, il y a une histoire : une passion, un savoir-faire, l'envie de faire connaître ce que l'on fait bien. Beaucoup commencent petit, depuis chez eux, entre deux journées de travail.\n\n**Rester Bondynois, même sur internet**\n\nVendre en ligne ne coupe pas du quartier, au contraire. Ces entrepreneurs gardent Bondy dans leur nom, dans leur histoire, dans leur fierté. Et quand ils réussissent, c'est un peu toute la ville qui réussit avec eux.\n\n**Un coup de pouce, ça compte**\n\nSe lancer demande du courage, et se faire connaître demande de la visibilité. Bondy TV est là pour ça : donner un coup de projecteur à celles et ceux qui osent.\n\n**À vous de jouer**\n\nVous avez une boutique en ligne, ou vous en préparez une ? Présentez-vous : racontez ce que vous faites, pour qui, et pourquoi. Votre projet sera peut-être dans le prochain numéro.\n\n[Je veux présenter mon projet](/temoigner.html)",
@@ -349,13 +349,13 @@
       "image": "",
       "chapo": "À Bondy, de plus en plus de commerçants et de créateurs vendent aussi en ligne. Ce numéro commence à les présenter.",
       "visuel": "icone-sac",
-      "etiquette": "Économie",
+      "etiquette": "Ville · Commerce",
       "image_portrait": false
     },
     {
       "id": "food-trucks",
-      "rubrique": "Économie",
-      "etiquette": "Économie",
+      "rubrique": "Ville",
+      "etiquette": "Ville · Commerce",
       "pleine_largeur": false,
       "titre": "Les food trucks de Bondy : une chance pour la ville",
       "chapo": "Avoir des food trucks à Bondy, c'est une chance. Avoir Bondy TV pour les mettre en valeur, c'en est une autre.",
