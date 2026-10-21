@@ -106,6 +106,20 @@ collections:
               - {label: "Titre de la page", name: titre, widget: string}
               - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
               - {label: "Titre du bloc réseaux sociaux", name: reseaux_titre, widget: string, required: false}
+              - label: "Infos utiles (carré beige)"
+                name: utiles
+                widget: object
+                required: false
+                fields:
+                  - {label: "Titre", name: titre, widget: string}
+                  - label: "Blocs"
+                    name: items
+                    widget: list
+                    summary: "{{fields.titre}}"
+                    fields:
+                      - {label: "Titre", name: titre, widget: string}
+                      - {label: "Texte (une ligne par information)", name: texte, widget: text}
+                  - {label: "Note en bas", name: note, widget: string, required: false}
               - label: "Les infos (la plus récente en premier)"
                 name: cartes
                 widget: list
@@ -184,6 +198,20 @@ collections:
               - {label: "Titre de la page", name: titre, widget: string}
               - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
               - {label: "Titre du bloc réseaux sociaux", name: reseaux_titre, widget: string, required: false}
+              - label: "Infos utiles (carré beige)"
+                name: utiles
+                widget: object
+                required: false
+                fields:
+                  - {label: "Titre", name: titre, widget: string}
+                  - label: "Blocs"
+                    name: items
+                    widget: list
+                    summary: "{{fields.titre}}"
+                    fields:
+                      - {label: "Titre", name: titre, widget: string}
+                      - {label: "Texte (une ligne par information)", name: texte, widget: text}
+                  - {label: "Note en bas", name: note, widget: string, required: false}
               - label: "Les infos (la plus récente en premier)"
                 name: cartes
                 widget: list

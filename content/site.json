@@ -404,32 +404,30 @@
         "texte": "Gratuit, ouvert à toutes et à tous, créé pour donner de la visibilité à celles et ceux qui ont quelque chose à dire.",
         "lien": "/edito.html",
         "lien_texte": "Lire l'édito"
-      },
-      {
-        "rubrique": "Infos pratiques",
-        "date": "",
-        "titre": "Témoigner : la parole est à vous",
-        "texte": "Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées. Votre message n'est publié qu'avec votre accord, et vous pouvez demander son retrait à tout moment.",
-        "lien": "/temoigner.html",
-        "lien_texte": "Témoigner"
-      },
-      {
-        "rubrique": "Infos pratiques",
-        "date": "",
-        "titre": "Proposer un sujet",
-        "texte": "Associations, commerçants, habitants : écrivez à tvbondy@gmail.com ou appelez le 07 49 55 43 91.",
-        "lien": "/proposer.html",
-        "lien_texte": "Proposer un sujet"
-      },
-      {
-        "rubrique": "Infos pratiques",
-        "date": "",
-        "titre": "Installer l'application",
-        "texte": "Touchez le bouton « Installer l'app » dans le menu. Sur iPhone : bouton Partager de Safari, puis « Sur l'écran d'accueil ».",
-        "lien": "",
-        "lien_texte": ""
       }
-    ]
+    ],
+    "utiles": {
+      "titre": "Infos utiles",
+      "items": [
+        {
+          "titre": "Urgences",
+          "texte": "15 Samu\n17 Police secours\n18 Pompiers\n112 Urgence (numéro européen)"
+        },
+        {
+          "titre": "Commissariat de police",
+          "texte": "1, rue Gaston Defferre\nTél. 01 48 50 30 00"
+        },
+        {
+          "titre": "Déchetterie",
+          "texte": "84, avenue du 14 Juillet\nDu lundi au samedi, 9 h – 18 h\nLe dimanche, 9 h – 12 h"
+        },
+        {
+          "titre": "Encombrants et dépôts sauvages",
+          "texte": "Tél. 0805 055 055\nAppel gratuit"
+        }
+      ],
+      "note": "Pensez à vérifier les horaires avant de vous déplacer."
+    }
   },
   "elus": {
     "titre": "Vos élus, votre avis",

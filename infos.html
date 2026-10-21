@@ -502,6 +502,15 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 /* nav 12 */
 @media (min-width: 900px) { .bar nav { gap: 6px 11px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .03em !important; } }
+
+.bi-util { margin: 26px 0 8px; background: #f3ead6; color: #12141c; border-left: 6px solid #b8975a; padding: clamp(20px, 3vw, 32px); }
+.bi-util h2 { margin: 0 0 18px; font-family: var(--display); text-transform: uppercase; font-size: clamp(30px, 4vw, 44px); line-height: 1; color: #12141c; }
+.bi-util-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
+.bi-util h3 { margin: 0 0 8px; min-height: 2.9em; font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 18px; color: #006233; }
+.bi-util p { margin: 0; font-size: 17px; line-height: 1.55; }
+.bi-util .note { margin: 20px 0 0; font-size: 15px; color: #555a69; }
+@media (max-width: 900px) { .bi-util h3 { min-height: 0; } .bi-util-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+@media (max-width: 520px) { .bi-util-grid { grid-template-columns: minmax(0, 1fr); } }
 </style>
 </head>
 <body>
@@ -661,7 +670,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener">' + (ICONS[k] || "") + '<span>' + esc(r.reseau) + (hd ? '<small>' + esc(hd) + '</small>' : "") + '</span></a>';
       }).join("");
       var rt = esc(bi.reseaux_titre || "Suivez les bons réseaux !");
-      html += '<div class="bi-filters" role="group" aria-label="Filtrer par rubrique"><button type="button" aria-pressed="true" data-f="">Tout</button>' + RUB.map(function (r) { return '<button type="button" aria-pressed="false" data-f="' + r + '">' + r + '</button>'; }).join("") + '</div><div class="bi-grid" id="bigrid"></div>';
+      var ut = bi.utiles || {};
+      if ((ut.items || []).length) html += '<section class="bi-util"><h2>' + esc(ut.titre || "Infos utiles") + '</h2><div class="bi-util-grid">' + ut.items.map(function (i) { return '<div><h3>' + esc(i.titre) + '</h3><p>' + esc(i.texte).replace(/\n/g, "<br>") + '</p></div>'; }).join("") + '</div>' + (ut.note ? '<p class="note">' + esc(ut.note) + '</p>' : "") + '</section>';
+      var present = RUB.filter(function (r) { return cards.some(function (c) { return c.rubrique === r; }); });
+      html += (present.length > 1 ? '<div class="bi-filters" role="group" aria-label="Filtrer par rubrique"><button type="button" aria-pressed="true" data-f="">Tout</button>' + present.map(function (r) { return '<button type="button" aria-pressed="false" data-f="' + r + '">' + r + '</button>'; }).join("") + '</div>' : '') + '<div class="bi-grid" id="bigrid"></div>';
       html += '<div class="bi-net"><h2>' + rt + '</h2><div class="bi-nets">' + nets + '</div></div>';
       document.getElementById("infos").innerHTML = html;
       function draw(f) {
