@@ -569,6 +569,13 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 .el-tile .bd { color: #0a4a22; }
 .el-tile.on { background: #bfdba0; border-left-color: var(--green); }
 .el-grp { border-bottom-color: #7fb35a; }
+
+/* opposition : beige neutre (aucune couleur de parti) */
+.el-tile.opp { background: #efe5cb; border: 1px solid #ddcfa8; border-left: 4px solid #b8975a; }
+.el-tile.opp:hover { background: #e8dcc0; color: #5a4a1c; border-left-color: #8a6d2e; }
+.el-tile.opp.on { background: #e3d3ae; border-left-color: #8a6d2e; }
+.el-tile.opp .bd { color: #5a4a1c; }
+.el-grp.opp { border-bottom-color: #b8975a; }
 </style>
 </head>
 <body>
@@ -725,8 +732,8 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
       html += '<ol class="el-steps"><li><b>1</b> Touchez le nom d\'un élu et donnez une note de 0 à 10</li><li><b>2</b> Indiquez qui vous êtes et envoyez</li></ol>';
       var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
       groupes.forEach(function (g) {
-        html += '<h2 class="el-grp">' + esc(g) + '</h2><div class="el-tiles">' + liste.filter(function (e) { return (e.groupe || "Élus") === g; }).map(function (e) {
-          return '<button type="button" class="el-tile" data-id="' + esc(e.id) + '"><span class="nm">' + esc(e.nom) + '</span><span class="bd" aria-hidden="true"></span></button>';
+        html += '<h2 class="el-grp' + (/opposition/i.test(g) ? ' opp' : '') + '">' + esc(g) + '</h2><div class="el-tiles">' + liste.filter(function (e) { return (e.groupe || "Élus") === g; }).map(function (e) {
+          return '<button type="button" class="el-tile' + (/opposition/i.test(g) ? ' opp' : '') + '" data-id="' + esc(e.id) + '"><span class="nm">' + esc(e.nom) + '</span><span class="bd" aria-hidden="true"></span></button>';
         }).join("") + '</div>';
       });
       html += '<form class="el-form" id="vote" novalidate autocomplete="on"><h2>2. Envoyer mes notes</h2><div class="el-sel" id="elsel"><p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p></div>';
