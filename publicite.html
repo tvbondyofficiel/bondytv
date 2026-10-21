@@ -491,6 +491,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .pubpage .pg-cta { margin-top: 56px; background: #fff !important; border-top: 6px solid var(--green) !important; border-left: 0; padding: clamp(24px, 3.4vw, 40px); gap: 22px; }
 .pubpage .pg-cta .acts { display: flex; gap: 12px; flex-wrap: wrap; }
 .pubpage .pg-cta .acts a { min-width: 150px; text-align: center; padding: 14px 20px; }
+.a5.free a.gratuit { text-decoration: none; display: inline-block; cursor: pointer; }
 </style>
 </head>
 <body>
@@ -650,13 +651,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       html += '<div class="pg-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (pp.introduction ? '<p>' + esc(pp.introduction) + '</p>' : "") + '</div><div class="a5s">';
       for (var k = 0; k < total; k++) {
         var e = ems[k];
-        if (!e) { html += '<div class="a5 free"><b><span>Votre</span> <span>pub</span> <span>ici</span></b><span>Pour votre commerce, pour vous aider à démarrer.</span><em class="gratuit">C\'est gratuit</em></div>'; continue; }
+        if (!e) { html += '<div class="a5 free"><b><span>Votre</span> <span>pub</span> <span>ici</span></b><span>Pour votre commerce, pour vous aider à démarrer.</span><a class="gratuit" href="' + esc(safeUrl(pr.whatsapp || "")) + '" target="_blank" rel="noopener">C\'est gratuit</a></div>'; continue; }
         var u = e.lien ? safeUrl(e.lien) : "", inner;
         if (e.image) inner = '<img src="' + esc(e.image) + '" alt="' + esc(e.image_description || e.nom) + '" loading="lazy">';
         else inner = '<div class="tx">' + (e.activite ? '<em>' + esc(e.activite) + '</em>' : "") + '<h2>' + esc(e.nom) + '</h2>' + (e.texte ? '<p>' + esc(e.texte) + '</p>' : "") + (e.telephone ? '<strong>' + esc(e.telephone) + '</strong>' : "") + (u ? '<span class="go">Découvrir</span>' : "") + '</div>';
         html += u ? '<a class="a5 on" href="' + esc(u) + '" target="_blank" rel="noopener sponsored">' + inner + '</a>' : '<div class="a5 on">' + inner + '</div>';
       }
-      html += '</div>' + (pp.tarif ? '<p class="tarif">' + esc(pp.tarif) + '</p>' : "") + '<div class="suite"><span></span><a class="btn-all" href="/edito.html">Lire l\'édito</a></div><div class="pg-cta"><b>Vous démarrez ? On vous aide.</b><div class="acts">' + contact + '</div></div></div>';
+      html += '</div>' + (pp.tarif ? '<p class="tarif">' + esc(pp.tarif) + '</p>' : "") + '<div class="suite"><span></span><a class="btn-all" href="/edito.html">Lire l\'édito</a></div></div>';
       document.getElementById("pub").innerHTML = html;
     }
 
