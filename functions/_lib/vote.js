@@ -29,6 +29,13 @@ export function normPhone(p) {
   return n;
 }
 
+export async function elusConf(request, env) {
+  const url = new URL("/content/site.json", request.url);
+  const res = env.ASSETS ? await env.ASSETS.fetch(url) : await fetch(url);
+  const d = await res.json();
+  return d.elus || {};
+}
+
 export async function elusList(request, env) {
   const url = new URL("/content/site.json", request.url);
   const res = env.ASSETS ? await env.ASSETS.fetch(url) : await fetch(url);

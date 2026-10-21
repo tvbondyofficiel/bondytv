@@ -577,6 +577,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 .el-tile.opp .bd { color: #5a4a1c; }
 .el-grp.opp { border-bottom-color: #b8975a; }
 .el-form h2 { color: var(--red); }
+.el-modal.nophr .mt, .el-modal.nophr .cnt { display: none !important; }
 </style>
 </head>
 <body>
@@ -725,7 +726,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
     $("top").innerHTML = une;
 
     var arts = d.articles || [];
-    var el = d.elus || {}, liste = el.liste || [];
+    var el = d.elus || {}, liste = el.liste || [], phr = el.phrases_actives === true;
     if (document.getElementById("elus")) {
       var tt = esc(el.titre || "Vos élus, votre avis").split(" "), lw = tt.splice(-2).join(" ");
       var html = '<div class="el-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (el.introduction ? '<p>' + esc(el.introduction) + '</p>' : "") + '</div>';
@@ -744,7 +745,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
       html += '<div class="el-hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="site" tabindex="-1" autocomplete="off"></label></div><button class="el-send" type="submit">Envoyer mes notes</button><div class="el-msg" id="elmsg" role="status"></div></form>';
       html += '<p class="el-rep">' + esc(el.droit_de_reponse || "") + ' <a href="/confidentialite.html">Confidentialité et mentions légales</a></p>';
       html += '<div class="el-bar2" id="elbar" hidden><span id="elcount"></span><a href="#vote">Envoyer</a></div>';
-      html += '<div class="el-modal" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Ce qu\'il ou elle a fait pour vous (facultatif)<textarea maxlength="280" placeholder="Une ou deux phrases, des faits. Pas d\'insulte, pas d\'accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';
+      html += '<div class="el-modal' + (phr ? '' : ' nophr') + '" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Ce qu\'il ou elle a fait pour vous (facultatif)<textarea maxlength="280" placeholder="Une ou deux phrases, des faits. Pas d\'insulte, pas d\'accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';
       document.getElementById("elus").innerHTML = html;
 
       var form = document.getElementById("vote"), msg = document.getElementById("elmsg"), modal = document.getElementById("elmodal"), sel = {}, done = {}, stats = {}, curId = null;
@@ -785,7 +786,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
       modal.querySelector(".ok").addEventListener("click", function () {
         var on = pillsBox.querySelector('[aria-checked="true"]'); if (!on) { modal.querySelector(".mq").textContent = "Choisissez d'abord une note de 0 à 10"; modal.querySelector(".mq").style.color = "var(--red)"; return; }
         modal.querySelector(".mq").textContent = "Votre note de 0 à 10"; modal.querySelector(".mq").style.color = "";
-        sel[curId] = { note: +on.dataset.v, commentaire: ta.value }; closeM(); refresh();
+        sel[curId] = { note: +on.dataset.v, commentaire: phr ? ta.value : "" }; closeM(); refresh();
       });
       modal.querySelector(".rm").addEventListener("click", function () { delete sel[curId]; closeM(); refresh(); });
       modal.querySelector(".mx").addEventListener("click", closeM);
@@ -816,7 +817,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
             (x.j.resultats || []).forEach(function (r) { if (r.statut === "ok") { ok++; done[r.id] = 1; delete sel[r.id]; } if (r.statut === "deja_vote") { dup++; done[r.id] = 1; delete sel[r.id]; } });
             try { localStorage.setItem("elus-votes", JSON.stringify(done)); } catch (e) {}
             refresh();
-            say((ok ? "Merci ! " + ok + " note" + (ok > 1 ? "s" : "") + " enregistrée" + (ok > 1 ? "s" : "") + ". Vos phrases seront relues avant d'être publiées." : "") + (dup ? " " + dup + " élu(s) avaient déjà reçu une note de votre part : une seule note par personne est possible." : ""));
+            say((ok ? "Merci ! " + ok + " note" + (ok > 1 ? "s" : "") + " enregistrée" + (ok > 1 ? "s" : "") + "." + (phr ? " Vos phrases seront relues avant d'être publiées." : "") : "") + (dup ? " " + dup + " élu(s) avaient déjà reçu une note de votre part : une seule note par personne est possible." : ""));
           }).catch(function () { btn.disabled = false; say("Envoi impossible, vérifiez votre connexion.", 1); });
       });
     }

@@ -4,7 +4,7 @@
 // Données conservées 12 mois puis supprimées automatiquement.
 
 
-import { TTL, json, sha, normEmail, normPhone, elusList, getAgg, getPubc } from "../_lib/vote.js";
+import { TTL, json, sha, normEmail, normPhone, elusList, elusConf, getAgg, getPubc } from "../_lib/vote.js";
 
 const MIN_AVIS = 5;          // la moyenne n'est affichée qu'à partir de 5 avis
 const MAX_COMMENT = 280;
@@ -21,7 +21,8 @@ export async function onRequestGet({ request, env, waitUntil }) {
   const ckey = new Request(new URL("/api/elus?c=1", request.url).toString());
   if (cache) { const hit = await cache.match(ckey); if (hit) return hit; }
   const liste = await elusList(request, env);
-  const agg = await getAgg(env), pubc = await getPubc(env);
+  const phrases = (await elusConf(request, env)).phrases_actives === true;
+  const agg = await getAgg(env), pubc = phrases ? await getPubc(env) : {};
   const out = {};
   for (const e of liste) {
     const a = agg[e.id] || { s: 0, n: 0 };
@@ -52,6 +53,7 @@ export async function onRequestPost({ request, env }) {
   await env.VOTES.put(hourKey, String(used + 1), { expirationTtl: 7200 });
 
   const liste = await elusList(request, env);
+  const phrases = (await elusConf(request, env)).phrases_actives === true;
   const valid = new Set(liste.map((e) => e.id));
   const hMail = await sha(env, "mail:" + email), hTel = await sha(env, "tel:" + tel);
   const resultats = [];
@@ -64,7 +66,7 @@ export async function onRequestPost({ request, env }) {
     if (!valid.has(id) || !Number.isInteger(score) || score < 0 || score > 10) { resultats.push({ id, statut: "invalide" }); continue; }
     const kMail = "s:" + id + ":" + hMail, kTel = "p:" + id + ":" + hTel;
     if ((await env.VOTES.get(kMail)) || (await env.VOTES.get(kTel))) { resultats.push({ id, statut: "deja_vote" }); continue; }
-    const comment = cleanText(v.commentaire, MAX_COMMENT);
+    const comment = phrases ? cleanText(v.commentaire, MAX_COMMENT) : "";
     const rec = { id, note: score, commentaire: comment, nom, email, telephone: tel, ts: Date.now(), statut: comment ? "en_attente" : "sans_commentaire", ip: hIp };
     await env.VOTES.put(kMail, JSON.stringify(rec), { expirationTtl: TTL, metadata: { s: score } });
     await env.VOTES.put(kTel, "1", { expirationTtl: TTL });
