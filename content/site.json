@@ -249,6 +249,22 @@
       "image_portrait": false
     },
     {
+      "id": "attention",
+      "rubrique": "À l'honneur",
+      "etiquette": "À l'honneur · Nouveau à Bondy",
+      "pleine_largeur": true,
+      "titre": "Maison Atlas : le goût, le cœur et le quartier",
+      "chapo": "Un nouveau concept vient d'ouvrir à Bondy, au 9 rond-point du Verger. Petit déjeuner oriental, soupes du terroir et couscous du vendredi : une adresse créée par Toufik, un vrai Bondynois, qui mérite le détour.",
+      "visuel": "image",
+      "image": "/images/atlas-table.jpg",
+      "image_description": "Croissants saumon-avocat, jus d'orange et théière marocaine : l'esprit de Maison Atlas",
+      "image_portrait": false,
+      "lien_video": "",
+      "credit": "9 rond-point du Verger, 93140 Bondy · Réservations : 06 52 83 52 45",
+      "texte_visible": "",
+      "texte": "Il y a des adresses qu'on recommande sans réfléchir. **Maison Atlas**, au 9 rond-point du Verger, à Bondy, en fait partie.\n\nDerrière ce nouveau concept, il y a **Toufik**, un Bondynois que beaucoup connaissent : un homme du quartier, toujours prêt à donner un coup de main, qui a eu envie de s'en sortir et de créer quelque chose de beau chez lui, à Bondy. Maison Atlas, c'est son pari : prouver qu'on peut monter un lieu sérieux, chaleureux et propre, avec les saveurs d'ici et l'esprit de la maison.\n\n> « Saveurs authentiques & esprit convivial » : la promesse de la maison, écrite sur chacune de ses affiches.\n\n**Le petit déjeuner oriental, généreux comme il se doit**\n\nThé à la menthe ou café au lait, jus d'orange pressé, tartines, œufs, olives, huile d'olive, pain oriental, toast avocat saumon… Quatre formules de 6,50 € à 9,50 € pour bien commencer la journée, et des extras à la carte : msemen, harcha, mhajeb, mini viennoiserie, jus d'avocat, soupes, egg muffin.\n\n**Le vendredi, c'est Couscous Party**\n\nChaque vendredi de 11h30 à 15h00, le couscous à l'agneau ou au poulet. Mohammed l'a goûté un vendredi, et il le dit sans détour : un goût unique, spécial, satisfaisant. Une adresse qu'il place, pour lui, dans son top 5 de ce qui se passe de bien à Bondy.\n\n**Les soupes à 4 €**\n\nSoupe de lentilles *la3deusse* et soupe de pois cassés *bissara* : deux classiques du terroir, servis 7 jours sur 7, pour un bol de saveurs et de tradition.\n\n**Les affiches de la maison**\n\n![Les soupes de Maison Atlas, 4 euros](/images/atlas-soupes.jpg)\n![Le petit déjeuner oriental de Maison Atlas, quatre formules](/images/atlas-petit-dejeuner.jpg)\n![Les extras de Maison Atlas, avec les prix](/images/atlas-extras.jpg)\n\n**Infos pratiques**\n\n- **Adresse** : Maison Atlas, 9 rond-point du Verger, 93140 Bondy\n- **Horaires** : tous les jours de 5h00 à 13h00, service continu ; le vendredi jusqu'à 15h00\n- **Réservations et groupes** : 06 52 83 52 45 (WhatsApp)\n\nUn lieu propre, un accueil sincère, une cuisine qui a du goût : à Bondy, quand un commerce du quartier démarre avec le cœur, Bondy TV a envie de le dire. Allez-y, goûtez, et dites-nous ce que vous en avez pensé.\n\n@ Maison Atlas, créée par Toufik · une adresse recommandée par Mohammed, de Bondy TV."
+    },
+    {
       "lien_video": "",
       "texte_visible": "",
       "rubrique": "Édito",
@@ -425,7 +441,7 @@
       "texte": "Certaines associations font du bruit. D'autres font du bien. Action 14 est de celles qui agissent, au plus près des gens, en plein cœur de l'humanité.\n\nIl y a cinq ans, Madame Hassiba a fondé cette association. Elle la préside, la gère et l'a fait grandir, jour après jour. Son combat : aider les Bondynois à surmonter la misère qu'ils subissent.\n\nAction 14 agit dans l'alimentaire. Madame Hassiba va chercher les donateurs, rassemble ce qui peut être donné, et le fait arriver à celles et ceux qui en ont besoin. Un vrai travail de fond, mené avec le cœur.\n\nLes Bondynois lui en sont reconnaissants. Réussir là où d'autres n'y sont pas arrivés ne passe jamais inaperçu, et son parcours est un exemple de ce que l'engagement peut accomplir.\n\nRécemment, le local de l'association a été brûlé. C'est une épreuve pour Action 14 et pour toutes les personnes qu'elle aide. Les circonstances de l'incendie ne sont pas établies : Bondy TV s'en tient aux faits confirmés.\n\nMohammed, créateur de Bondy TV, a accompagné Madame Hassiba à ses débuts et a créé le logo de l'association. Il témoigne : « Elle a fait quelque chose de merveilleux. »\n\nBondy TV rend hommage à Madame Hassiba et à son équipe, et invite chacun à soutenir leur action.\n\n**Contact**\n==[téléphone, e-mail ou réseaux sociaux d'Action 14]==\n\n[Voir la vidéo sur Facebook](https://www.facebook.com/reel/1048032848260793)\n\n@ Rédigé par Stéphane",
       "image_description": "",
       "credit": "",
-      "id": "attention",
+      "id": "action14",
       "image": "",
       "chapo": "Madame Hassiba, présidente de l'association Action 14, aide les Bondynois à surmonter la misère. Une femme de cœur, à l'honneur dans ce numéro.",
       "visuel": "none",
