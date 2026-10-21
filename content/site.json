@@ -396,16 +396,7 @@
     "titre": "Les bonnes infos",
     "introduction": "Ce qu'il faut savoir pour vivre Bondy au quotidien : actualités, événements, vie locale et infos pratiques. Simple, clair, vérifié.",
     "reseaux_titre": "Pour avoir les bonnes infos, suivez les bons réseaux !",
-    "cartes": [
-      {
-        "rubrique": "Actualités",
-        "date": "",
-        "titre": "Bondy TV Magazine N°1 est en ligne",
-        "texte": "Gratuit, ouvert à toutes et à tous, créé pour donner de la visibilité à celles et ceux qui ont quelque chose à dire.",
-        "lien": "/edito.html",
-        "lien_texte": "Lire l'édito"
-      }
-    ],
+    "cartes": [],
     "utiles": {
       "titre": "Infos utiles",
       "items": [

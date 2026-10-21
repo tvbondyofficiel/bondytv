@@ -503,6 +503,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 /* nav 12 */
 @media (min-width: 900px) { .bar nav { gap: 6px 11px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .03em !important; } }
 
+.bi-photo { grid-column: 1 / -1; position: relative; margin: 14px 0 10px; box-shadow: 10px 10px 0 var(--beige); }
+.bi-photo img { display: block; width: 100%; aspect-ratio: 21 / 9; object-fit: cover; object-position: 50% 60%; }
+.bi-photo figcaption { position: absolute; left: 0; bottom: 0; background: var(--beige); color: #12141c; font-family: var(--display); font-weight: 700; text-transform: uppercase; letter-spacing: .1em; font-size: 14px; padding: 8px 14px; }
+@media (max-width: 620px) { .bi-photo { box-shadow: 6px 6px 0 var(--beige); } .bi-photo img { aspect-ratio: 4 / 3; } }
 .bi-util { margin: 26px 0 8px; background: #f3ead6; color: #12141c; border-left: 6px solid #b8975a; padding: clamp(20px, 3vw, 32px); }
 .bi-util h2 { margin: 0 0 18px; font-family: var(--display); text-transform: uppercase; font-size: clamp(30px, 4vw, 44px); line-height: 1; color: #12141c; }
 .bi-util-grid { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 22px; }
@@ -682,7 +686,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
           var u = c.lien ? safeUrl(c.lien) : "";
           return '<article class="bi-card" data-r="' + esc(c.rubrique) + '"><div class="meta"><b>' + esc(c.rubrique) + '</b><span>' + esc(c.date || "") + '</span></div><h3>' + esc(c.titre) + '</h3><p>' + esc(c.texte) + '</p>' + (u ? '<a class="go" href="' + esc(u) + '">' + esc(c.lien_texte || "En savoir plus") + '</a>' : "") + '</article>';
         }).join("");
-        if (!list.length) g = '<div class="bi-empty">Bientôt des infos ici. Vous en connaissez une utile à tous les Bondynois ? <a href="/proposer.html">Envoyez-la-nous</a>.</div>';
+        if (!list.length) g = '<figure class="bi-photo"><img src="/images/bondy-rue-automne.jpg" alt="Une rue de Bondy en automne" loading="lazy"><figcaption>Bondy</figcaption></figure>';
         document.getElementById("bigrid").innerHTML = g;
       }
       draw("");
