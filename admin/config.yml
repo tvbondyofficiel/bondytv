@@ -62,6 +62,9 @@ collections:
                 widget: select
                 options:
                   - {label: "Aucune image pour l'instant", value: none}
+                  - {label: "Pictogramme sac (e-commerce)", value: icone-sac}
+                  - {label: "Pictogramme camion (food truck)", value: icone-camion}
+                  - {label: "Pictogramme micro (micro-trottoir)", value: icone-micro}
                   - {label: "Une image", value: image}
                   - {label: "Logo Bondy TV", value: logo}
                   - {label: "Illustration du pont", value: pont}
@@ -106,6 +109,9 @@ collections:
                     widget: select
                     options:
                       - {label: "Aucune image pour l'instant", value: none}
+                      - {label: "Pictogramme sac (e-commerce)", value: icone-sac}
+                      - {label: "Pictogramme camion (food truck)", value: icone-camion}
+                      - {label: "Pictogramme micro (micro-trottoir)", value: icone-micro}
                       - {label: "Une image", value: image}
                       - {label: "Logo Bondy TV", value: logo}
                       - {label: "Illustration du pont", value: pont}
