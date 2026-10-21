@@ -4,7 +4,7 @@
 // Données conservées 12 mois puis supprimées automatiquement.
 
 
-import { TTL, json, sha, normEmail, normPhone, elusList } from "../_lib/vote.js";
+import { TTL, json, sha, normEmail, normPhone, elusList, getAgg, getPubc } from "../_lib/vote.js";
 
 const MIN_AVIS = 5;          // la moyenne n'est affichée qu'à partir de 5 avis
 const MAX_COMMENT = 280;
@@ -14,24 +14,23 @@ function cleanText(t, n) {
   return String(t == null ? "" : t).replace(/[\u0000-\u001f\u007f]/g, " ").replace(/\s+/g, " ").trim().slice(0, n);
 }
 
-export async function onRequestGet({ request, env }) {
+export async function onRequestGet({ request, env, waitUntil }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
+  // cache de 60 secondes sur le serveur : des milliers de visites = quelques lectures seulement
+  const cache = typeof caches !== "undefined" ? caches.default : null;
+  const ckey = new Request(new URL("/api/elus?c=1", request.url).toString());
+  if (cache) { const hit = await cache.match(ckey); if (hit) return hit; }
   const liste = await elusList(request, env);
+  const agg = await getAgg(env), pubc = await getPubc(env);
   const out = {};
   for (const e of liste) {
-    let sum = 0, n = 0, cursor;
-    do {
-      const r = await env.VOTES.list({ prefix: "s:" + e.id + ":", cursor });
-      for (const k of r.keys) { const s = k.metadata && typeof k.metadata.s === "number" ? k.metadata.s : null; if (s !== null) { sum += s; n++; } }
-      cursor = r.list_complete ? null : r.cursor;
-    } while (cursor);
-    const pubs = await env.VOTES.list({ prefix: "pub:" + e.id + ":", limit: 30 });
-    const comments = [];
-    for (const k of pubs.keys) { const v = await env.VOTES.get(k.name, "json"); if (v && v.text) comments.push({ text: v.text, ts: v.ts }); }
-    comments.sort((a, b) => (b.ts || 0) - (a.ts || 0));
-    out[e.id] = { n, moyenne: n >= MIN_AVIS ? Math.round((sum / n) * 10) / 10 : null, min: MIN_AVIS, commentaires: comments.slice(0, 10) };
+    const a = agg[e.id] || { s: 0, n: 0 };
+    const c = (pubc[e.id] || []).slice().sort((x, y) => (y.ts || 0) - (x.ts || 0)).slice(0, 10).map((x) => ({ text: x.text, ts: x.ts }));
+    out[e.id] = { n: a.n, moyenne: a.n >= MIN_AVIS ? Math.round((a.s / a.n) * 10) / 10 : null, min: MIN_AVIS, commentaires: c };
   }
-  return json({ elus: out }, 200, { "Cache-Control": "public, max-age=60" });
+  const res = json({ elus: out }, 200, { "Cache-Control": "public, max-age=60" });
+  if (cache) { const put = cache.put(ckey, res.clone()); if (waitUntil) waitUntil(put); else await put; }
+  return res;
 }
 
 export async function onRequestPost({ request, env }) {
@@ -56,6 +55,8 @@ export async function onRequestPost({ request, env }) {
   const valid = new Set(liste.map((e) => e.id));
   const hMail = await sha(env, "mail:" + email), hTel = await sha(env, "tel:" + tel);
   const resultats = [];
+  let changed = false;
+  const agg = await getAgg(env); // lu avant toute écriture pour ne pas compter deux fois
   const votes = Array.isArray(b.votes) ? b.votes.slice(0, 40) : [];
   for (const v of votes) {
     const id = String(v.id || "");
@@ -67,7 +68,9 @@ export async function onRequestPost({ request, env }) {
     const rec = { id, note: score, commentaire: comment, nom, email, telephone: tel, ts: Date.now(), statut: comment ? "en_attente" : "sans_commentaire", ip: hIp };
     await env.VOTES.put(kMail, JSON.stringify(rec), { expirationTtl: TTL, metadata: { s: score } });
     await env.VOTES.put(kTel, "1", { expirationTtl: TTL });
+    agg[id] = agg[id] || { s: 0, n: 0 }; agg[id].s += score; agg[id].n += 1; changed = true;
     resultats.push({ id, statut: "ok" });
   }
+  if (changed) await env.VOTES.put("agg", JSON.stringify(agg));
   return json({ ok: true, resultats });
 }

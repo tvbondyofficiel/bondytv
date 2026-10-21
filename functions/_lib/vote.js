@@ -36,3 +36,45 @@ export async function elusList(request, env) {
   return (d.elus && d.elus.liste) || [];
 }
 
+
+// Résumé prêt à lire : une seule lecture par visite, au lieu d'une recherche par élu.
+// agg = { id: { s: somme des notes, n: nombre d'avis } } ; pubc = { id: [ { h, text, ts } ] }
+export async function getAgg(env) {
+  let a = await env.VOTES.get("agg", "json");
+  if (a) return a;
+  a = {};
+  let cursor;
+  do {
+    const r = await env.VOTES.list({ prefix: "s:", cursor });
+    for (const k of r.keys) {
+      const id = k.name.split(":")[1];
+      const s = k.metadata && typeof k.metadata.s === "number" ? k.metadata.s : null;
+      if (s === null) continue;
+      a[id] = a[id] || { s: 0, n: 0 };
+      a[id].s += s; a[id].n += 1;
+    }
+    cursor = r.list_complete ? null : r.cursor;
+  } while (cursor);
+  await env.VOTES.put("agg", JSON.stringify(a));
+  return a;
+}
+
+export async function getPubc(env) {
+  let p = await env.VOTES.get("pubc", "json");
+  if (p) return p;
+  p = {};
+  let cursor;
+  do {
+    const r = await env.VOTES.list({ prefix: "s:", cursor });
+    for (const k of r.keys) {
+      if (!(k.metadata && k.metadata.p)) continue;
+      const rec = await env.VOTES.get(k.name, "json");
+      if (!rec || !rec.texte_pub) continue;
+      const [, id, h] = k.name.split(":");
+      (p[id] = p[id] || []).push({ h, text: rec.texte_pub, ts: rec.ts });
+    }
+    cursor = r.list_complete ? null : r.cursor;
+  } while (cursor);
+  await env.VOTES.put("pubc", JSON.stringify(p));
+  return p;
+}

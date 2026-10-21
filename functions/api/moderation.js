@@ -1,6 +1,6 @@
 // Page de modération : relire les commentaires, les publier ou les refuser, supprimer un vote, exporter.
 // Protégée par le secret MOD_TOKEN (Cloudflare > Settings > Variables and secrets, type Secret).
-import { TTL, json, sha, elusList } from "../_lib/vote.js";
+import { TTL, json, sha, elusList, getAgg, getPubc } from "../_lib/vote.js";
 
 function same(a, b) {
   if (!a || !b || a.length !== b.length) return false;
@@ -53,23 +53,27 @@ export async function onRequestPost({ request, env }) {
   const rec = await env.VOTES.get(cle, "json");
   if (!rec) return json({ error: "introuvable" }, 404);
   const parts = cle.split(":"); // s:id:hash
-  const pubKey = "pub:" + parts[1] + ":" + parts[2];
+  const id = parts[1], h = parts[2];
+  const pubc = await getPubc(env);
+  const drop = () => { pubc[id] = (pubc[id] || []).filter((x) => x.h !== h); };
   if (b.action === "publier") {
     if (!rec.commentaire) return json({ error: "pas_de_commentaire" }, 400);
     const texte = String(b.texte == null ? rec.commentaire : b.texte).trim().slice(0, 280);
-    await env.VOTES.put(pubKey, JSON.stringify({ text: texte, ts: Date.now() }), { expirationTtl: TTL });
-    rec.statut = "publie";
-    await env.VOTES.put(cle, JSON.stringify(rec), { expirationTtl: TTL, metadata: { s: rec.note } });
+    drop(); (pubc[id] = pubc[id] || []).push({ h, text: texte, ts: Date.now() });
+    rec.statut = "publie"; rec.texte_pub = texte;
+    await env.VOTES.put(cle, JSON.stringify(rec), { expirationTtl: TTL, metadata: { s: rec.note, p: 1 } });
   } else if (b.action === "refuser") {
-    await env.VOTES.delete(pubKey);
-    rec.statut = "refuse";
+    drop();
+    rec.statut = "refuse"; delete rec.texte_pub;
     await env.VOTES.put(cle, JSON.stringify(rec), { expirationTtl: TTL, metadata: { s: rec.note } });
   } else if (b.action === "supprimer") {
-    // retire le vote, le commentaire et le blocage téléphone (la personne pourra revoter si c'était une erreur)
-    await env.VOTES.delete(pubKey);
+    drop();
     await env.VOTES.delete(cle);
     const hTel = await sha(env, "tel:" + rec.telephone);
     await env.VOTES.delete("p:" + rec.id + ":" + hTel);
+    const agg = await getAgg(env);
+    if (agg[id]) { agg[id].s -= rec.note; agg[id].n = Math.max(0, agg[id].n - 1); await env.VOTES.put("agg", JSON.stringify(agg)); }
   } else return json({ error: "action" }, 400);
+  await env.VOTES.put("pubc", JSON.stringify(pubc));
   return json({ ok: true });
 }
