@@ -424,6 +424,11 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 
 /* titres : mot fort en beige doré, le reste de l'écriture en noir */
 h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { color: #b8975a !important; }
+
+/* N°1 : petit, à droite, sous le bouton Installer l'app */
+.head { position: relative; }
+.no1-r { position: absolute; top: 14px; right: 0; background: var(--beige); color: #12141c; border: 1px solid #c9b58a; font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1; padding: 6px 12px; letter-spacing: .04em; }
+@media (max-width: 560px) { .no1-r { font-size: 17px; padding: 5px 10px; top: 8px; } }
 </style>
 </head>
 <body>
@@ -577,7 +582,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       }
     })();
     var c = d.couverture || {};
-    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="no1">' + esc(d.numero) + '</div></div></div><div class="mag">Magazine</div></div>';
+    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div></div></div><div class="mag">Magazine</div><div class="no1-r">' + esc(d.numero) + '</div></div>';
     une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {
       return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div></div>";
