@@ -399,9 +399,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .temoigner .t-big { grid-column: 1 / -1; margin: 0 0 18px; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(44px, 8vw, 104px); line-height: .94; color: #12141c; }
 .temoigner .t-big em { font-style: normal; color: #b8975a; }
 .temoigner .intro { font-size: clamp(19px, 2.2vw, 24px); line-height: 1.45; max-width: 56ch; margin-bottom: 30px; }
-.t-side { background: #f3ead6; border-left: 6px solid #b8975a; padding: 30px 28px; grid-row: 3; }
+.t-side { background: #f3ead6; border-left: 6px solid #b8975a; padding: 30px 28px; grid-row: 4; }
+.temoigner .tform { grid-row: 4; }
+@media (max-width: 900px) { .temoigner .tform { grid-row: auto; } .t-side { grid-row: auto; } }
 .t-side h3 { margin: 0 0 12px; font-family: var(--display); text-transform: uppercase; font-size: clamp(28px, 3vw, 38px); line-height: 1; color: #12141c; }
 .t-side p { color: #12141c; font-size: 18px; line-height: 1.5; }
+#pubtri { grid-column: 1 / -1; margin: 0 0 34px; }
+.t-sub { font-family: var(--display); text-transform: uppercase; font-size: clamp(30px, 4vw, 44px); margin: 0 0 16px; }
+.tri { background: #fff; border-top: 6px solid var(--green); padding: 22px 26px; margin: 0 0 16px; max-width: 760px; }
+.tri h3 { margin: 0 0 12px; font-family: var(--display); text-transform: uppercase; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; }
+.tri p { margin: 0 0 12px; font-size: 18px; line-height: 1.55; }
+.tri .sig { color: var(--muted); font-size: 15px; font-weight: 600; margin: 14px 0 0; }
 </style>
 </head>
 <body>
@@ -427,6 +435,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   <section class="temoigner" id="temoigner">
     <h1 class="t-big" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
+    <div id="pubtri" hidden></div>
     <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
 <input name="access_key" type="hidden" value="a10cef59-fca0-479e-81ab-13a661ab12b5"/>
 <input name="subject" type="hidden" value="Tribune d'élu depuis Bondy TV Magazine"/>
@@ -593,7 +602,18 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     var t = d.tribune || {};
     $("temoigner-titre").innerHTML = "Espace réservé <em>aux élus</em>";
-    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.hidden = false;
+    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.innerHTML += '<p style="margin-top:16px"><a class="btn-all" href="/elu.html">Espace des élus : se connecter</a></p>'; ts.hidden = false;
+    fetch("/api/tribunes").then(function (r) { return r.json(); }).then(function (j) {
+      var L = (j && j.tribunes) || [];
+      if (!L.length) return;
+      var box = $("pubtri");
+      box.innerHTML = "<h2 class=\"t-sub\">Les tribunes</h2>" + L.map(function (t) {
+        var paras = String(t.texte || "").split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
+        var lk = /^https:\/\//i.test(t.lien || "") ? '<p><a href="' + esc(t.lien) + '" target="_blank" rel="noopener">Voir la vidéo</a></p>' : "";
+        return '<article class="tri"><h3>' + esc(t.titre) + "</h3>" + paras + lk + '<p class="sig">' + esc(t.nom) + " · " + esc(t.fonction) + (t.groupe ? " · " + esc(t.groupe) : "") + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + "</p></article>";
+      }).join("");
+      box.hidden = false;
+    }).catch(function () {});
     $("temoigner-intro").textContent = t.introduction || "";
 
     var p = d.proposer || {};

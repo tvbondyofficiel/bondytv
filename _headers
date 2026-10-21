@@ -6,3 +6,11 @@
 /moderation.html
   X-Robots-Tag: noindex, nofollow
   Cache-Control: no-store
+
+/elu.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store
+
+/tribune-admin.html
+  X-Robots-Tag: noindex, nofollow
+  Cache-Control: no-store

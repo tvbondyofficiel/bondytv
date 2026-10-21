@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow">
+<title>Espace des élus · Bondy TV Magazine</title>
+<link rel="icon" type="image/png" href="/icons/icon-192.png">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700&family=Barlow:wght@400;500;600&display=swap">
+<style>
+:root{--bg:#f6f4f1;--fg:#12141c;--muted:#555a69;--green:#006233;--red:#d3141f;--beige:#e8dcc0;--gold:#b8975a;--line:rgba(18,20,28,.18)}
+*{box-sizing:border-box}
+body{margin:0;background:var(--bg);color:var(--fg);font:17px/1.55 Barlow,Arial,sans-serif}
+body::before{content:"";display:block;height:6px;background:linear-gradient(90deg,#d9c9a0 0 50%,var(--green) 50% 100%)}
+.w{max-width:860px;margin:0 auto;padding:22px 20px 60px}
+.top{display:flex;align-items:center;justify-content:space-between;gap:12px;border-bottom:1px solid var(--line);padding-bottom:14px;margin-bottom:30px}
+.top img{display:block;height:44px;width:auto}
+.top a{color:var(--muted);font:600 14px/1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:.12em;text-decoration:none}
+h1{font:700 clamp(40px,8vw,84px)/.94 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;margin:0 0 14px}
+h1 em{font-style:normal;color:var(--gold)}
+h2{font:700 28px/1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;margin:34px 0 14px}
+.lead{font-size:20px;color:var(--muted);margin:0 0 26px;max-width:52ch}
+label{display:block;font:700 14px/1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:.12em;margin:18px 0 8px}
+input,textarea{font:inherit;width:100%;padding:12px 14px;border:2px solid var(--line);background:#fff;color:var(--fg);border-radius:0}
+textarea{min-height:240px;resize:vertical}
+input:focus,textarea:focus,button:focus{outline:3px solid var(--green);outline-offset:1px}
+button{font:700 16px/1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:.12em;padding:15px 22px;border:0;background:var(--green);color:#fff;cursor:pointer}
+button.l{background:#fff;color:var(--fg);border:2px solid var(--line)}
+button:disabled{opacity:.6;cursor:wait}
+.box{background:#f3ead6;border-left:6px solid var(--gold);padding:22px 24px;margin:0 0 26px}
+.box p{margin:0}
+.msg{margin:14px 0 0;min-height:1.4em;font-weight:600}.msg.err{color:var(--red)}.msg.ok{color:var(--green)}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center;margin-top:20px}
+.check{display:flex;gap:10px;align-items:flex-start;margin:20px 0 0;font-weight:500;text-transform:none;letter-spacing:0;font-family:inherit;font-size:16px}
+.check input{width:auto;margin-top:4px}
+.t{background:#fff;border-top:6px solid var(--beige);padding:16px 18px;margin:0 0 14px}
+.t.publie{border-top-color:var(--green)}.t.refuse{border-top-color:var(--red)}
+.t h3{margin:0 0 4px;font:700 24px/1.1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase}
+.tag{display:inline-block;background:var(--beige);padding:3px 9px;font:700 13px/1.2 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:.1em}
+.m{color:var(--muted);font-size:15px}
+.hint{color:var(--muted);font-size:15px;margin:6px 0 0}
+</style></head><body><div class="w">
+<div class="top"><a href="/"><img src="/images/logo.png" alt="Bondy TV" width="67" height="44"></a><a href="/tribune.html">← La tribune</a></div>
+<div id="login" hidden>
+<h1>Espace <em>des élus</em></h1>
+<p class="lead">Connectez-vous avec l'identifiant et le code que Bondy TV vous a donnés.</p>
+<form id="fl" autocomplete="on">
+<label for="id">Identifiant</label><input id="id" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="prenom-nom" required>
+<label for="code">Code d'accès</label><input id="code" name="password" type="password" autocomplete="current-password" autocapitalize="characters" spellcheck="false" placeholder="XXXXX-XXXXX" required>
+<div class="row"><button id="go" type="submit">Se connecter</button></div>
+<p id="ml" class="msg" role="status" aria-live="polite"></p>
+</form>
+<div class="box"><p>Pas encore de code ? Écrivez-nous à tvbondy@gmail.com ou sur WhatsApp avec votre justificatif d'élu. Nous vérifions votre identité, puis nous vous donnons votre accès.</p></div>
+</div>
+<div id="space" hidden>
+<h1 id="hello">Bonjour</h1>
+<p class="lead" id="who"></p>
+<div class="box"><p>Votre tribune est relue par Bondy TV avant d'être publiée. Elle doit respecter la loi. Vous pouvez en demander le retrait à tout moment.</p></div>
+<h2>Écrire une tribune</h2>
+<form id="ft">
+<label for="titre">Titre</label><input id="titre" maxlength="120" required>
+<label for="texte">Votre texte</label><textarea id="texte" maxlength="5000"></textarea>
+<p class="hint" id="cnt"></p>
+<label for="lien">Lien de votre vidéo (facultatif, adresse en https)</label><input id="lien" type="url" placeholder="https://">
+<label class="check" for="ok"><input id="ok" type="checkbox"><span>J'accepte que Bondy TV publie ma tribune dans le respect de la loi.</span></label>
+<div class="row"><button id="send" type="submit">Envoyer ma tribune</button><button id="out" type="button" class="l">Me déconnecter</button></div>
+<p id="mt" class="msg" role="status" aria-live="polite"></p>
+</form>
+<h2>Mes tribunes</h2>
+<div id="mine"></div>
+</div>
+<noscript><p>Cette page a besoin de JavaScript.</p></noscript>
+</div>
+<script>
+(function(){
+function $(i){return document.getElementById(i)}
+function e(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+var ERR={identifiants:"Identifiant ou code incorrect.",verrouille:"Trop d'essais. Réessayez dans 15 minutes.",trop_de_tentatives:"Trop de tentatives. Réessayez plus tard.",non_connecte:"Votre session a expiré. Reconnectez-vous.",titre:"Le titre est trop court.",texte:"Le texte est trop court (20 caractères au moins).",lien:"Le lien doit commencer par https://.",accord:"Cochez la case pour continuer.",quota:"Vous avez atteint le nombre de tribunes de ce mois-ci.",non_branche:"Le service n'est pas encore activé. Réessayez plus tard.",origine:"Requête refusée."};
+var STAT={attente:["En attente de relecture",""],publie:["Publiée","publie"],refuse:["Refusée","refuse"],retire:["Retirée",""]};
+function post(b){return fetch("/api/tribune-elu",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(function(r){return r.json().catch(function(){return{error:"requete"}}).then(function(j){j.status=r.status;return j})})}
+function say(el,t,c){el.textContent=t;el.className="msg"+(c?" "+c:"")}
+function show(d){
+ $("login").hidden=!!d.connecte;$("space").hidden=!d.connecte;
+ if(!d.connecte)return;
+ $("hello").textContent="Bonjour "+d.nom;
+ $("who").textContent=[d.fonction,d.groupe].filter(Boolean).join(" · ");
+ $("mine").innerHTML=(d.tribunes||[]).length?d.tribunes.map(function(t){var s=STAT[t.statut]||["",""];
+  return '<div class="t '+s[1]+'"><span class="tag">'+e(s[0])+'</span><h3>'+e(t.titre)+'</h3><p class="m">'+new Date(t.ts).toLocaleDateString("fr-FR")+(t.motif?' · Motif : '+e(t.motif):'')+'</p></div>'}).join(""):'<p class="m">Vous n\'avez pas encore envoyé de tribune.</p>';
+}
+function load(){fetch("/api/tribune-elu",{credentials:"same-origin"}).then(function(r){return r.json()}).then(show).catch(function(){show({connecte:false})})}
+$("fl").addEventListener("submit",function(ev){ev.preventDefault();var b=$("go");b.disabled=true;say($("ml"),"Connexion…");
+ post({action:"connexion",id:$("id").value,code:$("code").value}).then(function(j){b.disabled=false;if(j.ok){$("code").value="";say($("ml"),"");load()}else say($("ml"),ERR[j.error]||"Connexion impossible.","err")})});
+$("ft").addEventListener("submit",function(ev){ev.preventDefault();var b=$("send");b.disabled=true;say($("mt"),"Envoi…");
+ post({action:"envoyer",titre:$("titre").value,texte:$("texte").value,lien:$("lien").value,accord:$("ok").checked}).then(function(j){b.disabled=false;
+  if(j.ok){$("ft").reset();$("cnt").textContent="";say($("mt"),"Merci ! Votre tribune est envoyée. Nous la relisons avant de la publier.","ok");load()}else say($("mt"),ERR[j.error]||"L'envoi n'a pas marché.","err")})});
+$("out").addEventListener("click",function(){post({action:"deconnexion"}).then(function(){load()})});
+$("texte").addEventListener("input",function(){$("cnt").textContent=$("texte").value.length+" / 5000 caractères"});
+load();
+})();
+</script></body></html>
