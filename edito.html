@@ -395,7 +395,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 
 
 /* menu resserré (9 onglets) */
-.bar nav { gap: 8px 16px; font-size: 14px; letter-spacing: .08em; }
+.bar nav { gap: 8px 13px; font-size: 13.5px; letter-spacing: .05em; }
 </style>
 </head>
 <body>
@@ -410,6 +410,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
       <a href="/archives.html">Archives</a>
       <a href="/images.html">En images</a>
       <a href="/infos.html">Bonnes infos</a>
+      <a href="/elus.html">Vos élus</a>
       <a href="/temoigner.html">Témoigner</a>
       <a href="/proposer.html">Proposer un sujet</a>
     </nav>
@@ -589,7 +590,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
       var inner = ICONS[k] || esc(r.reseau);
       return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur ' + esc(r.reseau) + '" title="' + esc(r.reseau) + '">' + inner + "</a>";
     }).join("");
-    $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + "</span>";
+    $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + ' · <a href="/confidentialite.html">Confidentialité</a></span>';
 
     behaviours();
     if (location.hash) {

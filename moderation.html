@@ -1,0 +1,39 @@
+<!doctype html>
+<html lang="fr"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1"><meta name="robots" content="noindex,nofollow"><title>Modération · Bondy TV</title>
+<style>
+:root{--bg:#f6f4f1;--fg:#12141c;--muted:#555a69;--green:#006233;--red:#d3141f;--beige:#e8dcc0;--line:rgba(18,20,28,.18)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--fg);font:16px/1.5 Barlow,Arial,sans-serif;padding:20px}
+.w{max-width:980px;margin:0 auto}h1{font:700 40px/1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;margin:0 0 6px;color:var(--green)}
+input,textarea,select{font:inherit;padding:10px;border:2px solid var(--line);background:#fff;width:100%}
+button{font:700 15px/1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:.1em;padding:12px 16px;border:0;cursor:pointer;background:var(--fg);color:#fff}
+button.g{background:var(--green)}button.r{background:var(--red)}button.l{background:#fff;color:var(--fg);border:2px solid var(--line)}
+.bar{display:flex;gap:10px;flex-wrap:wrap;align-items:center;margin:14px 0}.bar input{max-width:300px}
+.c{background:#fff;border-top:6px solid var(--beige);padding:16px;margin:14px 0}.c.att{border-top-color:var(--red)}.c.pub{border-top-color:var(--green)}
+.top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:700}.m{color:var(--muted);font-size:14px}
+.n{font:700 34px/1 "Barlow Condensed",sans-serif}.act{display:flex;gap:8px;flex-wrap:wrap;margin-top:10px}
+.tag{display:inline-block;background:var(--beige);padding:2px 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
+</style></head><body><div class="w">
+<h1>Modération des avis</h1><p class="m">Page privée. Ne donnez jamais ce mot de passe.</p>
+<div class="bar"><input type="password" id="pw" placeholder="Mot de passe de modération" autocomplete="current-password"><button class="g" id="go">Entrer</button></div>
+<div id="app" hidden>
+<div class="bar"><select id="flt" style="max-width:240px"><option value="att">À relire</option><option value="all">Tous les avis</option><option value="pub">Publiés</option><option value="ref">Refusés</option></select><button class="l" id="csv">Exporter (CSV)</button><span class="m" id="stat"></span></div>
+<div id="list"></div></div><p id="err" class="m" style="color:var(--red)"></p>
+</div>
+<script>
+(function(){
+var pw=document.getElementById("pw"),app=document.getElementById("app"),list=document.getElementById("list"),err=document.getElementById("err"),flt=document.getElementById("flt"),stat=document.getElementById("stat"),data=[];
+function e(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
+function tok(){try{return sessionStorage.getItem("mod")||""}catch(x){return ""}}
+function api(opt){opt=opt||{};opt.headers=Object.assign({"Authorization":"Bearer "+tok(),"Content-Type":"application/json"},opt.headers||{});return fetch("/api/moderation"+(opt.q||""),opt)}
+function load(){api().then(function(r){if(r.status===401){err.textContent="Mot de passe incorrect.";app.hidden=true;return null}if(r.status===503){err.textContent="La modération n'est pas encore branchée (voir les réglages Cloudflare).";return null}return r.json()}).then(function(j){if(!j)return;err.textContent="";app.hidden=false;data=j.votes||[];draw()}).catch(function(){err.textContent="Erreur de connexion."})}
+function st(v){return v.statut==="publie"?"pub":v.statut==="refuse"?"ref":(v.commentaire?"att":"sans")}
+function draw(){var f=flt.value,n=data.filter(function(v){return st(v)==="att"}).length;stat.textContent=data.length+" avis · "+n+" à relire";
+list.innerHTML=data.filter(function(v){return f==="all"||st(v)===f}).map(function(v,i){var s=st(v);return '<div class="c '+s+'"><div class="top"><span>'+e(v.elu)+'</span><span class="n">'+e(v.note)+'/10</span></div><div class="m">'+e(v.nom)+' · '+e(v.email)+' · '+e(v.telephone)+' · '+new Date(v.ts).toLocaleString("fr-FR")+' <span class="tag">'+({att:"à relire",pub:"publié",ref:"refusé",sans:"sans phrase"})[s]+'</span></div>'+(v.commentaire?'<textarea data-k="'+e(v.cle)+'" rows="3" maxlength="280">'+e(v.commentaire)+'</textarea>':'')+'<div class="act">'+(v.commentaire?'<button class="g" data-a="publier" data-k="'+e(v.cle)+'">Publier</button><button class="r" data-a="refuser" data-k="'+e(v.cle)+'">Refuser</button>':'')+'<button class="l" data-a="supprimer" data-k="'+e(v.cle)+'">Supprimer ce vote</button></div></div>'}).join("")||'<p class="m">Rien à afficher.</p>'}
+list.addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var k=b.dataset.k,a=b.dataset.a;if(a==="supprimer"&&!confirm("Supprimer ce vote ? Cette action est définitive."))return;var ta=list.querySelector('textarea[data-k="'+k+'"]');api({method:"POST",body:JSON.stringify({cle:k,action:a,texte:ta?ta.value:undefined})}).then(function(r){return r.json()}).then(function(j){if(j.ok)load();else err.textContent="Échec : "+(j.error||"")})});
+flt.addEventListener("change",draw);
+document.getElementById("go").addEventListener("click",function(){try{sessionStorage.setItem("mod",pw.value)}catch(x){}load()});
+pw.addEventListener("keydown",function(ev){if(ev.key==="Enter")document.getElementById("go").click()});
+document.getElementById("csv").addEventListener("click",function(){api({q:"?format=csv"}).then(function(r){return r.blob()}).then(function(b){var a=document.createElement("a");a.href=URL.createObjectURL(b);a.download="avis-elus.csv";a.click()})});
+if(tok())load();
+})();
+</script></body></html>

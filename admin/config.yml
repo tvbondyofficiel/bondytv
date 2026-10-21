@@ -149,6 +149,24 @@ collections:
                   - {label: "Texte (quelques phrases, que des faits sûrs)", name: texte, widget: text}
                   - {label: "Lien (adresse complète ou /page.html)", name: lien, widget: string, required: false}
                   - {label: "Texte du bouton du lien", name: lien_texte, widget: string, required: false}
+          - label: "Page « Vos élus, votre avis » (notes des habitants)"
+            name: elus
+            widget: object
+            collapsed: true
+            fields:
+              - {label: "Titre de la page", name: titre, widget: string}
+              - {label: "Introduction", name: introduction, widget: text}
+              - {label: "Source des noms (affichée sur la page)", name: source, widget: string, required: false}
+              - {label: "Avertissement (ne pas supprimer : il vous protège)", name: avertissement, widget: text}
+              - {label: "Droit de réponse des élus", name: droit_de_reponse, widget: text, required: false}
+              - label: "Les élus à noter"
+                name: liste
+                widget: list
+                summary: "{{fields.nom}}"
+                fields:
+                  - {label: "Identifiant (sans espace ni accent, ex: marie-dupont ; ne plus le changer ensuite)", name: id, widget: string}
+                  - {label: "Nom et prénom (comme sur le site officiel de la ville)", name: nom, widget: string}
+                  - {label: "Fonction (comme sur le site officiel de la ville)", name: fonction, widget: string}
           - label: "Page « Bondy en images »"
             name: en_images
             widget: object

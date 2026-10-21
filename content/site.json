@@ -556,5 +556,104 @@
         "lien_texte": ""
       }
     ]
+  },
+  "elus": {
+    "titre": "Vos élus, votre avis",
+    "introduction": "Le maire et ses adjoints travaillent pour les Bondynois. Donnez une note de 0 à 10 à chacun, et dites en une phrase ce qu'il ou elle a fait pour vous. Chaque habitant ne peut voter qu'une seule fois par élu.",
+    "source": "Noms et délégations : site officiel de la ville de Bondy (ville-bondy.fr).",
+    "avertissement": "Avis déclaratifs d'habitants, non vérifiés et non représentatifs : ce n'est pas un sondage officiel. La moyenne d'un élu n'apparaît qu'à partir de 5 avis. Les notes portent sur l'action publique de l'élu, jamais sur sa vie privée.",
+    "droit_de_reponse": "Vous êtes élu(e) et souhaitez répondre ? Écrivez à tvbondy@gmail.com : votre réponse sera publiée sur cette page.",
+    "liste": [
+      {
+        "id": "stephen-herve",
+        "nom": "Stephen Hervé",
+        "fonction": "Maire de Bondy"
+      },
+      {
+        "id": "alexandre-cote",
+        "nom": "Alexandre Cote",
+        "fonction": "1er adjoint · Médiation et sécurité"
+      },
+      {
+        "id": "alison-poncet",
+        "nom": "Alison Poncet",
+        "fonction": "2e adjointe · Affaires scolaires et périscolaires"
+      },
+      {
+        "id": "onur-sagkan",
+        "nom": "Onur Sagkan",
+        "fonction": "3e adjoint · Grands projets d'aménagement, urbanisme"
+      },
+      {
+        "id": "joelle-motte",
+        "nom": "Joëlle Motte",
+        "fonction": "4e adjointe · Action sociale"
+      },
+      {
+        "id": "samba-traore",
+        "nom": "Samba Traoré",
+        "fonction": "5e adjoint · Habitat, logement et lutte contre l'habitat indigne"
+      },
+      {
+        "id": "nazha-el-mahmoudi",
+        "nom": "Nazha El Mahmoudi",
+        "fonction": "6e adjointe · Réussite éducative et lutte contre le décrochage scolaire"
+      },
+      {
+        "id": "laurent-cotte",
+        "nom": "Laurent Cotte",
+        "fonction": "7e adjoint · Cadre de vie, requalification des espaces publics, patrimoine bâti"
+      },
+      {
+        "id": "auriane-calambe",
+        "nom": "Auriane Calambe",
+        "fonction": "8e adjointe · Vie associative"
+      },
+      {
+        "id": "othman-asaadi",
+        "nom": "Othman Asaadi",
+        "fonction": "9e adjoint · Culture et patrimoine culturel"
+      },
+      {
+        "id": "christelle-le-gouallec",
+        "nom": "Christelle Le Gouallec",
+        "fonction": "10e adjointe · Attractivité, développement économique"
+      },
+      {
+        "id": "andres-henao-santa",
+        "nom": "Andrès Henao Santa",
+        "fonction": "11e adjoint · Lutte contre la précarité et devoir de mémoire"
+      },
+      {
+        "id": "chanaz-rodrigues",
+        "nom": "Chanaz Rodrigues",
+        "fonction": "12e adjointe · Égalité hommes-femmes, lutte contre les discriminations, accessibilité et handicap"
+      },
+      {
+        "id": "azzedine-drif",
+        "nom": "Azzedine Drif",
+        "fonction": "13e adjoint · Propreté urbaine et lutte contre les incivilités"
+      },
+      {
+        "id": "rouguiatou-ndiaye",
+        "nom": "Rouguiatou N’Diaye",
+        "fonction": "14e adjointe · Politique jeunesse"
+      },
+      {
+        "id": "patrick-gibert",
+        "nom": "Patrick Gibert",
+        "fonction": "15e adjoint · Sport, équipements sportifs et sport-santé"
+      },
+      {
+        "id": "roseline-morelli",
+        "nom": "Roseline Morelli",
+        "fonction": "16e adjointe · Politique de la Ville et égalité territoriale"
+      },
+      {
+        "id": "theo-fonseca",
+        "nom": "Théo Fonseca",
+        "fonction": "17e adjoint · Voirie et mobilités"
+      }
+    ]
   }
 }
