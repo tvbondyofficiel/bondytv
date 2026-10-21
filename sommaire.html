@@ -583,24 +583,34 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       vote: '<rect x="4" y="4" width="16" height="16" rx="2"/><path d="M8 12l3 3 5-6"/>',
       mega: '<path d="M3 10v4h3l8 4V6L6 10H3z"/><path d="M17 9a4 4 0 0 1 0 6"/>',
       box: '<rect x="3" y="4" width="18" height="4"/><path d="M5 8v11h14V8M10 12h4"/>',
-      bridge: '<path d="M2 16h20M4 16c2-6 6-6 8-6s6 0 8 6M6 16v3M18 16v3"/>'
+      bridge: '<path d="M2 16h20M4 16c2-6 6-6 8-6s6 0 8 6M6 16v3M18 16v3"/>',
+      tv: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M9 3l3 4 3-4"/>',
+      food: '<path d="M7 3v8M5 3v5a2 2 0 0 0 4 0V3M7 11v10M17 3c-2 2-2 6 0 8v10"/>',
+      pen: '<path d="M4 20l1-4L16 5l3 3L8 19l-4 1zM14 7l3 3"/>',
+      pin: '<path d="M12 21s6-5.5 6-11a6 6 0 0 0-12 0c0 5.5 6 11 6 11z"/><circle cx="12" cy="10" r="2"/>',
+      book: '<path d="M4 5h7a2 2 0 0 1 1 2v13a2 2 0 0 0-1-1H4zM20 5h-7a2 2 0 0 0-1 2v13a2 2 0 0 1 1-1h7z"/>',
+      bubble: '<path d="M4 5h16v11H10l-5 4v-4H4z"/>',
+      phones: '<path d="M4 14v-2a8 8 0 0 1 16 0v2"/><rect x="3" y="14" width="4" height="6" rx="1"/><rect x="17" y="14" width="4" height="6" rx="1"/>',
+      town: '<path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/>',
+      heart: '<path d="M12 20s-7-4.5-7-10a4 4 0 0 1 7-2 4 4 0 0 1 7 2c0 5.5-7 10-7 10z"/>',
+      cam: '<rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7l1.5-3h5L16 7"/><circle cx="12" cy="13.5" r="3.5"/>'
     };
-    var BYID = { "entreprises": "bag", "food-trucks": "truck", "micro-trottoir": "mic", "visage": "bridge", "politique": "vote" };
-    function ico(k) { return IC[k] ? '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#12141c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + "</svg>" : ""; }
+    var BYID = { "bondytv": "tv", "attention": "food", "edito": "pen", "visage": "bridge", "coeur": "pin", "pepitheque": "book", "entreprises": "bag", "food-trucks": "truck", "appel-citoyen": "bubble", "podcast": "phones", "micro-trottoir": "mic", "politique": "town", "action14": "heart" };
+    function ico(k) { return IC[k] ? '<svg viewBox="0 0 24 24" width="34" height="34" fill="none" stroke="#12141c" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC[k] + "</svg>" : ""; }
     var som = arts.map(function (a, i) {
       var n = String(i + 1); if (n.length < 2) n = "0" + n;
       var href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
-      var th = (a.vignette || a.image) ? '<img src="' + esc(a.vignette || a.image) + '" alt="" loading="lazy">' : (ico(BYID[a.id]) || '<span class="nb">' + n + '</span>');
-      return '<li><a class="sc" href="' + href + '"><span class="th' + (a.vignette ? ' logo' : '') + '">' + th + '</span><span class="tx"><span class="no">' + n + (a.rubrique ? ' · ' + esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
+      var th = ico(BYID[a.id]) || ((a.vignette || a.image) ? '<img src="' + esc(a.vignette || a.image) + '" alt="" loading="lazy">' : '<span class="nb">' + n + '</span>');
+      return '<li><a class="sc" href="' + href + '"><span class="th' + (!BYID[a.id] && a.vignette ? ' logo' : '') + '">' + th + '</span><span class="tx"><span class="no">' + n + (a.rubrique ? ' · ' + esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     }).join("");
     var pages = [
-      { href: "/images.html", rub: "En images", t: (d.en_images || {}).titre || "Bondy en images", img: (((d.en_images || {}).photos || [])[0] || {}).image },
+      { href: "/images.html", ic: "cam", rub: "En images", t: (d.en_images || {}).titre || "Bondy en images", img: (((d.en_images || {}).photos || [])[0] || {}).image },
       { href: "/infos.html", ic: "info", rub: "Bonnes infos", t: (d.bonnes_infos || {}).titre || "Les bonnes infos" },
       { href: "/elus.html", ic: "vote", rub: "Vos élus", t: (d.elus || {}).titre || "Vos élus" },
       { href: "/publicite.html", ic: "mega", rub: "Publicité", t: (d.page_pub || {}).titre || "Votre publicité ici" }
     ];
     pages.forEach(function (p) {
-      var th = p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : ico(p.ic);
+      var th = ico(p.ic) || (p.img ? '<img src="' + esc(p.img) + '" alt="" loading="lazy">' : '');
       som += '<li><a class="sc" href="' + p.href + '"><span class="th">' + th + '</span><span class="tx"><span class="no">' + esc(p.rub) + '</span><b>' + esc(p.t) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     });
     som += '<li><a class="sc arch" href="/archives.html"><span class="th">' + ico("box") + '</span><span class="tx"><span class="no">Depuis 2018</span><b>' + esc(arch.titre || "Les archives") + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
