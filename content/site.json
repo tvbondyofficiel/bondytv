@@ -343,6 +343,20 @@
       "etiquette": "Les bons acteurs de la ville de Bondy",
       "image_portrait": false,
       "vignette": "/images/action14-logo.jpg"
+    },
+    {
+      "id": "tradition-pain",
+      "rubrique": "Les bons acteurs de Bondy",
+      "etiquette": "Publicité · Les bons acteurs de Bondy",
+      "titre": "La Tradition du Pain, la boulangerie qui donne le sourire",
+      "chapo": "Au centre-ville, en face de la mairie, une boulangerie bien connue des Bondynois vient de faire peau neuve : La Tradition du Pain.",
+      "visuel": "icone-sac",
+      "image": "",
+      "image_description": "",
+      "credit": "",
+      "pleine_largeur": false,
+      "texte_visible": "Elle se trouve en face du parking de la mairie, à côté de la boucherie. Installée depuis longtemps, elle vient d'être rénovée, et les clients sont toujours aussi nombreux.\n\nCe qui plaît ici, c'est l'accueil. Les gérants sont chaleureux, prennent le temps de discuter avec chacun et connaissent leurs clients. Une vraie boulangerie de quartier, au cœur de la ville.\n\nPassez pousser la porte : le pain sera bon, et le bonjour aussi.",
+      "texte": ""
     }
   ],
   "banniere": {
