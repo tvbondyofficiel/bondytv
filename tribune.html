@@ -410,6 +410,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .tri h3 { margin: 0 0 12px; font-family: var(--display); text-transform: uppercase; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; }
 .tri p { margin: 0 0 12px; font-size: 18px; line-height: 1.55; }
 .tri .sig { color: var(--muted); font-size: 15px; font-weight: 600; margin: 14px 0 0; }
+.temoigner .t-side { grid-column: 1 / -1; grid-row: auto; position: static; max-width: 720px; }
 </style>
 </head>
 <body>
@@ -436,24 +437,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     <h1 class="t-big" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
     <div id="pubtri" hidden></div>
-    <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
-<input name="access_key" type="hidden" value="a10cef59-fca0-479e-81ab-13a661ab12b5"/>
-<input name="subject" type="hidden" value="Tribune d'élu depuis Bondy TV Magazine"/>
-<input name="from_name" type="hidden" value="Bondy TV Magazine"/>
-<p aria-hidden="true" class="hp"><label>Ne pas remplir <input autocomplete="off" name="botcheck" tabindex="-1" type="checkbox"/></label></p>
-<div class="row2">
-<div class="fld"><label for="f-nom">Prénom et nom</label><input autocomplete="name" id="f-nom" name="nom" required="" type="text"/></div>
-<div class="fld"><label for="f-role">Fonction ou groupe</label><input id="f-role" name="fonction" placeholder="Ex : conseiller municipal, groupe..." required="" type="text"/></div>
-</div>
-<div class="fld"><label for="f-contact">Téléphone ou e-mail</label><input autocomplete="off" id="f-contact" name="contact" required="" type="text"/></div>
-<div class="fld"><label for="f-titre">Titre de votre tribune</label><input id="f-titre" name="titre" required="" type="text"/></div>
-<div class="fld"><label for="f-msg">Votre texte</label><textarea id="f-msg" name="message" required="" style="min-height:220px"></textarea></div>
-<div class="fld"><label for="f-lien">Lien de votre vidéo <span class="opt">(facultatif : YouTube, TikTok, Drive...)</span></label><input id="f-lien" name="lien" placeholder="https://" type="url"/></div>
-<p class="hint">Vous pouvez aussi nous envoyer votre vidéo ou votre texte à tvbondy@gmail.com ou <a class="walink" href="https://wa.me/33749554391" rel="noopener" target="_blank">sur WhatsApp</a>. Nous vérifions votre identité avant toute publication.</p>
-<label class="check" for="f-ok"><input id="f-ok" name="accord" required="" type="checkbox" value="oui"/><span>J'accepte que Bondy TV publie ma tribune dans le magazine, dans le respect de la loi. Je peux demander son retrait à tout moment.</span></label>
-<button class="send" id="f-send" type="submit">Envoyer ma tribune</button>
-<p aria-live="polite" class="status" id="f-status" role="status"></p>
-</form>
     <aside class="t-side" id="t-side" hidden></aside>
   </section>
   <footer id="pied"></footer>
@@ -602,7 +585,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     var t = d.tribune || {};
     $("temoigner-titre").innerHTML = "Espace réservé <em>aux élus</em>";
-    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.innerHTML += '<h3 style="margin-top:22px;font-size:24px">Comment obtenir votre accès</h3><ol style="margin:0;padding-left:22px;font-size:17px;line-height:1.55"><li><strong>Vous nous contactez par WhatsApp</strong> avec votre nom, votre fonction et un justificatif d\u2019élu.</li><li><strong>Nous vérifions</strong> votre identité.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel.</li><li><strong>Vous vous connectez</strong>, vous écrivez votre tribune, nous la relisons, puis elle est publiée.</li></ol>'; ts.innerHTML += '<p style="margin-top:16px"><a class="btn-all" href="/elu.html">Espace des élus : se connecter</a></p>'; ts.hidden = false;
+    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.innerHTML += '<h3 style="margin-top:22px;font-size:24px">Comment obtenir votre accès</h3><ol style="margin:0;padding-left:22px;font-size:17px;line-height:1.55"><li><strong>Vous nous contactez <a href="https://wa.me/33749554391" rel="noopener" target="_blank" style="text-decoration:underline">par WhatsApp</a></strong> avec votre nom, votre fonction et un justificatif d\u2019élu.</li><li><strong>Nous vérifions</strong> votre identité.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel.</li><li><strong>Vous vous connectez</strong>, vous écrivez votre tribune, nous la relisons, puis elle est publiée.</li></ol>'; ts.innerHTML += '<p style="margin-top:16px"><a class="btn-all" href="/elu.html">Espace des élus : se connecter</a></p>'; ts.hidden = false;
     fetch("/api/tribunes").then(function (r) { return r.json(); }).then(function (j) {
       var L = (j && j.tribunes) || [];
       if (!L.length) return;
