@@ -438,6 +438,14 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .no1-r b { background: var(--beige); border: 1px solid #c9b58a; padding: 6px 12px; font-weight: 700; color: #12141c; }
 .no1-r span { font-family: var(--display); font-weight: 400; font-size: 13px; letter-spacing: .28em; text-transform: uppercase; color: #12141c; }
 @media (max-width: 560px) { .no1-r { position: static; flex-direction: row; align-items: center; gap: 10px; margin-top: 8px; } .logo .side .mag, .une2 .logo .side .mag { font-size: 12px; letter-spacing: .24em; } }
+
+/* réglage graphique : MAGAZINE lisible, N°1 / Gratuit centrés sur la hauteur du logo */
+.logo .side .mag, .une2 .logo .side .mag { font-size: 21px; font-weight: 500; letter-spacing: .26em; margin-top: 2px; }
+.logo .side { gap: 6px; }
+.no1-r { top: 50%; transform: translateY(-50%); gap: 7px; }
+.no1-r b { font-size: 26px; padding: 7px 14px; }
+.no1-r span { font-size: 16px; letter-spacing: .3em; margin-right: -.3em; }
+@media (max-width: 560px) { .no1-r { top: auto; transform: none; } .no1-r b { font-size: 19px; padding: 5px 11px; } .no1-r span { font-size: 13px; margin-right: 0; } .logo .side .mag, .une2 .logo .side .mag { font-size: 14px; letter-spacing: .22em; } }
 </style>
 </head>
 <body>
