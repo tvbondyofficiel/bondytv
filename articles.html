@@ -438,6 +438,14 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .side .sb-qr img { width: 96px; height: 96px; }
 .side .sb-qr b { font-size: 12px; letter-spacing: .1em; text-transform: uppercase; }
 @media (max-width: 860px) { .more.has-side { display: flex; flex-direction: column; gap: 12px; } .side { margin-top: 18px; max-width: 440px; } }
+
+/* vidéo YouTube : image au repos, lecteur au clic (mode sans cookies) */
+.yt-box { padding: 0; }
+.yt-go { position: absolute; inset: 0; width: 100%; height: 100%; padding: 0; border: 0; background: #000; cursor: pointer; display: grid; place-items: center; }
+.yt-go img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 35% 25%; opacity: .92; }
+.yt-go .play { position: relative; }
+.yt-go:hover .play { filter: brightness(1.12); }
+.yt-box iframe { position: absolute; inset: 0; width: 100%; height: 100%; border: 0; background: #000; }
 </style>
 </head>
 <body>
@@ -536,8 +544,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     }).join("\n");
   }
 
+  function ytId(u) {
+    var m = String(u || "").match(/(?:youtube\.com\/(?:watch\?(?:[^#]*&)?v=|shorts\/|embed\/)|youtu\.be\/)([A-Za-z0-9_-]{11})/);
+    return m ? m[1] : "";
+  }
   function vis(a) {
     var v = a.visuel || "none";
+    var yid = ytId(a.lien_video);
+    if (yid && !a.fichier_video && (v === "image" || v === "play")) {
+      var inner = a.image ? '<img src="' + esc(a.image) + '" alt="' + esc(a.image_description) + '" loading="lazy">' : "";
+      return '<div class="vis has-img yt-box"><button type="button" class="yt-go" data-yt="' + yid + '" aria-label="Lire la vidéo">' + inner + '<span class="play"></span></button></div>';
+    }
     if (a.fichier_video) {
       return '<div class="vis has-video"><video controls playsinline preload="none"' + (a.image ? ' poster="' + esc(a.image) + '"' : "") + ' src="' + esc(a.fichier_video) + '"></video></div>';
     }
@@ -576,6 +593,14 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     s += '<div class="sb sb-row"><div><h4>Nous suivre</h4><div class="sb-soc">' + soc.map(function (r) { var k = String(r.reseau || "").toLowerCase(); return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur ' + esc(r.reseau) + '" title="' + esc(r.reseau) + '">' + (ICONS[k] || esc(r.reseau)) + "</a>"; }).join("") + "</div></div>" + (ed.contact_qr ? '<div class="sb-qr"><img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="64" height="64"><b>Scannez-moi</b></div>' : "") + "</div>";
     return s + "</aside>";
   }
+
+  document.addEventListener("click", function (e) {
+    var b = e.target.closest && e.target.closest(".yt-go"); if (!b) return;
+    var f = document.createElement("iframe");
+    f.src = "https://www.youtube-nocookie.com/embed/" + b.getAttribute("data-yt") + "?autoplay=1&rel=0";
+    f.title = "Vidéo Bondy TV"; f.allow = "autoplay; encrypted-media; picture-in-picture; fullscreen"; f.allowFullscreen = true; f.referrerPolicy = "strict-origin-when-cross-origin";
+    b.parentNode.replaceChild(f, b);
+  });
 
   function article(a) {
     var h = '<article class="art' + (a.pleine_largeur ? " wide" : "") + '" id="' + esc(a.id) + '"' + (a.rubrique ? ' data-cat="' + esc(a.rubrique) + '"' : "") + ">";
