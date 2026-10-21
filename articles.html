@@ -355,6 +355,9 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 .gal li:nth-child(odd) figcaption { border-top: 3px solid var(--green); padding-top: 6px; }
 .gal li:nth-child(even) figcaption { border-top: 3px solid var(--red); padding-top: 6px; }
 @media (max-width: 820px) { .gal { grid-template-columns: repeat(2, minmax(0, 1fr)); } .gal li:last-child { grid-column: 1 / -1; } .gal li:last-child img { aspect-ratio: 16 / 9; } }
+.art.cible { outline: 4px solid var(--green); outline-offset: 6px; animation: cible 2.4s ease-out 1; }
+@keyframes cible { 0% { outline-color: var(--red); outline-offset: 14px; } 100% { outline-color: var(--green); outline-offset: 6px; } }
+@media (prefers-reduced-motion: reduce) { .art.cible { animation: none; } }
 </style>
 </head>
 <body>
@@ -549,7 +552,7 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
 
     behaviours();
     if (location.hash) {
-      try { var el = document.querySelector(location.hash); if (el) el.scrollIntoView(); } catch (e) {}
+      try { var el = document.querySelector(location.hash); if (el) { el.scrollIntoView(); if (el.classList.contains("art")) el.classList.add("cible"); } } catch (e) {}
     }
   }
 
@@ -618,6 +621,7 @@ body::before { background: linear-gradient(90deg, var(--red) 0 50%, var(--green)
   var deferred = null;
   window.addEventListener("beforeinstallprompt", function (e) {
     e.preventDefault(); deferred = e;
+    var old = document.getElementById("install"); if (old) old.remove();
     var b = document.createElement("button");
     b.id = "install"; b.type = "button"; b.textContent = "Installer l'app";
     b.addEventListener("click", function () { deferred.prompt(); deferred.userChoice.finally(function () { b.remove(); deferred = null; }); });
