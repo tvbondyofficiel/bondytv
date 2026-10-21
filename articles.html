@@ -461,6 +461,14 @@ details[open] > summary { margin-bottom: 6px; }
 .art .vis.has-icon { background: var(--beige); aspect-ratio: 16 / 6; border-bottom: 1px solid #c9b58a; }
 .art .vis.has-icon::before { display: none; }
 .art .vis.has-icon svg { height: 62%; width: auto; }
+
+/* cartes en 2 colonnes : plus compactes, pour caser beaucoup d'articles */
+.grid > .art:not(.wide) h3 { font-size: clamp(24px, 2.7vw, 32px); line-height: 1.02; }
+.grid > .art:not(.wide) .vis, .grid > .art:not(.wide) .vis.has-img, 
+.grid > .art:not(.wide) .vis.yt-box.on { aspect-ratio: 16 / 9; }
+.grid > .art:not(.wide) .txt { padding: 18px 20px 20px; gap: 10px; }
+.grid > .art:not(.wide) .vis.has-icon { aspect-ratio: 16 / 5; }
+.grid > .art:not(.wide) .vis.has-icon svg { height: 64%; }
 </style>
 </head>
 <body>

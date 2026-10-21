@@ -289,22 +289,6 @@
       "contact_qr_legende": "Flashez pour ouvrir l'appli Bondy TV"
     },
     {
-      "lien_video": "",
-      "texte_visible": "",
-      "rubrique": "Ville",
-      "pleine_largeur": true,
-      "titre": "Le nouveau visage de Bondy",
-      "texte": "Le nouveau visage de Bondy est multiple. Il est aussi divisé : entre le nord et le sud de la ville, les habitants ne vivent pas toujours les mêmes réalités, et une fracture s'est installée.\n\nLes responsables de la ville affirment travailler à réparer cette fracture et à recréer du lien entre les habitants. Reste à voir, ensemble, ce que cela change au quotidien.\n\nEt vous, comment voyez-vous le nouveau visage de Bondy ? Racontez-nous votre histoire en quelques lignes : ce que vous vivez, ce que vous voyez, ce que vous espérez. Utilisez [le formulaire](#temoigner), écrivez-nous à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Votre témoignage pourra paraître dans le prochain numéro.\n\n> Les témoignages ne seront publiés qu'avec l'accord de leur auteur.",
-      "image_description": "",
-      "credit": "Illustration : Bondy TV, création originale libre de droits.",
-      "id": "visage",
-      "image": "",
-      "chapo": "Bondy a plusieurs visages. Entre le nord et le sud, une fracture existe, et la ville cherche à recréer du lien.",
-      "visuel": "pont",
-      "etiquette": "Ville",
-      "image_portrait": false
-    },
-    {
       "lien_video": "https://www.youtube.com/watch?v=5tBiSEFapGk",
       "texte_visible": "",
       "rubrique": "Reportage",
@@ -321,10 +305,26 @@
       "image_portrait": false
     },
     {
+      "lien_video": "",
+      "texte_visible": "",
+      "rubrique": "Ville",
+      "pleine_largeur": false,
+      "titre": "Le nouveau visage de Bondy",
+      "texte": "Le nouveau visage de Bondy est multiple. Il est aussi divisé : entre le nord et le sud de la ville, les habitants ne vivent pas toujours les mêmes réalités, et une fracture s'est installée.\n\nLes responsables de la ville affirment travailler à réparer cette fracture et à recréer du lien entre les habitants. Reste à voir, ensemble, ce que cela change au quotidien.\n\nEt vous, comment voyez-vous le nouveau visage de Bondy ? Racontez-nous votre histoire en quelques lignes : ce que vous vivez, ce que vous voyez, ce que vous espérez. Utilisez [le formulaire](#temoigner), écrivez-nous à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Votre témoignage pourra paraître dans le prochain numéro.\n\n> Les témoignages ne seront publiés qu'avec l'accord de leur auteur.",
+      "image_description": "",
+      "credit": "Illustration : Bondy TV, création originale libre de droits.",
+      "id": "visage",
+      "image": "",
+      "chapo": "Bondy a plusieurs visages. Entre le nord et le sud, une fracture existe, et la ville cherche à recréer du lien.",
+      "visuel": "pont",
+      "etiquette": "Ville",
+      "image_portrait": false
+    },
+    {
       "id": "pepitheque",
       "rubrique": "Ville",
       "etiquette": "Ville · Culture",
-      "pleine_largeur": true,
+      "pleine_largeur": false,
       "titre": "La Pépithèque Mariama Bâ : une bibliothèque qui donne des ailes aux projets",
       "chapo": "Inaugurée le 24 janvier 2026 dans le nord de Bondy, la Pépithèque réunit sous un même toit une bibliothèque et une pépinière d'entreprises. Un lieu rare, et un nom qui porte une histoire.",
       "visuel": "image",
