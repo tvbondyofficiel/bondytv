@@ -597,7 +597,7 @@ details[open] > summary { margin-bottom: 6px; }
       return '<div class="vis has-logo"><img src="' + esc(a.image || "/images/logo.png") + '" alt="Bondy TV"></div>';
     }
     if (v.indexOf("icone-") === 0) {
-      var IC = { sac: '<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>', camion: '<path d="M2 7h11v9H2z"/><path d="M13 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>', micro: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/>', ampoule: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>' }[v.slice(6)] || "";
+      var IC = { sac: '<path d="M6 8h12l-1 12H7L6 8z"/><path d="M9 8a3 3 0 0 1 6 0"/>', camion: '<path d="M2 7h11v9H2z"/><path d="M13 10h4l3 3v3h-7"/><circle cx="7" cy="17" r="2"/><circle cx="17" cy="17" r="2"/>', micro: '<rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3M9 21h6"/>', mairie: '<path d="M3 21h18M5 21V10l7-5 7 5v11M9 21v-6h6v6"/>', ampoule: '<path d="M9 18h6M10 21h4M12 3a6 6 0 0 0-3.5 10.9c.6.5 1 1.2 1 2.1h5c0-.9.4-1.6 1-2.1A6 6 0 0 0 12 3z"/>' }[v.slice(6)] || "";
       return '<div class="vis has-icon"><svg viewBox="0 0 24 24" fill="none" stroke="#12141c" stroke-width=".7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' + IC + "</svg></div>";
     }
     if (v === "pont") return '<div class="vis has-ill">' + PONT + "</div>";

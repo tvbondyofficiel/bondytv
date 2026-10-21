@@ -66,6 +66,7 @@ collections:
                   - {label: "Pictogramme camion (food truck)", value: icone-camion}
                   - {label: "Pictogramme micro (micro-trottoir)", value: icone-micro}
                   - {label: "Pictogramme ampoule (idée)", value: icone-ampoule}
+                  - {label: "Pictogramme mairie (politique)", value: icone-mairie}
                   - {label: "Une image", value: image}
                   - {label: "Logo Bondy TV", value: logo}
                   - {label: "Illustration du pont", value: pont}
@@ -114,6 +115,7 @@ collections:
                       - {label: "Pictogramme camion (food truck)", value: icone-camion}
                       - {label: "Pictogramme micro (micro-trottoir)", value: icone-micro}
                       - {label: "Pictogramme ampoule (idée)", value: icone-ampoule}
+                      - {label: "Pictogramme mairie (politique)", value: icone-mairie}
                       - {label: "Une image", value: image}
                       - {label: "Logo Bondy TV", value: logo}
                       - {label: "Illustration du pont", value: pont}

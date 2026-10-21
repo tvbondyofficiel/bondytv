@@ -348,6 +348,22 @@
       "texte": "Une ville, ce sont ses habitants qui la connaissent le mieux. Vous y vivez, vous y passez chaque jour, vous voyez ce qui marche et ce qui pourrait être encore mieux. Et si votre idée pouvait inspirer toute une ville ?\n\n**Chaque idée compte**\n\nUne animation pour le quartier, un coin à embellir, un service utile, une initiative pour les jeunes ou pour les aînés. Petite ou grande, une bonne idée mérite d'être entendue.\n\n**Venez nous la dire**\n\nÉcrivez-nous, ou envoyez-nous une courte vidéo. Racontez votre idée avec vos mots : ce que vous imaginez, et pourquoi cela ferait du bien à Bondy.\n\n**Nous la publions**\n\nLes meilleures idées sont publiées dans le magazine, avec votre nom si vous le souhaitez. Une idée partagée, c'est une ville qui avance.\n\n**Ensemble pour Bondy**\n\nBondy TV est là pour donner de la visibilité à celles et ceux qui ont quelque chose à dire. Prenez la parole : votre idée est peut-être la prochaine.\n\n[Je partage mon idée](/temoigner.html)"
     },
     {
+      "id": "tribune",
+      "rubrique": "Politique",
+      "etiquette": "Politique · Tribune des élus",
+      "titre": "Avis à tous les élus : une tribune pour vous",
+      "chapo": "Majorité, opposition, élus de tous bords : chaque mois, Bondy TV vous donne la parole dans le magazine.",
+      "visuel": "icone-mairie",
+      "image": "",
+      "image_description": "",
+      "image_portrait": false,
+      "lien_video": "",
+      "credit": "",
+      "texte_visible": "",
+      "pleine_largeur": false,
+      "texte": "Les habitants veulent connaître celles et ceux qui les représentent, et entendre ce qu'ils font pour la ville. Bondy TV vous offre un espace pour vous adresser à eux, directement et avec vos mots.\n\n**Une tribune chaque mois**\n\nChaque mois, le magazine ouvre une tribune aux élus de Bondy. C'est un espace libre : vous y présentez une action, un projet, une idée, ce qui compte pour vous et pour la ville.\n\n**La même place pour tous**\n\nMajorité ou opposition, chaque élu et chaque groupe a la même place, la même taille et la même visibilité. Personne n'est favorisé.\n\n**Gratuit et sans condition**\n\nCette tribune est gratuite. Vous écrivez ce que vous voulez dire, nous le publions tel quel, et chaque habitant peut le lire.\n\n**Comment participer ?**\n\nContactez-nous. Envoyez-nous votre texte, ou une courte vidéo, et nous le publions dans le prochain numéro.\n\n[Je veux ma tribune](/proposer.html)"
+    },
+    {
       "lien_video": "",
       "texte_visible": "",
       "rubrique": "Politique",
