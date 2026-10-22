@@ -151,6 +151,21 @@
       "texte": "« Partageons le goût de la lecture » : c'est écrit sur cette petite boîte rouge, posée à l'entrée du Bois de Bondy. Le principe est simple : on prend un livre, on en dépose un autre. C'est gratuit, ouvert à tous et accessible à toute heure.\n\nBondy TV aimerait en voir partout dans la ville, à chaque coin de rue : un livre à portée de main, c'est un pas de plus vers le savoir pour chacun.\n\nEt vous ? Une idée d'endroit pour la prochaine boîte à livres ? Écrivez-nous."
     },
     {
+      "id": "bondy-nord-travaux",
+      "rubrique": "Ville",
+      "etiquette": "Ville · Bondy Nord",
+      "titre": "Bondy Nord en travaux : la route bloquée, les riverains s'interrogent",
+      "chapo": "À Bondy Nord, une route est bloquée depuis un moment, juste à côté de l'école. Les habitants veulent comprendre.",
+      "visuel": "image",
+      "image": "/images/bondy-nord-travaux.jpg",
+      "image_description": "Les barrières du chantier et une pelleteuse, devant l'entrée d'une école maternelle de Bondy Nord",
+      "credit": "Par la rédaction de Bondy TV",
+      "pleine_largeur": false,
+      "lien_video": "",
+      "texte_visible": "À Bondy Nord, les travaux durent. Une route est bloquée depuis un moment, juste à côté de l'école. Sur place, des barrières entourent le chantier, une pelleteuse et des ouvriers travaillent, et des panneaux « Piétons » guident les passants. Devant l'entrée de l'école maternelle, il faut contourner.",
+      "texte": "Pour les parents, les enfants et les riverains, le quotidien est devenu compliqué : le secteur est bouché, et la patience s'use.\n\nAlors la même question revient dans les conversations : pourquoi est-ce si long ? Est-ce dû aux difficultés propres au chantier ? Ou à un retard pris par les entreprises qui ont obtenu le contrat ?\n\nNous n'avons pas encore la réponse, et nous ne voulons accuser personne à tort. Ce que demandent les habitants est simple : une explication claire, et une date de fin.\n\n**Vous habitez le quartier ?** Racontez-nous comment vous vivez ces travaux, avec le formulaire [Témoigner](/temoigner.html)."
+    },
+    {
       "lien_video": "",
       "texte_visible": "",
       "rubrique": "Édito",
