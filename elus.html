@@ -532,6 +532,23 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 .el-fg { margin: 28px 0 0; font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-size: 18px; color: #12141c; }
 
 /* vue compacte : petites cases avec le nom */
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
+/* Élus : même structure que les autres pages */
+.el-head{text-align:center}
+.el-head p{margin:14px auto 0;border-left:0;padding-left:0;text-align:center;font-size:clamp(19px,2.2vw,24px);max-width:56ch}
+#elus>*:not(.el-head){max-width:960px;margin-left:auto;margin-right:auto}
+#elus>.hs-inv{margin-top:34px}
+.el-grp{text-align:center;border-bottom:0;letter-spacing:0;font-size:clamp(28px,4vw,40px);margin-top:46px}
+.el-grp::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+.el-steps{justify-content:center}
+#elus .el-tiles{grid-template-columns:repeat(3,minmax(0,1fr))}
+@media (max-width:700px){#elus .el-tiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .el-steps { list-style: none; margin: 26px 0 0; padding: 0; display: flex; gap: 12px 28px; flex-wrap: wrap; font-size: 16px; }
 .el-steps li { display: flex; align-items: center; gap: 10px; }
 .el-steps b { display: inline-grid; place-items: center; width: 30px; height: 30px; background: var(--green); color: var(--on-green); font-family: var(--display); font-size: 18px; }
@@ -804,9 +821,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (document.getElementById("elus")) {
       var tt = esc(el.titre || "Vos élus, votre avis").split(" "), lw = tt.splice(-2).join(" ");
       var html = '<div class="el-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (el.introduction ? '<p>' + esc(el.introduction) + '</p>' : "") + '</div>';
+      html += '<div class="hs-inv" style="--bgi:url(/images/une-pepitheque.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn" href="#elus-liste">Noter un élu</a></div>';
       html += '<div class="el-warn"><b>À savoir</b>' + esc(el.avertissement || "") + (el.source ? " " + esc(el.source) : "") + '</div>';
       html += '<ol class="el-steps"><li><b>1</b> Touchez le nom d\'un élu et donnez une note de 0 à 10</li><li><b>2</b> Indiquez qui vous êtes et envoyez</li></ol>';
-      var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
+      html += '<span id="elus-liste"></span>'; var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
       groupes.forEach(function (g) {
         html += '<h2 class="el-grp' + (/opposition/i.test(g) ? ' opp' : '') + '">' + esc(g) + '</h2><div class="el-tiles">' + liste.filter(function (e) { return (e.groupe || "Élus") === g; }).map(function (e) {
           return '<button type="button" class="el-tile' + (/opposition/i.test(g) ? ' opp' : '') + '" data-id="' + esc(e.id) + '"><span class="nm">' + esc(e.nom) + '</span><span class="bd" aria-hidden="true"></span></button>';
