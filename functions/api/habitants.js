@@ -33,9 +33,9 @@ export async function onRequestPost({ request, env }) {
   if (nom.length < 3 || nom.indexOf(" ") < 0) return json({ error: "nom" }, 400);
   if (!tel) return json({ error: "tel" }, 400);
   if (adresse.length < 5) return json({ error: "adresse" }, 400);
-  const profil = ["association", "commerce"].includes(String(f.get("profil"))) ? String(f.get("profil")) : "habitant";
+  const profil = ["association", "commerce", "elu"].includes(String(f.get("profil"))) ? String(f.get("profil")) : "habitant";
   const pro = profil !== "habitant";
-  const structure = pro ? cleanLine(f.get("structure"), 100) : "";
+  const structure = pro ? cleanLine(f.get("structure"), 100) : ""; // pour un élu : fonction (et groupe)
   if (pro && structure.length < 2) return json({ error: "structure" }, 400);
   const file = f.get("piece");
   if (!file || typeof file === "string" || !file.size) return json({ error: "piece" }, 400);

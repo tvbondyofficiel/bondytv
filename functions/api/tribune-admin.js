@@ -56,9 +56,9 @@ export async function onRequestPost({ request, env }) {
     let id = slug(nom) || "habitant", n = 1;
     while (await env.VOTES.get("ta:" + id)) { n++; id = (slug(nom) || "habitant") + "-" + n; }
     const code = newCode();
-    const role = d.profil === "association" || d.profil === "commerce" ? d.profil : "habitant";
-    const fonction = role === "association" ? "Association" : role === "commerce" ? "Commerce" : "Habitant de Bondy";
-    const structure = role === "habitant" ? "" : cleanLine(d.structure, 100);
+    const role = d.profil === "association" || d.profil === "commerce" || d.profil === "elu" ? d.profil : "habitant";
+    const fonction = role === "association" ? "Association" : role === "commerce" ? "Commerce" : role === "elu" ? (cleanLine(d.structure, 100) || "Élu") : "Habitant de Bondy";
+    const structure = role === "habitant" || role === "elu" ? "" : cleanLine(d.structure, 100);
     await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction, groupe: "", role, structure, tel: d.tel, actif: true, created: Date.now(), ch: await codeHash(env, id, code) }));
     d.statut = "accepte"; d.compte = id;
     await env.VOTES.delete("hf:" + cle.slice(3)); delete d.piece;

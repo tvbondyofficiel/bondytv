@@ -411,7 +411,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .tri h3 { margin: 0 0 12px; font-family: var(--display); text-transform: uppercase; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; }
 .tri p { margin: 0 0 12px; font-size: 18px; line-height: 1.55; }
 .tri .sig { color: var(--muted); font-size: 15px; font-weight: 600; margin: 14px 0 0; }
-.temoigner .t-side { grid-column: 1 / -1; grid-row: auto; position: static; max-width: 720px; }
 .t-side a.btn-all { background: var(--red) !important; color: var(--on-red, #fff) !important; border: 0 !important; padding: 11px 22px; font-size: 15px; }
 .t-side a.btn-all:hover { filter: brightness(.9); }
 
@@ -471,6 +470,23 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   <section class="temoigner" id="temoigner">
     <h1 class="t-big" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
+    <form class="tform" id="eform" novalidate>
+      <h2 class="t-sub" style="margin:0 0 4px">Demander mon accès</h2>
+      <p class="hint">Réservé aux élus de Bondy, majorité ou opposition. Remplissez ce formulaire. Nous vérifions votre identité, puis nous vous envoyons votre identifiant et votre code par téléphone.</p>
+      <p aria-hidden="true" class="hp"><label>Ne pas remplir <input autocomplete="off" id="e-bot" tabindex="-1" type="checkbox"/></label></p>
+      <div class="row2">
+        <div class="fld"><label for="e-nom">Prénom et nom</label><input autocomplete="name" id="e-nom" required type="text"/></div>
+        <div class="fld"><label for="e-tel">Numéro de téléphone (obligatoire)</label><input autocomplete="tel" id="e-tel" inputmode="tel" placeholder="06 12 34 56 78" required type="tel"/></div>
+      </div>
+      <div class="fld"><label for="e-fonction">Votre fonction et votre liste ou groupe</label><input id="e-fonction" placeholder="Ex. : Conseiller municipal, groupe d'opposition" required type="text"/></div>
+      <div class="fld"><label for="e-adresse">Votre adresse</label><input autocomplete="street-address" id="e-adresse" placeholder="Numéro, rue, ville" required type="text"/></div>
+      <div class="fld"><label for="e-piece">Copie de votre pièce d'identité</label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="e-piece" required type="file"/></div>
+      <div class="fld"><label for="e-justif">Justificatif d'élu (attestation, procès-verbal d'élection ou document officiel)</label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="e-justif" required type="file"/></div>
+      <p class="hint">Ces documents servent uniquement à vérifier votre identité et votre mandat. Ils ne sont jamais publiés et sont supprimés dès que votre demande est traitée. Formats : PDF, JPG ou PNG, 5 Mo au maximum chacun.</p>
+      <label class="check" for="e-ok"><input id="e-ok" required type="checkbox"/><span>J'accepte d'être contacté par téléphone pour recevoir mon accès.</span></label>
+      <button class="send" id="e-send" type="submit">Envoyer ma demande</button>
+      <p aria-live="polite" class="status" id="e-status" role="status"></p>
+    </form>
     <div id="pubtri" hidden></div>
     <aside class="t-side" id="t-side" hidden></aside>
   </section>
@@ -621,7 +637,34 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     var t = d.tribune || {};
     $("temoigner-titre").innerHTML = "Espace réservé <em>aux élus</em>";
-    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.innerHTML += '<h3 style="margin-top:22px;font-size:24px">Comment obtenir votre accès</h3><ol style="margin:0;padding-left:22px;font-size:17px;line-height:1.55"><li><strong>Vous nous contactez <a href="https://wa.me/33749554391" rel="noopener" target="_blank" style="text-decoration:underline">par WhatsApp</a></strong> avec votre nom, votre fonction et un justificatif d\u2019élu.</li><li><strong>Nous vérifions</strong> votre identité.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel.</li><li><strong>Vous vous connectez</strong>, vous écrivez votre tribune, nous la relisons, puis elle est publiée.</li></ol>'; ts.innerHTML += '<p style="margin-top:16px"><a class="btn-all" href="/elu.html">Se connecter</a></p>'; ts.hidden = false;
+    var ts = $("t-side"); ts.innerHTML = "<h3>Votre espace dédié</h3><p>" + esc(t.titre || "Tribune des élus") + " : majorité ou opposition, la même place pour tous. Gratuit. Nous vérifions votre identité avant toute publication.</p>"; ts.innerHTML += '<h3 style="margin-top:22px;font-size:24px">Comment obtenir votre accès</h3><ol style="margin:0;padding-left:22px;font-size:17px;line-height:1.55"><li><strong>Vous remplissez le formulaire</strong> avec votre pièce d\u2019identité et votre justificatif d\u2019élu.</li><li><strong>Nous vérifions</strong> votre identité.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel par téléphone.</li><li><strong>Vous vous connectez</strong>, vous écrivez votre tribune, nous la relisons, puis elle est publiée.</li></ol><p style="margin-top:16px"><strong>Vous avez déjà votre code ?</strong></p><p style="margin-top:10px"><a class="btn-all" href="/elu.html">Se connecter</a></p>'; ts.hidden = false;
+    (function () {
+      var f = $("eform"), st = $("e-status"), bt = $("e-send");
+      if (!f) return;
+      function say(m, e) { st.textContent = m; st.className = "status" + (e ? " err" : ""); }
+      var ER = { piece: "Ajoutez la copie de votre pièce d\u2019identité.", piece_taille: "La pièce d\u2019identité est trop lourde (5 Mo au maximum).", piece_type: "La pièce d\u2019identité doit être un PDF, un JPG ou un PNG.", justif: "Ajoutez votre justificatif d\u2019élu.", justif_taille: "Le justificatif est trop lourd (5 Mo au maximum).", justif_type: "Le justificatif doit être un PDF, un JPG ou un PNG.", structure: "Indiquez votre fonction.", adresse: "L\u2019adresse est obligatoire.", nom: "Indiquez votre prénom et votre nom.", tel: "Indiquez un numéro de téléphone valide.", trop_de_tentatives: "Trop de demandes. Réessayez plus tard.", non_branche: "Le service n\u2019est pas encore activé. Réessayez plus tard." };
+      f.addEventListener("submit", function (ev) {
+        ev.preventDefault();
+        if (!$("e-ok").checked) { say("Cochez la case pour continuer.", true); return; }
+        var pf = $("e-piece").files[0], jf = $("e-justif").files[0];
+        if (!pf) { say(ER.piece, true); return; }
+        if (!jf) { say(ER.justif, true); return; }
+        if (pf.size > 5 * 1024 * 1024 || jf.size > 5 * 1024 * 1024) { say("Un fichier est trop lourd (5 Mo au maximum).", true); return; }
+        bt.disabled = true; say("Envoi en cours...", false);
+        var fd = new FormData();
+        fd.append("profil", "elu"); fd.append("structure", $("e-fonction").value); fd.append("nom", $("e-nom").value); fd.append("tel", $("e-tel").value); fd.append("adresse", $("e-adresse").value); fd.append("piece", pf); fd.append("justif", jf);
+        if ($("e-bot").checked) fd.append("botcheck", "1");
+        fetch("/api/habitants", { method: "POST", body: fd })
+          .then(function (r) { return r.json(); })
+          .then(function (j) {
+            if (!j.ok) { say(ER[j.error] || "L\u2019envoi n\u2019a pas marché. Réessayez.", true); return; }
+            f.reset(); say("Merci ! Votre demande est envoyée. Nous vous contactons par téléphone.", false);
+          })
+          .catch(function () { say("L\u2019envoi n\u2019a pas marché. Réessayez.", true); })
+          .then(function () { bt.disabled = false; });
+      });
+    })();
+
     fetch("/api/tribunes").then(function (r) { return r.json(); }).then(function (j) {
       var L = (j && j.tribunes) || [];
       if (!L.length) return;
