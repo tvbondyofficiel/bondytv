@@ -436,6 +436,22 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .temoigner > p, #pubtri { grid-column: 1; }
 .t-side { grid-row: 3 / span 4; }
 @media (max-width: 900px) { .t-side { grid-row: auto; grid-column: 1; } }
+#pubtri .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+#pubtri .tc{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;padding:20px 22px 18px;box-shadow:0 8px 22px rgba(18,20,28,.07)}
+#pubtri .tc .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+#pubtri .tc h3{margin:0;border-left:4px solid #b8975a;padding-left:12px;font:700 clamp(22px,2.2vw,28px)/1.05 var(--display);text-transform:uppercase}
+#pubtri .tc .corps{font-size:16px;line-height:1.5}#pubtri .tc .corps p{margin:0 0 8px}
+#pubtri .tc .more{align-self:flex-start;border:0;background:none;padding:0;color:#12141c;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+#pubtri .tc .sg{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(18,20,28,.12)}
+#pubtri .tc .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:#12141c;color:#b8975a;font:700 17px/1 var(--display)}
+#pubtri .tc .sg b{display:block;font-size:16px;line-height:1.2}#pubtri .tc .sg span span{font-size:14px;color:#5a5f6e}
+#pubtri .tc.ex{border-style:dashed;border-top-style:solid;background:#faf7ef}#pubtri .tc.ex .pill{background:#b8975a;color:#12141c}
+#pubtri .ex-note{margin:0;padding:10px 12px;border-left:4px solid #12141c;background:#fff;font-size:15px;line-height:1.4}
+#pubtri .vg-info{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
+#pubtri .vg-info>div{border-left:4px solid #b8975a;background:#f2e9d6;padding:22px 24px}
+#pubtri .vg-info h3{margin:0 0 10px;font:700 28px/1 var(--display);text-transform:uppercase}
+#pubtri .vg-info ul{margin:0;padding-left:22px;font-size:16px;line-height:1.55}#pubtri .vg-info p{margin:0;font-size:16px;line-height:1.55}
+@media(max-width:800px){#pubtri .vg-info{grid-template-columns:1fr}}
 </style>
 </head>
 <body>
@@ -479,8 +495,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   <section class="temoigner" id="temoigner">
     <h1 class="t-big" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
-    <p style="margin:0 0 26px"><a class="btn-all" href="/habitant.html?espace=videgrenier">Vider mon grenier</a> <a href="/habitants.html?espace=videgrenier" style="margin-left:14px;font-weight:600">Pas encore de code ? Demandez votre accès</a></p>
-    <div id="pubtri"></div>
+    <p style="margin:0 0 30px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px"><a class="btn-all" href="/habitant.html?espace=videgrenier">Mon vide-grenier · Se connecter</a> <a href="/habitants.html?espace=videgrenier" style="font-weight:600">Pas encore de code ? Demandez votre accès</a></p>
+    <div id="pubtri" style="grid-column:1/-1"></div>
     <aside class="t-side" id="t-side" hidden></aside>
   </section>
   <footer id="pied"></footer>
@@ -630,19 +646,23 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     $("temoigner-titre").innerHTML = "Le vide-grenier <em>de Bondy</em>";
     $("temoigner-intro").textContent = "Ce dont vous n\u2019avez plus besoin peut faire le bonheur d\u2019un voisin. L\u2019échange commence ici. Vendre, donner, chercher, proposer un service : c\u2019est gratuit, et chaque annonce est relue avant d\u2019être publiée.";
-    var ts = $("t-side");
-    ts.innerHTML = "<h3>Les règles</h3><ul style=\"margin:0 0 14px;padding-left:22px;font-size:17px;line-height:1.55\"><li>Réservé aux habitants de Bondy, avec un compte validé.</li><li><strong>1 annonce par mois</strong>, visible 60 jours.</li><li>Écrivez votre numéro de téléphone dans l\u2019annonce : <strong>il sera public</strong>.</li><li><strong>Interdit :</strong> animaux, médicaments, armes, contrefaçons, ventes douteuses, offres d\u2019argent facile.</li></ul><h3>Restez prudents</h3><p style=\"margin:0;font-size:17px;line-height:1.55\">Ne payez jamais à l\u2019avance. Donnez rendez-vous dans un lieu public. Bondy TV ne participe pas aux ventes et n\u2019est pas responsable des échanges entre particuliers.</p>";
-    ts.hidden = false;
-    var box = $("pubtri");
-    fetch("/api/habitants").then(function (r) { return r.json(); }).then(function (j) {
+    var box = $("pubtri"), LONG = 150;
+    function sig(n, f) { return '<div class="sg"><span class="av">' + esc(String(n || "?").charAt(0)) + '</span><span><b>' + esc(n) + '</b><span>' + esc(f) + '</span></span></div>'; }
+    var INFO = '<div class="vg-info"><div><h3>Les règles</h3><ul><li>Réservé aux habitants de Bondy, avec un compte validé.</li><li><strong>1 annonce par mois</strong>, visible 60 jours.</li><li>Écrivez votre numéro de téléphone dans l\u2019annonce : <strong>il sera public</strong>.</li><li><strong>Interdit :</strong> animaux, médicaments, armes, contrefaçons, ventes douteuses, offres d\u2019argent facile.</li></ul></div><div><h3>Restez prudents</h3><p>Ne payez jamais à l\u2019avance. Donnez rendez-vous dans un lieu public. Bondy TV ne participe pas aux ventes et n\u2019est pas responsable des échanges entre particuliers.</p></div></div>';
+    fetch("/api/habitants").then(function (r) { return r.json(); }).catch(function () { return {}; }).then(function (j) {
       var lim = Date.now() - 60 * 86400000;
       var L = ((j && j.annonces) || []).filter(function (t) { return t.ts >= lim; });
-      if (!L.length) { box.innerHTML = '<p class="intro">Aucune annonce pour le moment. Soyez le premier à en déposer une !</p>'; return; }
-      box.innerHTML = "<h2 class=\"t-sub\">Les annonces</h2>" + L.map(function (t) {
-        var paras = String(t.texte || "").split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
-        return '<article class="tri"><h3>' + esc(t.titre) + "</h3>" + paras + '<p class="sig">' + esc(t.nom) + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + "</p></article>";
-      }).join("");
-    }).catch(function () { box.innerHTML = '<p class="intro">Les annonces ne se chargent pas pour le moment. Réessayez dans un instant.</p>'; });
+      var cards = L.map(function (t) {
+        var txt = String(t.texte || ""), long = txt.length > LONG, sh = long ? txt.slice(0, LONG).replace(/\s+\S*$/, "") + "…" : txt;
+        var full = txt.split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
+        return '<article class="tc"><span class="pill">Annonce</span><h3>' + esc(t.titre) + '</h3><div class="corps" data-full="' + esc(full) + '"><p>' + esc(sh) + '</p></div>' + (long ? '<button type="button" class="more">Lire la suite</button>' : "") + sig(t.nom, "Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR")) + '</article>';
+      });
+      if (!cards.length) [["Poussette et vélos d\u2019enfant", "Ici, un habitant propose des affaires d\u2019enfants à donner ou à vendre."], ["Livres et jeux", "Ici, une habitante vide ses étagères : romans, BD, jeux de société."], ["Meubles à donner", "Ici, un voisin donne une table, des chaises ou une armoire."], ["Je cherche…", "Ici, un habitant cherche un objet ou propose un petit service."]].forEach(function (x) {
+        cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>' + esc(x[0]) + '</h3><p class="ex-note"><b>Ceci est un exemple, pas une vraie annonce.</b></p><div class="corps"><p>' + x[1] + '</p></div>' + sig("Prénom", "Habitant de Bondy") + '</article>');
+      });
+      box.innerHTML = '<h2 class="t-sub">Les annonces</h2><div class="tg">' + cards.join("") + '</div>' + INFO;
+      box.addEventListener("click", function (e) { var b = e.target.closest(".more"); if (!b) return; var c = b.parentNode.querySelector(".corps"); c.innerHTML = c.getAttribute("data-full"); b.remove(); });
+    });
 
     var p = d.proposer || {};
     $("proposer").innerHTML = "<h2>" + esc(p.titre) + "</h2><p>" + esc(p.texte) + '</p><div class="contact">' +
