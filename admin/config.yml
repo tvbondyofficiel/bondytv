@@ -271,7 +271,7 @@ collections:
                 fields:
                   - {label: "Image", name: image, widget: image}
                   - {label: "Titre", name: titre, widget: string}
-                  - {label: "Type", name: type, widget: select, options: ["Réflexion", "Émission", "Podcast", "Vidéo"], required: false}
+                  - {label: "Type", name: type, widget: select, options: ["Short", "Réflexion", "Vidéo"], required: false}
                   - {label: "Légende", name: legende, widget: text, required: false}
                   - {label: "Adresse (YouTube, podcast…)", name: lien, widget: string}
           - label: "Page « Tribune des élus »"
