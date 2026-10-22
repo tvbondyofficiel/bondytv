@@ -463,9 +463,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <a href="/vos-articles.html#associations">Associations et commerçants</a>
       </div></details>
       <details class="dd"><summary>Images et vidéos</summary><div class="dd-m">
-        <a href="/images-videos.html#images">Bondy en images</a>
-        <a href="/images-videos.html#videos">Vidéos</a>
-        <a href="/images-videos.html#reportages">Reportages</a>
+        <a href="/images.html">Bondy en images</a>
+        <a href="/videos.html">Vidéos</a>
+        <a href="/reportages.html">Reportages</a>
       </div></details>
       <details class="dd"><summary>Vos élus</summary><div class="dd-m">
         <a href="/elus.html">Vos élus</a>
@@ -647,8 +647,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       return '<li><a class="sc" href="' + href + '"><span class="th' + (!BYID[a.id] && a.vignette ? ' logo' : '') + '">' + th + '</span><span class="tx"><span class="no">' + n + (a.rubrique ? ' · ' + esc(a.rubrique) : '') + '</span><b>' + esc(a.titre) + '</b></span><span class="ar" aria-hidden="true">→</span></a></li>';
     }).join("");
     var pages = [
-      { href: "/images-videos.html#images", ic: "cam", rub: "En images", t: (d.en_images || {}).titre || "Bondy en images", img: (((d.en_images || {}).photos || [])[0] || {}).image },
-      { href: "/images-videos.html#videos", ic: "phones", rub: "Vidéos", t: (d.videos || {}).titre || "Bondy en vidéos" },
+      { href: "/images.html", ic: "cam", rub: "En images", t: (d.en_images || {}).titre || "Bondy en images", img: (((d.en_images || {}).photos || [])[0] || {}).image },
+      { href: "/videos.html", ic: "phones", rub: "Vidéos", t: (d.videos || {}).titre || "Bondy en vidéos" },
       { href: "/elus.html", ic: "vote", rub: "Vos élus", t: (d.elus || {}).titre || "Vos élus" },
       { href: "/publicite.html", ic: "mega", rub: "Publicité", t: (d.page_pub || {}).titre || "Votre publicité ici" }
     ];

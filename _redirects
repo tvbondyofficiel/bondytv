@@ -1,10 +1,7 @@
 /archives /sommaire.html 301
 /archives.html /sommaire.html 301
-/images /images-videos.html 301
-/images.html /images-videos.html 301
-/videos /images-videos.html#videos 301
-/videos.html /images-videos.html#videos 301
 /proposer /temoigner.html 301
 /proposer.html /temoigner.html 301
 /infos /publicite.html#infos 301
 /infos.html /publicite.html#infos 301
+/images-videos /images.html 301
