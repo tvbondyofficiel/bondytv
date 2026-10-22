@@ -560,6 +560,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @media (min-width: 900px) { .bar nav { gap: 6px 11px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .03em !important; } }
 
 /* menu à listes déroulantes */
+/* menu : fermé = vraiment masqué ; dernier groupe aligné à droite */
+.bar nav details.dd:not([open])>.dd-m{display:none}
+.bar nav details.dd:last-of-type .dd-m{left:auto;right:0}
+.bar nav .dd-m{max-width:calc(100vw - 32px)}
 .bar nav details.dd>summary{border-bottom:2px solid transparent;padding-bottom:0;margin-bottom:0!important;width:auto;font-family:inherit;text-transform:inherit;font-weight:inherit}
 .bar nav details.dd.on>summary{border-bottom-color:var(--red)}
 .bar nav .dd{position:relative}
@@ -575,6 +579,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .bar nav a,.bar nav .dd>summary{font-size:13.5px;letter-spacing:.05em}
 @media (min-width:900px){.bar nav a,.bar nav .dd>summary{font-size:12.5px;letter-spacing:.03em}}
 </style>
+<style>.el-head h1{overflow-wrap:anywhere;hyphens:auto;font-size:clamp(28px,8vw,56px)}</style>
 </head>
 <body>
 <div class="wrap">

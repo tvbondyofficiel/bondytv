@@ -530,6 +530,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .ph-cta .ph-cta-n { font-style: italic; font-size: 15px !important; }
 
 /* menu à listes déroulantes */
+/* menu : fermé = vraiment masqué ; dernier groupe aligné à droite */
+.bar nav details.dd:not([open])>.dd-m{display:none}
+.bar nav details.dd:last-of-type .dd-m{left:auto;right:0}
+.bar nav .dd-m{max-width:calc(100vw - 32px)}
 .bar nav details.dd>summary{border-bottom:2px solid transparent;padding-bottom:0;margin-bottom:0!important;width:auto;font-family:inherit;text-transform:inherit;font-weight:inherit}
 .bar nav details.dd.on>summary{border-bottom-color:var(--red)}
 .bar nav .dd{position:relative}
