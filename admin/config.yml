@@ -254,6 +254,26 @@ collections:
                   - {label: "Type", name: type, widget: select, options: ["Reportage", "Podcast", "Short", "Story"], required: false}
                   - {label: "Légende", name: legende, widget: text, required: false}
                   - {label: "Adresse (YouTube)", name: lien, widget: string}
+          - label: "Page « Mon point de vue »"
+            name: point_de_vue
+            widget: object
+            collapsed: true
+            fields:
+              - {label: "Titre de la page", name: titre, widget: string}
+              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
+              - {label: "Adresse de la chaîne YouTube", name: lien, widget: string, required: false}
+              - {label: "Texte du bouton", name: bouton, widget: string, required: false}
+              - label: "Contenus (une carte par point de vue)"
+                name: items
+                widget: list
+                required: false
+                summary: "{{fields.titre}}"
+                fields:
+                  - {label: "Image", name: image, widget: image}
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Type", name: type, widget: select, options: ["Réflexion", "Émission", "Podcast", "Vidéo"], required: false}
+                  - {label: "Légende", name: legende, widget: text, required: false}
+                  - {label: "Adresse (YouTube, podcast…)", name: lien, widget: string}
           - label: "Page « Tribune des élus »"
             name: tribune
             widget: object

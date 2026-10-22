@@ -963,5 +963,12 @@
     "lien": "https://www.youtube.com/@Bondytvofficiel",
     "bouton": "Voir la chaîne YouTube",
     "items": []
+  },
+  "point_de_vue": {
+    "titre": "Mon point de vue",
+    "introduction": "Une réflexion, une émission, un podcast : ce que je pense, simplement.",
+    "lien": "https://www.youtube.com/@Bondytvofficiel",
+    "bouton": "Voir la chaîne YouTube",
+    "items": []
   }
 }
