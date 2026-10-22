@@ -502,6 +502,22 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .bi-mini .note { margin: 14px 0 0; font-size: 14px; color: #555a69; }
 @media (max-width: 900px) { .bi-mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .bi-mini-grid { grid-template-columns: minmax(0, 1fr); } }
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c;box-sizing:border-box}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+.hs-t{max-width:960px;margin:46px auto 18px;font:700 clamp(28px,4vw,40px)/1 var(--display);text-transform:uppercase;text-align:center}
+.hs-t::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
+/* Publicité : même structure que les autres pages */
+.pubpage .pg-head{margin:40px 0 0;text-align:center}
+.pubpage .pg-head h1{font-size:clamp(46px,8.6vw,108px)}
+.pubpage .pg-head h1 em{color:#b8975a!important}
+.pubpage .pg-head p{margin:14px auto 0;border-left:0;padding-left:0;text-align:center;font-size:clamp(19px,2.2vw,24px);max-width:56ch}
+.pubpage .pg-pour{max-width:960px;margin:0 auto 26px}
+.pubpage .a5s,.pubpage .bi-mini,.pubpage .tarif,.pubpage .suite{max-width:960px;margin-left:auto;margin-right:auto}
 .pg-pour { margin: 0 0 26px; max-width: 720px; background: #f3ead6; border-left: 6px solid #b8975a; padding: 16px 20px; color: #12141c; }
 .pg-pour b { display: block; margin: 0 0 6px; font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 18px; color: #006233; }
 .pg-pour p { margin: 0 0 6px; font-size: 16px; line-height: 1.5; }
@@ -702,7 +718,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var contact = (pr.whatsapp ? '<a href="' + esc(safeUrl(pr.whatsapp)) + '" target="_blank" rel="noopener">WhatsApp</a>' : "") + (mail ? '<a class="alt" href="' + mail + '">E-mail</a>' : "") + (pr.telephone_lien ? '<a class="alt" href="tel:' + esc(pr.telephone_lien) + '">' + esc(pr.telephone) + '</a>' : "");
       var tt = esc(pp.titre || "Votre publicité ici").split(" "), lw = tt.pop();
       var html = '<div class="pubpage"><div class="mention"><span>' + esc(pp.etiquette || "Publicité") + '</span><a href="/edito.html">Passer à l\'édito →</a></div>';
-      html += '<div class="pg-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (pp.introduction ? '<p>' + esc(pp.introduction) + '</p>' : "") + '</div><div class="pg-pour"><b>Pour qui sont les cases gratuites ?</b><p>Pour les commerces et entreprises <strong>qui démarrent</strong> à Bondy, ouverts depuis moins d\'un an : un coup de pouce pour se faire connaître.</p><p>Vous êtes installé depuis plus longtemps ? Écrivez-nous : une présence reste possible, <strong>sur arrangement</strong>.</p></div><div class="a5s">';
+      html += '<div class="pg-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (pp.introduction ? '<p>' + esc(pp.introduction) + '</p>' : "") + '</div><div class="hs-inv" style="--bgi:url(/images/bondytv-ville.jpg)"><div><h2>Une case pour vous</h2><p>Les cases sont gratuites pour les commerces qui démarrent à Bondy. Écrivez-nous pour prendre la vôtre.</p></div><a class="hs-btn" href="' + esc(safeUrl(pr.whatsapp || "")) + '" target="_blank" rel="noopener">Prendre une case</a></div><h2 class="hs-t">Les cases du magazine</h2><div class="pg-pour"><b>Pour qui sont les cases gratuites ?</b><p>Pour les commerces et entreprises <strong>qui démarrent</strong> à Bondy, ouverts depuis moins d\'un an : un coup de pouce pour se faire connaître.</p><p>Vous êtes installé depuis plus longtemps ? Écrivez-nous : une présence reste possible, <strong>sur arrangement</strong>.</p></div><div class="a5s">';
       for (var k = 0; k < total; k++) {
         var e = ems[k];
         if (!e) { html += '<div class="a5 free"><b><span>Votre</span> <span>pub</span> <span>ici</span></b><span>Pour votre commerce, pour vous aider à démarrer.</span><a class="gratuit" href="' + esc(safeUrl(pr.whatsapp || "")) + '" target="_blank" rel="noopener">C\'est gratuit</a></div>'; continue; }
