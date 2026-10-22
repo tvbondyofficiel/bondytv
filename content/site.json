@@ -534,6 +534,17 @@
         "legende": "Sur le portail, un hommage à l'écrivaine sénégalaise Mariama Bâ (1929–1981).",
         "description": "Le portail de la Pépithèque Mariama Bâ avec l'affichette des horaires et le panneau consacré à Mariama Bâ"
       }
+    ],
+    "affiches_titre": "Affiches et annonces des associations",
+    "affiches": [
+      {
+        "image": "/images/acmb-affiche.jpg",
+        "titre": "ACMB : un projet de nouvelle mosquée à Bondy",
+        "legende": "Affiche de l'Association Culturelle des Musulmans de Bondy.",
+        "description": "Affiche de l'ACMB : Construire une nouvelle mosquée à Bondy. Instagram @acmbondy et groupe WhatsApp Projet Mosquée de Bondy.",
+        "lien": "/articles.html#mosquee-acmb",
+        "lien_texte": "Lire l'article"
+      }
     ]
   },
   "bonnes_infos": {

@@ -169,6 +169,19 @@ collections:
                   - {label: "Titre", name: titre, widget: string}
                   - {label: "Légende (une ou deux phrases)", name: legende, widget: text, required: false}
                   - {label: "Description de la photo (pour les malvoyants)", name: description, widget: string, required: false}
+              - {label: "Titre de la section des affiches", name: affiches_titre, widget: string, required: false, default: "Affiches et annonces des associations"}
+              - label: "Affiches et annonces des associations"
+                name: affiches
+                widget: list
+                required: false
+                summary: "{{fields.titre}}"
+                fields:
+                  - {label: "Affiche (image entière)", name: image, widget: image}
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Légende", name: legende, widget: text, required: false}
+                  - {label: "Description de l'affiche (pour les malvoyants)", name: description, widget: string, required: false}
+                  - {label: "Lien vers un article (ex. /articles.html#mon-article)", name: lien, widget: string, required: false}
+                  - {label: "Texte du lien", name: lien_texte, widget: string, required: false}
           - label: "Page de publicité « Votre publicité ici » (après la couverture)"
             name: page_pub
             widget: object

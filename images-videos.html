@@ -544,6 +544,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .bar nav .dd-m a[aria-current="page"]{color:var(--fg);font-weight:800}
 .bar nav a,.bar nav .dd>summary{font-size:13.5px;letter-spacing:.05em}
 @media (min-width:900px){.bar nav a,.bar nav .dd>summary{font-size:12.5px;letter-spacing:.03em}}
+
+.aff { margin: 44px 0 10px; }
+.aff-t { font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(30px, 4vw, 44px); line-height: 1; margin: 0 0 20px; }
+.aff-l { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 22px; }
+.aff-c { background: #fff; border-top: 6px solid var(--green); display: flex; flex-direction: column; }
+.aff-i { display: block; background: #fff; padding: 10px; }
+.aff-i img { display: block; width: 100%; height: auto; }
+.aff-x { padding: 6px 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+.aff-x b { font-family: var(--display); text-transform: uppercase; font-size: 22px; line-height: 1.05; }
+.aff-x p { margin: 0; color: var(--muted); }
+.aff-a { font-weight: 700; color: var(--fg); }
 </style>
 </head>
 <body>
@@ -713,7 +724,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         var cls = i === 0 ? "ph big" : "ph tile" + (i % 3 === 0 ? " wide" : "");
         html += '<button type="button" class="' + cls + '" data-i="' + i + '"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.description || x.titre) + '" loading="' + (i < 2 ? "eager" : "lazy") + '"></span><span class="cap">' + (x.date ? '<span class="dt">' + esc(x.date) + '</span>' : "") + '<h2>' + esc(x.titre) + '</h2>' + (x.legende ? '<p>' + esc(x.legende) + '</p>' : "") + '</span></button>';
       });
-      html += '</div><div class="ph-cta"><div class="ph-cta-t"><b>Vous aimez la photo ?</b><p>Habitants de Bondy, amateurs ou passionnés : envoyez-nous vos plus belles images de la ville. Les meilleures seront publiées dans le prochain numéro, avec votre nom, et nous parlerons de vous.</p><p class="ph-cta-n">Les photos doivent être de vous.</p></div><a href="/temoigner.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
+      var af = ei.affiches || [];
+      html += (af.length ? '</div><section class="aff" id="affiches"><h2 class="aff-t">' + esc(ei.affiches_titre || "Affiches et annonces des associations") + '</h2><ul class="aff-l">' + af.map(function (x) { var im = '<img src="' + esc(x.image) + '" alt="' + esc(x.description || x.titre) + '" loading="lazy">'; return '<li class="aff-c"><a class="aff-i" href="' + esc(x.image) + '" target="_blank" rel="noopener" aria-label="Voir l\'affiche en grand : ' + esc(x.titre) + '">' + im + '</a><div class="aff-x"><b>' + esc(x.titre) + '</b>' + (x.legende ? '<p>' + esc(x.legende) + '</p>' : "") + (x.lien ? '<a class="aff-a" href="' + esc(safeUrl(x.lien)) + '">' + esc(x.lien_texte || "Lire l\'article") + ' →</a>' : "") + '</div></li>'; }).join("") + '</ul></section><div class="ph-cta">' : '</div><div class="ph-cta">') + '<div class="ph-cta-t"><b>Vous aimez la photo ?</b><p>Habitants de Bondy, amateurs ou passionnés : envoyez-nous vos plus belles images de la ville. Les meilleures seront publiées dans le prochain numéro, avec votre nom, et nous parlerons de vous.</p><p class="ph-cta-n">Les photos doivent être de vous.</p></div><a href="/temoigner.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
       document.getElementById("gal").innerHTML = html;
       var lb = document.querySelector(".lb"), cur = 0;
       function show(i) { cur = (i + ph.length) % ph.length; var x = ph[cur]; lb.querySelector("img").src = x.image; lb.querySelector("img").alt = x.description || x.titre; lb.querySelector("figcaption").innerHTML = "<b>" + esc(x.titre) + "</b>" + esc(x.legende || ""); lb.hidden = false; }
