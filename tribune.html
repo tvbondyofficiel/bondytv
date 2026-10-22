@@ -406,6 +406,18 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .t-side h3 { margin: 0 0 12px; font-family: var(--display); text-transform: uppercase; font-size: clamp(28px, 3vw, 38px); line-height: 1; color: #12141c; }
 .t-side p { color: #12141c; font-size: 18px; line-height: 1.5; }
 #pubtri { grid-column: 1 / -1; margin: 0 0 34px; }
+#pubtri .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+#pubtri .tc{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;padding:20px 22px 18px;box-shadow:0 8px 22px rgba(18,20,28,.07)}
+#pubtri .tc .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+#pubtri .tc h3{margin:0;border-left:4px solid #b8975a;padding-left:12px;font:700 clamp(22px,2.2vw,28px)/1.05 var(--display);text-transform:uppercase}
+#pubtri .tc .corps{font-size:16px;line-height:1.5}#pubtri .tc .corps p{margin:0 0 8px}
+#pubtri .tc .more{align-self:flex-start;border:0;background:none;padding:0;color:#12141c;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+#pubtri .tc .sg{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(18,20,28,.12)}
+#pubtri .tc .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:#12141c;color:#b8975a;font:700 17px/1 var(--display)}
+#pubtri .tc .sg b{display:block;font-size:16px;line-height:1.2}#pubtri .tc .sg span span{font-size:14px;color:#5a5f6e}
+#pubtri .tc.ex{border-style:dashed;border-top-style:solid;background:#faf7ef}#pubtri .tc.ex .pill{background:#b8975a;color:#12141c}
+#pubtri .ex-note{margin:0;padding:10px 12px;border-left:4px solid #12141c;background:#fff;font-size:15px;line-height:1.4}
+
 .t-sub { font-family: var(--display); text-transform: uppercase; font-size: clamp(30px, 4vw, 44px); margin: 0 0 16px; }
 .tri { background: #fff; border-top: 6px solid var(--green); padding: 22px 26px; margin: 0 0 16px; max-width: 760px; }
 .tri h3 { margin: 0 0 12px; font-family: var(--display); text-transform: uppercase; font-size: clamp(26px, 3vw, 34px); line-height: 1.05; }
@@ -457,8 +469,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <a href="/videos.html">Vidéos</a>
         <a href="/reportages.html">Bondy raconte</a>
       </div></details>
-      <details class="dd on"><summary>Vos élus</summary><div class="dd-m">
-        <a href="/elus.html">Vos élus</a>
+      <details class="dd on"><summary>Élus</summary><div class="dd-m">
+        <a href="/elus.html">Votez pour vos élus</a>
         <a href="/tribune.html" aria-current="page">Tribune des élus</a>
       </div></details>
       <details class="dd"><summary>Habitants</summary><div class="dd-m">
@@ -671,17 +683,21 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       });
     })();
 
-    fetch("/api/tribunes").then(function (r) { return r.json(); }).then(function (j) {
-      var L = (j && j.tribunes) || [];
-      if (!L.length) return;
-      var box = $("pubtri");
-      box.innerHTML = "<h2 class=\"t-sub\">Les tribunes</h2>" + L.map(function (t) {
-        var paras = String(t.texte || "").split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
+    fetch("/api/tribunes").then(function (r) { return r.json(); }).catch(function () { return {}; }).then(function (j) {
+      var L = (j && j.tribunes) || [], box = $("pubtri"), LONG = 150;
+      function sig(n, f) { return '<div class="sg"><span class="av">' + esc(String(n || "?").charAt(0)) + '</span><span><b>' + esc(n) + '</b><span>' + esc(f) + '</span></span></div>'; }
+      var cards = L.map(function (t) {
+        var txt = String(t.texte || ""), long = txt.length > LONG;
+        var short = long ? txt.slice(0, LONG).replace(/\s+\S*$/, "") + "…" : txt;
+        var full = txt.split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
         var lk = /^https:\/\//i.test(t.lien || "") ? '<p><a href="' + esc(t.lien) + '" target="_blank" rel="noopener">Voir la vidéo</a></p>' : "";
-        return '<article class="tri"><h3>' + esc(t.titre) + "</h3>" + paras + lk + '<p class="sig">' + esc(t.nom) + " · " + esc(t.fonction) + (t.groupe ? " · " + esc(t.groupe) : "") + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + "</p></article>";
-      }).join("");
+        return '<article class="tc"><span class="pill">Tribune</span><h3>' + esc(t.titre) + '</h3><div class="corps" data-full="' + esc(full + lk) + '"><p>' + esc(short) + '</p></div>' + (long ? '<button type="button" class="more">Lire la suite</button>' : "") + sig(t.nom, [t.fonction, t.groupe].filter(Boolean).join(" · ")) + '</article>';
+      });
+      if (!cards.length) cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>Votre tribune ici</h3><p class="ex-note"><b>Ceci est un exemple, pas une vraie tribune.</b> Aucun élu n\'a encore publié de tribune.</p><div class="corps"><p>Ici, un élu explique en quelques lignes une décision, un projet ou répond aux habitants, après relecture par Bondy TV.</p></div>' + sig("Prénom Nom", "Fonction de l\'élu") + '</article>');
+      box.innerHTML = '<h2 class="t-sub">Les tribunes</h2><div class="tg">' + cards.join("") + '</div>';
       box.hidden = false;
-    }).catch(function () {});
+      box.addEventListener("click", function (e) { var b = e.target.closest(".more"); if (!b) return; var c = b.parentNode.querySelector(".corps"); c.innerHTML = c.getAttribute("data-full"); b.remove(); });
+    });
     $("temoigner-intro").textContent = t.introduction || "";
 
     var p = d.proposer || {};
