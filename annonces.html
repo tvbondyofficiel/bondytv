@@ -445,6 +445,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 #pubtri .tc .sg{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(18,20,28,.12)}
 #pubtri .tc .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:#12141c;color:#b8975a;font:700 17px/1 var(--display)}
 #pubtri .tc .sg b{display:block;font-size:16px;line-height:1.2}#pubtri .tc .sg span span{font-size:14px;color:#5a5f6e}
+#pubtri .tc img{max-width:100%;height:auto;display:block;border-radius:4px}
 #pubtri .tc.ex{border-style:dashed;border-top-style:solid;background:#faf7ef}#pubtri .tc.ex .pill{background:#b8975a;color:#12141c}
 #pubtri .ex-note{margin:0;padding:10px 12px;border-left:4px solid #12141c;background:#fff;font-size:15px;line-height:1.4}
 #pubtri .vg-info{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
@@ -655,7 +656,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var cards = L.map(function (t) {
         var txt = String(t.texte || ""), long = txt.length > LONG, sh = long ? txt.slice(0, LONG).replace(/\s+\S*$/, "") + "…" : txt;
         var full = txt.split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
-        return '<article class="tc"><span class="pill">Annonce</span><h3>' + esc(t.titre) + '</h3><div class="corps" data-full="' + esc(full) + '"><p>' + esc(sh) + '</p></div>' + (long ? '<button type="button" class="more">Lire la suite</button>' : "") + sig(t.nom, "Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR")) + '</article>';
+        var im = t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '" loading="lazy">' : "";
+        return '<article class="tc"><span class="pill">Annonce</span><h3>' + esc(t.titre) + '</h3>' + im + '<div class="corps" data-full="' + esc(full) + '"><p>' + esc(sh) + '</p></div>' + (long ? '<button type="button" class="more">Lire la suite</button>' : "") + sig(t.nom, "Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR")) + '</article>';
       });
       if (!cards.length) [["Poussette et vélos d\u2019enfant", "Ici, un habitant propose des affaires d\u2019enfants à donner ou à vendre."], ["Livres et jeux", "Ici, une habitante vide ses étagères : romans, BD, jeux de société."], ["Meubles à donner", "Ici, un voisin donne une table, des chaises ou une armoire."], ["Je cherche…", "Ici, un habitant cherche un objet ou propose un petit service."]].forEach(function (x) {
         cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>' + esc(x[0]) + '</h3><p class="ex-note"><b>Ceci est un exemple, pas une vraie annonce.</b></p><div class="corps"><p>' + x[1] + '</p></div>' + sig("Prénom", "Habitant de Bondy") + '</article>');

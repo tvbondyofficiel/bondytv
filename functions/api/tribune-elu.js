@@ -65,7 +65,7 @@ export async function onRequestPost({ request, env }) {
     if (!b.accord) return json({ error: "accord" }, 400);
     let imgBuf = null, imgType = "";
     if (img) {
-      if (!pro) return json({ error: "image" }, 400);
+      if (!pro && !vg) return json({ error: "image" }, 400);
       if (img.size > MAX_IMAGE) return json({ error: "image_taille" }, 413);
       imgBuf = await img.arrayBuffer();
       imgType = typeFichier(new Uint8Array(imgBuf), false);
