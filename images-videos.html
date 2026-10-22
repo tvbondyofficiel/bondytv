@@ -559,6 +559,19 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .aff-x b { font-family: var(--display); text-transform: uppercase; font-size: 22px; line-height: 1.05; }
 .aff-x p { margin: 0; color: var(--muted); }
 .aff-a { font-weight: 700; color: var(--fg); }
+
+/* Bondy en vidéos : petites cases, 2 par ligne */
+#vid .vtiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:880px}
+#vid .vtiles .play{width:56px;height:56px}
+#vid .vtiles .play::after{left:22px;top:16px;border-left-width:19px;border-top-width:12px;border-bottom-width:12px}
+#vid .vtiles .cap{padding:10px 14px 12px}
+#vid .vtiles .cap b{font-size:19px}
+#vid .vtiles .cap small{font-size:13px}
+#vid .vtiles .vide{display:block;border:2px dashed var(--line);background:rgba(255,255,255,.5)}
+#vid .vtiles .vide .im{display:grid;place-items:center;background:rgba(18,20,28,.05)}
+#vid .vtiles .vide .play{background:#a6aab8;opacity:.7}
+#vid .vtiles .vide .cap{color:#555a69}
+@media (max-width:560px){#vid .vtiles{gap:12px}#vid .vtiles .cap small{display:none}#vid .vtiles .cap b{font-size:16px}#vid .vtiles a{box-shadow:4px 4px 0 var(--beige)}#vid .vtiles .play{width:44px;height:44px}#vid .vtiles .play::after{left:17px;top:12px;border-left-width:15px;border-top-width:10px;border-bottom-width:10px}}
 </style>
 </head>
 <body>
@@ -763,7 +776,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var V = d.videos || {};
     if (document.getElementById("vid")) {
       var tt = esc(V.titre || "Bondy en vidéos").split(" "); var last = tt.pop();
-      document.getElementById("vid").innerHTML = '<div class="ph-head" id="videos"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><ul class="vtiles">' + (V.items || []).map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></a></li>'; }).join("") + '</ul><div class="ph-cta"><b>Toutes nos vidéos sont sur YouTube</b><a href="' + esc(safeUrl(V.lien || "")) + '" target="_blank" rel="noopener">' + esc(V.bouton || "Voir la chaîne YouTube") + '</a></div>';
+      document.getElementById("vid").innerHTML = '<div class="ph-head" id="videos"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><ul class="vtiles">' + (V.items || []).map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></a></li>'; }).join("") + (function () { var n = Math.max(0, 6 - (V.items || []).length), h = ""; for (var k = 0; k < n; k++) h += '<li><div class="vide"><span class="im"><span class="play"></span></span><span class="cap"><b>Vidéo à venir</b></span></div></li>'; return h; })() + '</ul><div class="ph-cta"><b>Toutes nos vidéos sont sur YouTube</b><a href="' + esc(safeUrl(V.lien || "")) + '" target="_blank" rel="noopener">' + esc(V.bouton || "Voir la chaîne YouTube") + '</a></div>';
     }
 
     if (document.getElementById("rep")) {
