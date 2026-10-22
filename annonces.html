@@ -461,6 +461,22 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .ann-box .by{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(18,20,28,.12);font-size:14px;color:#5a5f6e}
 .ann-box .call{display:block;width:100%;margin-top:16px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:16px;font:700 17px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;text-align:center;text-decoration:none;cursor:pointer}
 .ann-x{position:absolute;top:10px;right:12px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:10px 14px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer}
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c;grid-column:1/-1;width:100%;box-sizing:border-box}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-inv p a{color:#f4f2ee;font-weight:600}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
+/* Annonces : même structure que les autres pages */
+.temoigner{margin-top:40px}
+.temoigner .t-big{text-align:center;margin-bottom:0;font-size:clamp(46px,8.6vw,108px);line-height:.92}
+.temoigner .intro{text-align:center;margin:14px auto 0;max-width:52ch}
+#pubtri{max-width:960px;margin-left:auto;margin-right:auto;width:100%}
+#pubtri .t-sub{text-align:center;margin:46px 0 18px;font-size:clamp(28px,4vw,40px)}
+#pubtri .t-sub::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+#pubtri .vg-f{justify-content:center}
 #pubtri .vg-f{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:0 0 18px}
 #pubtri .vg-t{display:flex;flex-wrap:wrap;gap:8px}
 #pubtri .vg-t button{border:1px solid #c9b58a;background:#fff;color:#12141c;padding:10px 16px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer;border-radius:3px}
@@ -514,7 +530,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   <section class="temoigner" id="temoigner">
     <h1 class="t-big" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
-    <p style="margin:0 0 30px;display:flex;flex-wrap:wrap;align-items:center;gap:14px 26px"><a class="btn-all" href="/habitant.html?espace=videgrenier">Mon vide-grenier · Se connecter</a> <a href="/habitants.html?espace=videgrenier" style="font-weight:600">Pas encore de code ? Demandez votre accès</a></p>
+    <div class="hs-inv" style="--bgi:url(/images/une-bois.jpg)"><div><h2>Mon vide-grenier</h2><p>Connectez-vous pour déposer votre annonce. Pas encore de code ? <a href="/habitants.html?espace=videgrenier">Demandez votre accès</a>.</p></div><a class="hs-btn" href="/habitant.html?espace=videgrenier">Se connecter</a></div>
     <div id="pubtri" style="grid-column:1/-1"></div>
     <aside class="t-side" id="t-side" hidden></aside>
   </section>
