@@ -1,10 +1,22 @@
-// Assistant Bondy TV : réponses par Claude (Anthropic), limitées aux informations du site.
-// Réglage à faire une fois dans Cloudflare : Pages > bondytv > Settings > Variables and Secrets > ajouter un SECRET nommé ANTHROPIC_API_KEY.
+// Assistant Bondy TV : réponses limitées aux informations du site.
+// Gratuit : IA de Cloudflare (Workers AI, variable AI). Option payante : si un secret ANTHROPIC_API_KEY existe, Claude est utilisé en priorité.
 
 import { limit } from "../_lib/tribune.js";
 
+const CF_MODEL = "@cf/meta/llama-3.1-8b-instruct";
 const MODEL = "claude-haiku-5-5";
 const API = "https://api.anthropic.com/v1/messages";
+
+async function cfai(env, system, messages, max) {
+  const out = await env.AI.run(CF_MODEL, { messages: [{ role: "system", content: system }].concat(messages), max_tokens: max, temperature: 0.3 });
+  return out && (out.response || out.result || "");
+}
+
+async function ask(env, system, messages, max) {
+  if (env.ANTHROPIC_API_KEY) return claude(env, system, messages, max);
+  if (env.AI) return cfai(env, system, messages, max);
+  throw new Error("aucune_ia");
+}
 
 async function claude(env, system, messages, max) {
   const res = await fetch(API, {
@@ -53,7 +65,7 @@ async function knowledge(request, env) {
 }
 
 export async function onRequestPost({ request, env }) {
-  if (!env.ANTHROPIC_API_KEY) return json({ error: "ia_non_branchee" }, 503);
+  if (!env.ANTHROPIC_API_KEY && !env.AI) return json({ error: "ia_non_branchee" }, 503);
   let body;
   try { body = await request.json(); } catch (e) { return json({ error: "requete_invalide" }, 400); }
   const msgs = Array.isArray(body.messages) ? body.messages.slice(-MAX_TURNS) : [];
@@ -76,7 +88,7 @@ export async function onRequestPost({ request, env }) {
     (await knowledge(request, env));
 
   try {
-    const out = await claude(env, system, history, 280);
+    const out = await ask(env, system, history, 280);
     const reply = clean(out).replace(/\s*\[\[CONTACT\]\]\s*/g, " [[CONTACT]]").trim();
     if (!reply) return json({ error: "reponse_vide" }, 502);
     return json({ reply: reply.slice(0, 700) });
@@ -89,12 +101,13 @@ export async function onRequestPost({ request, env }) {
 export async function onRequestGet({ request, env }) {
   const u = new URL(request.url);
   if (u.searchParams.get("test") !== "1") return json({ error: "methode_non_autorisee" }, 405);
-  if (!env.ANTHROPIC_API_KEY) return json({ claude_branche: false, message: "Le secret ANTHROPIC_API_KEY n'est pas vu par le site (à ajouter, puis nouvelle mise en ligne)." });
+  const quoi = env.ANTHROPIC_API_KEY ? "Claude" : env.AI ? "IA Cloudflare (gratuite)" : "aucune";
+  if (quoi === "aucune") return json({ ia: quoi, message: "Ni la variable AI ni ANTHROPIC_API_KEY ne sont vues par le site." });
   try {
-    const out = await claude(env, "Tu réponds en un mot.", [{ role: "user", content: "Réponds juste : ok" }], 10);
-    return json({ claude_branche: true, reponse_ok: true, extrait: clean(out).slice(0, 40) });
+    const out = await ask(env, "Tu réponds en un mot.", [{ role: "user", content: "Réponds juste : ok" }], 10);
+    return json({ ia: quoi, reponse_ok: true, extrait: clean(out).slice(0, 40) });
   } catch (e) {
-    return json({ claude_branche: true, reponse_ok: false, erreur: String((e && e.message) || e).slice(0, 300) });
+    return json({ ia: quoi, reponse_ok: false, erreur: String((e && e.message) || e).slice(0, 300) });
   }
 }
 
