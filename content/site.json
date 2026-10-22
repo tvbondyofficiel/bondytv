@@ -135,6 +135,22 @@
       "vignette": "/images/atlas-logo.jpg"
     },
     {
+      "id": "boite-a-livres",
+      "rubrique": "Vie de la ville",
+      "etiquette": "Vie de la ville · Bois de Bondy",
+      "pleine_largeur": true,
+      "titre": "Une boîte à livres au Bois de Bondy",
+      "chapo": "« Partageons le goût de la lecture » : on prend un livre, on en dépose un autre. C'est gratuit, pour tout le monde.",
+      "visuel": "image",
+      "image": "/images/boite-a-livres.jpg",
+      "image_description": "La boîte à livres rouge et blanche, derrière la grille verte du Bois de Bondy",
+      "image_portrait": false,
+      "lien_video": "",
+      "credit": "",
+      "texte_visible": "",
+      "texte": "« Partageons le goût de la lecture » : c'est écrit sur cette petite boîte rouge, posée à l'entrée du Bois de Bondy. Le principe est simple : on prend un livre, on en dépose un autre. C'est gratuit, ouvert à tous et accessible à toute heure.\n\nBondy TV aimerait en voir partout dans la ville, à chaque coin de rue : un livre à portée de main, c'est un pas de plus vers le savoir pour chacun.\n\nEt vous ? Une idée d'endroit pour la prochaine boîte à livres ? Écrivez-nous."
+    },
+    {
       "lien_video": "",
       "texte_visible": "",
       "rubrique": "Édito",
