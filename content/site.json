@@ -445,6 +445,31 @@
         "question": "Mon message sera-t-il publié ?",
         "mots_cles": "publie publier retrait supprimer accord confidentialite donnees",
         "reponse": "Votre message n'est publié qu'avec votre accord, et vous pouvez demander son retrait à tout moment."
+      },
+      {
+        "question": "Je suis bondynois",
+        "mots_cles": "bondynois bondynoise bonjour salut bonsoir coucou habite bondy",
+        "reponse": "Bienvenue chez vous ! Bondy TV est le magazine gratuit des Bondynois. Vous pouvez lire les articles, témoigner, lire la tribune des élus et la parole aux habitants, ou me poser une question."
+      },
+      {
+        "question": "Où trouver les articles ?",
+        "mots_cles": "articles article lire lecture rubrique magazine sujets",
+        "reponse": "Tout est dans la page [Articles](/articles.html), classée par rubrique."
+      },
+      {
+        "question": "Je suis habitant et je veux m'exprimer",
+        "mots_cles": "habitant habitants exprimer parole parler texte ecrire code",
+        "reponse": "Rendez-vous sur la page [La parole aux habitants](/habitants.html). Vous faites une demande et on vous envoie votre code."
+      },
+      {
+        "question": "Je suis élu",
+        "mots_cles": "elu elus tribune mairie conseiller connecter connexion",
+        "reponse": "La tribune des élus est sur la page [Tribune](/tribune.html). Le bouton rouge « Se connecter » vous y donne accès."
+      },
+      {
+        "question": "Faire de la publicité",
+        "mots_cles": "publicite pub annonceur commerce commercant entreprise promouvoir",
+        "reponse": "Tout est expliqué sur la page [Votre pub](/publicite.html)."
       }
     ]
   },
