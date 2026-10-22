@@ -207,7 +207,7 @@ details .more { display: flex; flex-direction: column; gap: 12px; }
 .tform .fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
 .tform label { font-family: var(--display); text-transform: uppercase; letter-spacing: .1em; font-weight: 700; font-size: 15px; }
 .tform .opt { color: var(--muted); text-transform: none; letter-spacing: 0; font-weight: 500; font-family: var(--body); font-size: 14px; }
-.tform input[type="text"], .tform input[type="tel"], .tform input[type="url"], .tform select, .tform textarea { font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 0; padding: 12px 14px; width: 100%; min-width: 0; }
+.tform input[type="text"], .tform input[type="tel"], .tform input[type="email"], .tform input[type="url"], .tform select, .tform textarea { font: inherit; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 0; padding: 12px 14px; width: 100%; min-width: 0; }
 .tform input[type="file"] { font: inherit; color: var(--fg); max-width: 100%; }
 .tform textarea { min-height: 130px; resize: vertical; }
 .tform .check { display: flex; gap: 10px; align-items: flex-start; font-family: var(--body); text-transform: none; letter-spacing: 0; font-weight: 500; font-size: 15px; }
@@ -485,9 +485,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <div class="fld"><label for="h-nom">Prénom et nom</label><input autocomplete="name" id="h-nom" required type="text"/></div>
         <div class="fld"><label for="h-tel">Numéro de téléphone (obligatoire)</label><input autocomplete="tel" id="h-tel" inputmode="tel" placeholder="06 12 34 56 78" required type="tel"/></div>
       </div>
-      <div class="fld"><label for="h-adresse">Votre adresse à Bondy</label><input autocomplete="street-address" id="h-adresse" placeholder="Numéro, rue" required type="text"/></div>
-      <div class="fld"><label for="h-piece">Copie de votre pièce d'identité</label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="h-piece" required type="file"/></div>
-      <p class="hint">Votre nom, votre téléphone, votre adresse et votre pièce d'identité nous servent uniquement à vérifier votre identité. Ils ne sont jamais publiés. La pièce d'identité est supprimée dès que votre demande est traitée. Formats : PDF, JPG ou PNG, 5 Mo au maximum.</p>
+      <div class="fld" id="f-mail" hidden><label for="h-email">Votre adresse e-mail</label><input autocomplete="email" id="h-email" inputmode="email" placeholder="prenom@exemple.fr" type="email"/></div>
+      <div class="fld" id="f-adr"><label for="h-adresse">Votre adresse à Bondy</label><input autocomplete="street-address" id="h-adresse" placeholder="Numéro, rue" required type="text"/></div>
+      <div class="fld" id="f-piece"><label for="h-piece">Copie de votre pièce d'identité</label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="h-piece" required type="file"/></div>
+      <p class="hint" id="h-hint">Votre nom, votre téléphone, votre adresse et votre pièce d'identité nous servent uniquement à vérifier votre identité. Ils ne sont jamais publiés. La pièce d'identité est supprimée dès que votre demande est traitée. Formats : PDF, JPG ou PNG, 5 Mo au maximum.</p>
       <label class="check" for="h-ok"><input id="h-ok" required type="checkbox"/><span>J'accepte d'être contacté par téléphone pour recevoir mon accès.</span></label>
       <button class="send" id="h-send" type="submit">Envoyer ma demande</button>
       <p aria-live="polite" class="status" id="h-status" role="status"></p>
@@ -642,6 +643,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var t = d.tribune || {};
     var VGR = /(?:^|[?&])espace=videgrenier(?:&|$)/.test(location.search);
     $("temoigner-titre").innerHTML = VGR ? "Mon <em>vide-grenier</em>" : "La parole <em>aux habitants</em>";
+    if (VGR) { $("f-adr").hidden = true; $("f-piece").hidden = true; $("f-mail").hidden = false; $("h-adresse").required = false; $("h-piece").required = false; $("h-hint").textContent = "Votre nom, votre téléphone et votre e-mail servent uniquement à vous contacter pour vous donner votre accès. Ils ne sont jamais publiés."; }
     $("temoigner-intro").textContent = VGR ? "Vous habitez Bondy et vous voulez vider votre grenier ? Demandez votre accès : vous pourrez déposer une annonce gratuite, rien d\u2019autre." : "Vous vivez à Bondy ? Ce magazine est aussi le vôtre. Exprimez-vous : un avis, un coup de cœur, un souvenir, une idée pour la ville.";
     var ts = $("t-side");
     ts.innerHTML = "<h3>Comment participer</h3><ol style=\"margin:0;padding-left:22px;font-size:17px;line-height:1.55\"><li><strong>Vous demandez votre accès</strong> avec le formulaire, en indiquant votre numéro de téléphone.</li><li><strong>Nous vérifions</strong> votre demande.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel par téléphone.</li><li><strong>Vous vous connectez</strong> et vous écrivez votre texte.</li><li><strong>Nous le relisons</strong>, puis il est publié.</li></ol><p style=\"margin-top:14px;font-size:16px\">C'est gratuit. Les textes sont relus avant publication, dans le respect de la loi et des personnes. Vous pouvez demander le retrait du vôtre à tout moment.</p><p style=\"margin-top:16px\"><strong>Vous avez déjà votre code ?</strong></p><p style=\"margin-top:10px\"><a class=\"btn-all\" href=\"/habitant.html?espace=habitant\">Se connecter</a></p>";
@@ -659,16 +661,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     (function () {
       var f = $("hform"), st = $("h-status"), bt = $("h-send");
       function say(m, e) { st.textContent = m; st.className = "status" + (e ? " err" : ""); }
-      var ER = { piece: "Ajoutez la copie de votre pièce d\u2019identité.", piece_taille: "Le fichier est trop lourd (5 Mo au maximum).", piece_type: "Le fichier doit être un PDF, un JPG ou un PNG.", adresse: "L\u2019adresse est obligatoire.", nom: "Écrivez votre prénom et votre nom.", tel: "Le numéro de téléphone est obligatoire (10 chiffres).", trop_de_tentatives: "Trop de demandes. Réessayez plus tard.", non_branche: "Le service n'est pas encore activé. Écrivez-nous sur WhatsApp." };
+      var ER = { piece: "Ajoutez la copie de votre pièce d\u2019identité.", piece_taille: "Le fichier est trop lourd (5 Mo au maximum).", piece_type: "Le fichier doit être un PDF, un JPG ou un PNG.", adresse: "L\u2019adresse est obligatoire.", email: "Écrivez une adresse e-mail valide.", nom: "Écrivez votre prénom et votre nom.", tel: "Le numéro de téléphone est obligatoire (10 chiffres).", trop_de_tentatives: "Trop de demandes. Réessayez plus tard.", non_branche: "Le service n'est pas encore activé. Écrivez-nous sur WhatsApp." };
       f.addEventListener("submit", function (e) {
         e.preventDefault();
         if (!$("h-ok").checked) { say("Cochez la case pour continuer.", true); return; }
         bt.disabled = true; say("Envoi en cours...", false);
         var pf = $("h-piece").files[0];
-        if (!pf) { say("Ajoutez la copie de votre pièce d'identité.", true); bt.disabled = false; return; }
-        if (pf.size > 5 * 1024 * 1024) { say("Le fichier est trop lourd (5 Mo au maximum).", true); bt.disabled = false; return; }
+        if (VGR && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($("h-email").value.trim())) { say("Écrivez une adresse e-mail valide.", true); bt.disabled = false; return; }
+        if (!VGR && !pf) { say("Ajoutez la copie de votre pièce d'identité.", true); bt.disabled = false; return; }
+        if (pf && pf.size > 5 * 1024 * 1024) { say("Le fichier est trop lourd (5 Mo au maximum).", true); bt.disabled = false; return; }
         var body = { nom: $("h-nom").value, tel: $("h-tel").value, adresse: $("h-adresse").value, botcheck: $("h-bot").checked };
-        var fd0 = new FormData(); fd0.append("nom", body.nom); fd0.append("tel", body.tel); fd0.append("adresse", body.adresse); fd0.append("piece", pf); if (VGR) fd0.append("profil", "videgrenier"); if (body.botcheck) fd0.append("botcheck", "1");
+        var fd0 = new FormData(); fd0.append("nom", body.nom); fd0.append("tel", body.tel); fd0.append("adresse", body.adresse); if (pf && !VGR) fd0.append("piece", pf); if (VGR) { fd0.append("profil", "videgrenier"); fd0.append("email", $("h-email").value.trim()); } if (body.botcheck) fd0.append("botcheck", "1");
         fetch("/api/habitants", { method: "POST", body: fd0 })
           .then(function (r) { return r.json(); })
           .then(function (j) {

@@ -59,12 +59,12 @@ export async function onRequestPost({ request, env }) {
     const role = d.profil === "association" || d.profil === "commerce" || d.profil === "elu" || d.profil === "videgrenier" ? d.profil : "habitant";
     const fonction = role === "association" ? "Association" : role === "commerce" ? "Commerce" : role === "elu" ? (cleanLine(d.structure, 100) || "Élu") : "Habitant de Bondy";
     const structure = role === "habitant" || role === "elu" || role === "videgrenier" ? "" : cleanLine(d.structure, 100);
-    await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction, groupe: "", role, structure, tel: d.tel, actif: true, created: Date.now(), ch: await codeHash(env, id, code) }));
+    await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction, groupe: "", role, structure, tel: d.tel, email: d.email || "", actif: true, created: Date.now(), ch: await codeHash(env, id, code) }));
     d.statut = "accepte"; d.compte = id;
     await env.VOTES.delete("hf:" + cle.slice(3)); delete d.piece;
     await env.VOTES.delete("hg:" + cle.slice(3)); delete d.justif;
     await env.VOTES.put(cle, JSON.stringify(d));
-    return json({ ok: true, id, code, nom, tel: d.tel, role, structure });
+    return json({ ok: true, id, code, nom, tel: d.tel, email: d.email || "", role, structure });
   }
   if (a === "refuser_demande" || a === "supprimer_demande") {
     const cle = String(b.cle || "");

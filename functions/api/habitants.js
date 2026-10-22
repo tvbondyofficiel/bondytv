@@ -32,17 +32,23 @@ export async function onRequestPost({ request, env }) {
   const nom = cleanLine(f.get("nom"), 80), tel = normTel(f.get("tel")), adresse = cleanLine(f.get("adresse"), 120);
   if (nom.length < 3 || nom.indexOf(" ") < 0) return json({ error: "nom" }, 400);
   if (!tel) return json({ error: "tel" }, 400);
-  if (adresse.length < 5) return json({ error: "adresse" }, 400);
   const profil = ["association", "commerce", "elu", "videgrenier"].includes(String(f.get("profil"))) ? String(f.get("profil")) : "habitant";
-  const pro = profil !== "habitant" && profil !== "videgrenier";
+  const vg = profil === "videgrenier"; // vide-grenier : téléphone + e-mail suffisent, ni adresse ni pièce d'identité
+  const pro = profil !== "habitant" && !vg;
+  if (!vg && adresse.length < 5) return json({ error: "adresse" }, 400);
+  const email = vg ? cleanLine(f.get("email"), 120).toLowerCase() : "";
+  if (vg && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return json({ error: "email" }, 400);
   const structure = pro ? cleanLine(f.get("structure"), 100) : ""; // pour un élu : fonction (et groupe)
   if (pro && structure.length < 2) return json({ error: "structure" }, 400);
-  const file = f.get("piece");
-  if (!file || typeof file === "string" || !file.size) return json({ error: "piece" }, 400);
-  if (file.size > MAX_PIECE) return json({ error: "piece_taille" }, 413);
-  const buf = await file.arrayBuffer();
-  const type = typeReel(new Uint8Array(buf));
-  if (!type) return json({ error: "piece_type" }, 415);
+  let buf = null, type = "", psize = 0;
+  if (!vg) {
+    const file = f.get("piece");
+    if (!file || typeof file === "string" || !file.size) return json({ error: "piece" }, 400);
+    if (file.size > MAX_PIECE) return json({ error: "piece_taille" }, 413);
+    buf = await file.arrayBuffer(); psize = file.size;
+    type = typeReel(new Uint8Array(buf));
+    if (!type) return json({ error: "piece_type" }, 415);
+  }
   let jbuf = null, jtype = "", jsize = 0;
   if (pro) {
     const jf = f.get("justif");
@@ -55,8 +61,8 @@ export async function onRequestPost({ request, env }) {
   const ts = Date.now();
   const suf = Array.from(crypto.getRandomValues(new Uint8Array(3))).map((x) => x.toString(16).padStart(2, "0")).join("");
   const id = ts + "-" + suf;
-  await env.VOTES.put("hf:" + id, buf);
+  if (buf) await env.VOTES.put("hf:" + id, buf);
   if (jbuf) await env.VOTES.put("hg:" + id, jbuf);
-  await env.VOTES.put("hd:" + id, JSON.stringify(Object.assign({ nom, tel, adresse, statut: "attente", ts, piece: { type, taille: file.size } }, pro ? { profil, structure, justif: { type: jtype, taille: jsize } } : profil === "videgrenier" ? { profil } : {})));
+  await env.VOTES.put("hd:" + id, JSON.stringify(Object.assign({ nom, tel, adresse, statut: "attente", ts }, buf ? { piece: { type, taille: psize } } : {}, pro ? { profil, structure, justif: { type: jtype, taille: jsize } } : vg ? { profil, email } : {})));
   return json({ ok: true });
 }
