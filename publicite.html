@@ -500,6 +500,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .bi-mini .note { margin: 14px 0 0; font-size: 14px; color: #555a69; }
 @media (max-width: 900px) { .bi-mini-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 @media (max-width: 520px) { .bi-mini-grid { grid-template-columns: minmax(0, 1fr); } }
+.pg-pour { margin: 0 0 26px; max-width: 720px; background: #f3ead6; border-left: 6px solid #b8975a; padding: 16px 20px; color: #12141c; }
+.pg-pour b { display: block; margin: 0 0 6px; font-family: var(--display); text-transform: uppercase; letter-spacing: .06em; font-size: 18px; color: #006233; }
+.pg-pour p { margin: 0 0 6px; font-size: 16px; line-height: 1.5; }
+.pg-pour p:last-child { margin: 0; }
 </style>
 </head>
 <body>
@@ -655,7 +659,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var contact = (pr.whatsapp ? '<a href="' + esc(safeUrl(pr.whatsapp)) + '" target="_blank" rel="noopener">WhatsApp</a>' : "") + (mail ? '<a class="alt" href="' + mail + '">E-mail</a>' : "") + (pr.telephone_lien ? '<a class="alt" href="tel:' + esc(pr.telephone_lien) + '">' + esc(pr.telephone) + '</a>' : "");
       var tt = esc(pp.titre || "Votre publicité ici").split(" "), lw = tt.pop();
       var html = '<div class="pubpage"><div class="mention"><span>' + esc(pp.etiquette || "Publicité") + '</span><a href="/edito.html">Passer à l\'édito →</a></div>';
-      html += '<div class="pg-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (pp.introduction ? '<p>' + esc(pp.introduction) + '</p>' : "") + '</div><div class="a5s">';
+      html += '<div class="pg-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (pp.introduction ? '<p>' + esc(pp.introduction) + '</p>' : "") + '</div><div class="pg-pour"><b>Pour qui sont les cases gratuites ?</b><p>Pour les commerces et entreprises <strong>qui démarrent</strong> à Bondy, ouverts depuis moins d\'un an : un coup de pouce pour se faire connaître.</p><p>Vous êtes installé depuis plus longtemps ? Écrivez-nous : une présence reste possible, <strong>sur arrangement</strong>.</p></div><div class="a5s">';
       for (var k = 0; k < total; k++) {
         var e = ems[k];
         if (!e) { html += '<div class="a5 free"><b><span>Votre</span> <span>pub</span> <span>ici</span></b><span>Pour votre commerce, pour vous aider à démarrer.</span><a class="gratuit" href="' + esc(safeUrl(pr.whatsapp || "")) + '" target="_blank" rel="noopener">C\'est gratuit</a></div>'; continue; }
