@@ -72,7 +72,7 @@ export async function onRequestPost({ request, env }) {
       if (!imgType) return json({ error: "image_type" }, 415);
     }
     const debut = new Date(); debut.setUTCDate(1); debut.setUTCHours(0, 0, 0, 0);
-    const duMois = (await listPrefix(env, "tt:" + acc.id + ":")).filter((t) => t.ts >= debut.getTime() && t.statut !== "retire");
+    const duMois = (await listPrefix(env, "tt:" + acc.id + ":")).filter((t) => t.ts >= debut.getTime() && t.statut !== "retire" && t.statut !== "refuse"); // une annonce refusée ne compte pas dans la limite
     if (annonce) {
       if (duMois.filter((t) => t.type === "annonce").length >= ANNONCES_PAR_MOIS) return json({ error: "quota_annonce", par_mois: ANNONCES_PAR_MOIS }, 429);
     } else if (duMois.filter((t) => t.type !== "annonce").length >= parMois(acc.role)) return json({ error: "quota", par_mois: parMois(acc.role) }, 429);
