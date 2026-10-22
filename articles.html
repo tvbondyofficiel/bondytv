@@ -506,6 +506,20 @@ details[open] > summary { margin-bottom: 6px; }
 .ar-head h1 em{font-style:normal;color:#b8975a}
 .ar-head p{margin:16px auto 0;max-width:52ch;font-size:clamp(18px,2vw,22px);line-height:1.45;color:var(--muted)}
 .ar-filters{justify-content:center;margin:26px 0 30px}
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+.hs-t{max-width:960px;margin:46px auto 18px;font:700 clamp(28px,4vw,40px)/1 var(--display);text-transform:uppercase;text-align:center}
+.hs-t::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
+.ar-grid,.ar-filters{max-width:960px;margin-left:auto;margin-right:auto}
+.ar-grid>.art h3{border-left:4px solid #b8975a;padding-left:12px}
+.ar-filters{margin:0 auto 24px}
+html body .ar-grid>.art:first-child .vis.has-img{height:auto!important;aspect-ratio:21/9!important;max-height:none!important}
+html body .ar-grid>.art:first-child .vis.has-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ar-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important;align-items:stretch}
 .ar-grid>.art{background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);overflow:hidden}
 .ar-grid>.art .vis:not([class*="has-"]){display:none}
@@ -784,7 +798,7 @@ details[open] > summary { margin-bottom: 6px; }
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
     var tt = String(d.articles_titre || "Les articles du magazine").split(" "), tl = tt.pop();
-    var f = '<div class="ar-head"><h1>' + esc(tt.join(" ")) + " <em>" + esc(tl) + '</em></h1><p>Écrits par l\u2019équipe de Bondy TV. Les textes des Bondynois, des élus et des associations sont dans <a href="/vos-articles.html">Vos articles</a>.</p></div><div class="filters ar-filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tous</button>';
+    var f = '<div class="ar-head"><h1>' + esc(tt.join(" ")) + " <em>" + esc(tl) + '</em></h1><p>Écrits par l\u2019équipe de Bondy TV. Les textes des Bondynois, des élus et des associations sont dans <a href="/vos-articles.html">Vos articles</a>.</p></div><div class="hs-inv" style="--bgi:url(/images/une-ville.jpg)"><div><h2>Un article à proposer ?</h2><p>Associations, commerçants, habitants : racontez ce qui se passe à Bondy. Contactez-nous !</p></div><a class="hs-btn" href="/temoigner.html">Proposer un article</a></div><h2 class="hs-t">Les articles de Bondy</h2><div class="filters ar-filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tous</button>';
     f += cats.map(function (k) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="false">' + esc(k) + "</button>"; }).join("");
     f += '</div><div class="grid ar-grid">' + list.map(article).join("") + "</div>";
     $("articles").innerHTML = f;
