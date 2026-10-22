@@ -921,11 +921,26 @@ details[open] > summary { margin-bottom: 6px; }
     b.addEventListener("click", function () { deferred.prompt(); deferred.userChoice.finally(function () { b.remove(); deferred = null; }); });
     nav.appendChild(b);
   });
-  if (/iPhone|iPad|iPod/.test(navigator.userAgent)) {
-    var p = document.createElement("p");
-    p.id = "iosHint";
-    p.textContent = "Pour installer l'app sur iPhone : touchez le bouton Partager de Safari, puis « Sur l'écran d'accueil ».";
-    document.querySelector(".bar").insertAdjacentElement("afterend", p);
+  if (/iPhone|iPad|iPod/.test(navigator.userAgent) && nav) {
+    var SH = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#12141c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 15V3M8 7l4-4 4 4"/><path d="M6 11H5a1 1 0 0 0-1 1v8a1 1 0 0 0 1 1h14a1 1 0 0 0 1-1v-8a1 1 0 0 0-1-1h-1"/></svg>';
+    var PL = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#12141c" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M12 8.5v7M8.5 12h7"/></svg>';
+    var OK = '<svg viewBox="0 0 24 24" width="30" height="30" fill="none" stroke="#12141c" stroke-width="1.9" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+    var st = document.createElement("style");
+    st.textContent = ".ios-pop{position:fixed;inset:0;z-index:1100;display:grid;place-items:center;padding:18px;background:rgba(8,10,16,.82)}.ios-pop[hidden]{display:none}.ios-box{position:relative;width:min(460px,100%);max-height:92vh;overflow:auto;background:#fff;color:#12141c;border-top:6px solid #b8975a;border-radius:8px;padding:26px 22px 22px;box-shadow:0 30px 80px rgba(0,0,0,.5)}.ios-box h2{margin:0 36px 6px 0;font:700 clamp(28px,7vw,36px)/1 \"Barlow Condensed\",\"Arial Narrow\",sans-serif;text-transform:uppercase}.ios-box>p{margin:0 0 16px;color:#5b5e68;font-size:16px;line-height:1.45}.ios-box ol{list-style:none;margin:0;padding:0;display:grid;gap:10px}.ios-box li{display:flex;align-items:center;gap:14px;background:#f4efe3;border-radius:6px;padding:12px 14px;font-size:17px;line-height:1.35}.ios-box li .n{flex:none;width:30px;height:30px;border-radius:50%;background:#12141c;color:#d9b777;display:grid;place-items:center;font:700 16px/1 \"Barlow Condensed\",sans-serif}.ios-box li .ic{flex:none;width:44px;height:44px;border-radius:8px;background:#fff;border:1px solid #e3d6b8;display:grid;place-items:center}.ios-box li b{font-weight:700}.ios-x{position:absolute;top:10px;right:10px;width:40px;height:40px;border:0;border-radius:50%;background:#12141c;color:#fff;font-size:24px;line-height:1;cursor:pointer}.ios-ok{display:block;width:100%;margin-top:16px;border:0;border-radius:4px;background:#12141c;color:#d9b777;font:700 17px/1 \"Barlow Condensed\",sans-serif;text-transform:uppercase;letter-spacing:.12em;padding:15px;cursor:pointer}";
+    document.head.appendChild(st);
+    var pop = document.createElement("div");
+    pop.className = "ios-pop"; pop.hidden = true; pop.setAttribute("role", "dialog"); pop.setAttribute("aria-modal", "true"); pop.setAttribute("aria-label", "Installer l'app sur iPhone");
+    pop.innerHTML = '<div class="ios-box"><button class="ios-x" type="button" aria-label="Fermer">×</button><h2>Installer l’app sur votre iPhone</h2><p>3 gestes, 10 secondes. Bondy TV s’ouvre ensuite comme une vraie application.</p><ol><li><span class="n">1</span><span class="ic">' + SH + '</span><span>Touchez le bouton <b>Partager</b>, dans la barre de votre navigateur.</span></li><li><span class="n">2</span><span class="ic">' + PL + '</span><span>Choisissez <b>« Sur l’écran d’accueil »</b> (faites défiler le menu si besoin).</span></li><li><span class="n">3</span><span class="ic">' + OK + '</span><span>Touchez <b>« Ajouter »</b>. C’est fini !</span></li></ol><button class="ios-ok" type="button">J’ai compris</button></div>';
+    document.body.appendChild(pop);
+    function closeP() { pop.hidden = true; document.body.style.overflow = ""; }
+    pop.addEventListener("click", function (e) { if (e.target === pop) closeP(); });
+    pop.querySelector(".ios-x").addEventListener("click", closeP);
+    pop.querySelector(".ios-ok").addEventListener("click", closeP);
+    document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeP(); });
+    var ib = document.createElement("button");
+    ib.id = "install"; ib.type = "button"; ib.textContent = "Installer l'app";
+    ib.addEventListener("click", function () { pop.hidden = false; document.body.style.overflow = "hidden"; });
+    nav.appendChild(ib);
   }
 })();
 </script>
