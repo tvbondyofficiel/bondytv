@@ -436,7 +436,7 @@
   "banniere": {
     "actif": true,
     "annonceur": "Bondy TV",
-    "image": "",
+    "image": "/images/pub-bondytv.jpg",
     "lien": "/temoigner.html",
     "debut": "2026-10-20",
     "fin": "2026-10-30",
