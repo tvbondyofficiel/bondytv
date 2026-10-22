@@ -534,8 +534,22 @@
   },
   "en_images": {
     "titre": "Bondy en images",
-    "introduction": "La ville, ses visages, ses moments. Une image vaut mille mots : regardez, partagez, réagissez.",
+    "introduction": "La ville, ses lieux, ses lumières. Une image vaut mille mots : regardez, partagez, réagissez.",
     "photos": [
+      {
+        "image": "/images/bondytv-ville.jpg",
+        "date": "",
+        "titre": "Une place de Bondy",
+        "legende": "L'automne à Bondy.",
+        "description": "Une place de Bondy, avec ses immeubles et ses arbres, sous un ciel d'automne"
+      },
+      {
+        "image": "/images/coeur-canal.jpg",
+        "date": "",
+        "titre": "Le canal de l'Ourcq",
+        "legende": "Il traverse Bondy : à pied ou à vélo, on peut le longer.",
+        "description": "Le canal de l'Ourcq à Bondy, bordé d'arbres, avec son chemin de halage"
+      },
       {
         "image": "/images/une-ville.jpg",
         "date": "",
@@ -544,22 +558,53 @@
         "description": "Des agents en tenue orange nettoient la place du marché de Bondy Nord avec une balayeuse, sous un ciel d'automne"
       },
       {
+        "image": "/images/boite-a-livres.jpg",
+        "date": "",
+        "titre": "La boîte à livres",
+        "legende": "« Partageons le goût de la lecture », au Bois de Bondy.",
+        "description": "La boîte à livres rouge et blanche à l'entrée du Bois de Bondy"
+      },
+      {
+        "image": "/images/une-pepitheque.jpg",
+        "date": "",
+        "titre": "La Pépithèque Mariama Bâ",
+        "legende": "28 avenue Henri Varagnat, quartier de la Noue Caillet.",
+        "description": "L'entrée de la Pépithèque Mariama Bâ, bibliothèque de Bondy"
+      },
+      {
+        "image": "/images/bondy-rue-automne.jpg",
+        "date": "",
+        "titre": "Une rue de Bondy",
+        "legende": "L'automne à Bondy.",
+        "description": "Une rue de Bondy en automne, avec un grand immeuble aux arbres rougis"
+      },
+      {
         "image": "/images/pepitheque-portail.jpg",
         "date": "",
         "titre": "Pépithèque Mariama Bâ",
         "legende": "Sur le portail, un hommage à l'écrivaine sénégalaise Mariama Bâ (1929–1981).",
         "description": "Le portail de la Pépithèque Mariama Bâ avec l'affichette des horaires et le panneau consacré à Mariama Bâ"
-      }
-    ],
-    "affiches_titre": "Affiches et annonces des associations",
-    "affiches": [
+      },
       {
-        "image": "/images/acmb-affiche.jpg",
-        "titre": "ACMB : un projet de nouvelle mosquée à Bondy",
-        "legende": "Affiche de l'Association Culturelle des Musulmans de Bondy.",
-        "description": "Affiche de l'ACMB : Construire une nouvelle mosquée à Bondy. Instagram @acmbondy et groupe WhatsApp Projet Mosquée de Bondy.",
-        "lien": "/articles.html#mosquee-acmb",
-        "lien_texte": "Lire l'article"
+        "image": "/images/une-bois.jpg",
+        "date": "",
+        "titre": "Un parc de Bondy",
+        "legende": "L'automne à Bondy.",
+        "description": "Un grand parc de Bondy aux feuillages d'automne, avec sa clôture"
+      },
+      {
+        "image": "/images/une-terrain.jpg",
+        "date": "",
+        "titre": "Sur le terrain",
+        "legende": "",
+        "description": "Un terrain de sport de Bondy, avec une caméra Bondy TV sur son trépied"
+      },
+      {
+        "image": "/images/bondy-parc-automne.jpg",
+        "date": "",
+        "titre": "Une allée du parc",
+        "legende": "L'automne à Bondy.",
+        "description": "Une allée plantée d'arbres, dans un parc de Bondy, en automne"
       }
     ]
   },
