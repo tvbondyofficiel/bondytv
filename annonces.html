@@ -453,6 +453,16 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 #pubtri .vg-info h3{margin:0 0 10px;font:700 28px/1 var(--display);text-transform:uppercase}
 #pubtri .vg-info ul{margin:0;padding-left:22px;font-size:16px;line-height:1.55}#pubtri .vg-info p{margin:0;font-size:16px;line-height:1.55}
 @media(max-width:800px){#pubtri .vg-info{grid-template-columns:1fr}}
+#pubtri .tc .open{align-self:flex-start;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:12px 18px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;cursor:pointer}
+#pubtri .tc .open:hover{background:#000}#pubtri .tc img{cursor:zoom-in}
+.ann-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(18,20,28,.78)}
+.ann-modal.on{display:flex}
+.ann-box{position:relative;width:min(760px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-top:6px solid #b8975a;border-radius:6px;padding:26px 28px}
+.ann-box h3{margin:0 0 14px;border-left:4px solid #b8975a;padding-left:12px;font:700 clamp(26px,4vw,38px)/1.05 var(--display);text-transform:uppercase}
+.ann-box img{max-width:100%;max-height:60vh;height:auto;display:block;margin:0 auto 16px;border-radius:4px}
+.ann-box .tx{font-size:18px;line-height:1.6}.ann-box .tx p{margin:0 0 10px}
+.ann-box .by{margin-top:16px;padding-top:12px;border-top:1px solid rgba(18,20,28,.12);font-size:15px;color:#5a5f6e}
+.ann-x{position:absolute;top:10px;right:12px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:10px 14px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer}
 </style>
 </head>
 <body>
@@ -657,13 +667,23 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         var txt = String(t.texte || ""), long = txt.length > LONG, sh = long ? txt.slice(0, LONG).replace(/\s+\S*$/, "") + "…" : txt;
         var full = txt.split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
         var im = t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '" loading="lazy">' : "";
-        return '<article class="tc"><span class="pill">Annonce</span><h3>' + esc(t.titre) + '</h3>' + im + '<div class="corps" data-full="' + esc(full) + '"><p>' + esc(sh) + '</p></div>' + (long ? '<button type="button" class="more">Lire la suite</button>' : "") + sig(t.nom, "Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR")) + '</article>';
+        return '<article class="tc" data-i="' + L.indexOf(t) + '"><span class="pill">Annonce</span><h3>' + esc(t.titre) + '</h3>' + im + '<div class="corps" data-full="' + esc(full) + '"><p>' + esc(sh) + '</p></div><button type="button" class="open">Ouvrir l\'annonce</button>' + sig(t.nom, "Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR")) + '</article>';
       });
       if (!cards.length) [["Poussette et vélos d\u2019enfant", "Ici, un habitant propose des affaires d\u2019enfants à donner ou à vendre."], ["Livres et jeux", "Ici, une habitante vide ses étagères : romans, BD, jeux de société."], ["Meubles à donner", "Ici, un voisin donne une table, des chaises ou une armoire."], ["Je cherche…", "Ici, un habitant cherche un objet ou propose un petit service."]].forEach(function (x) {
         cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>' + esc(x[0]) + '</h3><p class="ex-note"><b>Ceci est un exemple, pas une vraie annonce.</b></p><div class="corps"><p>' + x[1] + '</p></div>' + sig("Prénom", "Habitant de Bondy") + '</article>');
       });
       box.innerHTML = '<h2 class="t-sub">Les annonces</h2><div class="tg">' + cards.join("") + '</div>' + INFO;
-      box.addEventListener("click", function (e) { var b = e.target.closest(".more"); if (!b) return; var c = b.parentNode.querySelector(".corps"); c.innerHTML = c.getAttribute("data-full"); b.remove(); });
+      var M = document.createElement("div"); M.className = "ann-modal"; M.setAttribute("role", "dialog"); M.setAttribute("aria-modal", "true"); document.body.appendChild(M);
+      function closeM() { M.classList.remove("on"); M.innerHTML = ""; }
+      M.addEventListener("click", function (e) { if (e.target === M || e.target.closest(".ann-x")) closeM(); });
+      document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeM(); });
+      box.addEventListener("click", function (e) {
+        var o = e.target.closest(".open") || (e.target.tagName === "IMG" && e.target.closest(".tc") ? e.target : null);
+        if (o) { var t = L[+o.closest(".tc").dataset.i]; if (!t) return;
+          var paras = String(t.texte || "").split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
+          M.innerHTML = '<div class="ann-box"><button type="button" class="ann-x">Fermer</button><h3>' + esc(t.titre) + '</h3>' + (t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '">' : "") + '<div class="tx">' + paras + '</div><p class="by">' + esc(t.nom) + " · Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR") + '</p></div>';
+          M.classList.add("on"); M.querySelector(".ann-x").focus(); return; }
+        var b = e.target.closest(".more"); if (!b) return; var c = b.parentNode.querySelector(".corps"); c.innerHTML = c.getAttribute("data-full"); b.remove(); });
     });
 
     var p = d.proposer || {};
