@@ -706,7 +706,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var note = '<p class="va-note"><strong>Reçu et relu.</strong> Chaque texte est relu par Bondy TV avant d’être publié. Les articles de notre rédaction sont dans <a href="/articles.html">Magazine, Articles Bondy TV</a>.</p>';
       var cols = SEC.map(function (c) {
         var L = data[c.id];
-        var first = L.length ? L[0] : '<article class="va-card vide" style="--c:' + c.c + '"><span class="pill">' + esc(c.tag) + '</span><p>' + esc(c.vide) + "</p></article>";
+        var first = L.length ? L[0] : "";
         var more = "";
         return '<div class="va-col" id="' + c.id + '" style="--c:' + c.c + ';--t:' + c.t + '">' + first + '<a class="va-btn" href="' + c.lien + '">' + esc(c.ecrire) + "</a>" + more + "</div>";
       }).join("");
