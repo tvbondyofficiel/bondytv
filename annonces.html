@@ -460,6 +460,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .ann-box .by{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(18,20,28,.12);font-size:14px;color:#5a5f6e}
 .ann-box .call{display:block;width:100%;margin-top:16px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:16px;font:700 17px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;text-align:center;text-decoration:none;cursor:pointer}
 .ann-x{position:absolute;top:10px;right:12px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:10px 14px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer}
+#pubtri .vg-f{display:flex;flex-wrap:wrap;gap:12px 18px;align-items:center;margin:0 0 18px}
+#pubtri .vg-t{display:flex;flex-wrap:wrap;gap:8px}
+#pubtri .vg-t button{border:1px solid #c9b58a;background:#fff;color:#12141c;padding:10px 16px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer;border-radius:3px}
+#pubtri .vg-t button[aria-pressed="true"]{background:#12141c;color:#b8975a;border-color:#12141c}
+#pubtri #vgrub{padding:10px 14px;border:1px solid #c9b58a;background:#fff;font:inherit;font-size:15px;border-radius:3px;max-width:100%}
 #pubtri .vg-info{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
 #pubtri .vg-info>div{border-left:4px solid #b8975a;background:#f2e9d6;padding:22px 24px}
 #pubtri .vg-info h3{margin:0 0 10px;font:700 28px/1 var(--display);text-transform:uppercase}
@@ -660,22 +665,30 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     $("temoigner-titre").innerHTML = "Le vide-grenier <em>de Bondy</em>";
     $("temoigner-intro").textContent = "Ce dont vous n\u2019avez plus besoin peut faire le bonheur d\u2019un voisin. L\u2019échange commence ici. Vendre, donner, chercher, proposer un service : c\u2019est gratuit, et chaque annonce est relue avant d\u2019être publiée.";
     var box = $("pubtri");
+    var RUB = { maison: "Maison et meubles", electro: "Électroménager", info: "Informatique et téléphones", enfants: "Enfants et puériculture", vetements: "Vêtements et chaussures", loisirs: "Livres, jeux et loisirs", sport: "Sport et vélos", jardin: "Jardin et bricolage", services: "Services et coups de main", autres: "Autres" };
     var CAT = { donner: "À donner", vendre: "À vendre", cherche: "Je cherche", service: "Service" };
     function fmtTel(t) { t = String(t || ""); var m = /^\+33(\d)(\d{2})(\d{2})(\d{2})(\d{2})$/.exec(t); return m ? "0" + m[1] + " " + m[2] + " " + m[3] + " " + m[4] + " " + m[5] : t; }
     var INFO = '<div class="vg-info"><div><h3>Les règles</h3><ul><li>Réservé aux habitants de Bondy, avec un compte validé.</li><li><strong>1 annonce par mois</strong>, visible 60 jours.</li><li>Votre numéro de téléphone est visible dans l\u2019annonce : <strong>il sera public</strong>. Pas d\u2019adresse complète : indiquez seulement le quartier.</li><li><strong>Interdit :</strong> animaux, médicaments, armes, contrefaçons, ventes douteuses, offres d\u2019argent facile.</li></ul></div><div><h3>Restez prudents</h3><p>Ne payez jamais à l\u2019avance. Donnez rendez-vous dans un lieu public. Bondy TV ne participe pas aux ventes et n\u2019est pas responsable des échanges entre particuliers.</p></div></div>';
     function card(t, i, ex) {
       var cat = CAT[t.categorie] || "Annonce";
       var th = t.image ? '<div class="th"><img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '" loading="lazy"></div>' : '<div class="th" aria-hidden="true">' + esc(String(t.titre || "?").charAt(0).toUpperCase()) + '</div>';
-      var meta = [t.quartier, ex ? "" : new Date(t.ts).toLocaleDateString("fr-FR")].filter(Boolean).join(" · ");
+      var meta = [RUB[t.rubrique], t.quartier, ex ? "" : new Date(t.ts).toLocaleDateString("fr-FR")].filter(Boolean).join(" · ");
       return '<article class="tc' + (ex ? ' ex' : '') + '" data-i="' + i + '">' + th + '<div class="bd"><div class="pl">' + (ex ? '<span class="pill e">Exemple</span>' : "") + '<span class="pill">' + esc(cat) + '</span>' + (t.prix ? '<span class="px">' + esc(t.prix) + '</span>' : "") + '</div><h3>' + esc(t.titre) + '</h3><p class="meta">' + esc(meta) + '</p>' + (ex ? '<p class="meta"><b>Ceci est un exemple, pas une vraie annonce.</b></p>' : '<button type="button" class="open">Ouvrir l\u2019annonce</button>') + '</div></article>';
     }
     fetch("/api/habitants").then(function (r) { return r.json(); }).catch(function () { return {}; }).then(function (j) {
       var lim = Date.now() - 60 * 86400000;
       var L = ((j && j.annonces) || []).filter(function (t) { return t.ts >= lim; });
-      var html;
-      if (L.length) html = L.map(function (t, i) { return card(t, i, false); }).join("");
-      else html = [{ categorie: "donner", prix: "Gratuit", quartier: "Centre-ville", titre: "Poussette et vélos d\u2019enfant" }, { categorie: "vendre", prix: "15 €", quartier: "Gare", titre: "Livres et jeux de société" }, { categorie: "donner", prix: "Gratuit", quartier: "Bois de Bondy", titre: "Meubles à donner" }, { categorie: "cherche", prix: "", quartier: "Centre-ville", titre: "Je cherche une table" }].map(function (t, i) { return card(t, i, true); }).join("");
-      box.innerHTML = '<h2 class="t-sub">Les annonces</h2><div class="tg">' + html + '</div>' + INFO;
+      var fT = "", fR = "";
+      function grid() {
+        if (!L.length) return [{ categorie: "donner", rubrique: "enfants", prix: "Gratuit", quartier: "Centre-ville", titre: "Poussette et vélos d\u2019enfant" }, { categorie: "vendre", rubrique: "loisirs", prix: "15 €", quartier: "Gare", titre: "Livres et jeux de société" }, { categorie: "donner", rubrique: "maison", prix: "Gratuit", quartier: "Bois de Bondy", titre: "Meubles à donner" }, { categorie: "cherche", rubrique: "jardin", prix: "", quartier: "Centre-ville", titre: "Je cherche une table de jardin" }].map(function (t, i) { return card(t, i, true); }).join("");
+        var h = L.map(function (t, i) { return (!fT || t.categorie === fT) && (!fR || t.rubrique === fR) ? card(t, i, false) : ""; }).join("");
+        return h || '<p class="meta" style="grid-column:1/-1;font-size:17px">Aucune annonce dans cette sélection.</p>';
+      }
+      var bar = L.length ? '<div class="vg-f" role="group" aria-label="Filtrer les annonces"><div class="vg-t">' + [["", "Tout"], ["donner", "À donner"], ["vendre", "À vendre"], ["cherche", "Je cherche"], ["service", "Service"]].map(function (x) { return '<button type="button" data-t="' + x[0] + '" aria-pressed="' + (x[0] === "" ? "true" : "false") + '">' + x[1] + '</button>'; }).join("") + '</div><select id="vgrub" aria-label="Catégorie"><option value="">Toutes les catégories</option>' + Object.keys(RUB).map(function (k) { return '<option value="' + k + '">' + RUB[k] + '</option>'; }).join("") + '</select></div>' : "";
+      box.innerHTML = '<h2 class="t-sub">Les annonces</h2>' + bar + '<div class="tg" id="vggrid">' + grid() + '</div>' + INFO;
+      function redraw() { $("vggrid").innerHTML = grid(); }
+      box.addEventListener("click", function (e) { var b = e.target.closest(".vg-t button"); if (!b) return; fT = b.dataset.t; box.querySelectorAll(".vg-t button").forEach(function (x) { x.setAttribute("aria-pressed", x === b ? "true" : "false"); }); redraw(); });
+      box.addEventListener("change", function (e) { if (e.target.id === "vgrub") { fR = e.target.value; redraw(); } });
       var M = document.createElement("div"); M.className = "ann-modal"; M.setAttribute("role", "dialog"); M.setAttribute("aria-modal", "true"); document.body.appendChild(M);
       function closeM() { M.classList.remove("on"); M.innerHTML = ""; }
       M.addEventListener("click", function (e) {
@@ -688,7 +701,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         if (!(e.target.closest(".open") || e.target.tagName === "IMG")) return;
         var i = +card0.dataset.i, t = L[i]; if (!t) return;
         var paras = String(t.texte || "").split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
-        M.innerHTML = '<div class="ann-box"><button type="button" class="ann-x">Fermer</button><div class="pl"><span class="pill">' + esc(CAT[t.categorie] || "Annonce") + '</span>' + (t.prix ? '<span class="px">' + esc(t.prix) + '</span>' : "") + '</div><h3>' + esc(t.titre) + '</h3>' + (t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '">' : "") + '<div class="tx">' + paras + '</div><p class="by">' + esc(t.nom) + " · Habitant de Bondy" + (t.quartier ? " · " + esc(t.quartier) : "") + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + '</p>' + (t.tel ? '<button type="button" class="call show" data-i="' + i + '">Voir le numéro</button>' : "") + '</div>';
+        M.innerHTML = '<div class="ann-box"><button type="button" class="ann-x">Fermer</button><div class="pl"><span class="pill">' + esc(CAT[t.categorie] || "Annonce") + '</span>' + (t.prix ? '<span class="px">' + esc(t.prix) + '</span>' : "") + '</div>' + (RUB[t.rubrique] ? '<p class="meta" style="margin:-4px 0 10px">' + esc(RUB[t.rubrique]) + '</p>' : "") + '<h3>' + esc(t.titre) + '</h3>' + (t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '">' : "") + '<div class="tx">' + paras + '</div><p class="by">' + esc(t.nom) + " · Habitant de Bondy" + (t.quartier ? " · " + esc(t.quartier) : "") + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + '</p>' + (t.tel ? '<button type="button" class="call show" data-i="' + i + '">Voir le numéro</button>' : "") + '</div>';
         M.classList.add("on"); M.querySelector(".ann-x").focus();
       });
     });

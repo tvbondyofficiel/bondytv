@@ -76,11 +76,13 @@ export async function onRequestPost({ request, env }) {
     if (vg) {
       const categorie = String(b.categorie || "");
       if (!["donner", "vendre", "cherche", "service"].includes(categorie)) return json({ error: "categorie" }, 400);
+      const rubrique = String(b.rubrique || "");
+      if (!["maison", "electro", "info", "enfants", "vetements", "loisirs", "sport", "jardin", "services", "autres"].includes(rubrique)) return json({ error: "rubrique" }, 400);
       const tel = normTel(b.tel);
       if (!tel) return json({ error: "tel" }, 400);
       const quartier = cleanLine(b.quartier, 60);
       if (quartier.length < 2) return json({ error: "quartier" }, 400);
-      extra = { categorie, tel, quartier, prix: cleanLine(b.prix, 30) };
+      extra = { categorie, rubrique, tel, quartier, prix: cleanLine(b.prix, 30) };
     }
     const debut = new Date(); debut.setUTCDate(1); debut.setUTCHours(0, 0, 0, 0);
     const duMois = (await listPrefix(env, "tt:" + acc.id + ":")).filter((t) => t.ts >= debut.getTime() && t.statut !== "retire" && t.statut !== "refuse"); // une annonce refusée ne compte pas dans la limite
