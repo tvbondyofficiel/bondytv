@@ -492,6 +492,39 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @media(max-width:700px){.mosaic{grid-template-columns:repeat(2,minmax(0,1fr));grid-auto-rows:250px;gap:10px}.mt-big{grid-column:span 2;grid-row:span 1}.mt-big .mt-n{font-size:84px}.mt-n,.mt.has-img .mt-n{font-size:38px}.mt a{padding:14px 12px 12px}.mt b{font-size:16px;-webkit-line-clamp:6}.mt-ic svg{width:120px;height:120px}.som-no{-webkit-text-stroke-width:2px}}
 @media(max-width:420px){.mosaic{grid-template-columns:minmax(0,1fr);grid-auto-rows:260px}.mt-big{grid-column:auto}}
 @media(prefers-reduced-motion:reduce){.mt,.mp{animation:none;opacity:1;transform:none}.mt .mt-ph{transition:none}}
+/* structure commune */
+.ph-head{margin:40px 0 0;text-align:center}
+.ph-head h1{margin:0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(48px,9vw,112px);line-height:.92}
+.ph-head h1 em{font-style:normal;color:#b8975a}
+.ph-head p{margin:14px auto 0;font-size:clamp(19px,2.2vw,24px);line-height:1.45;color:var(--muted);max-width:52ch;text-align:center}
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+.hs-t{max-width:960px;margin:46px auto 18px;font:700 clamp(28px,4vw,40px)/1 var(--display);text-transform:uppercase;text-align:center}
+.hs-t::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
+
+/* sommaire : cartes (même structure que les autres pages) */
+.som-grid{list-style:none;margin:30px auto 0;padding:0;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:960px}
+.som-grid li{display:flex}
+.sg{display:flex;flex-direction:column;width:100%;background:#fff;color:#12141c;text-decoration:none;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
+.sg:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,20,28,.14)}
+.sg-im{position:relative;aspect-ratio:16/10;background:#efede9;display:grid;place-items:center;overflow:hidden}
+.sg-im img{display:block;width:100%;height:100%;object-fit:cover}
+.sg-im svg{width:64px;height:64px;stroke:#b8975a!important;stroke-width:1.3!important;opacity:.9}
+.sg-n{position:absolute;top:10px;left:10px;background:#12141c;color:#b8975a;font:700 14px/1 var(--display);letter-spacing:.1em;padding:6px 10px;border-radius:999px}
+.sg-c{display:flex;flex-direction:column;gap:10px;padding:16px 20px 18px;flex:1}
+.sg-r{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.sg b{border-left:4px solid #b8975a;padding-left:12px;font:700 clamp(20px,2vw,24px)/1.05 var(--display);text-transform:uppercase}
+.som-grid li:last-child:nth-child(3n+1){grid-column:2}
+.mo-pages{max-width:960px;margin-left:auto;margin-right:auto;grid-template-columns:repeat(2,minmax(0,1fr))}
+.mo-more{max-width:960px;margin:46px auto 16px;justify-content:center;text-align:center;font:700 clamp(28px,4vw,40px)/1 var(--display);letter-spacing:0;color:#12141c;flex-direction:column;gap:0}
+.mo-more::after{content:"";flex:none;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+@media(max-width:900px){.som-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.som-grid li:last-child:nth-child(3n+1){grid-column:auto}}
+@media(max-width:560px){.som-grid{grid-template-columns:minmax(0,1fr)}.mo-pages{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -694,10 +727,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     function tile(a, i) {
       var n = String(i + 1); if (n.length < 2) n = "0" + n;
       var href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
-      var big = i === 0, img = a.affiche_entiere ? "" : a.image;
-      var cls = "mt" + (big ? " mt-big" : "") + (img ? " has-img" : " mt-t" + (i % 3));
-      var bg = img ? '<img class="mt-ph" src="' + esc(img) + '" alt="" loading="' + (i < 6 ? "eager" : "lazy") + '">' : (ICOS[a.id] ? '<span class="mt-ic">' + ico(ICOS[a.id]) + "</span>" : "");
-      return '<li class="' + cls + '" style="--d:' + Math.min(i, 14) * 45 + 'ms"><a href="' + href + '">' + bg + '<span class="mt-n">' + n + '</span><span class="mt-b"><span class="mt-r">' + esc(a.rubrique || "") + '</span><b>' + esc(a.titre) + '</b><span class="mt-go" aria-hidden="true">Lire <i>→</i></span></span></a></li>';
+      var img = a.affiche_entiere ? "" : a.image;
+      var vis = img ? '<img src="' + esc(img) + '" alt="" loading="' + (i < 6 ? "eager" : "lazy") + '">' : (ICOS[a.id] ? ico(ICOS[a.id]) : "");
+      return '<li><a class="sg" href="' + href + '"><span class="sg-im">' + vis + '<span class="sg-n">' + n + '</span></span><span class="sg-c"><span class="sg-r">' + esc(a.rubrique || "") + '</span><b>' + esc(a.titre) + '</b></span></a></li>';
     }
     var som = arts.map(tile).join("");
     var pages = [
@@ -709,7 +741,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var more = pages.map(function (p, i) {
       return '<li class="mp" style="--d:' + i * 60 + 'ms"><a href="' + p.href + '"><span class="mp-r">' + esc(p.rub) + '</span><b>' + esc(p.t) + '</b><i aria-hidden="true">→</i></a></li>';
     }).join("");
-    $("sommaire").innerHTML = '<div class="som-head"><div class="som-no" aria-hidden="true">N°' + esc(String(d.numero || "").replace(/\D/g, "") || "1") + '</div><div class="som-ti"><h2>' + esc(d.sommaire_titre) + '</h2><p>' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div></div><ul class="mosaic">' + som + '</ul><h3 class="mo-more">Et aussi dans le magazine</h3><ul class="mo-pages">' + more + "</ul>";
+    var nn = String(d.numero || "").replace(/\D/g, "") || "1", st = String(d.sommaire_titre || "Dans ce numéro").split(" "), sl = st.pop();
+    $("sommaire").innerHTML = '<div class="ph-head"><h1>' + esc(st.join(" ")) + ' <em>' + esc(sl) + '</em></h1><p>N°' + esc(nn) + ' · ' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><div class="hs-inv" style="--bgi:url(/images/une-ville.jpg)"><div><h2>Un sujet à proposer ?</h2><p>Associations, commerçants, habitants : racontez ce qui se passe à Bondy.</p></div><a class="hs-btn" href="/temoigner.html">Proposer un sujet</a></div><h2 class="hs-t">Les sujets du numéro</h2><ul class="som-grid">' + som + '</ul><h3 class="mo-more">Et aussi dans le magazine</h3><ul class="mo-pages">' + more + "</ul>";
 
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });

@@ -495,6 +495,37 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .bar nav .dd-m a[aria-current="page"]{color:var(--fg);font-weight:800}
 .bar nav a,.bar nav .dd>summary{font-size:13.5px;letter-spacing:.05em}
 @media (min-width:900px){.bar nav a,.bar nav .dd>summary{font-size:12.5px;letter-spacing:.03em}}
+/* structure commune */
+.ph-head{margin:40px 0 0;text-align:center}
+.ph-head h1{margin:0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(48px,9vw,112px);line-height:.92}
+.ph-head h1 em{font-style:normal;color:#b8975a}
+.ph-head p{margin:14px auto 0;font-size:clamp(19px,2.2vw,24px);line-height:1.45;color:var(--muted);max-width:52ch;text-align:center}
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+.hs-t{max-width:960px;margin:46px auto 18px;font:700 clamp(28px,4vw,40px)/1 var(--display);text-transform:uppercase;text-align:center}
+.hs-t::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
+
+/* édito : même structure que les autres pages */
+.ph-head h1{font-size:clamp(40px,6.6vw,88px)!important;text-wrap:balance}
+.ph-head{margin-top:36px}
+.ed2{max-width:960px;margin:30px auto 0;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);padding:clamp(20px,3.4vw,38px);display:grid;grid-template-columns:260px minmax(0,1fr);gap:clamp(22px,3.4vw,40px);align-items:start}
+.ed2-ph{margin:0;position:sticky;top:20px}
+.ed2-ph img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.ed2-ph figcaption{margin-top:12px}
+.ed2-ph .pill{display:inline-block;padding:6px 12px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.ed2-q{margin:0 0 22px;border-left:4px solid #b8975a;padding-left:14px;font:700 clamp(22px,2.6vw,30px)/1.1 var(--display);text-transform:uppercase}
+.ed2 .corps p{font-size:19px;line-height:1.65;margin:0 0 18px;max-width:none}
+.ed2 .corps p:first-child::first-letter{font-family:var(--display);font-weight:700;font-size:3.6em;line-height:.8;float:left;padding:6px 10px 0 0;color:#b8975a}
+.ed2 .corps strong{font-family:var(--display);text-transform:uppercase;letter-spacing:.06em;font-size:1.1em}
+.ed2 .corps .fbtn{margin:26px 0 0}
+.ed2 .contact-card{margin:0 0 22px}
+.ed2 .btn-all{display:inline-block;padding:15px 26px;background:#b8975a!important;color:#12141c!important;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;border:0}
+@media(max-width:760px){.ed2{grid-template-columns:minmax(0,1fr)}.ed2-ph{position:static;max-width:260px;margin:0 auto}}
 </style>
 </head>
 <body>
@@ -679,7 +710,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       }
       var cr = (ed.credit || "").split(",");
       var ph = ed.image ? '<figure class="ed-photo"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '" fetchpriority="high"><figcaption>' + esc(cr[0]) + '</figcaption></figure>' : "";
-      document.getElementById("edito").innerHTML = '<div class="edito-page"><div class="ed-top">' + ph + '<div class="ed-head"><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="ed-lede">' + inline(ed.chapo) + '</p>' : "") + '</div></div><div class="ed-body">' + '<div class="ed-side">' + (ed.citation ? '<blockquote class="ed-quote">' + esc(ed.citation) + '</blockquote>' : "") + contactCard(ed, d) + '<aside class="ed-more"><div class="ed-tem"><h3>Vous avez quelque chose à dire ?</h3><p>Racontez-le avec vos mots. Votre histoire, votre projet, votre quartier : ici, la parole est à vous.</p><a class="btn-all" href="/temoigner.html">Témoigner</a></div><figure class="ed-ville"><img src="/images/bondy-rue-automne.jpg" alt="Une rue de Bondy en automne" loading="lazy"><figcaption>Bondy</figcaption></figure></aside></div>' + '<div class="corps">' + md(ed.texte) + '<p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div></div></div>';
+      var ht = String(ed.titre || "").split(" "), hl = ht.splice(-2).join(" ");
+      document.getElementById("edito").innerHTML = '<div class="ph-head"><h1>' + esc(ht.join(" ")) + ' <em>' + esc(hl) + '</em></h1>' + (ed.chapo ? '<p>' + inline(ed.chapo) + '</p>' : "") + '</div><div class="hs-inv" style="--bgi:url(/images/une-studio.jpg)"><div><h2>Vous avez quelque chose à dire ?</h2><p>Racontez-le avec vos mots. Votre histoire, votre projet, votre quartier : ici, la parole est à vous.</p></div><a class="hs-btn" href="/temoigner.html">Témoigner</a></div><h2 class="hs-t">' + esc(ed.etiquette || "L\'édito") + '</h2><div class="ed2">' + (ed.image ? '<figure class="ed2-ph"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '" fetchpriority="high"><figcaption><span class="pill">' + esc(cr[0]) + '</span></figcaption></figure>' : "") + '<div>' + (ed.citation ? '<blockquote class="ed2-q">' + esc(ed.citation) + '</blockquote>' : "") + contactCard(ed, d) + '<div class="corps">' + md(ed.texte) + '<p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div></div></div>';
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
     var toc = arts.map(function (a) { return '<li><a href="' + (a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id)) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
