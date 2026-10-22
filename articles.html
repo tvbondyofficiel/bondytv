@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Les articles · Bondy TV Magazine</title>
+<title>Les articles du magazine · Bondy TV Magazine</title>
 <meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Les articles · Bondy TV Magazine"><meta property="og:description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen."><meta property="og:url" content="https://bondytv.pages.dev/articles.html"><meta property="og:image" content="https://bondytv.pages.dev/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen.">
 <meta name="theme-color" content="#0c0e16">
@@ -497,6 +497,7 @@ details[open] > summary { margin-bottom: 6px; }
 .bar nav .dd-m a[aria-current="page"]{color:var(--fg);font-weight:800}
 .bar nav a,.bar nav .dd>summary{font-size:13.5px;letter-spacing:.05em}
 @media (min-width:900px){.bar nav a,.bar nav .dd>summary{font-size:12.5px;letter-spacing:.03em}}
+.sec-sub{margin:-6px 0 18px;font-size:17px;color:#5a5f6e}.sec-sub a{color:#12141c;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 </style>
 </head>
 <body>
@@ -508,7 +509,7 @@ details[open] > summary { margin-bottom: 6px; }
       <details class="dd on"><summary>Magazine</summary><div class="dd-m">
         <a href="/edito.html">Édito</a>
         <a href="/sommaire.html">Sommaire</a>
-        <a href="/articles.html" aria-current="page">Articles Bondy TV</a>
+        <a href="/articles.html" aria-current="page">Articles du magazine</a>
       </div></details>
       <details class="dd"><summary>Vos articles</summary><div class="dd-m">
         <a href="/vos-articles.html">Tous vos articles</a>
@@ -742,7 +743,7 @@ details[open] > summary { margin-bottom: 6px; }
 
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
-    var f = '<h2 class="sec-title">' + esc(d.articles_titre) + '</h2><div class="filters" role="group" aria-label="Filtrer par rubrique">';
+    var f = '<h2 class="sec-title">' + esc(d.articles_titre) + '</h2><p class="sec-sub">Écrits par l\u2019équipe de Bondy TV. Les textes des Bondynois, des élus et des associations sont dans <a href="/vos-articles.html">Vos articles</a>.</p><div class="filters" role="group" aria-label="Filtrer par rubrique">';
     f += cats.map(function (k, i) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="' + (i === 0 ? "true" : "false") + '">' + esc(k) + "</button>"; }).join("");
     f += '</div><div class="grid">' + list.map(article).join("") + "</div>";
     $("articles").innerHTML = f;
@@ -769,7 +770,6 @@ details[open] > summary { margin-bottom: 6px; }
     $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + ' · <a href="/confidentialite.html">Confidentialité</a></span>';
 
     behaviours();
-    community();
     if (location.hash) {
       try { var el = document.querySelector(location.hash); if (el && el.classList.contains("art") && el.dataset.cat) { var bb = document.querySelector('.filters button[data-f="' + el.dataset.cat.replace(/"/g, "") + '"]'); if (bb) bb.click(); } if (el) { el.scrollIntoView(); if (el.classList.contains("art")) el.classList.add("cible"); } } catch (e) {}
     }
