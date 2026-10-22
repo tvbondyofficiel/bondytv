@@ -1,0 +1,8 @@
+User-agent: *
+Disallow: /admin/
+Disallow: /moderation.html
+Disallow: /tribune-admin.html
+Disallow: /elu.html
+Disallow: /habitant.html
+Disallow: /api/
+Sitemap: https://bondytv.pages.dev/sitemap.xml
