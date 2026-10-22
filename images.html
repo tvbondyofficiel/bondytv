@@ -608,11 +608,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .gx-head p{margin:20px auto 0;max-width:44ch;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(18px,1.9vw,21px);line-height:1.55;color:#4a4d58;border:0;padding:0}
 .gx-orn{display:block;width:140px;height:1px;margin:28px auto 0;background:linear-gradient(90deg,transparent,#b8934a,transparent);position:relative}
 .gx-orn::after{content:"";position:absolute;left:50%;top:-4px;width:9px;height:9px;background:#b8934a;transform:translateX(-50%) rotate(45deg)}
-.gx{columns:3;column-gap:clamp(18px,2.6vw,34px);max-width:1060px;margin:0 auto}
-.gx-i{all:unset;box-sizing:border-box;display:block;width:100%;break-inside:avoid;margin:0 0 clamp(26px,3.4vw,44px);cursor:zoom-in;opacity:0;transform:translateY(16px);animation:gxin .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
+.gx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,4vw,52px) clamp(22px,3.4vw,44px);align-items:start;max-width:920px;margin:0 auto}
+.gx-i{all:unset;box-sizing:border-box;display:block;width:100%;cursor:zoom-in;opacity:0;transform:translateY(16px);animation:gxin .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
 @keyframes gxin{to{opacity:1;transform:none}}
 .gx-f{display:block;overflow:hidden;background:#fff;padding:9px;border:2px solid #b8934a;outline:1px solid #d9bd7e;outline-offset:4px;box-shadow:0 1px 2px rgba(60,45,15,.1),0 16px 32px -12px rgba(60,45,15,.3)}
-.gx-f img{display:block;width:100%;height:auto;transition:transform .9s cubic-bezier(.2,.7,.2,1);filter:saturate(1.05)}
+.gx-f img{display:block;width:100%;aspect-ratio:3/2;height:auto;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1);filter:saturate(1.05)}
 .gx-i:hover .gx-f img{transform:scale(1.04)}
 .gx-i:focus-visible .gx-f{outline:3px solid #006233;outline-offset:5px}
 .gx-c{display:block;padding:20px 2px 0;border-top:0;position:relative}
@@ -620,8 +620,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .gx-c i{display:block;font-style:normal;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.24em;color:#8a6a2c;margin:0 0 4px}
 .gx-c b{display:block;font-family:var(--display);text-transform:uppercase;letter-spacing:.07em;font-weight:700;font-size:18px;line-height:1.15;color:#12141c}
 .gx-c small{display:block;margin-top:6px;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:15px;line-height:1.45;color:#5b5e69}
-@media(max-width:900px){.gx{columns:2}}
-@media(max-width:520px){.gx{columns:1;max-width:420px}}
+
+@media(max-width:520px){.gx{grid-template-columns:minmax(0,1fr);max-width:420px}}
 @media(prefers-reduced-motion:reduce){.gx-i{animation:none;opacity:1;transform:none}.gx-f img{transition:none}}
 </style>
 </head>
