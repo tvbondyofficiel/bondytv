@@ -442,22 +442,22 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .va-tab b{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#12141c;color:#fff;font-size:13px;letter-spacing:0}
 .va-sec{margin:0 0 54px;scroll-margin-top:90px}
 .va-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 22px;padding:0 0 16px;border-bottom:4px solid var(--c)}
-.va-head .ic{display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:var(--c);color:#fff;font:700 26px/1 var(--display,Arial)}
+.va-head .ic{display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:var(--c);color:var(--t,#fff);font:700 26px/1 var(--display,Arial)}
 .va-head h2{margin:0;font:700 clamp(30px,4.4vw,46px)/1 var(--display,Arial Narrow);text-transform:uppercase}
 .va-head p{margin:4px 0 0;color:#555a69;font-size:16px}
 .va-head .tx{flex:1;min-width:220px}
-.va-btn{display:inline-block;padding:13px 22px;background:var(--c);color:#fff;text-decoration:none;font:700 15px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em;border-radius:10px}
+.va-btn{display:inline-block;padding:13px 22px;background:var(--c);color:var(--t,#fff);text-decoration:none;font:700 15px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em;border-radius:10px}
 .va-btn:hover{filter:brightness(1.12)}
 .va-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:20px}
 .va-card{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid var(--c);border-radius:6px;padding:20px 22px 18px;box-shadow:0 8px 22px rgba(18,20,28,.07)}
-.va-card .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:var(--c);color:#fff;font:700 12px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em}
+.va-card .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:var(--c);color:var(--t,#fff);font:700 12px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em}
 .va-card h3{margin:0;font:700 clamp(24px,2.6vw,30px)/1.05 var(--display,Arial Narrow);text-transform:uppercase}
 .va-card .corps{margin:0;font-size:17px;line-height:1.55;color:#12141c}
 .va-card .corps p{margin:0 0 10px}
 .va-card img{max-width:100%;height:auto;display:block;border-radius:4px}
 .va-card .more{align-self:flex-start;border:0;background:none;padding:0;color:var(--c);font:700 14px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
 .va-sig{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(18,20,28,.12)}
-.va-sig .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:var(--c);color:#fff;font:700 17px/1 var(--display,Arial Narrow)}
+.va-sig .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:var(--c);color:var(--t,#fff);font:700 17px/1 var(--display,Arial Narrow)}
 .va-sig b{display:block;font-size:16px;line-height:1.2}
 .va-sig span{display:block;color:#555a69;font-size:14px}
 .va-empty{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:24px 26px;border:2px dashed var(--c);border-radius:8px;background:rgba(255,255,255,.6)}
@@ -660,10 +660,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 
     var SEC = [
-      { id: "habitants", titre: "Les habitants", ic: "H", c: "#d3141f", sous: "Vos voisins prennent la parole.", tag: "Habitant", lien: "/habitants.html", ecrire: "Écrire un texte", vide: "Aucun texte d’habitant pour l’instant. Racontez votre quartier, donnez votre avis, partagez une idée." },
-      { id: "elus", titre: "Les élus", ic: "É", c: "#006233", sous: "Majorité ou opposition : la même place pour tous.", tag: "Élu", lien: "/tribune.html", ecrire: "Espace des élus", vide: "Aucune tribune pour l’instant. Les élus peuvent demander leur accès à leur espace." },
-      { id: "associations", titre: "Les associations", ic: "A", c: "#b8975a", sous: "La vie associative de Bondy, gratuite.", tag: "Association", lien: "/pro.html", ecrire: "Espace associations", vide: "Aucune annonce d’association pour l’instant. Annoncez vos événements, c’est gratuit." },
-      { id: "commerces", titre: "Les commerçants", ic: "C", c: "#12141c", sous: "La bonne adresse près de chez vous.", tag: "Commerçant", lien: "/pro.html", ecrire: "Espace commerçants", vide: "Aucun commerçant pour l’instant. Présentez votre boutique aux Bondynois." }
+      { id: "habitants", titre: "Les habitants", ic: "H", c: "#1f3a5f", t: "#fff", sous: "Vos voisins prennent la parole.", tag: "Habitant", lien: "/habitants.html", ecrire: "Écrire un texte", vide: "Aucun texte d’habitant pour l’instant. Racontez votre quartier, donnez votre avis, partagez une idée." },
+      { id: "elus", titre: "Les élus", ic: "É", c: "#006233", t: "#fff", sous: "Majorité ou opposition : la même place pour tous.", tag: "Élu", lien: "/tribune.html", ecrire: "Espace des élus", vide: "Aucune tribune pour l’instant. Les élus peuvent demander leur accès à leur espace." },
+      { id: "associations", titre: "Les associations", ic: "A", c: "#12141c", t: "#fff", sous: "La vie associative de Bondy, gratuite.", tag: "Association", lien: "/pro.html", ecrire: "Espace associations", vide: "Aucune annonce d’association pour l’instant. Annoncez vos événements, c’est gratuit." },
+      { id: "commerces", titre: "Les commerçants", ic: "C", c: "#b8975a", t: "#12141c", sous: "La bonne adresse près de chez vous.", tag: "Commerçant", lien: "/pro.html", ecrire: "Espace commerçants", vide: "Aucun commerçant pour l’instant. Présentez votre boutique aux Bondynois." }
     ];
     $("temoigner-titre").innerHTML = "Vos <em>articles</em>";
     $("temoigner-intro").textContent = "Ce que vous nous envoyez : habitants, élus, associations et commerçants.";
@@ -675,7 +675,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var im = t.image ? '<a href="' + esc(t.image) + '" target="_blank" rel="noopener"><img src="' + esc(t.image) + '" alt="Affiche : ' + esc(t.titre) + '" loading="lazy"></a>' : "";
       var lk = /^https:\/\//i.test(t.lien || "") ? '<p><a href="' + esc(t.lien) + '" target="_blank" rel="noopener">Voir le lien</a></p>' : "";
       var ini = (String(sig).trim().charAt(0) || "?").toUpperCase();
-      return '<article class="va-card" style="--c:' + c.c + '"><span class="pill">' + esc(c.tag) + "</span><h3>" + esc(t.titre) + "</h3>" + im +
+      return '<article class="va-card" style="--c:' + c.c + ';--t:' + c.t + '"><span class="pill">' + esc(c.tag) + "</span><h3>" + esc(t.titre) + "</h3>" + im +
         '<div class="corps" data-full="' + esc(paras(txt)) + '" data-cut="' + esc(paras(cut)) + '">' + paras(cut) + "</div>" + lk +
         (long ? '<button type="button" class="more">Lire la suite</button>' : "") +
         '<div class="va-sig"><span class="av">' + esc(ini) + "</span><div><b>" + esc(sig) + "</b><span>" + esc(det) + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + "</span></div></div></article>";
@@ -695,10 +695,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var note = '<p class="va-note"><strong>Reçu et relu.</strong> Chaque texte est relu par Bondy TV avant d’être publié. Les articles de notre rédaction sont dans <a href="/articles.html">Magazine, Articles Bondy TV</a>.</p>';
       var secs = SEC.map(function (c) {
         var L = data[c.id];
-        return '<section class="va-sec" id="' + c.id + '" style="--c:' + c.c + '"><div class="va-head"><span class="ic" aria-hidden="true">' + c.ic + '</span><div class="tx"><h2>' + esc(c.titre) + "</h2><p>" + esc(c.sous) + '</p></div><a class="va-btn" href="' + c.lien + '">' + esc(c.ecrire) + " →</a></div>" +
+        return '<section class="va-sec" id="' + c.id + '" style="--c:' + c.c + ';--t:' + c.t + '"><div class="va-head"><span class="ic" aria-hidden="true">' + c.ic + '</span><div class="tx"><h2>' + esc(c.titre) + "</h2><p>" + esc(c.sous) + '</p></div><a class="va-btn" href="' + c.lien + '">' + esc(c.ecrire) + " →</a></div>" +
           (L.length ? '<div class="va-grid">' + L.join("") + "</div>" : '<div class="va-empty"><p>' + esc(c.vide) + '</p><a class="va-btn" href="' + c.lien + '">Soyez le premier →</a></div>') + "</section>";
       }).join("");
-      var cta = '<div class="va-cta"><h2>Vous aussi, prenez la parole</h2><p>Gratuit pour les habitants, les élus et les associations. Nous relisons, puis c’est en ligne.</p><div class="row">' + SEC.map(function (c) { return '<a class="va-btn" style="--c:' + c.c + (c.id === "commerces" ? ";background:#f4f2ee;color:#12141c" : "") + '" href="' + c.lien + '">' + esc(c.ecrire) + "</a>"; }).join("") + "</div></div>";
+      var cta = '<div class="va-cta"><h2>Vous aussi, prenez la parole</h2><p>Gratuit pour les habitants, les élus et les associations. Nous relisons, puis c’est en ligne.</p><div class="row">' + SEC.map(function (c) { return '<a class="va-btn" style="--c:' + (c.id === "associations" ? "#f4f2ee" : c.c) + ';--t:' + (c.id === "associations" ? "#12141c" : c.t) + '" href="' + c.lien + '">' + esc(c.ecrire) + "</a>"; }).join("") + "</div></div>";
       var box = $("pubtri");
       box.innerHTML = tabs + note + secs + cta; box.hidden = false; box.style.gridColumn = "1 / -1"; box.style.maxWidth = "none";
       box.addEventListener("click", function (ev) {
