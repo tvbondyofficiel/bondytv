@@ -498,6 +498,34 @@ details[open] > summary { margin-bottom: 6px; }
 .bar nav a,.bar nav .dd>summary{font-size:13.5px;letter-spacing:.05em}
 @media (min-width:900px){.bar nav a,.bar nav .dd>summary{font-size:12.5px;letter-spacing:.03em}}
 .sec-sub{margin:-6px 0 18px;font-size:17px;color:#5a5f6e}.sec-sub a{color:#12141c;font-weight:700;text-decoration:underline;text-underline-offset:3px}
+
+/* page Articles : même style que Bondy raconte */
+.ar-head{text-align:center;margin:34px 0 8px}
+.ar-head h1{margin:0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(36px,5.6vw,70px);line-height:.95}
+.ar-head h1 em{font-style:normal;color:#b8975a}
+.ar-head p{margin:16px auto 0;max-width:52ch;font-size:clamp(18px,2vw,22px);line-height:1.45;color:var(--muted)}
+.ar-filters{justify-content:center;margin:26px 0 30px}
+.ar-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important;align-items:stretch}
+.ar-grid>.art{background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);overflow:hidden}
+.ar-grid>.art .vis:not([class*="has-"]){display:none}
+.ar-grid>.art .vis{border-bottom:1px solid rgba(18,20,28,.1)}
+.ar-grid>.art .txt{padding:18px 20px 20px!important;gap:12px!important}
+.ar-grid>.art .tag{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a!important;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.ar-grid>.art h3{font-size:clamp(22px,2vw,27px)!important;line-height:1.04}
+.ar-grid>.art .txt{flex:1}
+.ar-grid>.art details{margin-top:auto}
+.ar-grid>.art .chapo{font-size:15.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
+.ar-grid>.art:has(details[open]) .chapo{-webkit-line-clamp:unset;display:block}
+.ar-grid>.art.wide{grid-column:auto}
+.ar-grid>.art:first-child{grid-column:1/-1}
+.ar-grid>.art:not(:first-child) .vis.has-img,.ar-grid>.art:not(:first-child).wide .vis.has-img{aspect-ratio:16/10!important}
+.ar-grid>.art:not(:first-child) .vis.has-img.is-poster{aspect-ratio:auto!important}
+.ar-grid>.art:first-child .vis.has-img{aspect-ratio:auto!important;height:340px}
+.ar-grid>.art:first-child .vis.has-img img{object-position:50% 30%}
+.ar-grid>.art:has(details[open]){grid-column:1/-1!important}
+.ar-grid>.art:has(details[open]) .vis.has-img:not(.is-poster){aspect-ratio:auto!important;height:360px}
+@media(max-width:900px){.ar-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
+@media(max-width:620px){.ar-grid{grid-template-columns:minmax(0,1fr)!important}}
 </style>
 </head>
 <body>
@@ -743,9 +771,10 @@ details[open] > summary { margin-bottom: 6px; }
 
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
-    var f = '<h2 class="sec-title">' + esc(d.articles_titre) + '</h2><p class="sec-sub">Écrits par l\u2019équipe de Bondy TV. Les textes des Bondynois, des élus et des associations sont dans <a href="/vos-articles.html">Vos articles</a>.</p><div class="filters" role="group" aria-label="Filtrer par rubrique">';
-    f += cats.map(function (k, i) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="' + (i === 0 ? "true" : "false") + '">' + esc(k) + "</button>"; }).join("");
-    f += '</div><div class="grid">' + list.map(article).join("") + "</div>";
+    var tt = String(d.articles_titre || "Les articles du magazine").split(" "), tl = tt.pop();
+    var f = '<div class="ar-head"><h1>' + esc(tt.join(" ")) + " <em>" + esc(tl) + '</em></h1><p>Écrits par l\u2019équipe de Bondy TV. Les textes des Bondynois, des élus et des associations sont dans <a href="/vos-articles.html">Vos articles</a>.</p></div><div class="filters ar-filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tous</button>';
+    f += cats.map(function (k) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="false">' + esc(k) + "</button>"; }).join("");
+    f += '</div><div class="grid ar-grid">' + list.map(article).join("") + "</div>";
     $("articles").innerHTML = f;
 
 
