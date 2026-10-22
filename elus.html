@@ -546,6 +546,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 .el-modal .mbox { position: relative; width: min(520px, 100%); max-height: 94vh; overflow: auto; background: var(--surface); border-top: 8px solid var(--green); padding: 22px 22px 20px; }
 .el-modal .mx { position: absolute; top: 8px; right: 8px; width: 40px; height: 40px; border: 0; background: transparent; color: var(--fg); font-size: 28px; cursor: pointer; }
 .el-modal h3 { margin: 0 40px 2px 0; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: 32px; line-height: 1; color: #12141c; }
+.el-modal .mpage { display:inline-block; margin:0 0 12px; color:#12141c; font-weight:700; text-decoration:underline; text-underline-offset:4px }
 .el-modal .mfn { margin: 0 0 12px; font-size: 15px; color: var(--muted); }
 .el-modal .mq { margin: 16px 0 0; font-family: var(--display); text-transform: uppercase; letter-spacing: .08em; font-weight: 700; font-size: 17px; }
 .el-modal .mt { display: block; margin-top: 14px; font-size: 15px; font-weight: 600; }
@@ -818,7 +819,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       html += '<div class="el-hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="site" tabindex="-1" autocomplete="off"></label></div><button class="el-send" type="submit">Envoyer mes notes</button><div class="el-msg" id="elmsg" role="status"></div></form>';
       html += '<p class="el-rep">' + esc(el.droit_de_reponse || "") + ' <a href="/confidentialite.html">Confidentialité et mentions légales</a></p>';
       html += '<div class="el-bar2" id="elbar" hidden><span id="elcount"></span><a href="#vote">Envoyer</a></div>';
-      html += '<div class="el-modal' + (phr ? '' : ' nophr') + '" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Ce qu\'il ou elle a fait pour vous (facultatif)<textarea maxlength="280" placeholder="Une ou deux phrases, des faits. Pas d\'insulte, pas d\'accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';
+      html += '<div class="el-modal' + (phr ? '' : ' nophr') + '" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><a class="mpage" href="#">Voir sa page</a><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Ce qu\'il ou elle a fait pour vous (facultatif)<textarea maxlength="280" placeholder="Une ou deux phrases, des faits. Pas d\'insulte, pas d\'accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';
       document.getElementById("elus").innerHTML = html;
 
       var form = document.getElementById("vote"), msg = document.getElementById("elmsg"), modal = document.getElementById("elmodal"), sel = {}, done = {}, stats = {}, curId = null;
@@ -840,7 +841,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       function setPill(v) { pillsBox.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-checked", String(x.dataset.v) === String(v) ? "true" : "false"); }); }
       function openM(id) {
         curId = id; var e = byId[id], s = stats[id], cur = sel[id];
-        modal.querySelector("h3").textContent = e.nom; modal.querySelector(".mfn").textContent = e.fonction;
+        modal.querySelector("h3").textContent = e.nom; modal.querySelector(".mfn").textContent = e.fonction; modal.querySelector(".mpage").href = "/profil-elu.html?id=" + encodeURIComponent(e.id);
         var r = "";
         if (s) { r += s.moyenne !== null ? '<div class="el-score"><b>' + String(s.moyenne).replace(".", ",") + '<small>/10</small></b><span>' + s.n + ' avis</span></div>' : '<div class="el-wait">' + (s.n ? s.n + " avis" : "Aucun avis") + ' · moyenne dès ' + s.min + ' avis</div>'; (s.commentaires || []).forEach(function (c) { r += '<blockquote class="el-q">« ' + esc(c.text) + ' »<small>Un habitant de Bondy</small></blockquote>'; }); }
         modal.querySelector(".mres").innerHTML = r;
