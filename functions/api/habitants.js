@@ -33,8 +33,8 @@ export async function onRequestPost({ request, env }) {
   if (nom.length < 3 || nom.indexOf(" ") < 0) return json({ error: "nom" }, 400);
   if (!tel) return json({ error: "tel" }, 400);
   if (adresse.length < 5) return json({ error: "adresse" }, 400);
-  const profil = ["association", "commerce", "elu"].includes(String(f.get("profil"))) ? String(f.get("profil")) : "habitant";
-  const pro = profil !== "habitant";
+  const profil = ["association", "commerce", "elu", "videgrenier"].includes(String(f.get("profil"))) ? String(f.get("profil")) : "habitant";
+  const pro = profil !== "habitant" && profil !== "videgrenier";
   const structure = pro ? cleanLine(f.get("structure"), 100) : ""; // pour un élu : fonction (et groupe)
   if (pro && structure.length < 2) return json({ error: "structure" }, 400);
   const file = f.get("piece");
@@ -57,6 +57,6 @@ export async function onRequestPost({ request, env }) {
   const id = ts + "-" + suf;
   await env.VOTES.put("hf:" + id, buf);
   if (jbuf) await env.VOTES.put("hg:" + id, jbuf);
-  await env.VOTES.put("hd:" + id, JSON.stringify(Object.assign({ nom, tel, adresse, statut: "attente", ts, piece: { type, taille: file.size } }, pro ? { profil, structure, justif: { type: jtype, taille: jsize } } : {})));
+  await env.VOTES.put("hd:" + id, JSON.stringify(Object.assign({ nom, tel, adresse, statut: "attente", ts, piece: { type, taille: file.size } }, pro ? { profil, structure, justif: { type: jtype, taille: jsize } } : profil === "videgrenier" ? { profil } : {})));
   return json({ ok: true });
 }

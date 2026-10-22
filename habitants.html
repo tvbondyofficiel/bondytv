@@ -640,8 +640,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 
     var t = d.tribune || {};
-    $("temoigner-titre").innerHTML = "La parole <em>aux habitants</em>";
-    $("temoigner-intro").textContent = "Vous vivez à Bondy ? Ce magazine est aussi le vôtre. Exprimez-vous : un avis, un coup de cœur, un souvenir, une idée pour la ville.";
+    var VGR = /(?:^|[?&])espace=videgrenier(?:&|$)/.test(location.search);
+    $("temoigner-titre").innerHTML = VGR ? "Mon <em>vide-grenier</em>" : "La parole <em>aux habitants</em>";
+    $("temoigner-intro").textContent = VGR ? "Vous habitez Bondy et vous voulez vider votre grenier ? Demandez votre accès : vous pourrez déposer une annonce gratuite, rien d\u2019autre." : "Vous vivez à Bondy ? Ce magazine est aussi le vôtre. Exprimez-vous : un avis, un coup de cœur, un souvenir, une idée pour la ville.";
     var ts = $("t-side");
     ts.innerHTML = "<h3>Comment participer</h3><ol style=\"margin:0;padding-left:22px;font-size:17px;line-height:1.55\"><li><strong>Vous demandez votre accès</strong> avec le formulaire, en indiquant votre numéro de téléphone.</li><li><strong>Nous vérifions</strong> votre demande.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel par téléphone.</li><li><strong>Vous vous connectez</strong> et vous écrivez votre texte.</li><li><strong>Nous le relisons</strong>, puis il est publié.</li></ol><p style=\"margin-top:14px;font-size:16px\">C'est gratuit. Les textes sont relus avant publication, dans le respect de la loi et des personnes. Vous pouvez demander le retrait du vôtre à tout moment.</p><p style=\"margin-top:16px\"><strong>Vous avez déjà votre code ?</strong></p><p style=\"margin-top:10px\"><a class=\"btn-all\" href=\"/habitant.html?espace=habitant\">Se connecter</a></p>";
     ts.hidden = false;
@@ -667,13 +668,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         if (!pf) { say("Ajoutez la copie de votre pièce d'identité.", true); bt.disabled = false; return; }
         if (pf.size > 5 * 1024 * 1024) { say("Le fichier est trop lourd (5 Mo au maximum).", true); bt.disabled = false; return; }
         var body = { nom: $("h-nom").value, tel: $("h-tel").value, adresse: $("h-adresse").value, botcheck: $("h-bot").checked };
-        var fd0 = new FormData(); fd0.append("nom", body.nom); fd0.append("tel", body.tel); fd0.append("adresse", body.adresse); fd0.append("piece", pf); if (body.botcheck) fd0.append("botcheck", "1");
+        var fd0 = new FormData(); fd0.append("nom", body.nom); fd0.append("tel", body.tel); fd0.append("adresse", body.adresse); fd0.append("piece", pf); if (VGR) fd0.append("profil", "videgrenier"); if (body.botcheck) fd0.append("botcheck", "1");
         fetch("/api/habitants", { method: "POST", body: fd0 })
           .then(function (r) { return r.json(); })
           .then(function (j) {
             if (!j.ok) { say(ER[j.error] || "L'envoi n'a pas marché. Réessayez.", true); return; }
             f.reset(); say("Merci ! Votre demande est envoyée. Nous vous contactons par téléphone.", false);
-            try { var fd = new FormData(); fd.append("access_key", "a10cef59-fca0-479e-81ab-13a661ab12b5"); fd.append("subject", "Demande d'accès : La parole aux habitants"); fd.append("from_name", "Bondy TV Magazine"); fd.append("nom", body.nom); fd.append("telephone", body.tel); fd.append("adresse", body.adresse); fetch("https://api.web3forms.com/submit", { method: "POST", body: fd }).catch(function () {}); } catch (x) {}
+            try { var fd = new FormData(); fd.append("access_key", "a10cef59-fca0-479e-81ab-13a661ab12b5"); fd.append("subject", VGR ? "Demande d'accès : Mon vide-grenier" : "Demande d'accès : La parole aux habitants"); fd.append("from_name", "Bondy TV Magazine"); fd.append("nom", body.nom); fd.append("telephone", body.tel); fd.append("adresse", body.adresse); fetch("https://api.web3forms.com/submit", { method: "POST", body: fd }).catch(function () {}); } catch (x) {}
           })
           .catch(function () { say("L'envoi n'a pas marché. Réessayez.", true); })
           .then(function () { bt.disabled = false; });

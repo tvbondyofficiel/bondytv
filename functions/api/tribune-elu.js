@@ -55,8 +55,9 @@ export async function onRequestPost({ request, env }) {
   if (b.action === "envoyer") {
     if (!(await limit(env, request, "send", 20, 3600))) return json({ error: "trop_de_tentatives" }, 429);
     const titre = cleanLine(b.titre, MAX_TITRE), texte = clean(b.texte, MAX_TEXTE);
-    const hab = acc.role === "habitant", pro = estPro(acc.role);
-    const annonce = hab && b.type === "annonce";
+    const vg = acc.role === "videgrenier"; // compte vide-grenier : annonces uniquement
+    const hab = acc.role === "habitant" || vg, pro = estPro(acc.role);
+    const annonce = hab && (vg || b.type === "annonce");
     const lien = hab ? "" : validLink(b.lien);
     if (titre.length < 3) return json({ error: "titre" }, 400);
     if (texte.length < 20 && !lien) return json({ error: "texte" }, 400);
@@ -78,7 +79,7 @@ export async function onRequestPost({ request, env }) {
     const ts = Date.now();
     const suf = Array.from(crypto.getRandomValues(new Uint8Array(3))).map((x) => x.toString(16).padStart(2, "0")).join("");
     const cle = "tt:" + acc.id + ":" + ts + "-" + suf;
-    await env.VOTES.put(cle, JSON.stringify({ role: acc.role || "elu", type: pro ? acc.role : annonce ? "annonce" : "texte", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, image: imgType, statut: "attente", ts }));
+    await env.VOTES.put(cle, JSON.stringify({ role: vg ? "habitant" : (acc.role || "elu"), type: pro ? acc.role : annonce ? "annonce" : "texte", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, image: imgType, statut: "attente", ts }));
     if (imgBuf) await env.VOTES.put("ti:" + cle.slice(3), imgBuf);
     return json({ ok: true });
   }

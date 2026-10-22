@@ -72,8 +72,13 @@ button:disabled{opacity:.6;cursor:wait}
 <noscript><p>Cette page a besoin de JavaScript.</p></noscript>
 </div>
 <script>
-(function(){var pro=/(?:^|[?&])espace=pro(?:&|$)/.test(location.search);
- if(pro){document.title="Espace commerçants et associations · Bondy TV Magazine";
+(function(){var pro=/(?:^|[?&])espace=pro(?:&|$)/.test(location.search),vgr=/(?:^|[?&])espace=videgrenier(?:&|$)/.test(location.search);
+ if(vgr){document.title="Mon vide-grenier · Bondy TV Magazine";
+  document.getElementById("lg-h1").innerHTML="Mon <em>vide-grenier</em>";
+  document.getElementById("lg-lead").textContent="Connectez-vous avec l'identifiant et le code que Bondy TV vous a envoyés par téléphone, pour déposer votre annonce de vide-grenier.";
+  document.getElementById("lg-box").innerHTML='<p>Pas encore de code ? Faites votre demande sur la page <a href="/habitants.html?espace=videgrenier">Demander mon accès au vide-grenier</a>. Nous vous rappelons pour vous donner votre accès.</p>';
+  var bv=document.getElementById("back");bv.href="/annonces.html";bv.textContent="← Le vide-grenier"}
+ else if(pro){document.title="Espace commerçants et associations · Bondy TV Magazine";
   document.getElementById("lg-h1").innerHTML="Espace <em>commerçants et associations</em>";
   document.getElementById("lg-lead").textContent="Connectez-vous avec l'identifiant et le code que Bondy TV vous a envoyés par téléphone, pour publier vos annonces et vos affiches.";
   document.getElementById("lg-box").innerHTML='<p>Pas encore de code ? Faites votre demande sur la page <a href="/pro.html">Commerçants et associations</a>. Nous vous rappelons pour vous donner votre accès.</p>';
@@ -94,12 +99,13 @@ function say(el,t,c){el.textContent=t;el.className="msg"+(c?" "+c:"")}
 function show(d){
  $("login").hidden=!!d.connecte;$("space").hidden=!d.connecte;
  if(!d.connecte)return;
- if(d.role!=="habitant"&&d.role!=="association"&&d.role!=="commerce"){location.replace("/elu.html");return}
- PRO=d.role==="association"||d.role==="commerce";
+ if(d.role!=="habitant"&&d.role!=="videgrenier"&&d.role!=="association"&&d.role!=="commerce"){location.replace("/elu.html");return}
+ PRO=d.role==="association"||d.role==="commerce";var VG=d.role==="videgrenier";
  $("hello").textContent="Bonjour "+d.nom;
- $("who").textContent=PRO?(d.structure||(d.role==="association"?"Association":"Commerce")):"Habitant de Bondy";
+ $("who").textContent=PRO?(d.structure||(d.role==="association"?"Association":"Commerce")):VG?"Vide-grenier de Bondy":"Habitant de Bondy";
  $("ok-l").textContent=PRO?"J'accepte que Bondy TV publie mon annonce, signée du nom de ma structure.":"J'accepte que Bondy TV publie mon texte ou mon annonce, signé de mon prénom et de l'initiale de mon nom.";
- $("choix").hidden=PRO;$("pro-extra").hidden=!PRO;
+ $("choix").hidden=PRO||VG;$("pro-extra").hidden=!PRO;
+ if(VG){document.title="Mon vide-grenier · Bondy TV Magazine";document.querySelector("#space .box p").textContent="Votre annonce est relue par Bondy TV avant d'être publiée. Elle doit respecter la loi et les personnes. Votre espace sert uniquement à déposer des annonces de vide-grenier.";mode("annonce");$("ok-l").textContent="J'accepte que Bondy TV publie mon annonce, signée de mon prénom et de l'initiale de mon nom.";var bk=$("back");bk.href="/annonces.html";bk.textContent="← Le vide-grenier"}
  if(PRO){mode("pro");PAR=d.par_mois||1}
  $("mine").innerHTML=(d.tribunes||[]).length?d.tribunes.map(function(t){var s=STAT[t.statut]||["",""];
   return '<div class="t '+s[1]+'"><span class="tag">'+e(s[0])+'</span>'+(t.type==="annonce"?' <span class="tag">Annonce</span>':'')+(t.image?' <span class="tag">Avec image</span>':'')+'<h3>'+e(t.titre)+'</h3><p class="m">'+new Date(t.ts).toLocaleDateString("fr-FR")+(t.motif?' · Motif : '+e(t.motif):'')+'</p></div>'}).join(""):'<p class="m">Vous n\'avez pas encore envoyé de texte.</p>';
