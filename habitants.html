@@ -202,6 +202,17 @@ details .more { display: flex; flex-direction: column; gap: 12px; }
 .t-side p { margin: 0; color: var(--muted); font-size: 16px; line-height: 1.55; }
 @media (max-width: 900px) { .temoigner { grid-template-columns: minmax(0, 1fr); } .t-side { grid-column: 1; grid-row: auto; position: static; margin-top: 28px; } }
 
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 34px;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c;grid-column:1/-1;width:100%;box-sizing:border-box}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
+/* Habitants : même structure que les autres pages */
+.temoigner{margin-top:40px}
+.temoigner .t-big{text-align:center;margin-bottom:0;font-size:clamp(46px,8.6vw,108px);line-height:.92}
+.temoigner .intro{text-align:center;margin:14px auto 0;max-width:52ch}
 .tform { display: flex; flex-direction: column; gap: 16px; max-width: 720px; }
 .tform .row2 { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
 .tform .fld { display: flex; flex-direction: column; gap: 6px; min-width: 0; }
@@ -477,6 +488,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   <section class="temoigner" id="temoigner">
     <h1 class="t-big" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
+    <div class="hs-inv" id="h-ban" style="--bgi:url(/images/histoire-boite-livres.jpg)"></div>
     <div id="pubtri" hidden></div>
     <form class="tform" id="hform" novalidate>
       <h2 class="t-sub" style="margin:0 0 4px">Demander mon accès</h2>
@@ -646,6 +658,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     $("temoigner-titre").innerHTML = VGR ? "Mon <em>vide-grenier</em>" : "La parole <em>aux habitants</em>";
     if (VGR) { $("f-adr").hidden = true; $("f-piece").hidden = true; $("f-mail").hidden = false; $("h-adresse").required = false; $("h-piece").required = false; $("h-hint").textContent = "Votre nom, votre téléphone et votre e-mail servent uniquement à vous contacter pour vous donner votre accès. Ils ne sont jamais publiés."; }
     $("temoigner-intro").textContent = VGR ? "Vous habitez Bondy et vous voulez vider votre grenier ? Demandez votre accès : vous pourrez déposer une annonce gratuite, rien d\u2019autre." : "Vous vivez à Bondy ? Ce magazine est aussi le vôtre. Exprimez-vous : un avis, un coup de cœur, un souvenir, une idée pour la ville.";
+    $("h-ban").innerHTML = VGR ? '<div><h2>Vider son grenier</h2><p>Demandez votre accès gratuit, puis déposez votre annonce.</p></div><a class="hs-btn" href="#hform">Demander mon accès</a>' : '<div><h2>Votre ville, votre parole</h2><p>Un avis, un coup de cœur, un souvenir, une idée pour la ville : demandez votre accès et écrivez dans le magazine.</p></div><a class="hs-btn" href="#hform">Demander mon accès</a>';
     var ts = $("t-side");
     ts.innerHTML = "<h3>Comment participer</h3><ol style=\"margin:0;padding-left:22px;font-size:17px;line-height:1.55\"><li><strong>Vous demandez votre accès</strong> avec le formulaire, en indiquant votre numéro de téléphone.</li><li><strong>Nous vérifions</strong> votre demande.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel par téléphone.</li><li><strong>Vous vous connectez</strong> et vous écrivez votre texte.</li><li><strong>Nous le relisons</strong>, puis il est publié.</li></ol><p style=\"margin-top:14px;font-size:16px\">C'est gratuit. Les textes sont relus avant publication, dans le respect de la loi et des personnes. Vous pouvez demander le retrait du vôtre à tout moment.</p><p style=\"margin-top:16px\"><strong>Vous avez déjà votre code ?</strong></p><p style=\"margin-top:10px\"><a class=\"btn-all\" href=\"/habitant.html?espace=habitant\">Se connecter</a></p>";
     ts.hidden = false;
