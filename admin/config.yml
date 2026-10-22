@@ -45,7 +45,7 @@ collections:
             summary: "{{fields.titre}}"
             fields:
               - {label: "Identifiant (une seule fois, sans espace ni accent, ex: portrait-hassiba)", name: id, widget: string}
-              - {label: "Rubrique (sert au filtre, ex: Ville, Portrait)", name: rubrique, widget: string, required: false}
+              - {label: "Rubrique (sert au filtre, ex: Ville, Portrait, La bonne adresse)", name: rubrique, widget: string, required: false}
               - {label: "Étiquette au-dessus du titre", name: etiquette, widget: string}
               - {label: "Article en pleine largeur", name: pleine_largeur, widget: boolean, default: false}
               - {label: "Titre", name: titre, widget: string}
