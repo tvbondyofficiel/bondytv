@@ -706,7 +706,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var note = '<p class="va-note"><strong>Reçu et relu.</strong> Chaque texte est relu par Bondy TV avant d’être publié. Les articles de notre rédaction sont dans <a href="/articles.html">Magazine, Articles Bondy TV</a>.</p>';
       var cols = SEC.map(function (c) {
         var L = data[c.id];
-        var first = L.length ? L[0] : "";
+        var EX = { habitants: ["Votre texte ici", "Racontez votre quartier, donnez votre avis, partagez une idée.", "Votre prénom", "Habitant de Bondy"], elus: ["Votre tribune ici", "Exprimez-vous : majorité ou opposition, la même place pour tous.", "Votre nom", "Élu de Bondy"], associations: ["Votre événement ici", "Annoncez vos activités et vos rendez-vous, c\u2019est gratuit.", "Votre association", "Association"], commerces: ["Votre offre ici", "Présentez votre boutique et vos offres aux Bondynois.", "Votre commerce", "Commerçant"] }[c.id];
+        var first = L.length ? L[0] : '<article class="va-card" style="--c:' + c.c + ';--t:' + c.t + ';opacity:.8"><span class="pill">Exemple</span><h3>' + esc(EX[0]) + '</h3><div class="corps"><p>' + esc(EX[1]) + '</p></div><div class="va-sig"><span class="av">?</span><div><b>' + esc(EX[2]) + "</b><span>" + esc(EX[3]) + "</span></div></div></article>";
         var more = "";
         return '<div class="va-col" id="' + c.id + '" style="--c:' + c.c + ';--t:' + c.t + '">' + first + '<a class="va-btn" href="' + c.lien + '">' + esc(c.ecrire) + "</a>" + more + "</div>";
       }).join("");
