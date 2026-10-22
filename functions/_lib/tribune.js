@@ -120,7 +120,7 @@ export async function rebuildPub(env) {
   const R = (t) => t.role || "elu";
   const elus = all.filter((t) => R(t) === "elu").map((t) => ({ nom: t.nom, fonction: t.fonction, groupe: t.groupe || "", titre: t.titre, texte: t.texte, lien: t.lien || "", ts: t.pub_ts || t.ts }));
   const habs = all.filter((t) => R(t) === "habitant" && t.type !== "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
-  const ann = all.filter((t) => R(t) === "habitant" && t.type === "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, image: t.image ? "/api/affiche?k=" + encodeURIComponent(t.cle) : "", ts: t.pub_ts || t.ts }));
+  const ann = all.filter((t) => R(t) === "habitant" && t.type === "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, categorie: t.categorie || "", prix: t.prix || "", quartier: t.quartier || "", tel: t.tel || "", image: t.image ? "/api/affiche?k=" + encodeURIComponent(t.cle) : "", ts: t.pub_ts || t.ts }));
   const pro = (role) => all.filter((t) => R(t) === role).map((t) => ({ nom: t.structure || t.nom, titre: t.titre, texte: t.texte, lien: t.lien || "", image: t.image ? "/api/affiche?k=" + encodeURIComponent(t.cle) : "", ts: t.pub_ts || t.ts }));
   await env.VOTES.put("tpub", JSON.stringify(elus));
   await env.VOTES.put("hpub", JSON.stringify(habs));

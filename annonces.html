@@ -436,33 +436,35 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .temoigner > p, #pubtri { grid-column: 1; }
 .t-side { grid-row: 3 / span 4; }
 @media (max-width: 900px) { .t-side { grid-row: auto; grid-column: 1; } }
-#pubtri .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
-#pubtri .tc{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;padding:20px 22px 18px;box-shadow:0 8px 22px rgba(18,20,28,.07)}
-#pubtri .tc .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
-#pubtri .tc h3{margin:0;border-left:4px solid #b8975a;padding-left:12px;font:700 clamp(22px,2.2vw,28px)/1.05 var(--display);text-transform:uppercase}
-#pubtri .tc .corps{font-size:16px;line-height:1.5}#pubtri .tc .corps p{margin:0 0 8px}
-#pubtri .tc .more{align-self:flex-start;border:0;background:none;padding:0;color:#12141c;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
-#pubtri .tc .sg{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(18,20,28,.12)}
-#pubtri .tc .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:#12141c;color:#b8975a;font:700 17px/1 var(--display)}
-#pubtri .tc .sg b{display:block;font-size:16px;line-height:1.2}#pubtri .tc .sg span span{font-size:14px;color:#5a5f6e}
-#pubtri .tc img{max-width:100%;height:auto;display:block;border-radius:4px}
-#pubtri .tc.ex{border-style:dashed;border-top-style:solid;background:#faf7ef}#pubtri .tc.ex .pill{background:#b8975a;color:#12141c}
-#pubtri .ex-note{margin:0;padding:10px 12px;border-left:4px solid #12141c;background:#fff;font-size:15px;line-height:1.4}
+#pubtri .tg{display:grid;grid-template-columns:repeat(auto-fill,minmax(310px,1fr));gap:16px}
+#pubtri .tc{display:flex;gap:16px;align-items:stretch;background:#fff;border:1px solid rgba(18,20,28,.12);border-left:6px solid #b8975a;border-radius:6px;padding:14px;box-shadow:0 6px 18px rgba(18,20,28,.07)}
+#pubtri .tc .th{flex:none;width:104px;height:104px;border-radius:4px;overflow:hidden;background:#12141c;display:grid;place-items:center;color:#b8975a;font:700 34px/1 var(--display)}
+#pubtri .tc .th img{width:100%;height:100%;object-fit:cover;display:block;cursor:zoom-in}
+#pubtri .tc .bd{display:flex;flex-direction:column;gap:6px;min-width:0;flex:1}
+#pubtri .tc .pl{display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+#pubtri .tc .pill{padding:4px 10px;border-radius:999px;background:#12141c;color:#b8975a;font:700 11px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+#pubtri .tc .px{font:700 16px/1 var(--display);color:#12141c}
+#pubtri .tc h3{margin:0;font:700 21px/1.1 var(--display);text-transform:uppercase;overflow-wrap:anywhere}
+#pubtri .tc .meta{margin:0;font-size:14px;color:#5a5f6e}
+#pubtri .tc .open{align-self:flex-start;margin-top:auto;border:0;background:none;padding:0;color:#12141c;font:700 13px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+#pubtri .tc.ex{border-style:dashed;border-left-style:solid;background:#faf7ef}#pubtri .tc.ex .pill.e{background:#b8975a;color:#12141c}
+.ann-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(18,20,28,.78)}
+.ann-modal.on{display:flex}
+.ann-box{position:relative;width:min(560px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-top:6px solid #b8975a;border-radius:6px;padding:24px 26px}
+.ann-box .pl{display:flex;gap:8px;align-items:center;margin:0 0 10px;padding-right:90px}
+.ann-box .pill{padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.ann-box .px{font:700 20px/1 var(--display)}
+.ann-box h3{margin:0 0 12px;border-left:4px solid #b8975a;padding-left:12px;font:700 clamp(24px,4vw,32px)/1.05 var(--display);text-transform:uppercase;overflow-wrap:anywhere}
+.ann-box img{max-width:100%;max-height:300px;width:auto;height:auto;display:block;margin:0 auto 14px;border-radius:4px}
+.ann-box .tx{font-size:17px;line-height:1.55}.ann-box .tx p{margin:0 0 8px}
+.ann-box .by{margin:14px 0 0;padding-top:12px;border-top:1px solid rgba(18,20,28,.12);font-size:14px;color:#5a5f6e}
+.ann-box .call{display:block;width:100%;margin-top:16px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:16px;font:700 17px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;text-align:center;text-decoration:none;cursor:pointer}
+.ann-x{position:absolute;top:10px;right:12px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:10px 14px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer}
 #pubtri .vg-info{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:30px}
 #pubtri .vg-info>div{border-left:4px solid #b8975a;background:#f2e9d6;padding:22px 24px}
 #pubtri .vg-info h3{margin:0 0 10px;font:700 28px/1 var(--display);text-transform:uppercase}
 #pubtri .vg-info ul{margin:0;padding-left:22px;font-size:16px;line-height:1.55}#pubtri .vg-info p{margin:0;font-size:16px;line-height:1.55}
 @media(max-width:800px){#pubtri .vg-info{grid-template-columns:1fr}}
-#pubtri .tc .open{align-self:flex-start;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:12px 18px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;cursor:pointer}
-#pubtri .tc .open:hover{background:#000}#pubtri .tc img{cursor:zoom-in}
-.ann-modal{position:fixed;inset:0;z-index:1000;display:none;align-items:center;justify-content:center;padding:16px;background:rgba(18,20,28,.78)}
-.ann-modal.on{display:flex}
-.ann-box{position:relative;width:min(760px,100%);max-height:calc(100vh - 32px);overflow:auto;background:#fff;border-top:6px solid #b8975a;border-radius:6px;padding:26px 28px}
-.ann-box h3{margin:0 0 14px;border-left:4px solid #b8975a;padding-left:12px;font:700 clamp(26px,4vw,38px)/1.05 var(--display);text-transform:uppercase}
-.ann-box img{max-width:100%;max-height:60vh;height:auto;display:block;margin:0 auto 16px;border-radius:4px}
-.ann-box .tx{font-size:18px;line-height:1.6}.ann-box .tx p{margin:0 0 10px}
-.ann-box .by{margin-top:16px;padding-top:12px;border-top:1px solid rgba(18,20,28,.12);font-size:15px;color:#5a5f6e}
-.ann-x{position:absolute;top:10px;right:12px;border:0;border-radius:4px;background:#12141c;color:#b8975a;padding:10px 14px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.1em;cursor:pointer}
 </style>
 </head>
 <body>
@@ -657,33 +659,38 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     $("temoigner-titre").innerHTML = "Le vide-grenier <em>de Bondy</em>";
     $("temoigner-intro").textContent = "Ce dont vous n\u2019avez plus besoin peut faire le bonheur d\u2019un voisin. L\u2019échange commence ici. Vendre, donner, chercher, proposer un service : c\u2019est gratuit, et chaque annonce est relue avant d\u2019être publiée.";
-    var box = $("pubtri"), LONG = 150;
-    function sig(n, f) { return '<div class="sg"><span class="av">' + esc(String(n || "?").charAt(0)) + '</span><span><b>' + esc(n) + '</b><span>' + esc(f) + '</span></span></div>'; }
-    var INFO = '<div class="vg-info"><div><h3>Les règles</h3><ul><li>Réservé aux habitants de Bondy, avec un compte validé.</li><li><strong>1 annonce par mois</strong>, visible 60 jours.</li><li>Écrivez votre numéro de téléphone dans l\u2019annonce : <strong>il sera public</strong>.</li><li><strong>Interdit :</strong> animaux, médicaments, armes, contrefaçons, ventes douteuses, offres d\u2019argent facile.</li></ul></div><div><h3>Restez prudents</h3><p>Ne payez jamais à l\u2019avance. Donnez rendez-vous dans un lieu public. Bondy TV ne participe pas aux ventes et n\u2019est pas responsable des échanges entre particuliers.</p></div></div>';
+    var box = $("pubtri");
+    var CAT = { donner: "À donner", vendre: "À vendre", cherche: "Je cherche", service: "Service" };
+    function fmtTel(t) { t = String(t || ""); var m = /^\+33(\d)(\d{2})(\d{2})(\d{2})(\d{2})$/.exec(t); return m ? "0" + m[1] + " " + m[2] + " " + m[3] + " " + m[4] + " " + m[5] : t; }
+    var INFO = '<div class="vg-info"><div><h3>Les règles</h3><ul><li>Réservé aux habitants de Bondy, avec un compte validé.</li><li><strong>1 annonce par mois</strong>, visible 60 jours.</li><li>Votre numéro de téléphone est visible dans l\u2019annonce : <strong>il sera public</strong>. Pas d\u2019adresse complète : indiquez seulement le quartier.</li><li><strong>Interdit :</strong> animaux, médicaments, armes, contrefaçons, ventes douteuses, offres d\u2019argent facile.</li></ul></div><div><h3>Restez prudents</h3><p>Ne payez jamais à l\u2019avance. Donnez rendez-vous dans un lieu public. Bondy TV ne participe pas aux ventes et n\u2019est pas responsable des échanges entre particuliers.</p></div></div>';
+    function card(t, i, ex) {
+      var cat = CAT[t.categorie] || "Annonce";
+      var th = t.image ? '<div class="th"><img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '" loading="lazy"></div>' : '<div class="th" aria-hidden="true">' + esc(String(t.titre || "?").charAt(0).toUpperCase()) + '</div>';
+      var meta = [t.quartier, ex ? "" : new Date(t.ts).toLocaleDateString("fr-FR")].filter(Boolean).join(" · ");
+      return '<article class="tc' + (ex ? ' ex' : '') + '" data-i="' + i + '">' + th + '<div class="bd"><div class="pl">' + (ex ? '<span class="pill e">Exemple</span>' : "") + '<span class="pill">' + esc(cat) + '</span>' + (t.prix ? '<span class="px">' + esc(t.prix) + '</span>' : "") + '</div><h3>' + esc(t.titre) + '</h3><p class="meta">' + esc(meta) + '</p>' + (ex ? '<p class="meta"><b>Ceci est un exemple, pas une vraie annonce.</b></p>' : '<button type="button" class="open">Ouvrir l\u2019annonce</button>') + '</div></article>';
+    }
     fetch("/api/habitants").then(function (r) { return r.json(); }).catch(function () { return {}; }).then(function (j) {
       var lim = Date.now() - 60 * 86400000;
       var L = ((j && j.annonces) || []).filter(function (t) { return t.ts >= lim; });
-      var cards = L.map(function (t) {
-        var txt = String(t.texte || ""), long = txt.length > LONG, sh = long ? txt.slice(0, LONG).replace(/\s+\S*$/, "") + "…" : txt;
-        var full = txt.split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
-        var im = t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '" loading="lazy">' : "";
-        return '<article class="tc" data-i="' + L.indexOf(t) + '"><span class="pill">Annonce</span><h3>' + esc(t.titre) + '</h3>' + im + '<div class="corps" data-full="' + esc(full) + '"><p>' + esc(sh) + '</p></div><button type="button" class="open">Ouvrir l\'annonce</button>' + sig(t.nom, "Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR")) + '</article>';
-      });
-      if (!cards.length) [["Poussette et vélos d\u2019enfant", "Ici, un habitant propose des affaires d\u2019enfants à donner ou à vendre."], ["Livres et jeux", "Ici, une habitante vide ses étagères : romans, BD, jeux de société."], ["Meubles à donner", "Ici, un voisin donne une table, des chaises ou une armoire."], ["Je cherche…", "Ici, un habitant cherche un objet ou propose un petit service."]].forEach(function (x) {
-        cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>' + esc(x[0]) + '</h3><p class="ex-note"><b>Ceci est un exemple, pas une vraie annonce.</b></p><div class="corps"><p>' + x[1] + '</p></div>' + sig("Prénom", "Habitant de Bondy") + '</article>');
-      });
-      box.innerHTML = '<h2 class="t-sub">Les annonces</h2><div class="tg">' + cards.join("") + '</div>' + INFO;
+      var html;
+      if (L.length) html = L.map(function (t, i) { return card(t, i, false); }).join("");
+      else html = [{ categorie: "donner", prix: "Gratuit", quartier: "Centre-ville", titre: "Poussette et vélos d\u2019enfant" }, { categorie: "vendre", prix: "15 €", quartier: "Gare", titre: "Livres et jeux de société" }, { categorie: "donner", prix: "Gratuit", quartier: "Bois de Bondy", titre: "Meubles à donner" }, { categorie: "cherche", prix: "", quartier: "Centre-ville", titre: "Je cherche une table" }].map(function (t, i) { return card(t, i, true); }).join("");
+      box.innerHTML = '<h2 class="t-sub">Les annonces</h2><div class="tg">' + html + '</div>' + INFO;
       var M = document.createElement("div"); M.className = "ann-modal"; M.setAttribute("role", "dialog"); M.setAttribute("aria-modal", "true"); document.body.appendChild(M);
       function closeM() { M.classList.remove("on"); M.innerHTML = ""; }
-      M.addEventListener("click", function (e) { if (e.target === M || e.target.closest(".ann-x")) closeM(); });
+      M.addEventListener("click", function (e) {
+        if (e.target === M || e.target.closest(".ann-x")) { closeM(); return; }
+        var c = e.target.closest(".call.show"); if (c) { var t = L[+c.dataset.i]; c.outerHTML = '<a class="call" href="tel:' + esc(t.tel) + '">Appeler le ' + esc(fmtTel(t.tel)) + '</a>'; }
+      });
       document.addEventListener("keydown", function (e) { if (e.key === "Escape") closeM(); });
       box.addEventListener("click", function (e) {
-        var o = e.target.closest(".open") || (e.target.tagName === "IMG" && e.target.closest(".tc") ? e.target : null);
-        if (o) { var t = L[+o.closest(".tc").dataset.i]; if (!t) return;
-          var paras = String(t.texte || "").split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
-          M.innerHTML = '<div class="ann-box"><button type="button" class="ann-x">Fermer</button><h3>' + esc(t.titre) + '</h3>' + (t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '">' : "") + '<div class="tx">' + paras + '</div><p class="by">' + esc(t.nom) + " · Habitant de Bondy · " + new Date(t.ts).toLocaleDateString("fr-FR") + '</p></div>';
-          M.classList.add("on"); M.querySelector(".ann-x").focus(); return; }
-        var b = e.target.closest(".more"); if (!b) return; var c = b.parentNode.querySelector(".corps"); c.innerHTML = c.getAttribute("data-full"); b.remove(); });
+        var card0 = e.target.closest(".tc:not(.ex)"); if (!card0) return;
+        if (!(e.target.closest(".open") || e.target.tagName === "IMG")) return;
+        var i = +card0.dataset.i, t = L[i]; if (!t) return;
+        var paras = String(t.texte || "").split(/\n{2,}/).map(function (p) { return "<p>" + esc(p).replace(/\n/g, "<br>") + "</p>"; }).join("");
+        M.innerHTML = '<div class="ann-box"><button type="button" class="ann-x">Fermer</button><div class="pl"><span class="pill">' + esc(CAT[t.categorie] || "Annonce") + '</span>' + (t.prix ? '<span class="px">' + esc(t.prix) + '</span>' : "") + '</div><h3>' + esc(t.titre) + '</h3>' + (t.image ? '<img src="' + esc(t.image) + '" alt="Photo : ' + esc(t.titre) + '">' : "") + '<div class="tx">' + paras + '</div><p class="by">' + esc(t.nom) + " · Habitant de Bondy" + (t.quartier ? " · " + esc(t.quartier) : "") + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + '</p>' + (t.tel ? '<button type="button" class="call show" data-i="' + i + '">Voir le numéro</button>' : "") + '</div>';
+        M.classList.add("on"); M.querySelector(".ann-x").focus();
+      });
     });
 
     var p = d.proposer || {};

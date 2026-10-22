@@ -1,5 +1,5 @@
 // Espace de l'élu : connexion par code, voir ses tribunes, en envoyer une.
-import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, MAX_IMAGE, estPro, typeFichier, parMois, ANNONCES_PAR_MOIS, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
+import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, MAX_IMAGE, estPro, normTel, typeFichier, parMois, ANNONCES_PAR_MOIS, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
 
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
@@ -71,6 +71,17 @@ export async function onRequestPost({ request, env }) {
       imgType = typeFichier(new Uint8Array(imgBuf), false);
       if (!imgType) return json({ error: "image_type" }, 415);
     }
+    // Annonce vide-grenier : catégorie, téléphone et quartier (jamais l'adresse complète)
+    let extra = {};
+    if (vg) {
+      const categorie = String(b.categorie || "");
+      if (!["donner", "vendre", "cherche", "service"].includes(categorie)) return json({ error: "categorie" }, 400);
+      const tel = normTel(b.tel);
+      if (!tel) return json({ error: "tel" }, 400);
+      const quartier = cleanLine(b.quartier, 60);
+      if (quartier.length < 2) return json({ error: "quartier" }, 400);
+      extra = { categorie, tel, quartier, prix: cleanLine(b.prix, 30) };
+    }
     const debut = new Date(); debut.setUTCDate(1); debut.setUTCHours(0, 0, 0, 0);
     const duMois = (await listPrefix(env, "tt:" + acc.id + ":")).filter((t) => t.ts >= debut.getTime() && t.statut !== "retire" && t.statut !== "refuse"); // une annonce refusée ne compte pas dans la limite
     if (annonce) {
@@ -79,7 +90,7 @@ export async function onRequestPost({ request, env }) {
     const ts = Date.now();
     const suf = Array.from(crypto.getRandomValues(new Uint8Array(3))).map((x) => x.toString(16).padStart(2, "0")).join("");
     const cle = "tt:" + acc.id + ":" + ts + "-" + suf;
-    await env.VOTES.put(cle, JSON.stringify({ role: vg ? "habitant" : (acc.role || "elu"), type: pro ? acc.role : annonce ? "annonce" : "texte", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, image: imgType, statut: "attente", ts }));
+    await env.VOTES.put(cle, JSON.stringify({ role: vg ? "habitant" : (acc.role || "elu"), type: pro ? acc.role : annonce ? "annonce" : "texte", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, image: imgType, statut: "attente", ts, ...extra }));
     if (imgBuf) await env.VOTES.put("ti:" + cle.slice(3), imgBuf);
     return json({ ok: true });
   }
