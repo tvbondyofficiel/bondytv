@@ -526,6 +526,18 @@ details[open] > summary { margin-bottom: 6px; }
 .ar-grid>.art:has(details[open]) .vis.has-img:not(.is-poster){aspect-ratio:auto!important;height:360px}
 @media(max-width:900px){.ar-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
 @media(max-width:620px){.ar-grid{grid-template-columns:minmax(0,1fr)!important}}
+
+/* cartes homogènes : même hauteur d'image, même gabarit de texte */
+.ar-grid>.art:not(:has(details[open])) .vis,.ar-grid>.art:not(:has(details[open])) .vis.has-img,.ar-grid>.art:not(:has(details[open])) .vis.has-icon,.ar-grid>.art:not(:has(details[open])) .vis.has-ill,.ar-grid>.art:not(:has(details[open])) .vis.has-play,.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster{aspect-ratio:16/10!important;height:auto!important}
+.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster{background:#fff}
+.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;max-height:none}
+.ar-grid>.art:not(:has(details[open])) .vis.has-icon svg{height:46%}
+.ar-grid>.art:not(:has(details[open])) .vis.has-ill img,.ar-grid>.art:not(:has(details[open])) .vis.has-ill svg{max-height:100%;width:100%;height:100%;object-fit:contain}
+.ar-grid>.art .chapo{-webkit-line-clamp:5}
+.ar-grid>.art .credit{font-size:13px}
+.ar-grid>.art:not(:has(details[open])) .txt>.credit{margin-top:auto}
+.ar-grid>.art:has(details[open]) .vis.has-icon,.ar-grid>.art:has(details[open]) .vis.has-ill{aspect-ratio:auto!important;height:170px}
+.ar-grid>.art .tag{line-height:1.3;padding:6px 12px;border-radius:16px}
 </style>
 </head>
 <body>
@@ -713,9 +725,8 @@ details[open] > summary { margin-bottom: 6px; }
     h += "<h3>" + esc(a.titre) + "</h3>";
     if (a.chapo) h += '<p class="chapo">' + inline(a.chapo) + "</p>";
     if (a.credit) h += '<p class="credit">' + inline(a.credit) + "</p>";
-    if (a.texte_visible) h += md(a.texte_visible);
     if (a.lien_video && !ytId(a.lien_video)) h += "<p>" + link("Voir la vidéo", a.lien_video) + "</p>";
-    if (a.texte) { var body = md(a.texte), ph = body.match(/<div class="phs">[\s\S]*?<\/div>/g) || []; body = body.replace(/<div class="phs">[\s\S]*?<\/div>/g, ""); h += "<details><summary>Lire la suite</summary><div class=\"more" + (ph.length ? " has-ph" : (a.pleine_largeur ? " has-side" : "")) + "\">" + (ph.length ? "<div class=\"tx\">" + body + "</div>" + ph.join("") : (a.pleine_largeur ? "<div class=\"tx\">" + body + "</div>" + sidebar(a) : body)) + "</div></details>"; }
+    if (a.texte || a.texte_visible) { var body = (a.texte_visible ? md(a.texte_visible) : "") + (a.texte ? md(a.texte) : ""), ph = body.match(/<div class="phs">[\s\S]*?<\/div>/g) || []; body = body.replace(/<div class="phs">[\s\S]*?<\/div>/g, ""); h += "<details><summary>Lire la suite</summary><div class=\"more" + (ph.length ? " has-ph" : (a.pleine_largeur ? " has-side" : "")) + "\">" + (ph.length ? "<div class=\"tx\">" + body + "</div>" + ph.join("") : (a.pleine_largeur ? "<div class=\"tx\">" + body + "</div>" + sidebar(a) : body)) + "</div></details>"; }
     return h + "</div></article>";
   }
 
