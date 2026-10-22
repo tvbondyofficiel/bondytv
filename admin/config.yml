@@ -222,6 +222,26 @@ collections:
                   - {label: "Titre", name: titre, widget: string}
                   - {label: "Légende", name: legende, widget: text, required: false}
                   - {label: "Adresse de la vidéo (YouTube)", name: lien, widget: string}
+          - label: "Section « Reportages et podcasts » (page Images et vidéos)"
+            name: reportages
+            widget: object
+            collapsed: true
+            fields:
+              - {label: "Titre de la section", name: titre, widget: string}
+              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
+              - {label: "Adresse de la chaîne YouTube", name: lien, widget: string, required: false}
+              - {label: "Texte du bouton", name: bouton, widget: string, required: false}
+              - label: "Contenus (une image cliquable par contenu)"
+                name: items
+                widget: list
+                required: false
+                summary: "{{fields.titre}}"
+                fields:
+                  - {label: "Image", name: image, widget: image}
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Type", name: type, widget: select, options: ["Reportage", "Podcast", "Short", "Story"], required: false}
+                  - {label: "Légende", name: legende, widget: text, required: false}
+                  - {label: "Adresse (YouTube)", name: lien, widget: string}
           - label: "Page « Tribune des élus »"
             name: tribune
             widget: object

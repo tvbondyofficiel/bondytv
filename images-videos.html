@@ -571,7 +571,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <details class="dd on"><summary>Images et vidéos</summary><div class="dd-m">
         <a href="/images-videos.html#images">Images</a>
         <a href="/images-videos.html#videos">Vidéos</a>
-        <a href="/articles.html?rubrique=Reportage">Reportages</a>
+        <a href="/images-videos.html#reportages">Reportages</a>
       </div></details>
       <details class="dd"><summary>Vos élus</summary><div class="dd-m">
         <a href="/elus.html">Vos élus</a>
@@ -588,6 +588,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
   <section id="gal"></section>
   <section id="vid"></section>
+  <section id="rep"></section>
   <footer id="pied"></footer>
 </div>
 <noscript><p style="padding:24px">Ce magazine a besoin de JavaScript pour s'afficher.</p></noscript>
@@ -743,6 +744,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (document.getElementById("vid")) {
       var tt = esc(V.titre || "Bondy en vidéos").split(" "); var last = tt.pop();
       document.getElementById("vid").innerHTML = '<div class="ph-head" id="videos"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><ul class="vtiles">' + (V.items || []).map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></a></li>'; }).join("") + '</ul><div class="ph-cta"><b>Toutes nos vidéos sont sur YouTube</b><a href="' + esc(safeUrl(V.lien || "")) + '" target="_blank" rel="noopener">' + esc(V.bouton || "Voir la chaîne YouTube") + '</a></div>';
+    }
+
+    if (document.getElementById("rep")) {
+      var R = d.reportages || {}, RV = d.videos || {};
+      var rt = esc(R.titre || "Reportages, podcasts et shorts").split(" "); var rl = rt.pop();
+      var ritems = R.items || [];
+      document.getElementById("rep").innerHTML = '<div class="ph-head" id="reportages"><h1>' + rt.join(" ") + ' <em>' + rl + '</em></h1>' + (R.introduction ? '<p>' + esc(R.introduction) + '</p>' : "") + '</div>' + (ritems.length ? '<ul class="vtiles">' + ritems.map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap">' + (x.type ? '<span class="dt">' + esc(x.type) + '</span>' : "") + '<b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></a></li>'; }).join("") + '</ul>' : '<p class="intro">Les premiers reportages, podcasts et shorts arrivent bientôt sur la chaîne.</p>') + '<div class="ph-cta"><b>Retrouvez tout sur YouTube</b><a href="' + esc(safeUrl(R.lien || RV.lien || "")) + '" target="_blank" rel="noopener">' + esc(R.bouton || RV.bouton || "Voir la chaîne YouTube") + '</a></div>';
     }
 
     var list = arts.filter(function (x) { return x.id !== "edito"; });

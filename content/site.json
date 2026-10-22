@@ -872,5 +872,12 @@
   "tribune": {
     "titre": "Tribune des élus",
     "introduction": "Majorité, opposition : chaque mois, le magazine vous ouvre une tribune, gratuite et à égalité pour tous. Écrivez votre texte ou envoyez votre vidéo."
+  },
+  "reportages": {
+    "titre": "Reportages et podcasts",
+    "introduction": "Nos reportages, podcasts, shorts et stories sont sur YouTube. Cliquez sur une image pour les regarder.",
+    "lien": "https://www.youtube.com/@Bondytvofficiel",
+    "bouton": "Voir la chaîne YouTube",
+    "items": []
   }
 }
