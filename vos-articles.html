@@ -467,6 +467,18 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .va-cta p{margin:0 0 18px;color:#d9d6cf;font-size:18px;max-width:54ch}
 .va-cta .row{display:flex;flex-wrap:wrap;gap:12px}
 .va-note{margin:0 0 28px;padding:14px 18px;background:#f3ead6;border-left:6px solid #b8975a;font-size:16px;max-width:62ch}
+
+.va-cols{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:20px;align-items:stretch}
+@media (max-width:1000px){.va-cols{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:560px){.va-cols{gap:12px}.va-col .va-sig .av{display:none}.va-col .va-card{padding:14px 14px 12px}.va-col .va-card h3{font-size:22px}.va-col .va-btn{padding:12px 10px;font-size:13px}}
+.va-col{display:flex;flex-direction:column;gap:12px;min-width:0}
+.va-col .va-card{flex:1}
+.va-col .va-btn{display:block;text-align:center}
+.va-col .va-card .ph{width:calc(100% + 44px);margin:-6px -22px 4px;aspect-ratio:16/10;object-fit:cover;border-radius:0}
+.va-col .va-card.vide{align-items:flex-start;justify-content:center;border-style:dashed;border-top-style:solid;background:rgba(255,255,255,.65);box-shadow:none}
+.va-col .va-card.vide p{margin:0;font-size:16px;color:#555a69}
+.va-all{align-self:flex-start;border:0;background:none;padding:0;color:#12141c;font:700 14px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em;text-decoration:underline;text-underline-offset:4px;cursor:pointer}
+.va-extra{display:none}.va-extra.on{display:grid}.va-moretxt{margin-top:26px}
 </style>
 </head>
 <body>
@@ -667,12 +679,12 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     ];
     $("temoigner-titre").innerHTML = "Vos <em>articles</em>";
     $("temoigner-intro").textContent = "Ce que vous nous envoyez : habitants, élus, associations et commerçants.";
-    var LONG = 340;
+    var LONG = 150;
     function carte(t, c, sig, det) {
       var txt = String(t.texte || ""), long = txt.length > LONG;
       var paras = function (x) { return x.split(/\n{2,}/).map(function (q) { return "<p>" + esc(q).replace(/\n/g, "<br>") + "</p>"; }).join(""); };
       var cut = long ? txt.slice(0, LONG).replace(/\s+\S*$/, "") + "…" : txt;
-      var im = t.image ? '<a href="' + esc(t.image) + '" target="_blank" rel="noopener"><img src="' + esc(t.image) + '" alt="Affiche : ' + esc(t.titre) + '" loading="lazy"></a>' : "";
+      var im = t.image ? '<a href="' + esc(t.image) + '" target="_blank" rel="noopener"><img class="ph" src="' + esc(t.image) + '" alt="Affiche : ' + esc(t.titre) + '" loading="lazy"></a>' : "";
       var lk = /^https:\/\//i.test(t.lien || "") ? '<p><a href="' + esc(t.lien) + '" target="_blank" rel="noopener">Voir le lien</a></p>' : "";
       var ini = (String(sig).trim().charAt(0) || "?").toUpperCase();
       return '<article class="va-card" style="--c:' + c.c + ';--t:' + c.t + '"><span class="pill">' + esc(c.tag) + "</span><h3>" + esc(t.titre) + "</h3>" + im +
@@ -691,18 +703,19 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         associations: (H.assos || []).map(function (x) { return carte(x, SEC[2], x.nom, "Association"); }),
         commerces: (H.commerces || []).map(function (x) { return carte(x, SEC[3], x.nom, "Commerçant"); })
       };
-      var tabs = '<nav class="va-tabs" aria-label="Aller à une rubrique">' + SEC.map(function (c) { return '<a class="va-tab" style="--c:' + c.c + '" href="#' + c.id + '"><i></i>' + esc(c.titre.replace("Les ", "")) + "<b>" + data[c.id].length + "</b></a>"; }).join("") + "</nav>";
       var note = '<p class="va-note"><strong>Reçu et relu.</strong> Chaque texte est relu par Bondy TV avant d’être publié. Les articles de notre rédaction sont dans <a href="/articles.html">Magazine, Articles Bondy TV</a>.</p>';
-      var secs = SEC.map(function (c) {
+      var cols = SEC.map(function (c) {
         var L = data[c.id];
-        return '<section class="va-sec" id="' + c.id + '" style="--c:' + c.c + ';--t:' + c.t + '"><div class="va-head"><span class="ic" aria-hidden="true">' + c.ic + '</span><div class="tx"><h2>' + esc(c.titre) + "</h2><p>" + esc(c.sous) + '</p></div><a class="va-btn" href="' + c.lien + '">' + esc(c.ecrire) + " →</a></div>" +
-          (L.length ? '<div class="va-grid">' + L.join("") + "</div>" : '<div class="va-empty"><p>' + esc(c.vide) + '</p><a class="va-btn" href="' + c.lien + '">Soyez le premier →</a></div>') + "</section>";
+        var first = L.length ? L[0] : '<article class="va-card vide" style="--c:' + c.c + '"><span class="pill">' + esc(c.tag) + '</span><p>' + esc(c.vide) + "</p></article>";
+        var more = "";
+        return '<div class="va-col" id="' + c.id + '" style="--c:' + c.c + ';--t:' + c.t + '">' + first + '<a class="va-btn" href="' + c.lien + '">' + esc(c.ecrire) + "</a>" + more + "</div>";
       }).join("");
-      var cta = '<div class="va-cta"><h2>Vous aussi, prenez la parole</h2><p>Gratuit pour les habitants, les élus et les associations. Nous relisons, puis c’est en ligne.</p><div class="row">' + SEC.map(function (c) { return '<a class="va-btn" style="--c:' + c.c + ';--t:' + c.t + '" href="' + c.lien + '">' + esc(c.ecrire) + "</a>"; }).join("") + "</div></div>";
+      var extra = []; SEC.forEach(function (c) { data[c.id].slice(1).forEach(function (h) { extra.push(h.replace('<article class="va-card" style="', '<article class="va-card" style="')); }); });
+      var tous = extra.length ? '<div class="va-moretxt"><button type="button" class="va-all" data-l="Voir tous les autres textes (' + extra.length + ')">Voir tous les autres textes (' + extra.length + ')</button><div class="va-extra va-cols" style="margin-top:16px">' + extra.join("") + "</div></div>" : "";
       var box = $("pubtri");
-      box.innerHTML = tabs + note + secs + cta; box.hidden = false; box.style.gridColumn = "1 / -1"; box.style.maxWidth = "none";
+      box.innerHTML = note + '<div class="va-cols">' + cols + "</div>" + tous; box.hidden = false; box.style.gridColumn = "1 / -1"; box.style.maxWidth = "none";
       box.addEventListener("click", function (ev) {
-        var b = ev.target.closest(".more"); if (!b) return;
+        var v = ev.target.closest(".va-all"); if (v) { var x = v.nextElementSibling, o = x.classList.toggle("on"); v.textContent = o ? "Réduire" : v.dataset.l; return; } var b = ev.target.closest(".more"); if (!b) return;
         var d = b.previousElementSibling; while (d && !d.classList.contains("corps")) d = d.previousElementSibling;
         if (!d) return; var open = b.dataset.o === "1";
         d.innerHTML = open ? d.dataset.cut : d.dataset.full; b.dataset.o = open ? "0" : "1"; b.textContent = open ? "Lire la suite" : "Réduire";
