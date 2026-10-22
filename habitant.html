@@ -22,6 +22,7 @@ textarea{min-height:240px;resize:vertical}
 input:focus,textarea:focus,button:focus{outline:3px solid var(--green);outline-offset:1px}
 button{font:700 16px/1 "Barlow Condensed",Arial Narrow,sans-serif;text-transform:uppercase;letter-spacing:.12em;padding:15px 22px;border:0;background:var(--green);color:#fff;cursor:pointer}
 button.l{background:#fff;color:var(--fg);border:2px solid var(--line)}
+button.l[aria-pressed="true"]{border-color:var(--green);background:#e8f3ec}
 button:disabled{opacity:.6;cursor:wait}
 .box{background:#f3ead6;border-left:6px solid var(--gold);padding:22px 24px;margin:0 0 26px}
 .box p{margin:0}
@@ -52,12 +53,15 @@ button:disabled{opacity:.6;cursor:wait}
 <h1 id="hello">Bonjour</h1>
 <p class="lead" id="who"></p>
 <div class="box"><p>Votre texte est relu par Bondy TV avant d'être publié. Il doit respecter la loi et les personnes. Vous pouvez en demander le retrait à tout moment.</p></div>
-<h2>Écrire mon texte</h2>
+<h2>Que voulez-vous publier ?</h2>
+<div class="row" style="margin-top:0"><button type="button" class="l" id="mt-texte" aria-pressed="true">Un texte</button><button type="button" class="l" id="mt-ann" aria-pressed="false">Une petite annonce</button></div>
+<div class="box" id="rules" hidden style="margin-top:18px"><p><strong>Petite annonce</strong> : 1 par mois, visible 60 jours. Écrivez votre numéro de téléphone dans l'annonce : <strong>il sera public</strong>. Interdit : animaux, médicaments, armes, contrefaçons, ventes douteuses, offres d'argent facile. Ne demandez jamais de paiement à l'avance.</p></div>
+<h2 id="h-ecrire">Écrire mon texte</h2>
 <form id="ft">
 <label for="titre">Titre</label><input id="titre" maxlength="120" required>
 <label for="texte">Votre texte</label><textarea id="texte" maxlength="5000"></textarea>
 <p class="hint" id="cnt"></p>
-<label class="check" for="ok"><input id="ok" type="checkbox"><span>J'accepte que Bondy TV publie mon texte, signé de mon prénom et de l'initiale de mon nom.</span></label>
+<label class="check" for="ok"><input id="ok" type="checkbox"><span>J'accepte que Bondy TV publie mon texte ou mon annonce, signé de mon prénom et de l'initiale de mon nom.</span></label>
 <div class="row"><button id="send" type="submit">Envoyer mon texte</button><button id="out" type="button" class="l">Me déconnecter</button></div>
 <p id="mt" class="msg" role="status" aria-live="polite"></p>
 </form>
@@ -70,7 +74,9 @@ button:disabled{opacity:.6;cursor:wait}
 (function(){
 function $(i){return document.getElementById(i)}
 function e(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
-var ERR={identifiants:"Identifiant ou code incorrect.",verrouille:"Trop d'essais. Réessayez dans 15 minutes.",trop_de_tentatives:"Trop de tentatives. Réessayez plus tard.",non_connecte:"Votre session a expiré. Reconnectez-vous.",titre:"Le titre est trop court.",texte:"Le texte est trop court (20 caractères au moins).",lien:"Le lien doit commencer par https://.",accord:"Cochez la case pour continuer.",quota:"Vous avez atteint le nombre de textes de ce mois-ci (2 par mois).",non_branche:"Le service n'est pas encore activé. Réessayez plus tard.",origine:"Requête refusée."};
+var ERR={identifiants:"Identifiant ou code incorrect.",verrouille:"Trop d'essais. Réessayez dans 15 minutes.",trop_de_tentatives:"Trop de tentatives. Réessayez plus tard.",non_connecte:"Votre session a expiré. Reconnectez-vous.",titre:"Le titre est trop court.",texte:"Le texte est trop court (20 caractères au moins).",lien:"Le lien doit commencer par https://.",accord:"Cochez la case pour continuer.",quota:"Vous avez atteint le nombre de textes de ce mois-ci (2 par mois).",quota_annonce:"Vous avez déjà déposé votre annonce de ce mois-ci (1 par mois).",non_branche:"Le service n'est pas encore activé. Réessayez plus tard.",origine:"Requête refusée."};
+var MODE="texte";
+function mode(m){MODE=m;var a=m==="annonce";$("mt-texte").setAttribute("aria-pressed",a?"false":"true");$("mt-ann").setAttribute("aria-pressed",a?"true":"false");$("rules").hidden=!a;$("h-ecrire").textContent=a?"Écrire mon annonce":"Écrire mon texte";$("send").textContent=a?"Envoyer mon annonce":"Envoyer mon texte";$("texte").placeholder=a?"Décrivez ce que vous proposez ou cherchez. Écrivez votre numéro de téléphone.":""}
 var STAT={attente:["En attente de relecture",""],publie:["Publiée","publie"],refuse:["Refusée","refuse"],retire:["Retirée",""]};
 function post(b){return fetch("/api/tribune-elu",{method:"POST",credentials:"same-origin",headers:{"Content-Type":"application/json"},body:JSON.stringify(b)}).then(function(r){return r.json().catch(function(){return{error:"requete"}}).then(function(j){j.status=r.status;return j})})}
 function say(el,t,c){el.textContent=t;el.className="msg"+(c?" "+c:"")}
@@ -81,15 +87,16 @@ function show(d){
  $("hello").textContent="Bonjour "+d.nom;
  $("who").textContent="Habitant de Bondy";
  $("mine").innerHTML=(d.tribunes||[]).length?d.tribunes.map(function(t){var s=STAT[t.statut]||["",""];
-  return '<div class="t '+s[1]+'"><span class="tag">'+e(s[0])+'</span><h3>'+e(t.titre)+'</h3><p class="m">'+new Date(t.ts).toLocaleDateString("fr-FR")+(t.motif?' · Motif : '+e(t.motif):'')+'</p></div>'}).join(""):'<p class="m">Vous n\'avez pas encore envoyé de texte.</p>';
+  return '<div class="t '+s[1]+'"><span class="tag">'+e(s[0])+'</span>'+(t.type==="annonce"?' <span class="tag">Annonce</span>':'')+'<h3>'+e(t.titre)+'</h3><p class="m">'+new Date(t.ts).toLocaleDateString("fr-FR")+(t.motif?' · Motif : '+e(t.motif):'')+'</p></div>'}).join(""):'<p class="m">Vous n\'avez pas encore envoyé de texte.</p>';
 }
 function load(){fetch("/api/tribune-elu",{credentials:"same-origin"}).then(function(r){return r.json()}).then(show).catch(function(){show({connecte:false})})}
 $("fl").addEventListener("submit",function(ev){ev.preventDefault();var b=$("go");b.disabled=true;say($("ml"),"Connexion…");
  post({action:"connexion",id:$("id").value,code:$("code").value}).then(function(j){b.disabled=false;if(j.ok){$("code").value="";say($("ml"),"");load()}else say($("ml"),ERR[j.error]||"Connexion impossible.","err")})});
 $("ft").addEventListener("submit",function(ev){ev.preventDefault();var b=$("send");b.disabled=true;say($("mt"),"Envoi…");
- post({action:"envoyer",titre:$("titre").value,texte:$("texte").value,accord:$("ok").checked}).then(function(j){b.disabled=false;
-  if(j.ok){$("ft").reset();$("cnt").textContent="";say($("mt"),"Merci ! Votre texte est envoyé. Nous le relisons avant de le publier.","ok");load()}else say($("mt"),ERR[j.error]||"L'envoi n'a pas marché.","err")})});
+ post({action:"envoyer",type:MODE,titre:$("titre").value,texte:$("texte").value,accord:$("ok").checked}).then(function(j){b.disabled=false;
+  if(j.ok){$("ft").reset();$("cnt").textContent="";say($("mt"),MODE==="annonce"?"Merci ! Votre annonce est envoyée. Nous la relisons avant de la publier.":"Merci ! Votre texte est envoyé. Nous le relisons avant de le publier.","ok");load()}else say($("mt"),ERR[j.error]||"L'envoi n'a pas marché.","err")})});
 $("out").addEventListener("click",function(){post({action:"deconnexion"}).then(function(){load()})});
+$("mt-texte").addEventListener("click",function(){mode("texte")});$("mt-ann").addEventListener("click",function(){mode("annonce")});
 $("texte").addEventListener("input",function(){$("cnt").textContent=$("texte").value.length+" / 5000 caractères"});
 load();
 })();
