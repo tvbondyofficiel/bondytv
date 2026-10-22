@@ -6,6 +6,7 @@ import { json, sha } from "./vote.js";
 export { json, sha };
 export const SESSION_TTL = 60 * 60 * 24 * 7;
 export const MAX_TITRE = 120, MAX_TEXTE = 5000, PAR_MOIS = 4, PAR_MOIS_HAB = 2;
+export const ANNONCES_PAR_MOIS = 1;
 export function parMois(role) { return role === "habitant" ? PAR_MOIS_HAB : PAR_MOIS; }
 // Numéro de téléphone : on garde les chiffres (et + au début). Retourne "" si invalide.
 export function normTel(t) {
@@ -108,9 +109,11 @@ export async function rebuildPub(env) {
   const all = (await listPrefix(env, "tt:")).filter((t) => t.statut === "publie");
   all.sort((a, b) => (b.pub_ts || b.ts) - (a.pub_ts || a.ts));
   const elus = all.filter((t) => t.role !== "habitant").map((t) => ({ nom: t.nom, fonction: t.fonction, groupe: t.groupe || "", titre: t.titre, texte: t.texte, lien: t.lien || "", ts: t.pub_ts || t.ts }));
-  const habs = all.filter((t) => t.role === "habitant").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
+  const habs = all.filter((t) => t.role === "habitant" && t.type !== "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
+  const ann = all.filter((t) => t.role === "habitant" && t.type === "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
   await env.VOTES.put("tpub", JSON.stringify(elus));
   await env.VOTES.put("hpub", JSON.stringify(habs));
+  await env.VOTES.put("apub", JSON.stringify(ann));
   return elus;
 }
 

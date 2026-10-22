@@ -2,9 +2,10 @@
 import { json, cleanLine, normTel, sameOrigin, limit } from "../_lib/tribune.js";
 
 export async function onRequestGet({ env }) {
-  if (!env.VOTES) return json({ textes: [] }, 200, { "Cache-Control": "public, max-age=60" });
+  if (!env.VOTES) return json({ textes: [], annonces: [] }, 200, { "Cache-Control": "public, max-age=60" });
   const list = (await env.VOTES.get("hpub", "json")) || [];
-  return json({ textes: list.slice(0, 50) }, 200, { "Cache-Control": "public, max-age=60" });
+  const annonces = (await env.VOTES.get("apub", "json")) || [];
+  return json({ textes: list.slice(0, 50), annonces: annonces.slice(0, 50) }, 200, { "Cache-Control": "public, max-age=60" });
 }
 
 export async function onRequestPost({ request, env }) {
