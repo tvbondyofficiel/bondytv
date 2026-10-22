@@ -600,25 +600,25 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @media (max-width:480px){.yt-btn b{font-size:21px}}
 
 /* galerie « Bondy en images » : écrin sombre, photos encadrées */
-.gx-wrap{background:radial-gradient(ellipse 900px 500px at 50% 0,#1d2030 0,#12141c 62%);border-radius:8px;padding:clamp(26px,5vw,64px) clamp(16px,4vw,56px) clamp(28px,5vw,60px);margin:34px 0 0;color:#f4f2ee;box-shadow:0 24px 60px rgba(18,20,28,.22)}
+.gx-wrap{background:radial-gradient(ellipse 900px 420px at 50% 0,#fbf7ee 0,#f1e8d3 70%);border:1px solid #d9c9a0;border-top:6px solid #006233;padding:clamp(26px,5vw,64px) clamp(16px,4vw,56px) clamp(28px,5vw,60px);margin:34px 0 0;color:#12141c;box-shadow:0 18px 44px rgba(90,70,30,.12)}
 .gx-head{text-align:center;max-width:720px;margin:0 auto clamp(26px,4vw,48px)}
-.gx-k{display:inline-block;font-family:var(--display);text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:13px;color:#d9b777}
-.gx-head h1{margin:14px 0 0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(46px,8vw,96px);line-height:.9;color:#fff}
-.gx-head h1 em{font-style:normal;color:#d9b777}
-.gx-head p{margin:18px auto 0;max-width:46ch;font-size:clamp(17px,1.8vw,20px);line-height:1.5;color:#c9c6bf;border:0;padding:0}
-.gx-orn{display:block;width:120px;height:1px;margin:26px auto 0;background:linear-gradient(90deg,transparent,#d9b777,transparent);position:relative}
-.gx-orn::after{content:"";position:absolute;left:50%;top:-4px;width:9px;height:9px;background:#d9b777;transform:translateX(-50%) rotate(45deg)}
+.gx-k{display:inline-block;font-family:var(--display);text-transform:uppercase;letter-spacing:.32em;font-weight:700;font-size:13px;color:#8a6a2c}
+.gx-head h1{margin:14px 0 0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(46px,8vw,96px);line-height:.9;color:#12141c}
+.gx-head h1 em{font-style:normal;color:#006233}
+.gx-head p{margin:18px auto 0;max-width:46ch;font-size:clamp(17px,1.8vw,20px);line-height:1.5;color:#4a4d58;border:0;padding:0}
+.gx-orn{display:block;width:120px;height:1px;margin:26px auto 0;background:linear-gradient(90deg,transparent,#b8934a,transparent);position:relative}
+.gx-orn::after{content:"";position:absolute;left:50%;top:-4px;width:9px;height:9px;background:#b8934a;transform:translateX(-50%) rotate(45deg)}
 .gx{columns:3;column-gap:clamp(14px,2.2vw,26px);max-width:1040px;margin:0 auto}
 .gx-i{all:unset;box-sizing:border-box;display:block;width:100%;break-inside:avoid;margin:0 0 clamp(14px,2.2vw,26px);cursor:zoom-in;opacity:0;transform:translateY(16px);animation:gxin .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
 @keyframes gxin{to{opacity:1;transform:none}}
-.gx-f{display:block;overflow:hidden;border:1px solid rgba(217,183,119,.55);padding:7px;background:rgba(255,255,255,.03)}
+.gx-f{display:block;overflow:hidden;border:1px solid #d9c9a0;padding:8px;background:#fff;box-shadow:0 8px 22px rgba(90,70,30,.14)}
 .gx-f img{display:block;width:100%;height:auto;transition:transform .8s cubic-bezier(.2,.7,.2,1),filter .4s;filter:saturate(1.04)}
 .gx-i:hover .gx-f img{transform:scale(1.045);filter:saturate(1.12) brightness(1.05)}
-.gx-i:focus-visible .gx-f{outline:3px solid #d9b777;outline-offset:3px}
+.gx-i:focus-visible .gx-f{outline:3px solid #006233;outline-offset:3px}
 .gx-c{display:grid;grid-template-columns:auto 1fr;column-gap:12px;row-gap:3px;padding:12px 4px 2px;align-items:baseline}
-.gx-c i{font-style:normal;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.14em;color:#d9b777;grid-row:span 2}
-.gx-c b{font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-weight:700;font-size:16px;line-height:1.15;color:#fff}
-.gx-c small{font-size:14px;line-height:1.4;color:#b9b6ae;grid-column:2}
+.gx-c i{font-style:normal;font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.14em;color:#8a6a2c;grid-row:span 2}
+.gx-c b{font-family:var(--display);text-transform:uppercase;letter-spacing:.08em;font-weight:700;font-size:16px;line-height:1.15;color:#12141c}
+.gx-c small{font-size:14px;line-height:1.4;color:#555a69;grid-column:2}
 @media(max-width:900px){.gx{columns:2}}
 @media(max-width:520px){.gx{columns:1;max-width:420px}}
 @media(prefers-reduced-motion:reduce){.gx-i{animation:none;opacity:1;transform:none}.gx-f img{transition:none}}
