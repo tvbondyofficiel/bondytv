@@ -1,20 +1,29 @@
 // Espace de l'élu : connexion par code, voir ses tribunes, en envoyer une.
-import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, parMois, ANNONCES_PAR_MOIS, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
+import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, MAX_IMAGE, estPro, typeFichier, parMois, ANNONCES_PAR_MOIS, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
 
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
   const acc = await session(request, env);
   if (!acc) return json({ connecte: false });
   const mes = (await listPrefix(env, "tt:" + acc.id + ":")).sort((a, b) => b.ts - a.ts)
-    .map((t) => ({ type: t.type || "texte", titre: t.titre, texte: t.texte, lien: t.lien, statut: t.statut, motif: t.motif || "", ts: t.ts }));
-  return json({ connecte: true, role: acc.role || "elu", nom: acc.nom, fonction: acc.fonction, groupe: acc.groupe, tribunes: mes, max_titre: MAX_TITRE, max_texte: MAX_TEXTE, par_mois: parMois(acc.role), annonces_par_mois: ANNONCES_PAR_MOIS });
+    .map((t) => ({ type: t.type || "texte", titre: t.titre, texte: t.texte, lien: t.lien, statut: t.statut, motif: t.motif || "", image: !!t.image, ts: t.ts }));
+  return json({ connecte: true, role: acc.role || "elu", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, tribunes: mes, max_titre: MAX_TITRE, max_texte: MAX_TEXTE, par_mois: parMois(acc.role), annonces_par_mois: ANNONCES_PAR_MOIS });
 }
 
 export async function onRequestPost({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
   if (!sameOrigin(request)) return json({ error: "origine" }, 403);
-  let b;
-  try { b = await request.json(); } catch (e) { return json({ error: "requete" }, 400); }
+  let b, img = null;
+  try {
+    if ((request.headers.get("Content-Type") || "").includes("multipart/form-data")) {
+      const f = await request.formData();
+      b = {};
+      for (const [k, v] of f.entries()) if (typeof v === "string") b[k] = v;
+      b.accord = b.accord === "1" || b.accord === "true";
+      const im = f.get("image");
+      if (im && typeof im !== "string" && im.size) img = im;
+    } else b = await request.json();
+  } catch (e) { return json({ error: "requete" }, 400); }
 
   if (b.action === "connexion") {
     if (!(await limit(env, request, "login", 10, 3600))) return json({ error: "trop_de_tentatives" }, 429);
@@ -46,13 +55,21 @@ export async function onRequestPost({ request, env }) {
   if (b.action === "envoyer") {
     if (!(await limit(env, request, "send", 20, 3600))) return json({ error: "trop_de_tentatives" }, 429);
     const titre = cleanLine(b.titre, MAX_TITRE), texte = clean(b.texte, MAX_TEXTE);
-    const hab = acc.role === "habitant";
+    const hab = acc.role === "habitant", pro = estPro(acc.role);
     const annonce = hab && b.type === "annonce";
     const lien = hab ? "" : validLink(b.lien);
     if (titre.length < 3) return json({ error: "titre" }, 400);
     if (texte.length < 20 && !lien) return json({ error: "texte" }, 400);
     if (lien === null) return json({ error: "lien" }, 400);
     if (!b.accord) return json({ error: "accord" }, 400);
+    let imgBuf = null, imgType = "";
+    if (img) {
+      if (!pro) return json({ error: "image" }, 400);
+      if (img.size > MAX_IMAGE) return json({ error: "image_taille" }, 413);
+      imgBuf = await img.arrayBuffer();
+      imgType = typeFichier(new Uint8Array(imgBuf), false);
+      if (!imgType) return json({ error: "image_type" }, 415);
+    }
     const debut = new Date(); debut.setUTCDate(1); debut.setUTCHours(0, 0, 0, 0);
     const duMois = (await listPrefix(env, "tt:" + acc.id + ":")).filter((t) => t.ts >= debut.getTime() && t.statut !== "retire");
     if (annonce) {
@@ -60,7 +77,9 @@ export async function onRequestPost({ request, env }) {
     } else if (duMois.filter((t) => t.type !== "annonce").length >= parMois(acc.role)) return json({ error: "quota", par_mois: parMois(acc.role) }, 429);
     const ts = Date.now();
     const suf = Array.from(crypto.getRandomValues(new Uint8Array(3))).map((x) => x.toString(16).padStart(2, "0")).join("");
-    await env.VOTES.put("tt:" + acc.id + ":" + ts + "-" + suf, JSON.stringify({ role: acc.role || "elu", type: annonce ? "annonce" : "texte", nom: acc.nom, fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, statut: "attente", ts }));
+    const cle = "tt:" + acc.id + ":" + ts + "-" + suf;
+    await env.VOTES.put(cle, JSON.stringify({ role: acc.role || "elu", type: pro ? acc.role : annonce ? "annonce" : "texte", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, titre, texte, lien, image: imgType, statut: "attente", ts }));
+    if (imgBuf) await env.VOTES.put("ti:" + cle.slice(3), imgBuf);
     return json({ ok: true });
   }
   return json({ error: "action" }, 400);

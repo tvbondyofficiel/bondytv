@@ -582,7 +582,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <a href="/annonces.html">Le vide-grenier</a>
         <a href="/temoigner.html">La parole est à vous</a>
       </div></details>
-      <a href="/publicite.html">Votre pub</a>
+      <details class="dd"><summary>Votre pub</summary><div class="dd-m">
+        <a href="/publicite.html">Votre pub</a>
+        <a href="/pro.html">Commerçants et associations</a>
+      </div></details>
     </nav>
   </div>
 
@@ -729,6 +732,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var af = ei.affiches || [];
       html += (af.length ? '</div><section class="aff" id="affiches"><h2 class="aff-t">' + esc(ei.affiches_titre || "Affiches et annonces des associations") + '</h2><ul class="aff-l">' + af.map(function (x) { var im = '<img src="' + esc(x.image) + '" alt="' + esc(x.description || x.titre) + '" loading="lazy">'; return '<li class="aff-c"><a class="aff-i" href="' + esc(x.image) + '" target="_blank" rel="noopener" aria-label="Voir l\'affiche en grand : ' + esc(x.titre) + '">' + im + '</a><div class="aff-x"><b>' + esc(x.titre) + '</b>' + (x.legende ? '<p>' + esc(x.legende) + '</p>' : "") + (x.lien ? '<a class="aff-a" href="' + esc(safeUrl(x.lien)) + '">' + esc(x.lien_texte || "Lire l\'article") + ' →</a>' : "") + '</div></li>'; }).join("") + '</ul></section><div class="ph-cta">' : '</div><div class="ph-cta">') + '<div class="ph-cta-t"><b>Vous aimez la photo ?</b><p>Habitants de Bondy, amateurs ou passionnés : envoyez-nous vos plus belles images de la ville. Les meilleures seront publiées dans le prochain numéro, avec votre nom, et nous parlerons de vous.</p><p class="ph-cta-n">Les photos doivent être de vous.</p></div><a href="/temoigner.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
       document.getElementById("gal").innerHTML = html;
+      fetch("/api/habitants").then(function (r) { return r.json(); }).then(function (j) {
+        var A = (j && j.assos) || []; if (!A.length) return;
+        var li = A.map(function (x) { return '<li class="aff-c"><a class="aff-i" href="' + esc(x.image || x.lien || "#") + '" target="_blank" rel="noopener">' + (x.image ? '<img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy">' : "") + '</a><div class="aff-x"><b>' + esc(x.titre) + '</b><p>' + esc(x.nom) + '</p><a class="aff-a" href="/pro.html#vie-associative">Voir l\'annonce →</a></div></li>'; }).join("");
+        var sec = document.getElementById("affiches");
+        if (!sec) { var cta = document.querySelector("#gal .ph-cta"); if (!cta) return; sec = document.createElement("section"); sec.className = "aff"; sec.id = "affiches"; sec.innerHTML = '<h2 class="aff-t">Affiches et annonces des associations</h2><ul class="aff-l"></ul>'; cta.parentNode.insertBefore(sec, cta); }
+        sec.querySelector(".aff-l").insertAdjacentHTML("beforeend", li);
+      }).catch(function () {});
       var lb = document.querySelector(".lb"), cur = 0;
       function show(i) { cur = (i + ph.length) % ph.length; var x = ph[cur]; lb.querySelector("img").src = x.image; lb.querySelector("img").alt = x.description || x.titre; lb.querySelector("figcaption").innerHTML = "<b>" + esc(x.titre) + "</b>" + esc(x.legende || ""); lb.hidden = false; }
       document.querySelectorAll(".ph").forEach(function (b) { b.addEventListener("click", function () { show(+b.dataset.i); }); });

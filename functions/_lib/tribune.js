@@ -7,7 +7,16 @@ export { json, sha };
 export const SESSION_TTL = 60 * 60 * 24 * 7;
 export const MAX_TITRE = 120, MAX_TEXTE = 5000, PAR_MOIS = 4, PAR_MOIS_HAB = 2;
 export const ANNONCES_PAR_MOIS = 1;
-export function parMois(role) { return role === "habitant" ? PAR_MOIS_HAB : PAR_MOIS; }
+export const PAR_MOIS_ASSO = 2, PAR_MOIS_COMMERCE = 1, MAX_IMAGE = 3 * 1024 * 1024;
+export function estPro(role) { return role === "association" || role === "commerce"; }
+export function parMois(role) { return role === "habitant" ? PAR_MOIS_HAB : role === "association" ? PAR_MOIS_ASSO : role === "commerce" ? PAR_MOIS_COMMERCE : PAR_MOIS; }
+// Vrai type d'un fichier d'après ses premiers octets (jamais d'après le nom envoyé)
+export function typeFichier(u8, avecPdf) {
+  if (avecPdf && u8.length > 4 && u8[0] === 0x25 && u8[1] === 0x50 && u8[2] === 0x44 && u8[3] === 0x46) return "application/pdf";
+  if (u8.length > 3 && u8[0] === 0xff && u8[1] === 0xd8 && u8[2] === 0xff) return "image/jpeg";
+  if (u8.length > 8 && u8[0] === 0x89 && u8[1] === 0x50 && u8[2] === 0x4e && u8[3] === 0x47) return "image/png";
+  return "";
+}
 // Numéro de téléphone : on garde les chiffres (et + au début). Retourne "" si invalide.
 export function normTel(t) {
   let x = String(t || "").replace(/[^\d+]/g, "");
@@ -108,12 +117,16 @@ export async function listPrefix(env, prefix) {
 export async function rebuildPub(env) {
   const all = (await listPrefix(env, "tt:")).filter((t) => t.statut === "publie");
   all.sort((a, b) => (b.pub_ts || b.ts) - (a.pub_ts || a.ts));
-  const elus = all.filter((t) => t.role !== "habitant").map((t) => ({ nom: t.nom, fonction: t.fonction, groupe: t.groupe || "", titre: t.titre, texte: t.texte, lien: t.lien || "", ts: t.pub_ts || t.ts }));
-  const habs = all.filter((t) => t.role === "habitant" && t.type !== "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
-  const ann = all.filter((t) => t.role === "habitant" && t.type === "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
+  const R = (t) => t.role || "elu";
+  const elus = all.filter((t) => R(t) === "elu").map((t) => ({ nom: t.nom, fonction: t.fonction, groupe: t.groupe || "", titre: t.titre, texte: t.texte, lien: t.lien || "", ts: t.pub_ts || t.ts }));
+  const habs = all.filter((t) => R(t) === "habitant" && t.type !== "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
+  const ann = all.filter((t) => R(t) === "habitant" && t.type === "annonce").map((t) => ({ nom: abrege(t.nom), titre: t.titre, texte: t.texte, ts: t.pub_ts || t.ts }));
+  const pro = (role) => all.filter((t) => R(t) === role).map((t) => ({ nom: t.structure || t.nom, titre: t.titre, texte: t.texte, lien: t.lien || "", image: t.image ? "/api/affiche?k=" + encodeURIComponent(t.cle) : "", ts: t.pub_ts || t.ts }));
   await env.VOTES.put("tpub", JSON.stringify(elus));
   await env.VOTES.put("hpub", JSON.stringify(habs));
   await env.VOTES.put("apub", JSON.stringify(ann));
+  await env.VOTES.put("xpub", JSON.stringify(pro("association")));
+  await env.VOTES.put("cpub", JSON.stringify(pro("commerce")));
   return elus;
 }
 

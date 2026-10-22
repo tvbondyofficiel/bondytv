@@ -78,7 +78,7 @@ function say(el,t,c){el.textContent=t;el.className="msg"+(c?" "+c:"")}
 function show(d){
  $("login").hidden=!!d.connecte;$("space").hidden=!d.connecte;
  if(!d.connecte)return;
- if(d.role==="habitant"){location.replace("/habitant.html");return}
+ if(d.role==="habitant"||d.role==="association"||d.role==="commerce"){location.replace("/habitant.html");return}
  $("hello").textContent="Bonjour "+d.nom;
  $("who").textContent=[d.fonction,d.groupe].filter(Boolean).join(" · ");
  $("mine").innerHTML=(d.tribunes||[]).length?d.tribunes.map(function(t){var s=STAT[t.statut]||["",""];
