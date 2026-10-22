@@ -693,7 +693,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         var lk = /^https:\/\//i.test(t.lien || "") ? '<p><a href="' + esc(t.lien) + '" target="_blank" rel="noopener">Voir la vidéo</a></p>' : "";
         return '<article class="tc"><span class="pill">Tribune</span><h3>' + esc(t.titre) + '</h3><div class="corps" data-full="' + esc(full + lk) + '"><p>' + esc(short) + '</p></div>' + (long ? '<button type="button" class="more">Lire la suite</button>' : "") + sig(t.nom, [t.fonction, t.groupe].filter(Boolean).join(" · ")) + '</article>';
       });
-      if (!cards.length) cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>Votre tribune ici</h3><p class="ex-note"><b>Ceci est un exemple, pas une vraie tribune.</b> Aucun élu n\'a encore publié de tribune.</p><div class="corps"><p>Ici, un élu explique en quelques lignes une décision, un projet ou répond aux habitants, après relecture par Bondy TV.</p></div>' + sig("Prénom Nom", "Fonction de l\'élu") + '</article>');
+      if (!cards.length) [["Un élu de la majorité", "Élu de la majorité", "Ici, un élu de la majorité présente une décision ou un projet pour la ville."], ["Un élu de l\'opposition", "Élu de l\'opposition", "Ici, un élu de l\'opposition donne son point de vue et ses propositions."], ["Un adjoint", "Adjoint au maire", "Ici, un adjoint explique en quelques lignes ce qui change pour les habitants."], ["Une conseillère", "Conseillère municipale", "Ici, une conseillère répond aux questions des Bondynois."]].forEach(function (x) {
+        cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>Votre tribune ici</h3><p class="ex-note"><b>Ceci est un exemple, pas une vraie tribune.</b></p><div class="corps"><p>' + x[2] + '</p></div>' + sig("Prénom Nom", x[1]) + '</article>');
+      });
       box.innerHTML = '<h2 class="t-sub">Les tribunes</h2><div class="tg">' + cards.join("") + '</div>';
       box.hidden = false;
       box.addEventListener("click", function (e) { var b = e.target.closest(".more"); if (!b) return; var c = b.parentNode.querySelector(".corps"); c.innerHTML = c.getAttribute("data-full"); b.remove(); });
