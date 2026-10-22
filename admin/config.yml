@@ -222,6 +222,18 @@ collections:
                   - {label: "Titre", name: titre, widget: string}
                   - {label: "Légende", name: legende, widget: text, required: false}
                   - {label: "Adresse de la vidéo (YouTube)", name: lien, widget: string}
+              - label: "Podcast du mois (grande case en bas)"
+                name: podcast
+                widget: object
+                required: false
+                collapsed: true
+                fields:
+                  - {label: "Petite étiquette", name: etiquette, widget: string, required: false}
+                  - {label: "Titre", name: titre, widget: string, required: false}
+                  - {label: "Phrase", name: legende, widget: text, required: false}
+                  - {label: "Image", name: image, widget: image, required: false}
+                  - {label: "Lien YouTube du podcast", name: lien, widget: string, required: false}
+                  - {label: "Texte du bouton", name: bouton, widget: string, required: false}
           - label: "Section « Reportages et podcasts » (page Images et vidéos)"
             name: reportages
             widget: object

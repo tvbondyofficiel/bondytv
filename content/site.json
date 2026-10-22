@@ -867,7 +867,15 @@
         "legende": "Une journée sur le terrain, au plus près des lieux où Bondy se retrouve.",
         "lien": "https://www.youtube.com/watch?v=5tBiSEFapGk"
       }
-    ]
+    ],
+    "podcast": {
+      "etiquette": "Podcast du mois",
+      "titre": "Le podcast du mois arrive",
+      "legende": "Une rencontre, une voix de Bondy, à écouter et à regarder sur YouTube.",
+      "image": "",
+      "lien": "",
+      "bouton": "Écouter sur YouTube"
+    }
   },
   "tribune": {
     "titre": "Tribune des élus",
