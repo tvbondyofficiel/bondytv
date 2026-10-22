@@ -24,6 +24,8 @@ pre{white-space:pre-wrap;background:#fff;border:2px solid var(--line);padding:12
 <h2>Demandes d'accès des habitants</h2>
 <div id="dm"></div>
 <div id="newh"></div>
+<h2>Messages reçus (Témoigner ou proposer)</h2>
+<div id="ms"></div>
 <h2>Créer un compte d'élu</h2>
 <p class="m">Faites-le seulement après avoir vérifié son justificatif d'élu.</p>
 <div class="grid"><div><label>Prénom et nom<input id="n" placeholder="Prénom Nom"></label></div><div><label>Fonction<input id="f" placeholder="Conseiller municipal"></label></div><div><label>Groupe (facultatif)<input id="g" placeholder="Majorité, opposition…"></label></div></div>
@@ -41,7 +43,7 @@ function $(i){return document.getElementById(i)}
 function e(s){return String(s==null?"":s).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 function tok(){try{return sessionStorage.getItem("mod")||""}catch(x){return ""}}
 function api(body){var o={headers:{"Authorization":"Bearer "+tok(),"Content-Type":"application/json"}};if(body){o.method="POST";o.body=JSON.stringify(body)}return fetch("/api/tribune-admin",o).then(function(r){return r.json().then(function(j){j.status=r.status;return j})})}
-var data={comptes:[],tribunes:[],demandes:[]};
+var data={comptes:[],tribunes:[],demandes:[],messages:[]};
 function load(){api().then(function(j){if(j.status===401){$("err").textContent="Mot de passe incorrect.";$("app").hidden=true;return}if(j.status===503){$("err").textContent="Le service n'est pas encore branché (KV VOTES) ou le mot de passe n'est pas créé.";return}$("err").textContent="";$("app").hidden=false;data=j;draw()})}
 function st(t){return t.statut==="publie"?"pub":t.statut==="attente"?"att":"x"}
 var LBL={attente:"À relire",publie:"Publiée",refuse:"Refusée",retire:"Retirée"};
@@ -49,8 +51,11 @@ function draw(){var f=$("flt").value;
  $("tl").innerHTML=data.tribunes.filter(function(t){return f==="all"||st(t)===f}).map(function(t,i){
   return '<div class="c '+st(t)+'"><div class="top"><span>'+(t.role==="habitant"?'[Habitant] ':'[Élu] ')+e(t.nom)+(t.role==="habitant"?'':' · '+e(t.fonction)+(t.groupe?' · '+e(t.groupe):''))+'</span><span class="tag">'+e(LBL[t.statut]||t.statut)+'</span></div><p class="m">'+new Date(t.ts).toLocaleString("fr-FR")+'</p><h3 style="margin:6px 0">'+e(t.titre)+'</h3><textarea rows="7" data-t="'+e(t.cle)+'">'+e(t.texte)+'</textarea>'+(t.lien?'<p><a href="'+e(t.lien)+'" target="_blank" rel="noopener">'+e(t.lien)+'</a></p>':'')+
   '<div class="act"><button class="g" data-a="publier" data-k="'+e(t.cle)+'">Publier</button><button class="r" data-a="refuser" data-k="'+e(t.cle)+'">Refuser</button>'+(t.statut==="publie"?'<button class="l" data-a="retirer" data-k="'+e(t.cle)+'">Retirer du site</button>':'')+'</div></div>'}).join("")||'<p class="m">Rien à afficher.</p>';
- drawDem();
+ drawDem();drawMsg();
  $("cl").innerHTML=data.comptes.map(function(a){return '<div class="c"><div class="top"><span>'+(a.role==="habitant"?'[Habitant] '+e(a.nom)+(a.tel?' · '+e(a.tel):''):'[Élu] '+e(a.nom)+' · '+e(a.fonction)+(a.groupe?' · '+e(a.groupe):''))+'</span><span class="tag">'+(a.actif?"Actif":"Désactivé")+'</span></div><p class="m">Identifiant : <b>'+e(a.id)+'</b></p><div class="act"><button class="l" data-c="nouveau_code" data-i="'+e(a.id)+'">Nouveau code</button><button class="l" data-c="'+(a.actif?"desactiver":"activer")+'" data-i="'+e(a.id)+'">'+(a.actif?"Désactiver":"Réactiver")+'</button></div></div>'}).join("")||'<p class="m">Aucun compte pour l\'instant.</p>';
+}
+function drawMsg(){var L=data.messages||[];
+ $("ms").innerHTML=L.length?L.map(function(m){return '<div class="c att"><div class="top"><span>'+e(m.nom)+' · <a href="tel:'+e(m.tel)+'">'+e(m.tel)+'</a></span><span class="tag">'+e(m.type)+'</span></div><p class="m">'+e(m.adresse)+' · '+new Date(m.ts).toLocaleString("fr-FR")+'</p><p style="white-space:pre-wrap">'+e(m.message)+'</p>'+(m.lien?'<p><a href="'+e(m.lien)+'" target="_blank" rel="noopener">'+e(m.lien)+'</a></p>':'')+'<div class="act">'+(m.piece?'<button class="l" data-m="piece" data-k="'+e(m.cle)+'">Voir la pièce jointe</button>':'')+'<button class="r" data-m="supprimer_message" data-k="'+e(m.cle)+'">Supprimer</button></div></div>'}).join(""):'<p class="m">Aucun message pour l\'instant.</p>';
 }
 function drawDem(){var L=data.demandes||[];
  $("dm").innerHTML=L.length?L.map(function(d){var lbl={attente:"À traiter",accepte:"Accepté",refuse:"Refusé"}[d.statut]||d.statut;
@@ -75,6 +80,10 @@ $("tl").addEventListener("click",function(ev){var b=ev.target.closest("button");
 $("cl").addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var c=b.dataset.c,i=b.dataset.i;
  if(c==="nouveau_code"&&!confirm("Créer un nouveau code ? L'ancien ne marchera plus."))return;
  api({action:c,id:i}).then(function(j){if(!j.ok){alert("Erreur : "+(j.error||j.status));return}var a=data.comptes.filter(function(x){return x.id===i})[0]||{};if(j.code)showCode(i,j.code,a.nom||i);load()})});
+$("ms").addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b||!b.dataset.m)return;var a=b.dataset.m;
+ if(a==="piece"){fetch("/api/tribune-admin?piece="+encodeURIComponent(b.dataset.k),{headers:{"Authorization":"Bearer "+tok()}}).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(bl){window.open(URL.createObjectURL(bl),"_blank")}).catch(function(){alert("Impossible d'ouvrir la pièce.")});return}
+ if(!confirm("Supprimer ce message et sa pièce jointe ?"))return;
+ api({action:"supprimer_message",cle:b.dataset.k}).then(function(j){if(j.ok)load();else alert("Erreur : "+(j.error||j.status))})});
 $("dm").addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b||!b.dataset.d)return;var a=b.dataset.d;
  if(a==="piece"){fetch("/api/tribune-admin?piece="+encodeURIComponent(b.dataset.k),{headers:{"Authorization":"Bearer "+tok()}}).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(bl){window.open(URL.createObjectURL(bl),"_blank")}).catch(function(){alert("Impossible d'ouvrir la pièce.")});return}
  if(a==="supprimer_demande"&&!confirm("Supprimer cette demande ?"))return;

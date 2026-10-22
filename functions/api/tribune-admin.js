@@ -7,16 +7,17 @@ export async function onRequestGet({ request, env }) {
   if (!modAllowed(request, env)) return json({ error: "refuse" }, 401);
   const url = new URL(request.url), pc = url.searchParams.get("piece");
   if (pc) {
-    if (!/^hd:\d+-[a-f0-9]{6}$/.test(pc)) return json({ error: "cle" }, 400);
+    if (!/^(hd|tm):\d+-[a-f0-9]{6}$/.test(pc)) return json({ error: "cle" }, 400);
     const d = await env.VOTES.get(pc, "json");
-    const data = d && d.piece ? await env.VOTES.get("hf:" + pc.slice(3), "arrayBuffer") : null;
+    const data = d && d.piece ? await env.VOTES.get((pc.startsWith("tm:") ? "tf:" : "hf:") + pc.slice(3), "arrayBuffer") : null;
     if (!data) return json({ error: "introuvable" }, 404);
     return new Response(data, { status: 200, headers: { "Content-Type": d.piece.type, "X-Content-Type-Options": "nosniff", "Cache-Control": "no-store", "Content-Disposition": "inline" } });
   }
   const comptes = (await listPrefix(env, "ta:")).map((a) => ({ id: a.id, nom: a.nom, fonction: a.fonction, groupe: a.groupe, actif: a.actif, created: a.created, role: a.role || "elu", tel: a.tel || "" }));
   const demandes = (await listPrefix(env, "hd:")).sort((a, b) => b.ts - a.ts);
   const tribunes = (await listPrefix(env, "tt:")).sort((a, b) => b.ts - a.ts);
-  return json({ comptes, tribunes, demandes });
+  const messages = (await listPrefix(env, "tm:")).sort((a, b) => b.ts - a.ts);
+  return json({ comptes, tribunes, demandes, messages });
 }
 
 export async function onRequestPost({ request, env }) {
@@ -58,6 +59,13 @@ export async function onRequestPost({ request, env }) {
     await env.VOTES.delete("hf:" + cle.slice(3));
     if (a === "supprimer_demande") await env.VOTES.delete(cle);
     else { const d = await env.VOTES.get(cle, "json"); if (!d) return json({ error: "introuvable" }, 404); d.statut = "refuse"; delete d.piece; await env.VOTES.put(cle, JSON.stringify(d)); }
+    return json({ ok: true });
+  }
+  if (a === "supprimer_message") {
+    const cle = String(b.cle || "");
+    if (!/^tm:\d+-[a-f0-9]{6}$/.test(cle)) return json({ error: "cle" }, 400);
+    await env.VOTES.delete("tf:" + cle.slice(3));
+    await env.VOTES.delete(cle);
     return json({ ok: true });
   }
   if (a === "nouveau_code" || a === "desactiver" || a === "activer") {
