@@ -93,6 +93,25 @@ export async function onRequestPost({ request, env }) {
     await env.VOTES.put("ta:" + id, JSON.stringify(acc));
     return json({ ok: true, code });
   }
+  if (a === "supprimer_compte") {
+    const id = String(b.id || "");
+    if (!/^[a-z0-9-]{1,80}$/.test(id)) return json({ error: "id" }, 400);
+    if (!(await env.VOTES.get("ta:" + id))) return json({ error: "introuvable" }, 404);
+    await env.VOTES.delete("ta:" + id);
+    for (const t of await listPrefix(env, "tt:" + id + ":")) {
+      const k = t && t.cle; if (!k) continue;
+      await env.VOTES.delete(k); await env.VOTES.delete("ti:" + k.slice(3));
+    }
+    await rebuildPub(env);
+    return json({ ok: true });
+  }
+  if (a === "supprimer_tribune") {
+    const cle = String(b.cle || "");
+    if (!cle.startsWith("tt:")) return json({ error: "cle" }, 400);
+    await env.VOTES.delete(cle); await env.VOTES.delete("ti:" + cle.slice(3));
+    await rebuildPub(env);
+    return json({ ok: true });
+  }
   if (a === "publier" || a === "refuser" || a === "retirer") {
     const cle = String(b.cle || "");
     if (!cle.startsWith("tt:")) return json({ error: "cle" }, 400);
