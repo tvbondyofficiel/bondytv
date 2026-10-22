@@ -599,29 +599,22 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 #rep .intro{text-align:center;max-width:none}
 @media (max-width:480px){.yt-btn b{font-size:21px}}
 
-/* galerie « Bondy en images » : écrin clair, style magazine */
-.gx-wrap{position:relative;background:#fffdf9;margin:34px 0 0;padding:clamp(30px,5.5vw,72px) clamp(16px,4vw,60px) clamp(34px,5.5vw,72px);color:#12141c;border-top:1px solid #b8934a;border-bottom:1px solid #b8934a;box-shadow:0 0 0 7px #fffdf9,0 0 0 8px #e3d5b0}
-.gx-head{text-align:center;max-width:760px;margin:0 auto clamp(30px,4.5vw,56px)}
-.gx-k{display:inline-block;font-family:var(--display);text-transform:uppercase;letter-spacing:.34em;font-weight:600;font-size:13px;color:#8a6a2c}
-.gx-head h1{margin:16px 0 0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(46px,8vw,100px);line-height:.9;color:#12141c;letter-spacing:.01em}
-.gx-head h1 em{font-style:normal;color:#006233}
-.gx-head p{margin:20px auto 0;max-width:44ch;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:clamp(18px,1.9vw,21px);line-height:1.55;color:#4a4d58;border:0;padding:0}
-.gx-orn{display:block;width:140px;height:1px;margin:28px auto 0;background:linear-gradient(90deg,transparent,#b8934a,transparent);position:relative}
-.gx-orn::after{content:"";position:absolute;left:50%;top:-4px;width:9px;height:9px;background:#b8934a;transform:translateX(-50%) rotate(45deg)}
-.gx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:clamp(30px,4vw,52px) clamp(22px,3.4vw,44px);align-items:start;max-width:920px;margin:0 auto}
-.gx-i{all:unset;box-sizing:border-box;display:block;width:100%;cursor:zoom-in;opacity:0;transform:translateY(16px);animation:gxin .7s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
+/* galerie « Bondy en images » : même style que Bondy raconte */
+#gal .ph-head{text-align:center}
+#gal .ph-head p{margin-left:auto;margin-right:auto;border-left:0;padding-left:0;text-align:center}
+.gx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:960px;margin:34px auto 0;align-items:stretch}
+.gx-i{all:unset;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);overflow:hidden;cursor:zoom-in;transition:transform .2s ease,box-shadow .2s ease;opacity:0;transform:translateY(14px);animation:gxin .6s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
 @keyframes gxin{to{opacity:1;transform:none}}
-.gx-f{display:block;overflow:hidden;background:#fff;padding:9px;border:2px solid #b8934a;outline:1px solid #d9bd7e;outline-offset:4px;box-shadow:0 1px 2px rgba(60,45,15,.1),0 16px 32px -12px rgba(60,45,15,.3)}
-.gx-f img{display:block;width:100%;aspect-ratio:3/2;height:auto;object-fit:cover;transition:transform .9s cubic-bezier(.2,.7,.2,1);filter:saturate(1.05)}
+.gx-i:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,20,28,.14)}
+.gx-i:focus-visible{outline:3px solid #006233;outline-offset:3px}
+.gx-f{display:block;overflow:hidden;background:#efede9}
+.gx-f img{display:block;width:100%;aspect-ratio:16/10;height:auto;object-fit:cover;transition:transform .5s ease}
 .gx-i:hover .gx-f img{transform:scale(1.04)}
-.gx-i:focus-visible .gx-f{outline:3px solid #006233;outline-offset:5px}
-.gx-c{display:block;padding:20px 2px 0;border-top:0;position:relative}
-.gx-c::before{content:"";display:block;width:34px;height:2px;background:#b8934a;margin:0 0 12px}
-.gx-c i{display:block;font-style:normal;font-family:var(--display);font-weight:700;font-size:13px;letter-spacing:.24em;color:#8a6a2c;margin:0 0 4px}
-.gx-c b{display:block;font-family:var(--display);text-transform:uppercase;letter-spacing:.07em;font-weight:700;font-size:18px;line-height:1.15;color:#12141c}
-.gx-c small{display:block;margin-top:6px;font-family:Georgia,"Times New Roman",serif;font-style:italic;font-size:15px;line-height:1.45;color:#5b5e69}
-
-@media(max-width:520px){.gx{grid-template-columns:minmax(0,1fr);max-width:420px}}
+.gx-c{display:flex;flex-direction:column;gap:10px;padding:16px 20px 20px;flex:1}
+.gx-c .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.gx-c b{display:block;border-left:4px solid #b8975a;padding-left:12px;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(22px,2.4vw,27px);line-height:1.05;color:#12141c}
+.gx-c small{display:block;font-size:16px;line-height:1.5;color:#3d4050}
+@media(max-width:560px){.gx{grid-template-columns:minmax(0,1fr);gap:16px}}
 @media(prefers-reduced-motion:reduce){.gx-i{animation:none;opacity:1;transform:none}.gx-f img{transition:none}}
 </style>
 </head>
@@ -796,12 +789,12 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (document.getElementById("gal")) {
       var tt = esc(ei.titre || "Bondy en images").split(" ");
       var last = tt.pop();
-      var html = '<div class="gx-wrap"><div class="gx-head" id="images"><span class="gx-k">Bondy TV · Photographies</span><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (ei.introduction ? '<p>' + esc(ei.introduction) + '</p>' : "") + '<span class="gx-orn" aria-hidden="true"></span></div><div class="gx">';
+      var html = '<div class="ph-head" id="images"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (ei.introduction ? '<p>' + esc(ei.introduction) + '</p>' : "") + '</div><div class="gx">';
       ph.forEach(function (x, i) {
         var n = String(i + 1); if (n.length < 2) n = "0" + n;
-        html += '<button type="button" class="gx-i" data-i="' + i + '" style="--d:' + Math.min(i, 12) * 70 + 'ms" aria-label="Voir en grand : ' + esc(x.titre) + '"><span class="gx-f"><img src="' + esc(x.image) + '" alt="' + esc(x.description || x.titre) + '" loading="' + (i < 4 ? "eager" : "lazy") + '"></span><span class="gx-c"><i>' + n + '</i><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></button>';
+        html += '<button type="button" class="gx-i" data-i="' + i + '" style="--d:' + Math.min(i, 12) * 70 + 'ms" aria-label="Voir en grand : ' + esc(x.titre) + '"><span class="gx-f"><img src="' + esc(x.image) + '" alt="' + esc(x.description || x.titre) + '" loading="' + (i < 4 ? "eager" : "lazy") + '"></span><span class="gx-c"><span class="pill">Photo</span><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></button>';
       });
-      html += '</div></div><div class="ph-cta"><div class="ph-cta-t"><b>Vous aimez la photo ?</b><p>Habitants de Bondy, amateurs ou passionnés : envoyez-nous vos plus belles images de la ville. Les meilleures seront publiées dans le prochain numéro, avec votre nom, et nous parlerons de vous.</p><p class="ph-cta-n">Les photos doivent être de vous.</p></div><a href="/temoigner.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
+      html += '</div><div class="ph-cta"><div class="ph-cta-t"><b>Vous aimez la photo ?</b><p>Habitants de Bondy, amateurs ou passionnés : envoyez-nous vos plus belles images de la ville. Les meilleures seront publiées dans le prochain numéro, avec votre nom, et nous parlerons de vous.</p><p class="ph-cta-n">Les photos doivent être de vous.</p></div><a href="/temoigner.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
       document.getElementById("gal").innerHTML = html;
       var lb = document.querySelector(".lb"), cur = 0;
       function show(i) { cur = (i + ph.length) % ph.length; var x = ph[cur]; lb.querySelector("img").src = x.image; lb.querySelector("img").alt = x.description || x.titre; lb.querySelector("figcaption").innerHTML = "<b>" + esc(x.titre) + "</b>" + esc(x.legende || ""); lb.hidden = false; }
