@@ -111,6 +111,8 @@ a { color: inherit; }
 .photo.has-art img { object-position: 50% 40%; }
 .photo.has-art .stamp { top: 14px; bottom: auto; left: 14px; width: 84px; height: 84px; font-size: 16px; }
 .photo.has-logo img { position: relative; width: 62%; height: auto; display: block; }
+.art .vis.has-img.is-poster { aspect-ratio: auto; background: #fff; }
+.art .vis.has-img.is-poster img { position: static; width: 100%; height: auto; max-height: 82vh; object-fit: contain; }
 .art .vis.has-img.is-portrait { aspect-ratio: 4 / 3; }
 .art .vis.has-img.is-portrait img { object-position: 50% 20%; }
 .credit { font-size: 13px; color: var(--muted); margin: 0; }
@@ -467,6 +469,8 @@ details[open] > summary { margin-bottom: 6px; }
 .grid > .art:not(.wide) h3 { font-size: clamp(24px, 2.7vw, 32px); line-height: 1.02; }
 .grid > .art:not(.wide) .vis, .grid > .art:not(.wide) .vis.has-img, 
 .grid > .art:not(.wide) .vis.yt-box.on { aspect-ratio: 16 / 9; }
+.grid > .art:not(.wide) .vis.has-img.is-poster { aspect-ratio: auto; }
+.grid > .art:not(.wide) .vis.has-img.is-poster img { position: static; width: 100%; height: auto; max-height: none; object-fit: contain; display: block; }
 .grid > .art:not(.wide) .txt { padding: 18px 20px 20px; gap: 10px; }
 .grid > .art:not(.wide) .vis.has-icon { aspect-ratio: 16 / 5; }
 .grid > .art:not(.wide) .vis.has-icon svg { height: 64%; }
@@ -611,7 +615,7 @@ details[open] > summary { margin-bottom: 6px; }
       return '<div class="vis has-video"><video controls playsinline preload="none"' + (a.image ? ' poster="' + esc(a.image) + '"' : "") + ' src="' + esc(a.fichier_video) + '"></video></div>';
     }
     if (v === "image" && a.image) {
-      var cls = "vis has-img" + (a.image_portrait ? " is-portrait" : "");
+      var cls = "vis has-img" + (a.affiche_entiere ? " is-poster" : a.image_portrait ? " is-portrait" : "");
       var im = '<img src="' + esc(a.image) + '" alt="' + esc(a.image_description) + '" loading="lazy">';
       if (a.lien_video) {
         return '<a class="' + cls + '" href="' + esc(safeUrl(a.lien_video)) + '" target="_blank" rel="noopener" aria-label="Voir la vidéo">' + im + "</a>";

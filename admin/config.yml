@@ -76,6 +76,7 @@ collections:
               - {label: "Image (si Visuel = Une image)", name: image, widget: image, required: false}
               - {label: "Description de l'image (pour les malvoyants)", name: image_description, widget: string, required: false}
               - {label: "Image verticale (portrait)", name: image_portrait, widget: boolean, default: false}
+              - {label: "Afficher l'image entière (affiche, flyer)", name: affiche_entiere, widget: boolean, default: false, required: false}
               - {label: "Lien de la vidéo (YouTube : la vidéo se lit dans la page ; TikTok, Instagram : simple lien)", name: lien_video, widget: string, required: false}
               - {label: "Vidéo envoyée sur le site (fichier MP4, 25 Mo maximum)", name: fichier_video, widget: file, required: false, choose_url: false}
               - {label: "Ligne sous le résumé (crédit, durée...)", name: credit, widget: string, required: false}
