@@ -501,10 +501,10 @@ details[open] > summary { margin-bottom: 6px; }
 .sec-sub{margin:-6px 0 18px;font-size:17px;color:#5a5f6e}.sec-sub a{color:#12141c;font-weight:700;text-decoration:underline;text-underline-offset:3px}
 
 /* page Articles : même style que Bondy raconte */
-.ar-head{text-align:center;margin:34px 0 8px}
-.ar-head h1{margin:0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(36px,5.6vw,70px);line-height:.95}
+.ar-head{text-align:center;margin:40px 0 0}
+.ar-head h1{margin:0;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(46px,8.6vw,108px);line-height:.92}
 .ar-head h1 em{font-style:normal;color:#b8975a}
-.ar-head p{margin:16px auto 0;max-width:52ch;font-size:clamp(18px,2vw,22px);line-height:1.45;color:var(--muted)}
+.ar-head p{margin:14px auto 0;max-width:52ch;font-size:clamp(19px,2.2vw,24px);line-height:1.45;color:var(--muted)}
 .ar-filters{justify-content:center;margin:26px 0 30px}
 .hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c}
 .hs-inv>div{max-width:52%}
@@ -518,8 +518,6 @@ details[open] > summary { margin-bottom: 6px; }
 .ar-grid,.ar-filters{max-width:960px;margin-left:auto;margin-right:auto}
 .ar-grid>.art h3{border-left:4px solid #b8975a;padding-left:12px}
 .ar-filters{margin:0 auto 24px}
-html body .ar-grid>.art:first-child .vis.has-img{height:auto!important;aspect-ratio:21/9!important;max-height:none!important}
-html body .ar-grid>.art:first-child .vis.has-img img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .ar-grid{grid-template-columns:repeat(3,minmax(0,1fr))!important;gap:20px!important;align-items:stretch}
 .ar-grid>.art{background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);overflow:hidden}
 .ar-grid>.art .vis:not([class*="has-"]){display:none}
@@ -532,11 +530,8 @@ html body .ar-grid>.art:first-child .vis.has-img img{position:absolute;inset:0;w
 .ar-grid>.art .chapo{font-size:15.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 .ar-grid>.art:has(details[open]) .chapo{-webkit-line-clamp:unset;display:block}
 .ar-grid>.art.wide{grid-column:auto}
-.ar-grid>.art:first-child{grid-column:1/-1}
-.ar-grid>.art:not(:first-child) .vis.has-img,.ar-grid>.art:not(:first-child).wide .vis.has-img{aspect-ratio:16/10!important}
-.ar-grid>.art:not(:first-child) .vis.has-img.is-poster{aspect-ratio:auto!important}
-.ar-grid>.art:first-child .vis.has-img{aspect-ratio:auto!important;height:340px}
-.ar-grid>.art:first-child .vis.has-img img{object-position:50% 30%}
+.ar-grid>.art .vis.has-img,.ar-grid>.art.wide .vis.has-img{aspect-ratio:16/10!important}
+.ar-grid>.art .vis.has-img.is-poster{aspect-ratio:auto!important}
 .ar-grid>.art:has(details[open]){grid-column:1/-1!important}
 .ar-grid>.art:has(details[open]) .vis.has-img:not(.is-poster){aspect-ratio:auto!important;height:360px}
 @media(max-width:900px){.ar-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
@@ -544,8 +539,8 @@ html body .ar-grid>.art:first-child .vis.has-img img{position:absolute;inset:0;w
 
 /* cartes homogènes : même hauteur d'image, même gabarit de texte */
 .ar-grid>.art:not(:has(details[open])) .vis,.ar-grid>.art:not(:has(details[open])) .vis.has-img,.ar-grid>.art:not(:has(details[open])) .vis.has-icon,.ar-grid>.art:not(:has(details[open])) .vis.has-ill,.ar-grid>.art:not(:has(details[open])) .vis.has-play,.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster{aspect-ratio:16/10!important;height:auto!important}
-.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster{background:#fff}
-.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;max-height:none}
+.ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster{background:#fff}
+.ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;max-height:none}
 .ar-grid>.art:not(:has(details[open])) .vis.has-icon svg{height:46%}
 .ar-grid>.art:not(:has(details[open])) .vis.has-ill img,.ar-grid>.art:not(:has(details[open])) .vis.has-ill svg{max-height:100%;width:100%;height:100%;object-fit:contain}
 .ar-grid>.art .chapo{-webkit-line-clamp:5}
