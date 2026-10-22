@@ -433,6 +433,40 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .bar nav .dd-m a[aria-current="page"]{color:var(--fg);font-weight:800}
 .bar nav a,.bar nav .dd>summary{font-size:13.5px;letter-spacing:.05em}
 @media (min-width:900px){.bar nav a,.bar nav .dd>summary{font-size:12.5px;letter-spacing:.03em}}
+
+/* Vos articles : maquette */
+.va-tabs{position:sticky;top:0;z-index:20;display:flex;flex-wrap:wrap;gap:10px;margin:0 0 34px;padding:12px 0;background:var(--bg,#f6f4f1);border-bottom:1px solid rgba(18,20,28,.14)}
+.va-tab{display:inline-flex;align-items:center;gap:10px;padding:10px 16px 10px 12px;border:2px solid #12141c;background:#fff;color:#12141c;text-decoration:none;font:700 15px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.1em;border-radius:999px;transition:transform .15s,box-shadow .15s}
+.va-tab:hover{transform:translateY(-2px);box-shadow:0 6px 14px rgba(18,20,28,.16)}
+.va-tab i{display:inline-block;width:14px;height:14px;border-radius:50%;background:var(--c)}
+.va-tab b{display:inline-grid;place-items:center;min-width:24px;height:24px;padding:0 6px;border-radius:999px;background:#12141c;color:#fff;font-size:13px;letter-spacing:0}
+.va-sec{margin:0 0 54px;scroll-margin-top:90px}
+.va-head{display:flex;align-items:center;gap:18px;flex-wrap:wrap;margin:0 0 22px;padding:0 0 16px;border-bottom:4px solid var(--c)}
+.va-head .ic{display:grid;place-items:center;width:54px;height:54px;border-radius:14px;background:var(--c);color:#fff;font:700 26px/1 var(--display,Arial)}
+.va-head h2{margin:0;font:700 clamp(30px,4.4vw,46px)/1 var(--display,Arial Narrow);text-transform:uppercase}
+.va-head p{margin:4px 0 0;color:#555a69;font-size:16px}
+.va-head .tx{flex:1;min-width:220px}
+.va-btn{display:inline-block;padding:13px 22px;background:var(--c);color:#fff;text-decoration:none;font:700 15px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em;border-radius:10px}
+.va-btn:hover{filter:brightness(1.12)}
+.va-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,330px),1fr));gap:20px}
+.va-card{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid var(--c);border-radius:6px;padding:20px 22px 18px;box-shadow:0 8px 22px rgba(18,20,28,.07)}
+.va-card .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:var(--c);color:#fff;font:700 12px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em}
+.va-card h3{margin:0;font:700 clamp(24px,2.6vw,30px)/1.05 var(--display,Arial Narrow);text-transform:uppercase}
+.va-card .corps{margin:0;font-size:17px;line-height:1.55;color:#12141c}
+.va-card .corps p{margin:0 0 10px}
+.va-card img{max-width:100%;height:auto;display:block;border-radius:4px}
+.va-card .more{align-self:flex-start;border:0;background:none;padding:0;color:var(--c);font:700 14px/1 var(--display,Arial Narrow);text-transform:uppercase;letter-spacing:.12em;cursor:pointer;text-decoration:underline;text-underline-offset:4px}
+.va-sig{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(18,20,28,.12)}
+.va-sig .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:var(--c);color:#fff;font:700 17px/1 var(--display,Arial Narrow)}
+.va-sig b{display:block;font-size:16px;line-height:1.2}
+.va-sig span{display:block;color:#555a69;font-size:14px}
+.va-empty{display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;padding:24px 26px;border:2px dashed var(--c);border-radius:8px;background:rgba(255,255,255,.6)}
+.va-empty p{margin:0;font-size:18px;color:#12141c;max-width:46ch}
+.va-cta{margin:20px 0 10px;padding:30px 28px;background:#12141c;color:#f4f2ee;border-radius:10px}
+.va-cta h2{margin:0 0 8px;font:700 clamp(30px,4vw,44px)/1 var(--display,Arial Narrow);text-transform:uppercase;color:#f4f2ee}
+.va-cta p{margin:0 0 18px;color:#d9d6cf;font-size:18px;max-width:54ch}
+.va-cta .row{display:flex;flex-wrap:wrap;gap:12px}
+.va-note{margin:0 0 28px;padding:14px 18px;background:#f3ead6;border-left:6px solid #b8975a;font-size:16px;max-width:62ch}
 </style>
 </head>
 <body>
@@ -626,18 +660,25 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 
     var SEC = [
-      { id: "habitants", titre: "Les habitants", tag: "Habitant", lien: "/habitants.html", ecrire: "Écrire un texte" },
-      { id: "elus", titre: "Les élus", tag: "Élu", lien: "/tribune.html", ecrire: "Espace des élus" },
-      { id: "associations", titre: "Les associations", tag: "Association", lien: "/pro.html", ecrire: "Espace associations" },
-      { id: "commerces", titre: "Les commerçants", tag: "Commerçant", lien: "/pro.html", ecrire: "Espace commerçants" }
+      { id: "habitants", titre: "Les habitants", ic: "H", c: "#d3141f", sous: "Vos voisins prennent la parole.", tag: "Habitant", lien: "/habitants.html", ecrire: "Écrire un texte", vide: "Aucun texte d’habitant pour l’instant. Racontez votre quartier, donnez votre avis, partagez une idée." },
+      { id: "elus", titre: "Les élus", ic: "É", c: "#006233", sous: "Majorité ou opposition : la même place pour tous.", tag: "Élu", lien: "/tribune.html", ecrire: "Espace des élus", vide: "Aucune tribune pour l’instant. Les élus peuvent demander leur accès à leur espace." },
+      { id: "associations", titre: "Les associations", ic: "A", c: "#b8975a", sous: "La vie associative de Bondy, gratuite.", tag: "Association", lien: "/pro.html", ecrire: "Espace associations", vide: "Aucune annonce d’association pour l’instant. Annoncez vos événements, c’est gratuit." },
+      { id: "commerces", titre: "Les commerçants", ic: "C", c: "#12141c", sous: "La bonne adresse près de chez vous.", tag: "Commerçant", lien: "/pro.html", ecrire: "Espace commerçants", vide: "Aucun commerçant pour l’instant. Présentez votre boutique aux Bondynois." }
     ];
     $("temoigner-titre").innerHTML = "Vos <em>articles</em>";
-    $("temoigner-intro").textContent = "Ce que vous nous envoyez : habitants, élus, associations et commerçants. Chaque texte est relu par Bondy TV avant d’être publié. Les articles écrits par notre rédaction sont dans Magazine, Articles.";
-    function carte(t, tag, signature) {
-      var paras = String(t.texte || "").split(/\n{2,}/).map(function (q) { return "<p>" + esc(q).replace(/\n/g, "<br>") + "</p>"; }).join("");
-      var im = t.image ? '<p><a href="' + esc(t.image) + '" target="_blank" rel="noopener"><img src="' + esc(t.image) + '" alt="Affiche : ' + esc(t.titre) + '" loading="lazy" style="max-width:100%;height:auto;display:block"></a></p>' : "";
-      var lk = /^https:\/\//i.test(t.lien || "") ? '<p><a href="' + esc(t.lien) + '" target="_blank" rel="noopener">' + esc(t.lien) + "</a></p>" : "";
-      return '<article class="tri"><p style="margin:0 0 8px"><span class="tag">Reçu de : ' + esc(tag) + "</span></p><h3>" + esc(t.titre) + "</h3>" + im + paras + lk + '<p class="sig">' + esc(signature) + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + "</p></article>";
+    $("temoigner-intro").textContent = "Ce que vous nous envoyez : habitants, élus, associations et commerçants.";
+    var LONG = 340;
+    function carte(t, c, sig, det) {
+      var txt = String(t.texte || ""), long = txt.length > LONG;
+      var paras = function (x) { return x.split(/\n{2,}/).map(function (q) { return "<p>" + esc(q).replace(/\n/g, "<br>") + "</p>"; }).join(""); };
+      var cut = long ? txt.slice(0, LONG).replace(/\s+\S*$/, "") + "…" : txt;
+      var im = t.image ? '<a href="' + esc(t.image) + '" target="_blank" rel="noopener"><img src="' + esc(t.image) + '" alt="Affiche : ' + esc(t.titre) + '" loading="lazy"></a>' : "";
+      var lk = /^https:\/\//i.test(t.lien || "") ? '<p><a href="' + esc(t.lien) + '" target="_blank" rel="noopener">Voir le lien</a></p>' : "";
+      var ini = (String(sig).trim().charAt(0) || "?").toUpperCase();
+      return '<article class="va-card" style="--c:' + c.c + '"><span class="pill">' + esc(c.tag) + "</span><h3>" + esc(t.titre) + "</h3>" + im +
+        '<div class="corps" data-full="' + esc(paras(txt)) + '" data-cut="' + esc(paras(cut)) + '">' + paras(cut) + "</div>" + lk +
+        (long ? '<button type="button" class="more">Lire la suite</button>' : "") +
+        '<div class="va-sig"><span class="av">' + esc(ini) + "</span><div><b>" + esc(sig) + "</b><span>" + esc(det) + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + "</span></div></div></article>";
     }
     Promise.all([
       fetch("/api/habitants").then(function (r) { return r.json(); }).catch(function () { return {}; }),
@@ -645,18 +686,27 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     ]).then(function (R) {
       var H = R[0] || {}, T = R[1] || {};
       var data = {
-        habitants: (H.textes || []).map(function (x) { return carte(x, "Habitant", x.nom); }),
-        elus: (T.tribunes || []).map(function (x) { return carte(x, "Élu", x.nom + " · " + (x.fonction || "") + (x.groupe ? " · " + x.groupe : "")); }),
-        associations: (H.assos || []).map(function (x) { return carte(x, "Association", x.nom); }),
-        commerces: (H.commerces || []).map(function (x) { return carte(x, "Commerçant", x.nom); })
+        habitants: (H.textes || []).map(function (x) { return carte(x, SEC[0], x.nom, "Habitant de Bondy"); }),
+        elus: (T.tribunes || []).map(function (x) { return carte(x, SEC[1], x.nom, (x.fonction || "Élu") + (x.groupe ? " · " + x.groupe : "")); }),
+        associations: (H.assos || []).map(function (x) { return carte(x, SEC[2], x.nom, "Association"); }),
+        commerces: (H.commerces || []).map(function (x) { return carte(x, SEC[3], x.nom, "Commerçant"); })
       };
-      var nav = '<nav class="filters" aria-label="Aller à une rubrique" style="display:flex;flex-wrap:wrap;gap:10px;margin:0 0 26px">' + SEC.map(function (c) { return '<a class="btn-all" style="padding:10px 18px;font-size:15px" href="#' + c.id + '">' + esc(c.titre) + "</a>"; }).join("") + "</nav>";
-      var h = nav + SEC.map(function (c) {
+      var tabs = '<nav class="va-tabs" aria-label="Aller à une rubrique">' + SEC.map(function (c) { return '<a class="va-tab" style="--c:' + c.c + '" href="#' + c.id + '"><i></i>' + esc(c.titre.replace("Les ", "")) + "<b>" + data[c.id].length + "</b></a>"; }).join("") + "</nav>";
+      var note = '<p class="va-note"><strong>Reçu et relu.</strong> Chaque texte est relu par Bondy TV avant d’être publié. Les articles de notre rédaction sont dans <a href="/articles.html">Magazine, Articles Bondy TV</a>.</p>';
+      var secs = SEC.map(function (c) {
         var L = data[c.id];
-        return '<section id="' + c.id + '" style="margin:0 0 34px"><h2 class="t-sub">' + esc(c.titre) + "</h2>" + (L.length ? L.join("") : '<p class="hint">Pas encore de texte ici.</p>') + '<p><a href="' + c.lien + '">' + esc(c.ecrire) + " →</a></p></section>";
+        return '<section class="va-sec" id="' + c.id + '" style="--c:' + c.c + '"><div class="va-head"><span class="ic" aria-hidden="true">' + c.ic + '</span><div class="tx"><h2>' + esc(c.titre) + "</h2><p>" + esc(c.sous) + '</p></div><a class="va-btn" href="' + c.lien + '">' + esc(c.ecrire) + " →</a></div>" +
+          (L.length ? '<div class="va-grid">' + L.join("") + "</div>" : '<div class="va-empty"><p>' + esc(c.vide) + '</p><a class="va-btn" href="' + c.lien + '">Soyez le premier →</a></div>') + "</section>";
       }).join("");
+      var cta = '<div class="va-cta"><h2>Vous aussi, prenez la parole</h2><p>Gratuit pour les habitants, les élus et les associations. Nous relisons, puis c’est en ligne.</p><div class="row">' + SEC.map(function (c) { return '<a class="va-btn" style="--c:' + c.c + (c.id === "commerces" ? ";background:#f4f2ee;color:#12141c" : "") + '" href="' + c.lien + '">' + esc(c.ecrire) + "</a>"; }).join("") + "</div></div>";
       var box = $("pubtri");
-      box.innerHTML = h; box.hidden = false; box.style.gridColumn = "1 / -1";
+      box.innerHTML = tabs + note + secs + cta; box.hidden = false; box.style.gridColumn = "1 / -1"; box.style.maxWidth = "none";
+      box.addEventListener("click", function (ev) {
+        var b = ev.target.closest(".more"); if (!b) return;
+        var d = b.previousElementSibling; while (d && !d.classList.contains("corps")) d = d.previousElementSibling;
+        if (!d) return; var open = b.dataset.o === "1";
+        d.innerHTML = open ? d.dataset.cut : d.dataset.full; b.dataset.o = open ? "0" : "1"; b.textContent = open ? "Lire la suite" : "Réduire";
+      });
       if (location.hash) { try { var el = document.querySelector(location.hash); if (el) el.scrollIntoView(); } catch (e) {} }
     });
     $("t-side").hidden = true;
