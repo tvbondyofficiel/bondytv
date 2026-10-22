@@ -733,7 +733,7 @@ details[open] > summary { margin-bottom: 6px; }
 
   function render(d) {
     (function () {
-      var b = d.banniere || {};
+      var b = {}; /* pub : page d accueil seulement */
       if (document.getElementById("pubpop")) return;
       var today = new Date().toLocaleDateString("sv-SE", { timeZone: "Europe/Paris" });
       var ok = b.actif && (b.image || b.titre) && (!b.debut || today >= String(b.debut).slice(0, 10)) && (!b.fin || today <= String(b.fin).slice(0, 10));
