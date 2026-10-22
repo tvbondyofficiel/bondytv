@@ -72,6 +72,19 @@ export async function onRequestPost({ request, env }) {
   }
 }
 
+// Test rapide : ouvrir /api/chat?test=1 dans le navigateur pour voir si l'IA est branchée et répond.
+export async function onRequestGet({ request, env }) {
+  const u = new URL(request.url);
+  if (u.searchParams.get("test") !== "1") return json({ error: "methode_non_autorisee" }, 405);
+  if (!env.AI) return json({ ia_branchee: false, message: "La variable AI n'est pas vue par le site (nouvelle mise en ligne nécessaire)." });
+  try {
+    const out = await env.AI.run(MODEL, { messages: [{ role: "user", content: "Réponds juste : ok" }], max_tokens: 10 });
+    return json({ ia_branchee: true, reponse_ok: true, extrait: clean(out && (out.response || out.result || "")).slice(0, 40) });
+  } catch (e) {
+    return json({ ia_branchee: true, reponse_ok: false, erreur: String((e && e.message) || e).slice(0, 300) });
+  }
+}
+
 export async function onRequest() {
   return json({ error: "methode_non_autorisee" }, 405);
 }
