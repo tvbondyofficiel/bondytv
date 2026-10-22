@@ -54,7 +54,7 @@ function draw(){var f=$("flt").value;
 }
 function drawDem(){var L=data.demandes||[];
  $("dm").innerHTML=L.length?L.map(function(d){var lbl={attente:"À traiter",accepte:"Accepté",refuse:"Refusé"}[d.statut]||d.statut;
-  return '<div class="c '+(d.statut==="attente"?"att":d.statut==="accepte"?"pub":"")+'"><div class="top"><span>'+e(d.nom)+' · <a href="tel:'+e(d.tel)+'">'+e(d.tel)+'</a>'+(d.adresse?' · '+e(d.adresse):(d.quartier?' · '+e(d.quartier):''))+'</span><span class="tag">'+e(lbl)+'</span></div><p class="m">'+new Date(d.ts).toLocaleString("fr-FR")+'</p><div class="act">'+(d.statut==="attente"?'<button class="g" data-d="accepter" data-k="'+e(d.cle)+'">Accepter et créer le code</button><button class="r" data-d="refuser_demande" data-k="'+e(d.cle)+'">Refuser</button>':'')+'<button class="l" data-d="supprimer_demande" data-k="'+e(d.cle)+'">Supprimer</button></div></div>'}).join(""):'<p class="m">Aucune demande pour l\'instant.</p>';
+  return '<div class="c '+(d.statut==="attente"?"att":d.statut==="accepte"?"pub":"")+'"><div class="top"><span>'+e(d.nom)+' · <a href="tel:'+e(d.tel)+'">'+e(d.tel)+'</a>'+(d.adresse?' · '+e(d.adresse):(d.quartier?' · '+e(d.quartier):''))+'</span><span class="tag">'+e(lbl)+'</span></div><p class="m">'+new Date(d.ts).toLocaleString("fr-FR")+'</p><div class="act">'+(d.statut==="attente"?(d.piece?'<button class="l" data-d="piece" data-k="'+e(d.cle)+'">Voir la pièce d\'identité</button>':'')+'<button class="g" data-d="accepter" data-k="'+e(d.cle)+'">Accepter et créer le code</button><button class="r" data-d="refuser_demande" data-k="'+e(d.cle)+'">Refuser</button>':'')+'<button class="l" data-d="supprimer_demande" data-k="'+e(d.cle)+'">Supprimer</button></div></div>'}).join(""):'<p class="m">Aucune demande pour l\'instant.</p>';
 }
 function showHab(j){var msg="Bonjour "+j.nom+", voici votre accès à La parole aux habitants de Bondy TV Magazine.\nAdresse : "+location.origin+"/habitant.html\nIdentifiant : "+j.id+"\nCode : "+j.code+"\nGardez ce code pour vous. Vous écrivez votre texte, nous le relisons, puis il est publié.";
  var num=String(j.tel||"").replace(/\D/g,"");
@@ -76,6 +76,7 @@ $("cl").addEventListener("click",function(ev){var b=ev.target.closest("button");
  if(c==="nouveau_code"&&!confirm("Créer un nouveau code ? L'ancien ne marchera plus."))return;
  api({action:c,id:i}).then(function(j){if(!j.ok){alert("Erreur : "+(j.error||j.status));return}var a=data.comptes.filter(function(x){return x.id===i})[0]||{};if(j.code)showCode(i,j.code,a.nom||i);load()})});
 $("dm").addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b||!b.dataset.d)return;var a=b.dataset.d;
+ if(a==="piece"){fetch("/api/tribune-admin?piece="+encodeURIComponent(b.dataset.k),{headers:{"Authorization":"Bearer "+tok()}}).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(bl){window.open(URL.createObjectURL(bl),"_blank")}).catch(function(){alert("Impossible d'ouvrir la pièce.")});return}
  if(a==="supprimer_demande"&&!confirm("Supprimer cette demande ?"))return;
  if(a==="refuser_demande"&&!confirm("Refuser cette demande ?"))return;
  api({action:a,cle:b.dataset.k}).then(function(j){if(!j.ok){alert("Erreur : "+(j.error||j.status));return}if(a==="accepter")showHab(j);load()})});

@@ -445,7 +445,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <div class="fld"><label for="h-tel">Numéro de téléphone (obligatoire)</label><input autocomplete="tel" id="h-tel" inputmode="tel" placeholder="06 12 34 56 78" required type="tel"/></div>
       </div>
       <div class="fld"><label for="h-adresse">Votre adresse à Bondy</label><input autocomplete="street-address" id="h-adresse" placeholder="Numéro, rue" required type="text"/></div>
-      <p class="hint">Votre nom, votre téléphone et votre adresse nous servent à vérifier que vous habitez Bondy. Ils ne sont jamais publiés.</p>
+      <div class="fld"><label for="h-piece">Copie de votre pièce d'identité</label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="h-piece" required type="file"/></div>
+      <p class="hint">Votre nom, votre téléphone, votre adresse et votre pièce d'identité nous servent uniquement à vérifier votre identité. Ils ne sont jamais publiés. La pièce d'identité est supprimée dès que votre demande est traitée. Formats : PDF, JPG ou PNG, 5 Mo au maximum.</p>
       <label class="check" for="h-ok"><input id="h-ok" required type="checkbox"/><span>J'accepte d'être contacté par téléphone pour recevoir mon accès.</span></label>
       <button class="send" id="h-send" type="submit">Envoyer ma demande</button>
       <p aria-live="polite" class="status" id="h-status" role="status"></p>
@@ -615,13 +616,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     (function () {
       var f = $("hform"), st = $("h-status"), bt = $("h-send");
       function say(m, e) { st.textContent = m; st.className = "status" + (e ? " err" : ""); }
-      var ER = { adresse: "L\u2019adresse est obligatoire.", nom: "Écrivez votre prénom et votre nom.", tel: "Le numéro de téléphone est obligatoire (10 chiffres).", trop_de_tentatives: "Trop de demandes. Réessayez plus tard.", non_branche: "Le service n'est pas encore activé. Écrivez-nous sur WhatsApp." };
+      var ER = { piece: "Ajoutez la copie de votre pièce d\u2019identité.", piece_taille: "Le fichier est trop lourd (5 Mo au maximum).", piece_type: "Le fichier doit être un PDF, un JPG ou un PNG.", adresse: "L\u2019adresse est obligatoire.", nom: "Écrivez votre prénom et votre nom.", tel: "Le numéro de téléphone est obligatoire (10 chiffres).", trop_de_tentatives: "Trop de demandes. Réessayez plus tard.", non_branche: "Le service n'est pas encore activé. Écrivez-nous sur WhatsApp." };
       f.addEventListener("submit", function (e) {
         e.preventDefault();
         if (!$("h-ok").checked) { say("Cochez la case pour continuer.", true); return; }
         bt.disabled = true; say("Envoi en cours...", false);
+        var pf = $("h-piece").files[0];
+        if (!pf) { say("Ajoutez la copie de votre pièce d'identité.", true); bt.disabled = false; return; }
+        if (pf.size > 5 * 1024 * 1024) { say("Le fichier est trop lourd (5 Mo au maximum).", true); bt.disabled = false; return; }
         var body = { nom: $("h-nom").value, tel: $("h-tel").value, adresse: $("h-adresse").value, botcheck: $("h-bot").checked };
-        fetch("/api/habitants", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify(body) })
+        var fd0 = new FormData(); fd0.append("nom", body.nom); fd0.append("tel", body.tel); fd0.append("adresse", body.adresse); fd0.append("piece", pf); if (body.botcheck) fd0.append("botcheck", "1");
+        fetch("/api/habitants", { method: "POST", body: fd0 })
           .then(function (r) { return r.json(); })
           .then(function (j) {
             if (!j.ok) { say(ER[j.error] || "L'envoi n'a pas marché. Réessayez.", true); return; }

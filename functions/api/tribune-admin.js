@@ -5,6 +5,14 @@ import { json, clean, cleanLine, normTel, slug, newCode, codeHash, modAllowed, l
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
   if (!modAllowed(request, env)) return json({ error: "refuse" }, 401);
+  const url = new URL(request.url), pc = url.searchParams.get("piece");
+  if (pc) {
+    if (!/^hd:\d+-[a-f0-9]{6}$/.test(pc)) return json({ error: "cle" }, 400);
+    const d = await env.VOTES.get(pc, "json");
+    const data = d && d.piece ? await env.VOTES.get("hf:" + pc.slice(3), "arrayBuffer") : null;
+    if (!data) return json({ error: "introuvable" }, 404);
+    return new Response(data, { status: 200, headers: { "Content-Type": d.piece.type, "X-Content-Type-Options": "nosniff", "Cache-Control": "no-store", "Content-Disposition": "inline" } });
+  }
   const comptes = (await listPrefix(env, "ta:")).map((a) => ({ id: a.id, nom: a.nom, fonction: a.fonction, groupe: a.groupe, actif: a.actif, created: a.created, role: a.role || "elu", tel: a.tel || "" }));
   const demandes = (await listPrefix(env, "hd:")).sort((a, b) => b.ts - a.ts);
   const tribunes = (await listPrefix(env, "tt:")).sort((a, b) => b.ts - a.ts);
@@ -40,14 +48,16 @@ export async function onRequestPost({ request, env }) {
     const code = newCode();
     await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction: "Habitant de Bondy", groupe: "", role: "habitant", tel: d.tel, actif: true, created: Date.now(), ch: await codeHash(env, id, code) }));
     d.statut = "accepte"; d.compte = id;
+    await env.VOTES.delete("hf:" + cle.slice(3)); delete d.piece;
     await env.VOTES.put(cle, JSON.stringify(d));
     return json({ ok: true, id, code, nom, tel: d.tel });
   }
   if (a === "refuser_demande" || a === "supprimer_demande") {
     const cle = String(b.cle || "");
     if (!cle.startsWith("hd:")) return json({ error: "cle" }, 400);
+    await env.VOTES.delete("hf:" + cle.slice(3));
     if (a === "supprimer_demande") await env.VOTES.delete(cle);
-    else { const d = await env.VOTES.get(cle, "json"); if (!d) return json({ error: "introuvable" }, 404); d.statut = "refuse"; await env.VOTES.put(cle, JSON.stringify(d)); }
+    else { const d = await env.VOTES.get(cle, "json"); if (!d) return json({ error: "introuvable" }, 404); d.statut = "refuse"; delete d.piece; await env.VOTES.put(cle, JSON.stringify(d)); }
     return json({ ok: true });
   }
   if (a === "nouveau_code" || a === "desactiver" || a === "activer") {
