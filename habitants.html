@@ -648,6 +648,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var ts = $("t-side");
     ts.innerHTML = "<h3>Comment participer</h3><ol style=\"margin:0;padding-left:22px;font-size:17px;line-height:1.55\"><li><strong>Vous demandez votre accès</strong> avec le formulaire, en indiquant votre numéro de téléphone.</li><li><strong>Nous vérifions</strong> votre demande.</li><li><strong>Nous vous envoyons</strong> un identifiant et un code personnel par téléphone.</li><li><strong>Vous vous connectez</strong> et vous écrivez votre texte.</li><li><strong>Nous le relisons</strong>, puis il est publié.</li></ol><p style=\"margin-top:14px;font-size:16px\">C'est gratuit. Les textes sont relus avant publication, dans le respect de la loi et des personnes. Vous pouvez demander le retrait du vôtre à tout moment.</p><p style=\"margin-top:16px\"><strong>Vous avez déjà votre code ?</strong></p><p style=\"margin-top:10px\"><a class=\"btn-all\" href=\"/habitant.html?espace=habitant\">Se connecter</a></p>";
     ts.hidden = false;
+    if (VGR) fetch("/api/videgrenier").then(function (r) { return r.json(); }).then(function (j) {
+      if (!j || !j.auto) return;
+      var h = document.querySelector("#hform .hint"); if (h) h.textContent = "Remplissez ce formulaire : vous recevez votre code par e-mail, tout de suite.";
+      $("h-ok").nextElementSibling.textContent = "J\u2019accepte de recevoir mon code par e-mail.";
+      $("h-hint").textContent = "Votre nom, votre téléphone et votre e-mail ne sont jamais publiés. Le téléphone ne s\u2019affiche que si vous l\u2019indiquez dans une annonce.";
+      ts.innerHTML = "<h3>Comment participer</h3><ol style=\"margin:0;padding-left:22px;font-size:17px;line-height:1.55\"><li><strong>Vous demandez votre accès</strong> avec le formulaire.</li><li><strong>Vous recevez un code</strong> par e-mail, tout de suite.</li><li><strong>Vous vous connectez</strong> et vous déposez votre annonce.</li><li><strong>Nous la relisons</strong>, puis elle est publiée.</li></ol><p style=\"margin-top:14px;font-size:16px\">C\u2019est gratuit. À chaque visite, demandez un nouveau code avec votre e-mail : rien à retenir.</p><p style=\"margin-top:16px\"><a class=\"btn-all\" href=\"/habitant.html?espace=videgrenier\">Se connecter</a></p>";
+    }).catch(function () {});
     fetch("/api/habitants").then(function (r) { return r.json(); }).then(function (j) {
       var L = (j && j.textes) || [];
       if (!L.length) return;
@@ -666,6 +673,22 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         e.preventDefault();
         if (!$("h-ok").checked) { say("Cochez la case pour continuer.", true); return; }
         bt.disabled = true; say("Envoi en cours...", false);
+        if (VGR) {
+          var em0 = $("h-email").value.trim();
+          if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em0)) { say("Écrivez une adresse e-mail valide.", true); bt.disabled = false; return; }
+          fetch("/api/videgrenier", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ action: "inscription", nom: $("h-nom").value, tel: $("h-tel").value, email: em0, botcheck: $("h-bot").checked }) })
+            .then(function (r) { return r.json().catch(function () { return {}; }); })
+            .then(function (j) {
+              if (j.manuel) { manuel(); return; }
+              if (j.ok) { f.reset(); st.innerHTML = 'Merci ! Un code vient de vous être envoyé par e-mail (regardez aussi vos spams). Il est valable 30 minutes. <a href="/habitant.html?espace=videgrenier"><strong>Me connecter à Mon vide-grenier</strong></a>'; st.className = "status"; bt.disabled = false; return; }
+              say(ER[j.error] || "L'envoi n'a pas marché. Réessayez.", true); bt.disabled = false;
+            })
+            .catch(function () { say("L'envoi n'a pas marché. Réessayez.", true); bt.disabled = false; });
+          return;
+        }
+        manuel();
+      });
+      function manuel() {
         var pf = $("h-piece").files[0];
         if (VGR && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($("h-email").value.trim())) { say("Écrivez une adresse e-mail valide.", true); bt.disabled = false; return; }
         if (!VGR && !pf) { say("Ajoutez la copie de votre pièce d'identité.", true); bt.disabled = false; return; }
@@ -681,7 +704,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
           })
           .catch(function () { say("L'envoi n'a pas marché. Réessayez.", true); })
           .then(function () { bt.disabled = false; });
-      });
+      }
     })();
 
     var p = d.proposer || {};

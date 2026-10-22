@@ -44,7 +44,7 @@ button:disabled{opacity:.6;cursor:wait}
 <form id="fl" autocomplete="on">
 <label for="id">Identifiant</label><input id="id" name="username" autocomplete="username" autocapitalize="none" spellcheck="false" placeholder="prenom-nom" required>
 <label for="code">Code d'accès</label><input id="code" name="password" type="password" autocomplete="current-password" autocapitalize="characters" spellcheck="false" placeholder="XXXXX-XXXXX" required>
-<div class="row"><button id="go" type="submit">Se connecter</button></div>
+<div class="row"><button id="go" type="submit">Se connecter</button><button id="getcode" type="button" class="l" hidden>Recevoir mon code par e-mail</button></div>
 <p id="ml" class="msg" role="status" aria-live="polite"></p>
 </form>
 <div class="box" id="lg-box"><p>Pas encore de code ? Faites votre demande sur la page <a href="/habitants.html">Espace habitants</a>. Nous vous rappelons pour vous donner votre accès.</p></div>
@@ -80,7 +80,9 @@ button:disabled{opacity:.6;cursor:wait}
   document.getElementById("lg-h1").innerHTML="Mon <em>vide-grenier</em>";
   document.getElementById("lg-lead").textContent="Connectez-vous avec l'identifiant et le code que Bondy TV vous a envoyés par téléphone, pour déposer votre annonce de vide-grenier.";
   document.getElementById("lg-box").innerHTML='<p>Pas encore de code ? Faites votre demande sur la page <a href="/habitants.html?espace=videgrenier">Demander mon accès au vide-grenier</a>. Nous vous rappelons pour vous donner votre accès.</p>';
-  var bv=document.getElementById("back");bv.href="/annonces.html";bv.textContent="← Le vide-grenier"}
+  var bv=document.getElementById("back");bv.href="/annonces.html";bv.textContent="← Le vide-grenier";
+  document.getElementById("lg-lead").textContent="Entrez votre adresse e-mail et le code reçu par e-mail. Pas de code ? Cliquez sur « Recevoir mon code par e-mail ».";
+  document.querySelector('label[for="id"]').textContent="Votre e-mail ou identifiant";document.getElementById("id").placeholder="prenom@exemple.fr";document.querySelector('label[for="code"]').textContent="Code reçu par e-mail";document.getElementById("getcode").hidden=false}
  else if(pro){document.title="Espace commerçants et associations · Bondy TV Magazine";
   document.getElementById("lg-h1").innerHTML="Espace <em>commerçants et associations</em>";
   document.getElementById("lg-lead").textContent="Connectez-vous avec l'identifiant et le code que Bondy TV vous a envoyés par téléphone, pour publier vos annonces et vos affiches.";
@@ -122,6 +124,8 @@ $("fl").addEventListener("submit",function(ev){ev.preventDefault();var b=$("go")
 $("ft").addEventListener("submit",function(ev){ev.preventDefault();var b=$("send");b.disabled=true;say($("mt"),"Envoi…");
  ((PRO||VGF)?postPro():post({action:"envoyer",type:MODE,titre:$("titre").value,texte:$("texte").value,accord:$("ok").checked})).then(function(j){b.disabled=false;
   if(j.ok){window.scrollTo(0,0);$("ft").reset();$("cnt").textContent="";say($("mt"),(MODE==="annonce"||MODE==="pro")?"Merci ! Votre annonce est envoyée. Nous la relisons avant de la publier.":"Merci ! Votre texte est envoyé. Nous le relisons avant de le publier.","ok");load()}else if(j.error==="quota_annonce"&&VGF){FORCE=true;window.scrollTo(0,0);load()}else say($("mt"),ERR[j.error]||"L'envoi n'a pas marché.","err")})});
+$("getcode").addEventListener("click",function(){var em=$("id").value.trim();if(!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(em)){say($("ml"),"Écrivez d'abord votre adresse e-mail.","err");return}var b=$("getcode");b.disabled=true;say($("ml"),"Envoi du code…");
+ fetch("/api/videgrenier",{method:"POST",headers:{"Content-Type":"application/json"},body:JSON.stringify({action:"code",email:em})}).then(function(r){return r.json().catch(function(){return{}})}).then(function(j){b.disabled=false;if(j.manuel)say($("ml"),"Les codes sont envoyés par Bondy TV après votre demande d'accès.","err");else if(j.ok)say($("ml"),"Si cette adresse a un compte, un code vient d'être envoyé. Regardez vos e-mails (et vos spams). Il est valable 30 minutes.","ok");else say($("ml"),ERR[j.error]||"Envoi impossible pour le moment.","err")}).catch(function(){b.disabled=false;say($("ml"),"Envoi impossible pour le moment.","err")})});
 $("out").addEventListener("click",function(){post({action:"deconnexion"}).then(function(){load()})});
 $("m-go").addEventListener("click",function(){location.href="/annonces.html"});$("m-out").addEventListener("click",function(){post({action:"deconnexion"}).then(function(){location.href="/annonces.html"})});
 $("mt-texte").addEventListener("click",function(){mode("texte")});$("mt-ann").addEventListener("click",function(){mode("annonce")});

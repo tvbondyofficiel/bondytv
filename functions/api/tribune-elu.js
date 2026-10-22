@@ -1,4 +1,5 @@
 // Espace de l'élu : connexion par code, voir ses tribunes, en envoyer une.
+import { sha as sha0, normEmail } from "../_lib/vote.js";
 import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, MAX_IMAGE, estPro, normTel, typeFichier, parMois, ANNONCES_PAR_MOIS, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
 
 export async function onRequestGet({ request, env }) {
@@ -27,7 +28,8 @@ export async function onRequestPost({ request, env }) {
 
   if (b.action === "connexion") {
     if (!(await limit(env, request, "login", 10, 3600))) return json({ error: "trop_de_tentatives" }, 429);
-    const id = String(b.id || "").toLowerCase().trim();
+    let id = String(b.id || "").toLowerCase().trim();
+    if (id.includes("@")) id = (await env.VOTES.get("te:" + (await sha0(env, "mail:" + normEmail(id))))) || ""; // connexion par e-mail
     const acc = id ? await env.VOTES.get("ta:" + id, "json") : null;
     // même durée de calcul que le compte existe ou non
     const h = await codeHash(env, id || "-", b.code);
@@ -37,6 +39,8 @@ export async function onRequestPost({ request, env }) {
       if (acc) await env.VOTES.put("tl:" + id, String(lock + 1), { expirationTtl: 900 });
       return json({ error: "identifiants" }, 401);
     }
+    if (acc.cexp && Date.now() > acc.cexp) { await env.VOTES.put("tl:" + id, String(lock + 1), { expirationTtl: 900 }); return json({ error: "identifiants" }, 401); } // code reçu par e-mail expiré
+    if (acc.cexp) { acc.ch = ""; acc.cexp = 0; await env.VOTES.put("ta:" + id, JSON.stringify(acc)); } // code à usage unique
     await env.VOTES.delete("tl:" + id);
     const token = newToken();
     await env.VOTES.put("ts:" + token, acc.id, { expirationTtl: SESSION_TTL });
