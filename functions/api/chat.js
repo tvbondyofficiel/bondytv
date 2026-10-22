@@ -1,7 +1,21 @@
-// Assistant Bondy TV : réponses par l'IA de Cloudflare (Workers AI), limitées aux informations du site.
-// Réglage à faire une fois dans Cloudflare : Pages > bondytv > Settings > Bindings > Workers AI, nom de variable : AI
+// Assistant Bondy TV : réponses par Claude (Anthropic), limitées aux informations du site.
+// Réglage à faire une fois dans Cloudflare : Pages > bondytv > Settings > Variables and Secrets > ajouter un SECRET nommé ANTHROPIC_API_KEY.
 
-const MODEL = "@cf/meta/llama-3.1-8b-instruct";
+import { limit } from "../_lib/tribune.js";
+
+const MODEL = "claude-haiku-5-5";
+const API = "https://api.anthropic.com/v1/messages";
+
+async function claude(env, system, messages, max) {
+  const res = await fetch(API, {
+    method: "POST",
+    headers: { "content-type": "application/json", "x-api-key": env.ANTHROPIC_API_KEY, "anthropic-version": "2023-06-01" },
+    body: JSON.stringify({ model: MODEL, max_tokens: max, system, messages }),
+  });
+  const j = await res.json().catch(() => ({}));
+  if (!res.ok) throw new Error((j && j.error && j.error.message) || ("HTTP " + res.status));
+  return (j.content || []).filter((b) => b.type === "text").map((b) => b.text).join(" ");
+}
 const MAX_MSG = 500;
 const MAX_TURNS = 8;
 
@@ -39,7 +53,7 @@ async function knowledge(request, env) {
 }
 
 export async function onRequestPost({ request, env }) {
-  if (!env.AI) return json({ error: "ia_non_branchee" }, 503);
+  if (!env.ANTHROPIC_API_KEY) return json({ error: "ia_non_branchee" }, 503);
   let body;
   try { body = await request.json(); } catch (e) { return json({ error: "requete_invalide" }, 400); }
   const msgs = Array.isArray(body.messages) ? body.messages.slice(-MAX_TURNS) : [];
@@ -48,6 +62,9 @@ export async function onRequestPost({ request, env }) {
     .map((m) => ({ role: m.role, content: clean(m.content) }))
     .filter((m) => m.content);
   if (!history.length || history[history.length - 1].role !== "user") return json({ error: "requete_invalide" }, 400);
+
+  // Limite par visiteur : évite qu'un robot fasse monter la facture.
+  if (env.VOTES && !(await limit(env, request, "chat", 40, 3600))) return json({ error: "trop_de_messages" }, 429);
 
   const system =
     "Tu es l'assistant du site Bondy TV, un magazine gratuit de Bondy (Seine-Saint-Denis). " +
@@ -59,12 +76,8 @@ export async function onRequestPost({ request, env }) {
     (await knowledge(request, env));
 
   try {
-    const out = await env.AI.run(MODEL, {
-      messages: [{ role: "system", content: system }].concat(history),
-      max_tokens: 280,
-      temperature: 0.3,
-    });
-    const reply = clean(out && (out.response || out.result || "")).replace(/\s*\[\[CONTACT\]\]\s*/g, " [[CONTACT]]").trim();
+    const out = await claude(env, system, history, 280);
+    const reply = clean(out).replace(/\s*\[\[CONTACT\]\]\s*/g, " [[CONTACT]]").trim();
     if (!reply) return json({ error: "reponse_vide" }, 502);
     return json({ reply: reply.slice(0, 700) });
   } catch (e) {
@@ -76,12 +89,12 @@ export async function onRequestPost({ request, env }) {
 export async function onRequestGet({ request, env }) {
   const u = new URL(request.url);
   if (u.searchParams.get("test") !== "1") return json({ error: "methode_non_autorisee" }, 405);
-  if (!env.AI) return json({ ia_branchee: false, message: "La variable AI n'est pas vue par le site (nouvelle mise en ligne nécessaire)." });
+  if (!env.ANTHROPIC_API_KEY) return json({ claude_branche: false, message: "Le secret ANTHROPIC_API_KEY n'est pas vu par le site (à ajouter, puis nouvelle mise en ligne)." });
   try {
-    const out = await env.AI.run(MODEL, { messages: [{ role: "user", content: "Réponds juste : ok" }], max_tokens: 10 });
-    return json({ ia_branchee: true, reponse_ok: true, extrait: clean(out && (out.response || out.result || "")).slice(0, 40) });
+    const out = await claude(env, "Tu réponds en un mot.", [{ role: "user", content: "Réponds juste : ok" }], 10);
+    return json({ claude_branche: true, reponse_ok: true, extrait: clean(out).slice(0, 40) });
   } catch (e) {
-    return json({ ia_branchee: true, reponse_ok: false, erreur: String((e && e.message) || e).slice(0, 300) });
+    return json({ claude_branche: true, reponse_ok: false, erreur: String((e && e.message) || e).slice(0, 300) });
   }
 }
 
