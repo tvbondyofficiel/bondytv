@@ -520,7 +520,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   </div>
 
   <section class="une une2" id="top"><p class="loading">Chargement du magazine…</p></section>
-  <p class="fbtn"><a class="btn-acc elu" href="/elu.html">Espace élus</a><a class="btn-acc hab" href="/habitant.html?espace=habitant">Espace habitants</a><a class="btn-acc ann" href="/annonces.html">Vider mon grenier</a></p>
+  <p class="fbtn"><a class="btn-all" href="/pro.html">Commerçants et associations</a><a class="btn-acc elu" href="/elu.html">Espace élus</a><a class="btn-acc hab" href="/habitant.html?espace=habitant">Espace habitants</a><a class="btn-acc ann" href="/annonces.html">Vider mon grenier</a></p>
   <footer id="pied"></footer>
 </div>
 <noscript><p style="padding:24px">Ce magazine a besoin de JavaScript pour s'afficher.</p></noscript>
@@ -662,7 +662,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var ed = (d.articles || []).filter(function (x) { return x.id === "edito"; })[0];
     if (ed && document.getElementById("edito")) {
       var ph = (ed.image && ed.visuel === "image") ? '<figure class="edito-photo"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '"><figcaption><strong>' + esc((ed.credit || "").split(",")[0]) + '</strong><span>' + esc((ed.credit || "").split(",").slice(1).join(",").trim()) + '</span></figcaption></figure>' : "";
-      document.getElementById("edito").innerHTML = '<div class="edito-page"><div><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="lede">' + inline(ed.chapo) + '</p>' : "") + '<div class="corps">' + md(ed.texte) + '</div><p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div>' + ph + '</div>';
+      document.getElementById("edito").innerHTML = '<div class="edito-page"><div><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="lede">' + inline(ed.chapo) + '</p>' : "") + '<div class="corps">' + md(ed.texte) + '</div><p class="fbtn"><a class="btn-all" href="/pro.html">Commerçants et associations</a><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div>' + ph + '</div>';
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
     var toc = arts.map(function (a) { return '<li><a href="' + (a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id)) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
