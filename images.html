@@ -600,9 +600,20 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @media (max-width:480px){.yt-btn b{font-size:21px}}
 
 /* galerie « Bondy en images » : même style que Bondy raconte */
+.hs-inv{display:flex;align-items:center;justify-content:space-between;gap:22px;flex-wrap:wrap;max-width:960px;margin:34px auto 0;padding:clamp(22px,3.6vw,36px);color:#f4f2ee;border-radius:10px;box-shadow:0 14px 34px rgba(18,20,28,.2);min-height:300px;align-content:center;background:linear-gradient(90deg,rgba(18,20,28,.92) 0,rgba(18,20,28,.7) 45%,rgba(18,20,28,.1) 100%),var(--bgi) center/cover no-repeat #12141c}
+.hs-inv>div{max-width:52%}
+.hs-inv h2{margin:0 0 8px;font:700 clamp(28px,4vw,42px)/1 var(--display);text-transform:uppercase;color:#f4f2ee}
+.hs-inv p{margin:0;max-width:56ch;color:#d9d6cf;font-size:17px;line-height:1.5}
+.hs-btn{display:inline-block;padding:15px 26px;background:#b8975a;color:#12141c;text-decoration:none;border-radius:8px;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
+.hs-btn:hover{filter:brightness(1.1)}
+.hs-t{max-width:960px;margin:46px auto 18px;font:700 clamp(28px,4vw,40px)/1 var(--display);text-transform:uppercase;text-align:center}
+.hs-t::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+@media (max-width:700px){.hs-inv{background:linear-gradient(180deg,rgba(18,20,28,.55) 0,rgba(18,20,28,.92) 100%),var(--bgi) center/cover no-repeat #12141c}.hs-inv>div{max-width:none}}
 #gal .ph-head{text-align:center}
 #gal .ph-head p{margin-left:auto;margin-right:auto;border-left:0;padding-left:0;text-align:center}
-.gx{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:960px;margin:34px auto 0;align-items:stretch}
+.gx{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:960px;margin:0 auto;align-items:stretch}
+.gx-i:last-child:nth-child(3n+1){grid-column:2}
+@media(max-width:900px){.gx{grid-template-columns:repeat(2,minmax(0,1fr))}.gx-i:last-child:nth-child(3n+1){grid-column:auto}}
 .gx-i{all:unset;box-sizing:border-box;display:flex;flex-direction:column;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);overflow:hidden;cursor:zoom-in;transition:transform .2s ease,box-shadow .2s ease;opacity:0;transform:translateY(14px);animation:gxin .6s cubic-bezier(.2,.7,.2,1) forwards;animation-delay:var(--d)}
 @keyframes gxin{to{opacity:1;transform:none}}
 .gx-i:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,20,28,.14)}
@@ -612,7 +623,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .gx-i:hover .gx-f img{transform:scale(1.04)}
 .gx-c{display:flex;flex-direction:column;gap:10px;padding:16px 20px 20px;flex:1}
 .gx-c .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
-.gx-c b{display:block;border-left:4px solid #b8975a;padding-left:12px;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(22px,2.4vw,27px);line-height:1.05;color:#12141c}
+.gx-c b{display:block;border-left:4px solid #b8975a;padding-left:12px;font-family:var(--display);text-transform:uppercase;font-weight:700;font-size:clamp(21px,2.2vw,26px);line-height:1.05;color:#12141c}
 .gx-c small{display:block;font-size:16px;line-height:1.5;color:#3d4050}
 @media(max-width:560px){.gx{grid-template-columns:minmax(0,1fr);gap:16px}}
 @media(prefers-reduced-motion:reduce){.gx-i{animation:none;opacity:1;transform:none}.gx-f img{transition:none}}
@@ -789,12 +800,12 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (document.getElementById("gal")) {
       var tt = esc(ei.titre || "Bondy en images").split(" ");
       var last = tt.pop();
-      var html = '<div class="ph-head" id="images"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (ei.introduction ? '<p>' + esc(ei.introduction) + '</p>' : "") + '</div><div class="gx">';
+      var html = '<div class="ph-head" id="images"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (ei.introduction ? '<p>' + esc(ei.introduction) + '</p>' : "") + '</div><div class="hs-inv" style="--bgi:url(/images/bondy-parc-automne.jpg)"><div><h2>Vous aimez la photo ?</h2><p>Habitants de Bondy, amateurs ou passionnés : envoyez-nous vos plus belles images de la ville. Les meilleures sont publiées avec votre nom. Les photos doivent être de vous.</p></div><a class="hs-btn" href="/temoigner.html">Envoyer ma photo</a></div><h2 class="hs-t">Les photos de Bondy</h2><div class="gx">';
       ph.forEach(function (x, i) {
         var n = String(i + 1); if (n.length < 2) n = "0" + n;
         html += '<button type="button" class="gx-i" data-i="' + i + '" style="--d:' + Math.min(i, 12) * 70 + 'ms" aria-label="Voir en grand : ' + esc(x.titre) + '"><span class="gx-f"><img src="' + esc(x.image) + '" alt="' + esc(x.description || x.titre) + '" loading="' + (i < 4 ? "eager" : "lazy") + '"></span><span class="gx-c"><span class="pill">Photo</span><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></button>';
       });
-      html += '</div><div class="ph-cta"><div class="ph-cta-t"><b>Vous aimez la photo ?</b><p>Habitants de Bondy, amateurs ou passionnés : envoyez-nous vos plus belles images de la ville. Les meilleures seront publiées dans le prochain numéro, avec votre nom, et nous parlerons de vous.</p><p class="ph-cta-n">Les photos doivent être de vous.</p></div><a href="/temoigner.html">Envoyer ma photo</a></div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
+      html += '</div><div class="lb" hidden role="dialog" aria-modal="true" aria-label="Photo en grand"><button class="x" aria-label="Fermer">×</button><button class="pv" aria-label="Précédente">‹</button><button class="nx" aria-label="Suivante">›</button><figure><img alt=""><figcaption></figcaption></figure></div>';
       document.getElementById("gal").innerHTML = html;
       var lb = document.querySelector(".lb"), cur = 0;
       function show(i) { cur = (i + ph.length) % ph.length; var x = ph[cur]; lb.querySelector("img").src = x.image; lb.querySelector("img").alt = x.description || x.titre; lb.querySelector("figcaption").innerHTML = "<b>" + esc(x.titre) + "</b>" + esc(x.legende || ""); lb.hidden = false; }
