@@ -3,13 +3,22 @@
 
 import { limit } from "../_lib/tribune.js";
 
-const CF_MODEL = "@cf/meta/llama-3.1-8b-instruct";
+const CF_MODELS = ["@cf/zai-org/glm-4.7-flash", "@cf/google/gemma-4-26b-a4b-it", "@cf/meta/llama-3.3-70b-instruct-fp8-fast"];
 const MODEL = "claude-haiku-5-5";
 const API = "https://api.anthropic.com/v1/messages";
 
 async function cfai(env, system, messages, max) {
-  const out = await env.AI.run(CF_MODEL, { messages: [{ role: "system", content: system }].concat(messages), max_tokens: max, temperature: 0.3 });
-  return out && (out.response || out.result || "");
+  let derniere = "";
+  for (const m of CF_MODELS) {
+    try {
+      const out = await env.AI.run(m, { messages: [{ role: "system", content: system }].concat(messages), max_tokens: max, temperature: 0.3 });
+      const ch = out && out.choices && out.choices[0] && out.choices[0].message;
+      const t = (out && (out.response || out.result)) || (ch && ch.content) || "";
+      if (typeof t === "string" && t.trim()) return t;
+      derniere = m + ": réponse vide";
+    } catch (e) { derniere = m + ": " + (e && e.message || e); }
+  }
+  throw new Error(derniere || "ia_indisponible");
 }
 
 async function ask(env, system, messages, max) {
