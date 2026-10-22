@@ -318,14 +318,14 @@ body::before { background: linear-gradient(90deg, #d9c9a0 0 50%, var(--green) 50
 /* publicité en fenêtre (location d'espace) */
 .pubpop { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 20px; background: rgba(8,10,16,.82); opacity: 0; transition: opacity .35s ease; }
 .pubpop.on { opacity: 1; }
-.pubpop .box { position: relative; width: min(680px, 100%); max-height: 90vh; overflow: auto; background: #0c0e16; color: #f4f2ee; border-top: 8px solid var(--red); box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: translateY(24px) scale(.97); transition: transform .4s cubic-bezier(.2,.8,.2,1); }
+.pubpop .box { position: relative; width: min(840px, 100%); max-height: 90vh; overflow: auto; background: #0c0e16; color: #f4f2ee; border-top: 8px solid var(--red); box-shadow: 0 30px 80px rgba(0,0,0,.5); transform: translateY(24px) scale(.97); transition: transform .4s cubic-bezier(.2,.8,.2,1); }
 .pubpop.on .box { transform: none; }
 .pubpop .box a.go { display: block; text-decoration: none; color: inherit; }
 .pubpop .box img { display: block; width: 100%; height: auto; }
-.pubpop .txt { padding: 70px 36px 36px; }
-.pubpop .txt b { display: block; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(40px, 8vw, 64px); line-height: .95; text-wrap: balance; }
-.pubpop .txt span { display: block; margin: 14px 0 24px; color: #d9d6cf; font-size: 19px; line-height: 1.45; max-width: 46ch; }
-.pubpop .txt em { display: inline-block; font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 19px; background: var(--green); color: var(--on-green); padding: 14px 24px; }
+.pubpop .txt { padding: 80px 48px 46px; }
+.pubpop .txt b { display: block; font-family: var(--display); text-transform: uppercase; font-weight: 700; font-size: clamp(34px, 6vw, 62px); line-height: .98; text-wrap: balance; }
+.pubpop .txt span { display: block; margin: 14px 0 24px; color: #d9d6cf; font-size: 23px; line-height: 1.45; max-width: 50ch; }
+.pubpop .txt em { display: inline-block; font-style: normal; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 22px; background: var(--green); color: var(--on-green); padding: 18px 32px; }
 .pubpop .tag2 { position: absolute; top: 14px; left: 14px; z-index: 2; font-family: var(--display); text-transform: uppercase; letter-spacing: .14em; font-weight: 700; font-size: 12px; background: var(--beige); color: #12141c; padding: 4px 10px; }
 .pubpop .x { position: absolute; top: 10px; right: 10px; z-index: 3; width: 44px; height: 44px; border: 0; border-radius: 50%; background: rgba(12,14,22,.85); color: #fff; font-size: 26px; line-height: 1; cursor: pointer; display: grid; place-items: center; }
 .pubpop .x:hover { background: var(--red); }
@@ -570,16 +570,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var ok = b.actif && (b.image || b.titre) && (!b.debut || today >= String(b.debut).slice(0, 10)) && (!b.fin || today <= String(b.fin).slice(0, 10));
       if (!ok) return;
       var key = "pub-" + [b.image, b.titre, b.debut, b.fin].join("|");
-      try { if (sessionStorage.getItem(key)) return; } catch (e) {}
+      var n0 = 0, last0 = 0, gap = 45000; try { n0 = Number(sessionStorage.getItem(key + "#n")) || 0; last0 = Number(sessionStorage.getItem(key + "#t")) || 0; } catch (e) {} if (n0 >= 2) return; var shown = n0;
       var delai = Math.max(0, Number(b.delai) || 2), duree = Math.max(4, Number(b.duree) || 12), prev = null, timer = null;
-      setTimeout(function () {
+      setTimeout(function show() {
+        if (document.getElementById("pubpop")) return;
         var ext = /^https?:/i.test(safeUrl(b.lien || ""));
         var body = b.image ? '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '">' : '<div class="txt"><b>' + esc(b.titre) + "</b>" + (b.sous_titre ? "<span>" + esc(b.sous_titre) + "</span>" : "") + (b.bouton ? "<em>" + esc(b.bouton) + " →</em>" : "") + "</div>";
         var wrap = b.lien ? '<a class="go" href="' + esc(safeUrl(b.lien)) + '"' + (ext ? ' target="_blank" rel="sponsored noopener"' : "") + ">" + body + "</a>" : body;
         var el = document.createElement("div");
         el.className = "pubpop"; el.id = "pubpop"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", b.annonceur || "Publicité");
         el.innerHTML = '<div class="box"><span class="tag2">' + esc(b.etiquette || "Partenaire") + '</span><button class="x" type="button" aria-label="Fermer">×</button>' + wrap + '<div class="bar2"><i style="animation-duration:' + duree + 's"></i></div></div>';
-        function close() { clearTimeout(timer); document.removeEventListener("keydown", onkey); el.classList.remove("on"); document.body.style.overflow = prev; setTimeout(function () { el.remove(); }, 400); if (window.__pubprev && window.__pubprev.focus) window.__pubprev.focus(); }
+        var closed = false; function close() { if (!closed) { closed = true; if (shown < 2) setTimeout(show, gap); } clearTimeout(timer); document.removeEventListener("keydown", onkey); el.classList.remove("on"); document.body.style.overflow = prev; setTimeout(function () { el.remove(); }, 400); if (window.__pubprev && window.__pubprev.focus) window.__pubprev.focus(); }
         function onkey(e) { if (e.key === "Escape") close(); }
         window.__pubprev = document.activeElement; prev = document.body.style.overflow; document.body.style.overflow = "hidden";
         document.body.appendChild(el); document.addEventListener("keydown", onkey);
@@ -587,8 +588,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         el.addEventListener("click", function (e) { if (e.target === el) close(); });
         requestAnimationFrame(function () { el.classList.add("on"); el.querySelector(".x").focus(); });
         timer = setTimeout(close, duree * 1000);
-        try { sessionStorage.setItem(key, "1"); } catch (e) {}
-      }, delai * 1000);
+        shown++; try { sessionStorage.setItem(key + "#n", String(shown)); sessionStorage.setItem(key + "#t", String(Date.now())); } catch (e) {}
+      }, Math.max(delai * 1000, n0 ? gap - (Date.now() - last0) : 0));
     })();
     function $(id) { return document.getElementById(id) || {}; }
     /* le titre de chaque page est défini dans son HTML */
