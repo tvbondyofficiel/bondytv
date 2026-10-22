@@ -606,11 +606,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .hs-t{max-width:960px;margin:46px auto 18px;font:700 clamp(28px,4vw,40px)/1 var(--display);text-transform:uppercase;text-align:center}
 .hs-t::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
 .hs-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:960px;margin:0 auto}
-.hs-card{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;padding:20px 22px 18px;box-shadow:0 8px 22px rgba(18,20,28,.07);opacity:.85}
+.hs-card{display:flex;flex-direction:column;gap:12px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;padding:20px 22px 18px;box-shadow:0 8px 22px rgba(18,20,28,.07)}
 .hs-card .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
 .hs-ph{aspect-ratio:16/10;background:#efede9;border-radius:4px;margin:0 -2px}
 .hs-card h3{margin:0;font:700 clamp(24px,2.6vw,30px)/1.05 var(--display);text-transform:uppercase;border-left:4px solid #b8975a;padding-left:12px}
-.hs-card p{margin:0;font-size:16px;line-height:1.5}
+.hs-card p{margin:0;font-size:17px;line-height:1.55}
 .hs-sig{display:flex;align-items:center;gap:12px;margin-top:auto;padding-top:14px;border-top:1px solid rgba(18,20,28,.12)}
 .hs-sig .av{display:grid;place-items:center;flex:none;width:40px;height:40px;border-radius:50%;background:#12141c;color:#b8975a;font:700 17px/1 var(--display)}
 .hs-sig b{display:block;font-size:16px;line-height:1.2}.hs-sig span{display:block;color:#555a69;font-size:14px}
@@ -825,8 +825,15 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var R = d.reportages || {}, RV = d.videos || {};
       var rt = esc(R.titre || "Reportages, podcasts et shorts").split(" "); var rl = rt.pop();
       function histoires() {
-        var ex = [["Le souvenir", "Une histoire de quartier, un moment qui vous est resté."], ["La rencontre", "Une personne de Bondy qui mérite d\u2019être connue."], ["Le coup de cœur", "Un lieu, une adresse, une habitude que vous aimez."]];
-        return '<div class="hs-inv"><div><h2>Une histoire à raconter ?</h2><p>Un souvenir, une rencontre, un portrait, un lieu qui vous tient à cœur. Racontez-le à Bondy : nous le relisons, puis nous le publions avec votre photo.</p></div><a class="hs-btn" href="/habitants.html">Raconter mon histoire</a></div><h2 class="hs-t">Les histoires de Bondynois</h2><div class="hs-grid">' + ex.map(function (e) { return '<article class="hs-card"><span class="pill">Exemple</span><div class="hs-ph"></div><h3>' + esc(e[0]) + '</h3><p>' + esc(e[1]) + '</p><div class="hs-sig"><span class="av">?</span><div><b>Votre prénom</b><span>Habitant de Bondy</span></div></div></article>'; }).join("") + '</div>';
+        var ex = [
+          ["Arrivé à Bondy", "Je suis arrivé ici sans connaître personne. Quelques mois plus tard, on me dit bonjour dans la rue. C\u2019est ça, Bondy.", "Sophie"],
+          ["Le petit commerce", "Mon boulanger sait ce que je prends avant que je le dise. Un petit commerce, c\u2019est un visage, pas seulement une caisse.", "Abdel"],
+          ["Le marché", "Le samedi matin, on y va pour acheter trois choses et on y reste une heure. On croise tout le monde.", "Karima"],
+          ["Mes voisins", "Quand j\u2019ai eu un souci, la porte d\u2019à côté s\u2019est ouverte. Une ville, c\u2019est d\u2019abord des voisins.", "Amadou"],
+          ["La jeunesse", "Ici, les jeunes ont des idées. Il suffit de les écouter et de leur laisser une place.", "Alex"],
+          ["Le canal", "Enfant, je jouais près du canal. Aujourd\u2019hui, j\u2019y marche le soir. Les lieux changent, le souvenir reste.", "Inès"]
+        ];
+        return '<div class="hs-inv"><div><h2>Une histoire à raconter ?</h2><p>Un souvenir, une rencontre, un portrait, un lieu qui vous tient à cœur. Racontez-le à Bondy : nous le relisons, puis nous le publions avec votre photo.</p></div><a class="hs-btn" href="/habitants.html">Raconter mon histoire</a></div><h2 class="hs-t">Les histoires de Bondynois</h2><div class="hs-grid">' + ex.map(function (e) { return '<article class="hs-card"><span class="pill">Une histoire comme la vôtre</span><h3>' + esc(e[0]) + '</h3><p>' + esc(e[1]) + '</p><div class="hs-sig"><span class="av">' + esc(e[2].charAt(0)) + '</span><div><b>' + esc(e[2]) + '</b><span>Bondy</span></div></div></article>'; }).join("") + '</div>';
       }
       var ritems = R.items || [];
       document.getElementById("rep").innerHTML = '<div class="ph-head" id="reportages"><h1>' + rt.join(" ") + ' <em>' + rl + '</em></h1>' + (R.introduction ? '<p>' + esc(R.introduction) + '</p>' : "") + '</div>' + histoires() + '<h2 class="hs-t">Reportages et podcasts</h2>' + (ritems.length ? '<ul class="vtiles">' + ritems.map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap">' + (x.type ? '<span class="dt">' + esc(x.type) + '</span>' : "") + '<b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '</span></a></li>'; }).join("") + '</ul>' : '<p class="intro">Les premiers reportages, podcasts et shorts arrivent bientôt sur la chaîne.</p>') + '<div class="yt-wrap"><a class="yt-btn" href="' + esc(safeUrl(R.lien || RV.lien || "")) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur YouTube"><svg viewBox="0 0 68 48" width="46" height="32" aria-hidden="true" focusable="false"><rect width="68" height="48" rx="12" fill="#ff0000"/><path d="M27 14l20 10-20 10z" fill="#fff"/></svg><span><small>Reportages et podcasts</small><b>Bondy TV sur YouTube</b></span></a></div>';
