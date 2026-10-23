@@ -546,6 +546,146 @@
     "introduction": "La ville, ses lieux, ses lumières. Une image vaut mille mots : regardez, partagez, réagissez.",
     "photos": [
       {
+        "image": "/images/photos/bondy-01.jpg",
+        "date": "",
+        "titre": "Un carrefour de Bondy",
+        "legende": "Un carrefour, par temps gris.",
+        "description": "Un carrefour de Bondy sous un ciel couvert, avec un immeuble blanc au fond"
+      },
+      {
+        "image": "/images/photos/bondy-02.jpg",
+        "date": "",
+        "titre": "Rue Lucien Chapelain",
+        "legende": "Au coin de la rue, une affiche : « Mondialisons la solidarité, pas la misère ».",
+        "description": "Un panneau d'affichage et un panneau de direction au coin de la rue Lucien Chapelain"
+      },
+      {
+        "image": "/images/photos/bondy-03.jpg",
+        "date": "",
+        "titre": "Le long de la piste cyclable",
+        "legende": "Pelouse, arbres et immeubles, avec la piste cyclable à droite.",
+        "description": "Une pelouse plantée d'arbres entre des immeubles et une piste cyclable"
+      },
+      {
+        "image": "/images/photos/bondy-04.jpg",
+        "date": "",
+        "titre": "Un rond-point",
+        "legende": "Un rond-point de Bondy, couvert de feuilles mortes.",
+        "description": "Un rond-point planté d'arbres et d'arbustes, la chaussée mouillée et couverte de feuilles"
+      },
+      {
+        "image": "/images/photos/bondy-05.jpg",
+        "date": "",
+        "titre": "Le rond-point, autre vue",
+        "legende": "Le même rond-point, vu d'un peu plus loin.",
+        "description": "Le rond-point vu sous un autre angle, avec un camion blanc à l'arrière"
+      },
+      {
+        "image": "/images/photos/bondy-06.jpg",
+        "date": "",
+        "titre": "Un tapis de feuilles",
+        "legende": "Des feuilles mortes en grand nombre sur le trottoir.",
+        "description": "Des feuilles mortes jaunes et orange étalées sur un trottoir"
+      },
+      {
+        "image": "/images/photos/bondy-07.jpg",
+        "date": "",
+        "titre": "Un trottoir, devant une grille",
+        "legende": "Le trottoir le long d'une grille, couvert de feuilles.",
+        "description": "Un trottoir couvert de feuilles mortes le long d'une grille métallique"
+      },
+      {
+        "image": "/images/photos/bondy-08.jpg",
+        "date": "",
+        "titre": "Un échafaudage contre un immeuble",
+        "legende": "Un échafaudage dressé contre la façade d'un immeuble.",
+        "description": "Un échafaudage devant la façade d'un immeuble, derrière une clôture"
+      },
+      {
+        "image": "/images/photos/bondy-09.jpg",
+        "date": "",
+        "titre": "L'échafaudage, autre angle",
+        "legende": "Le même immeuble, vu depuis le trottoir d'en face.",
+        "description": "Le même échafaudage vu depuis le trottoir, une voiture grise au premier plan"
+      },
+      {
+        "image": "/images/photos/bondy-10.jpg",
+        "date": "",
+        "titre": "Une rue de Bondy",
+        "legende": "Une rue bordée d'immeubles et d'arbres.",
+        "description": "Une rue avec des voitures stationnées, des immeubles à gauche et des arbres à droite"
+      },
+      {
+        "image": "/images/photos/bondy-11.jpg",
+        "date": "",
+        "titre": "Une haie le long d'un mur",
+        "legende": "Une haie taillée, un mur blanc et le trottoir à côté.",
+        "description": "Une haie le long d'un mur blanc, à côté d'un trottoir"
+      },
+      {
+        "image": "/images/photos/bondy-12.jpg",
+        "date": "",
+        "titre": "Le Bois de Bondy : l'accueil",
+        "legende": "Le bâtiment d'accueil du parc, vu depuis l'allée pavée.",
+        "description": "Le bâtiment d'accueil en bois du Bois de Bondy, avec des arbres et une allée pavée"
+      },
+      {
+        "image": "/images/photos/bondy-13.jpg",
+        "date": "",
+        "titre": "Vers le parc",
+        "legende": "L'allée qui part de l'accueil, avec les bacs à droite.",
+        "description": "L'allée qui part du bâtiment d'accueil, avec des bacs à droite"
+      },
+      {
+        "image": "/images/photos/bondy-14.jpg",
+        "date": "",
+        "titre": "L'accueil, autre vue",
+        "legende": "Une autre vue de l'accueil du Bois de Bondy.",
+        "description": "Le bâtiment d'accueil du Bois de Bondy vu sous un autre angle"
+      },
+      {
+        "image": "/images/photos/bondy-15.jpg",
+        "date": "",
+        "titre": "Un portail vert et des immeubles",
+        "legende": "Un portail vert, un passage piéton et des immeubles récents.",
+        "description": "Un portail vert, un passage piéton et des immeubles à façades de bois et de zinc"
+      },
+      {
+        "image": "/images/photos/bondy-16.jpg",
+        "date": "",
+        "titre": "Une rue le long du parc",
+        "legende": "Une rue qui longe la grille verte du parc et ses grands arbres.",
+        "description": "Une rue qui longe la grille verte et les grands arbres d'un parc"
+      },
+      {
+        "image": "/images/photos/bondy-17.jpg",
+        "date": "",
+        "titre": "La boîte à livres",
+        "legende": "« Partageons le goût de la lecture » : je dépose, j'emprunte, je lis, je rapporte.",
+        "description": "Une boîte à livres rouge et blanche fixée sur une grille verte"
+      },
+      {
+        "image": "/images/photos/bondy-18.jpg",
+        "date": "",
+        "titre": "Le panneau du Bois de Bondy",
+        "legende": "Le panneau d'entrée rappelle que le parc a été inauguré en mars 2005.",
+        "description": "Un panneau d'information sur l'histoire du Bois de Bondy, devant une grille verte"
+      },
+      {
+        "image": "/images/photos/bondy-19.jpg",
+        "date": "",
+        "titre": "Les bacs de tri",
+        "legende": "« Emballages et papiers » et « Ordures ménagères » : deux bacs près de l'accueil.",
+        "description": "Deux bacs noirs, l'un pour les emballages et papiers, l'autre pour les ordures ménagères"
+      },
+      {
+        "image": "/images/photos/bondy-20.jpg",
+        "date": "",
+        "titre": "Le plan du parc",
+        "legende": "Le plan du parc du Bois de Bondy est affiché à l'accueil.",
+        "description": "Le plan du parc du Bois de Bondy affiché sur la façade en bois de l'accueil"
+      },
+      {
         "image": "/images/bondytv-ville.jpg",
         "date": "",
         "titre": "Une place de Bondy",
@@ -584,7 +724,7 @@
         "image": "/images/bondy-rue-automne.jpg",
         "date": "",
         "titre": "Une rue de Bondy",
-        "legende": "L'automne à Bondy.",
+        "legende": "Une rue de Bondy en automne.",
         "description": "Une rue de Bondy en automne, avec un grand immeuble aux arbres rougis"
       },
       {
@@ -598,7 +738,7 @@
         "image": "/images/une-bois.jpg",
         "date": "",
         "titre": "Un parc de Bondy",
-        "legende": "L'automne à Bondy.",
+        "legende": "Un parc de Bondy en automne.",
         "description": "Un grand parc de Bondy aux feuillages d'automne, avec sa clôture"
       },
       {
@@ -612,7 +752,7 @@
         "image": "/images/bondy-parc-automne.jpg",
         "date": "",
         "titre": "Une allée du parc",
-        "legende": "L'automne à Bondy.",
+        "legende": "Une allée du parc en automne.",
         "description": "Une allée plantée d'arbres, dans un parc de Bondy, en automne"
       }
     ]
