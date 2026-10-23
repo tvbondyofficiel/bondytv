@@ -708,6 +708,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .el-bar2.has a{background:#0b6b3a!important;color:#fff!important;animation:hsp 2.4s ease-in-out infinite}
 @media(max-width:700px){.el-bar2{bottom:76px!important;right:auto!important;left:50%!important;font-size:14px!important;padding:8px 8px 8px 14px!important;gap:10px!important}.el-bar2 a{padding:12px 14px!important;font-size:14px}.hs-big{padding:18px 26px!important;font-size:19px!important}}
 .el-fine{font-size:13.5px;line-height:1.55;margin-top:26px}
+.el-pick{text-align:center;margin-top:44px!important;scroll-margin-top:16px}
+.el-pick h2{margin:0;font:700 clamp(28px,4.4vw,44px)/1.05 var(--display);text-transform:uppercase;color:#12141c}
+.el-pick h2::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
+.el-pick p{margin:12px 0 0;font-size:16px;color:var(--muted)}
 </style>
 </head>
 <body>
@@ -886,8 +890,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       html += '<div class="edm" id="edm" hidden></div>';
       html += '<div class="hs-inv" style="--bgi:url(/images/une-elus-drapeau.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn hs-big" href="#elus-liste">Noter un élu <span aria-hidden="true">↓</span></a></div>';
       html += '<div class="el-warn"><b>À savoir</b>' + esc(el.avertissement_court || el.avertissement || "") + '</div>';
-      html += '<ol class="el-steps"><li><i>1</i><b>Choisissez un élu</b><span>Touchez son nom dans la liste.</span></li><li><i>2</i><b>Donnez une note</b><span>De 0 à 10, et une phrase si vous le souhaitez.</span></li><li><i>3</i><b>Envoyez</b><span>Avec votre nom : une seule note par élu.</span></li></ol>';
-      html += '<span id="elus-liste"></span>'; var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
+      html += '<ol class="el-steps"><li><i>1</i><b>Sélectionnez votre élu</b><span>Touchez son nom dans la liste.</span></li><li><i>2</i><b>Donnez une note</b><span>De 0 à 10, et une phrase si vous le souhaitez.</span></li><li><i>3</i><b>Envoyez</b><span>Avec votre nom : une seule note par élu.</span></li></ol>';
+      html += '<div class="el-pick" id="elus-liste"><h2>Sélectionnez votre élu et notez-le</h2><p>Touchez le nom d\'un élu, puis choisissez une note de 0 à 10.</p></div>'; var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
       function fnc(e, g) { var p = String(e.fonction || "").split(" · "); if (/opposition/i.test(g)) return "Opposition"; if (/^conseill/i.test(p[0]) && p[1]) return p[1]; return p[0]; }
       function nb2(n) { return n < 10 ? "0" + n : String(n); }
       function ini(n) { var w = String(n || "").replace(/[^A-Za-zÀ-ÿ' -]/g, "").split(/[\s-]+/).filter(Boolean); return ((w[0] || "").charAt(0) + (w[1] || "").charAt(0)).toUpperCase(); }
