@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>L'élu du mois · Bondy TV Magazine</title>
+<title>Votez pour vos élus · Bondy TV Magazine</title>
 <meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Vos élus, votre avis · Bondy TV Magazine"><meta property="og:description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen."><meta property="og:url" content="https://www.bondytv.com/elus.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen.">
 <meta name="theme-color" content="#0c0e16">
@@ -651,6 +651,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 .hs-inv h2,.hs-inv p{text-shadow:0 1px 8px rgba(0,0,0,.55)}
 
+.edm[hidden]{display:none}
 .edm{max-width:960px;margin:26px auto 0;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);padding:clamp(20px,3vw,32px);text-align:center}
 .edm-p{display:inline-block;padding:7px 14px;border-radius:999px;background:#12141c;color:#b8975a;font:700 13px/1 var(--display);text-transform:uppercase;letter-spacing:.16em}
 .edm h2{margin:14px 0 6px;font:700 clamp(24px,3.2vw,34px)/1.05 var(--display);text-transform:uppercase;color:#12141c}
@@ -688,7 +689,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <a href="/podcast.html">Le podcast</a>
       </div></details>
       <details class="dd on"><summary>Élus</summary><div class="dd-m">
-        <a href="/elus.html" aria-current="page">L'élu du mois</a>
+        <a href="/elus.html" aria-current="page">Votez pour vos élus</a>
         <a href="/tribune.html">Tribune des élus</a>
       </div></details>
       <details class="dd"><summary>Habitants</summary><div class="dd-m">
@@ -833,9 +834,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var arts = d.articles || [];
     var el = d.elus || {}, liste = el.liste || [], phr = el.phrases_actives === true;
     if (document.getElementById("elus")) {
-      var tt = esc(el.titre || "Vos élus, votre avis").split(" "), lw = tt.splice(-1).join(" ");
+      var tt = esc(el.titre || "Vos élus, votre avis").split(" "), lw = tt.splice(-2).join(" ");
       var html = '<div class="el-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (el.introduction ? '<p>' + esc(el.introduction) + '</p>' : "") + '</div>';
-      html += '<div class="edm" id="edm"><span class="edm-p">Élu du mois</span><h2>Bientôt, c\'est vous qui le choisissez</h2><p class="edm-t">L\'élu du mois sera celui que les Bondynois auront le mieux noté. Il apparaît ici dès que 5 habitants auront noté le même élu.</p></div>';
+      html += '<div class="edm" id="edm" hidden></div>';
       html += '<div class="hs-inv" style="--bgi:url(/images/une-pepitheque.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn" href="#elus-liste">Noter un élu</a></div>';
       html += '<div class="el-warn"><b>À savoir</b>' + esc(el.avertissement || "") + (el.source ? " " + esc(el.source) : "") + '</div>';
       html += '<ol class="el-steps"><li><b>1</b> Touchez le nom d\'un élu et donnez une note de 0 à 10</li><li><b>2</b> Indiquez qui vous êtes et envoyez</li></ol>';
@@ -904,6 +905,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         var box = document.getElementById("edm"); if (!box) return;
         var best = null;
         liste.forEach(function (e) { var s = stats[e.id]; if (s && s.moyenne !== null && s.moyenne !== undefined && (!best || s.moyenne > best.s.moyenne || (s.moyenne === best.s.moyenne && s.n > best.s.n))) best = { e: e, s: s }; });
+        box.hidden = !best;
         if (best) {
           box.innerHTML = '<span class="edm-p">Élu du mois</span><h2>' + esc(best.e.nom) + '</h2><p class="edm-f">' + esc(best.e.fonction || "") + '</p><div class="edm-n"><b>' + String(best.s.moyenne).replace(".", ",") + '<small>/10</small></b><span>' + best.s.n + ' avis de Bondynois</span></div>';
         }
