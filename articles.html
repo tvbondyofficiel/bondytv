@@ -559,6 +559,10 @@ details[open] > summary { margin-bottom: 6px; }
 .more.has-side.short .side.short .sb-media{align-self:start;margin-top:31px}
 .more.has-side.short .side.short .phs img{aspect-ratio:16/10;object-fit:cover}
 @media(max-width:860px){.more.has-side.short .side.short{display:flex;flex-direction:column;max-width:440px}.more.has-side.short .side.short .sb-media{margin-top:0}}
+
+.side .sb-zss{margin:0 0 4px;font-size:14px;line-height:1.4;color:#12141c}
+.side .sb-btn.sb-gold{background:#b8975a;color:#12141c!important}.side .sb-btn.sb-gold:hover{filter:brightness(1.08);background:#b8975a}
+.more.has-side.short .side.short .sb-media .sb-zss{flex:1 1 200px;margin:0}
 </style>
 </head>
 <body>
@@ -726,7 +730,7 @@ details[open] > summary { margin-bottom: 6px; }
     var all = (d.articles || []).filter(function (x) { return x.id !== "edito" && x.image && x.id !== a.id; });
     var i = ids.indexOf(a.id), rel = all.filter(function (x) { return ids.indexOf(x.id) > i; }).concat(all).slice(0, String(a.texte || "").length < 1300 ? 1 : 2);
     if (false && rel.length) s += '<div class="sb-rl"><h4>À lire aussi</h4><div class="phs">' + rel.map(function (x) { return '<figure><a href="#' + esc(x.id) + '"><img src="' + esc(x.image) + '" alt="' + esc(x.image_description || x.titre) + '" loading="lazy"></a><figcaption>' + esc(x.titre) + "</figcaption></figure>"; }).join("") + "</div></div>";
-    s += '<div class="sb sb-media"><h4>Un média complet</h4><a class="sb-btn" href="' + yt + '/podcasts" target="_blank" rel="noopener">Écouter le podcast</a><a class="sb-btn" href="' + yt + '" target="_blank" rel="noopener">Voir la chaîne YouTube</a></div>';
+    s += '<div class="sb sb-media"><h4>Un média complet</h4><p class="sb-zss"><b>Zoom sous les étoiles</b>, le podcast de Mohamed, avec un invité à chaque épisode. Bientôt. Vous voulez participer ? Mohamed choisit ses invités.</p><a class="sb-btn sb-gold" href="/temoigner.html#tform">Je veux participer</a><a class="sb-btn" href="' + yt + '" target="_blank" rel="noopener">Voir la chaîne YouTube</a></div>';
     if (String(a.texte || "").length < 1300) return s + "</aside>";
     s += '<div class="sb sb-row"><div><h4>Nous suivre</h4><div class="sb-soc">' + soc.map(function (r) { var k = String(r.reseau || "").toLowerCase(); return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur ' + esc(r.reseau) + '" title="' + esc(r.reseau) + '">' + (ICONS[k] || esc(r.reseau)) + "</a>"; }).join("") + "</div></div>" + (ed.contact_qr ? '<div class="sb-qr"><img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="64" height="64"><b>Scannez-moi</b></div>' : "") + "</div>";
     return s + "</aside>";
