@@ -525,11 +525,6 @@
         "question": "Faire de la publicité",
         "mots_cles": "publicite pub annonceur commerce commercant entreprise promouvoir",
         "reponse": "Tout est expliqué sur la page [Votre pub](/publicite.html)."
-      },
-      {
-        "question": "Où déposer une annonce ou vider mon grenier ?",
-        "mots_cles": "annonce annonces vide grenier vendre vente donner don troc deposer publier objet occasion",
-        "reponse": "C'est sur la page [Le vide-grenier de Bondy](/annonces.html) : vendre, donner, chercher, proposer un service, gratuitement entre Bondynois. Il faut un compte habitant : demandez-le sur la page [Écrire un article](/habitants.html)."
       }
     ]
   },
