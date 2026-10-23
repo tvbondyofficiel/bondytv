@@ -709,6 +709,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .nm-mod{display:inline-block;margin-top:10px;font-weight:700;color:#12141c}
 .nm-empty .el-send{display:inline-block;text-align:center;text-decoration:none;box-sizing:border-box}
 #elus .el-form{margin-top:24px}
+.el-cancel{margin-left:14px;background:none;border:0;padding:8px 4px;font:600 15px var(--body);color:#8a1f1f;text-decoration:underline;cursor:pointer}
 </style>
 </head>
 <body>
@@ -895,7 +896,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         html += '<div class="el-form nm-recap"><h2>Mes notes</h2><ul class="nm-list">' + ids.map(function (id) {
           var e = byId[id], v = sel[id];
           return '<li><span class="nm-n"><b>' + esc(e.nom) + '</b><small>' + esc(e.fonction || "") + '</small>' + (v.commentaire ? '<em>« ' + esc(v.commentaire) + ' »</em>' : '') + '</span><span class="nm-s">' + v.note + '<small>/10</small></span></li>';
-        }).join("") + '</ul><a class="nm-mod" href="/elus.html#elus-liste">← Modifier mes notes</a></div>';
+        }).join("") + '</ul><a class="nm-mod" href="/elus.html#elus-liste">← Modifier mes notes</a> <button type="button" class="el-cancel" id="nmcancel">Annuler et effacer mes notes</button></div>';
         html += '<form class="el-form" id="vote" novalidate autocomplete="on"><h2>Vos coordonnées</h2>';
         html += '<p class="hint">Une seule note par élu et par personne. Votre nom, votre e-mail et votre téléphone sont demandés pour éviter les faux avis : ils ne sont <strong>jamais publiés</strong>.</p>';
         html += '<div class="el-id"><label class="f">Prénom et nom<input type="text" name="nom" autocomplete="name" required maxlength="80"></label><label class="f">Adresse e-mail<input type="email" name="email" autocomplete="email" required maxlength="120"></label><label class="f">Téléphone<input type="tel" name="telephone" autocomplete="tel" required maxlength="20" inputmode="tel"></label></div>';
@@ -904,6 +905,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         html += '<p class="el-rep">' + esc(el.droit_de_reponse || "") + ' <a href="/confidentialite.html">Confidentialité et mentions légales</a></p>';
       }
       document.getElementById("elus").innerHTML = html;
+      var nmc = document.getElementById("nmcancel");
+      if (nmc) nmc.addEventListener("click", function () { try { localStorage.removeItem("elus-sel"); } catch (e) {} location.href = "/elus.html"; });
       var form = document.getElementById("vote"), msg = document.getElementById("elmsg");
       if (form) {
         function say(t, bad) { msg.textContent = t; msg.className = "el-msg on" + (bad ? " bad" : ""); msg.scrollIntoView({ block: "center", behavior: "smooth" }); }

@@ -712,6 +712,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .el-pick h2{margin:0;font:700 clamp(28px,4.4vw,44px)/1.05 var(--display);text-transform:uppercase;color:#12141c}
 .el-pick h2::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
 .el-pick p{margin:12px 0 0;font-size:16px;color:var(--muted)}
+.el-x{background:transparent;border:1px solid rgba(255,255,255,.45);color:#fff;border-radius:8px;padding:12px 14px;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.08em;cursor:pointer}
+.el-x:hover{background:rgba(255,255,255,.12)}
+.el-cancel{margin-left:14px;background:none;border:0;padding:8px 4px;font:600 15px var(--body);color:#8a1f1f;text-decoration:underline;cursor:pointer}
+@media(max-width:700px){.el-x{padding:10px 10px;font-size:13px}.el-cancel{display:block;margin:14px 0 0}}
 </style>
 </head>
 <body>
@@ -901,10 +905,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
           return '<button type="button" class="el-tile' + (/opposition/i.test(g) ? ' opp' : '') + '" data-id="' + esc(e.id) + '"><span class="av" aria-hidden="true">' + esc(ini(e.nom)) + '</span><span class="tx"><span class="nm">' + esc(e.nom) + '</span><span class="fn">' + esc(fnc(e, g)) + '</span></span><span class="bd" aria-hidden="true"></span></button>';
         }).join("") + '</div>';
       });
-      html += '<div class="el-form el-cta"><h2>Envoyer mes notes</h2><div class="el-sel" id="elsel"><p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p></div><p class="hint">Une fois vos notes choisies, vous les envoyez sur une page à part, avec votre nom pour éviter les faux avis.</p><a class="el-send" id="elgo" href="/noter-mes-elus.html">Envoyer mes notes</a></div>';
+      html += '<div class="el-form el-cta"><h2>Envoyer mes notes</h2><div class="el-sel" id="elsel"><p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p></div><p class="hint">Une fois vos notes choisies, vous les envoyez sur une page à part, avec votre nom pour éviter les faux avis.</p><a class="el-send" id="elgo" href="/noter-mes-elus.html">Envoyer mes notes</a> <button type="button" class="el-cancel" id="elclear2">Annuler et effacer mes notes</button></div>';
       html += '<p class="el-rep el-fine">' + esc(el.avertissement || "") + (el.source ? " " + esc(el.source) : "") + '</p>';
       html += '<p class="el-rep">' + esc(el.droit_de_reponse || "") + ' <a href="/confidentialite.html">Confidentialité et mentions légales</a></p>';
-      html += '<div class="el-bar2" id="elbar"><span id="elcount"></span><a id="elbarlink" href="#elus-liste">Voir la liste ↓</a></div>';
+      html += '<div class="el-bar2" id="elbar"><span id="elcount"></span><a id="elbarlink" href="#elus-liste">Voir la liste ↓</a><button type="button" class="el-x" id="elclear" aria-label="Annuler mes notes">Annuler</button></div>';
       html += '<div class="el-modal' + (phr ? '' : ' nophr') + '" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Pourquoi cette note ? Sur quelle action ou quel sujet ?<textarea maxlength="280" placeholder="Ce qui a été fait, ou ce qui n\'a pas été fait. Des faits, sans insulte ni accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';
       document.getElementById("elus").innerHTML = html;
 
@@ -924,9 +928,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         });
         var ids = Object.keys(sel), box = document.getElementById("elsel");
         box.innerHTML = ids.length ? '<div class="chips">' + ids.map(function (id) { return '<button type="button" class="chip" data-id="' + id + '" title="Modifier">' + esc(byId[id].nom) + ' · <b>' + sel[id].note + '/10</b></button>'; }).join("") + '</div>' : '<p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p>';
-        var go = document.getElementById("elgo"); if (go) go.style.display = ids.length ? "" : "none";
+        var go = document.getElementById("elgo"); if (go) go.style.display = ids.length ? "" : "none"; var c2 = document.getElementById("elclear2"); if (c2) c2.style.display = ids.length ? "" : "none"; var c1 = document.getElementById("elclear"); if (c1) c1.style.display = ids.length ? "" : "none";
         var bar = document.getElementById("elbar"), bl = document.getElementById("elbarlink"); bar.classList.toggle("has", !!ids.length); bl.setAttribute("href", ids.length ? "/noter-mes-elus.html" : "#elus-liste"); bl.textContent = ids.length ? "Envoyer mes notes →" : "Voir la liste ↓"; document.getElementById("elcount").textContent = ids.length ? ids.length + " note" + (ids.length > 1 ? "s" : "") + " choisie" + (ids.length > 1 ? "s" : "") : "Touchez un élu pour le noter"; barVis();
       }
+      function clearAll() { sel = {}; save(); refresh(); }
+      document.addEventListener("click", function (ev) { if (ev.target.closest("#elclear, #elclear2")) clearAll(); });
       function setPill(v) { pillsBox.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-checked", String(x.dataset.v) === String(v) ? "true" : "false"); }); }
       function openM(id) {
         curId = id; var e = byId[id], s = stats[id], cur = sel[id];
