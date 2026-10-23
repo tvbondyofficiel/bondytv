@@ -650,45 +650,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .pubpop .x{width:32px!important;height:32px!important;font-size:20px!important;top:6px!important;right:6px!important}
 .pubpop .bar2{height:3px!important}
 @media(max-width:600px){.pubpop{width:min(230px,62vw);inset:auto auto 16px 12px!important}}
-
-#pdv .vtiles{grid-template-columns:repeat(2,minmax(0,1fr));gap:22px;max-width:880px}
-#pdv .vtiles .play{width:56px;height:56px}
-#pdv .vtiles .play::after{left:22px;top:16px;border-left-width:19px;border-top-width:12px;border-bottom-width:12px}
-#pdv .vtiles .cap{padding:10px 14px 12px}
-#pdv .vtiles .cap b{font-size:19px}
-#pdv .vtiles .cap small{font-size:13px}
-#pdv .vtiles .vide{display:block;border:2px dashed var(--line);background:rgba(255,255,255,.5)}
-#pdv .vtiles .vide .im{display:grid;place-items:center;background:rgba(18,20,28,.05)}
-#pdv .vtiles .vide .play{background:#a6aab8;opacity:.7}
-#pdv .vtiles .vide .cap{color:#555a69}
-#pdv .vtiles{grid-template-columns:repeat(3,minmax(0,1fr));gap:20px;max-width:960px;margin:34px auto 0}
-#pdv .vtiles li{display:flex}
-#pdv .vtiles a,#pdv .vtiles .vide{display:flex;flex-direction:column;width:100%;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);overflow:hidden;transition:transform .2s ease,box-shadow .2s ease}
-#pdv .vtiles a:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,20,28,.14)}
-#pdv .vtiles .im{aspect-ratio:9/16}
-#pdv .vtiles .vide{border:1px solid rgba(18,20,28,.12);border-top:6px solid #d9cdb0;background:#fff}
-#pdv .vtiles .vide .im{background:#efede9}
-#pdv .vtiles .vide .play{background:#a6aab8;opacity:.6}
-#pdv .vtiles .cap{display:flex;flex-direction:column;gap:10px;padding:16px 20px 18px;flex:1}
-#pdv .vtiles .pill{align-self:flex-start;padding:5px 11px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
-#pdv .vtiles .vide .pill{background:#e8e3d6;color:#555a69}
-#pdv .vtiles .cap b{border-left:4px solid #b8975a;padding-left:12px;font-size:clamp(22px,2.4vw,27px);line-height:1.05}
-#pdv .vtiles .vide .cap b{border-left-color:#d9cdb0;color:#555a69}
-#pdv .vtiles .cap small{font-size:16px;line-height:1.5;color:#3d4050;margin:0}
-#pdv .vtiles .go{margin-top:auto;padding-top:12px;border-top:1px solid rgba(18,20,28,.12);font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;color:#12141c}
-#pdv .vtiles .go::after{content:" \2192";color:#d3141f}
-@media(max-width:900px){#pdv .vtiles{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:560px){#pdv .vtiles{grid-template-columns:minmax(0,1fr)}}
-@media (max-width:560px){#pdv .vtiles{gap:16px}#pdv .vtiles .play{width:56px;height:56px}#pdv .vtiles .play::after{left:17px;top:12px;border-left-width:15px;border-top-width:10px;border-bottom-width:10px}}
-#pdv .vtiles{margin-left:auto;margin-right:auto}
-.pv-modal{position:fixed;inset:0;z-index:9999;background:rgba(10,12,18,.9);display:flex;align-items:center;justify-content:center;padding:16px}
-.pv-modal video{max-height:92vh;max-width:min(92vw,520px);width:auto;border-radius:12px;background:#000;box-shadow:0 20px 60px rgba(0,0,0,.5)}
-.pv-modal .pv-x{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:#b8975a;color:#12141c;font:700 26px/1 var(--display);cursor:pointer}
-#pdv{margin-top:70px}#pdv .ph-head h1{font-size:clamp(38px,6vw,72px)}
-.pv-ex{text-align:center;margin:28px 0 0;font:700 14px/1 var(--display);letter-spacing:.08em;text-transform:uppercase;color:#555a69}
-.pv-th{list-style:none;display:flex;flex-wrap:wrap;gap:10px;justify-content:center;max-width:860px;margin:14px auto 0;padding:0}
-.pv-th li{padding:9px 16px;border:1px solid #b8975a;border-radius:999px;background:#fff;font:700 13px/1 var(--display);letter-spacing:.06em;text-transform:uppercase;color:#12141c}
-#pdv .vtiles{max-width:960px}
 </style>
 </head>
 <body>
@@ -705,6 +666,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <a href="/vos-articles.html">Vos articles</a>
       <a href="/essentiel.html">L’essentiel</a>
       <a href="/images.html">Bondy en images</a>
+      <a href="/point-de-vue.html">Mon point de vue</a>
       <a href="/elus.html">Noter vos élus</a>
       <details class="dd"><summary>Prendre la parole</summary><div class="dd-m">
         <a href="/temoigner.html">Bondy raconte</a>
@@ -715,7 +677,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   </div>
 
   <section id="vid"></section>
-  <section id="pdv"></section>
   <footer id="pied"></footer>
 </div>
 <noscript><p style="padding:24px">Ce magazine a besoin de JavaScript pour s'afficher.</p></noscript>
@@ -881,12 +842,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       document.getElementById("vid").innerHTML = '<div class="ph-head" id="videos"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><div class="hs-inv" style="--bgi:url(/images/une-terrain.jpg)"><div><h2>Bondy TV sur YouTube</h2><p>Toutes nos vidéos sont sur la chaîne.</p></div><a class="hs-btn" href="' + esc(safeUrl(V.lien || "")) + '" target="_blank" rel="noopener">Voir la chaîne YouTube</a></div><h2 class="hs-t">Les vidéos de Bondy</h2><ul class="vtiles">' + (V.items || []).map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><span class="pill">Vidéo</span><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '<span class="go">Regarder sur YouTube</span></span></a></li>'; }).join("") + (function () { var n = Math.max(0, 3 - (V.items || []).length), h = ""; for (var k = 0; k < n; k++) h += '<li><div class="vide"><span class="im"><span class="play"></span></span><span class="cap"><span class="pill">Bientôt</span><b>Vidéo à venir</b></span></div></li>'; return h; })() + '</ul>' + (function () { var P = V.podcast; if (!P || !P.titre || !P.lien) return ""; var lien = safeUrl(P.lien || V.lien || ""); return '<div class="pod"><a class="pim" href="' + esc(lien) + '" target="_blank" rel="noopener" aria-label="' + esc(P.titre) + '">' + (P.image ? '<img src="' + esc(P.image) + '" alt="" loading="lazy">' : "") + '<span class="play"></span></a><div class="ptx"><span class="pet">' + esc(P.etiquette || "Podcast du mois") + '</span><h2>' + esc(P.titre) + '</h2>' + (P.legende ? '<p>' + esc(P.legende) + '</p>' : "") + '<a class="pb" href="' + esc(lien) + '" target="_blank" rel="noopener">' + esc(P.bouton || "Écouter sur YouTube") + '</a></div></div>'; })() ;
     }
 
-
-    var P = d.point_de_vue || {};
-    if (document.getElementById("pdv")) {
-      var pt = esc(P.titre || "Mon point de vue").split(" "); var pl = pt.pop();
-      document.getElementById("pdv").innerHTML = '<div class="ph-head" id="point-de-vue"><h1>' + pt.join(" ") + ' <em>' + pl + '</em></h1>' + (P.introduction ? '<p>' + esc(P.introduction) + '</p>' : "") + '</div><div class="hs-inv" style="--bgi:url(/images/une-bois.jpg)"><div><h2>Et vous, qu\'en pensez-vous ?</h2><p>Une idée, un coup de gueule, une réflexion ? Filmez-vous en vertical, comme un Short, un TikTok ou une Story : 1 min 10 maximum. Envoyez-nous votre vidéo.</p></div><a class="hs-btn" href="/temoigner.html?type=pdv#tform">Envoyer ma vidéo</a></div>' + ((P.themes || []).length ? '<p class="pv-ex">Vous pouvez parler de :</p><ul class="pv-th">' + P.themes.map(function (t) { return '<li>' + esc(t) + '</li>'; }).join("") + '</ul>' : "") + '<h2 class="hs-t">Les points de vue des Bondynois</h2><ul class="vtiles">' + (P.items || []).map(function (x) { var loc = /\.mp4($|\?)/i.test(x.lien || ""); return '<li><a href="' + esc(safeUrl(x.lien)) + '"' + (loc ? ' class="pv-local" data-src="' + esc(safeUrl(x.lien)) + '"' : ' target="_blank" rel="noopener"') + '><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><span class="pill">' + esc(x.type || "Short") + '</span><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '<span class="go">Regarder</span></span></a></li>'; }).join("") + (function () { var n = Math.max(0, 3 - (P.items || []).length), r = ""; for (var k = 0; k < n; k++) r += '<li><div class="vide"><span class="im"><span class="play"></span></span><span class="cap"><span class="pill">Bientôt</span><b>Point de vue à venir</b></span></div></li>'; return r; })() + '</ul>';
-    }
     if (document.getElementById("rep")) {
       var R = d.reportages || {}, RV = d.videos || {};
       var rt = esc(R.titre || "Bondy raconte").split(" "); var rl = rt.pop();
@@ -1107,18 +1062,5 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 document.addEventListener("click",function(e){all.forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 all.forEach(function(d){d.addEventListener("toggle",function(){if(d.open)closeOthers(d)});
 if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListener("mouseenter",function(){clearTimeout(t);closeOthers(d);d.setAttribute("open","")});d.addEventListener("mouseleave",function(){t=setTimeout(function(){d.removeAttribute("open")},180)});}})})();</script>
-<script>
-document.addEventListener("click", function (e) {
-  var a = e.target.closest && e.target.closest("a.pv-local"); if (!a) return;
-  e.preventDefault();
-  var m = document.createElement("div"); m.className = "pv-modal"; m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
-  m.innerHTML = '<button class="pv-x" type="button" aria-label="Fermer">×</button><video controls autoplay playsinline></video>';
-  var v = m.querySelector("video"); v.src = a.getAttribute("data-src");
-  function close() { v.pause(); m.remove(); document.body.style.overflow = ""; document.removeEventListener("keydown", key); }
-  function key(ev) { if (ev.key === "Escape") close(); }
-  m.addEventListener("click", function (ev) { if (ev.target === m || ev.target.classList.contains("pv-x")) close(); });
-  document.addEventListener("keydown", key); document.body.style.overflow = "hidden"; document.body.appendChild(m);
-});
-</script>
 </body>
 </html>
