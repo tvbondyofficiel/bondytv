@@ -588,27 +588,22 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     <nav aria-label="Navigation du magazine">
       <a href="/">Accueil</a>
       <details class="dd on"><summary>Magazine</summary><div class="dd-m">
-        <a href="/publicite.html">Votre pub</a>
         <a href="/edito.html">Édito</a>
         <a href="/sommaire.html" aria-current="page">Sommaire</a>
         <a href="/articles.html">Articles du magazine</a>
       </div></details>
       <a href="/vos-articles.html">Vos articles</a>
-      <details class="dd"><summary>Images et vidéos</summary><div class="dd-m">
-        <a href="/images.html">Bondy en images</a>
+      <details class="dd"><summary>Vidéos et podcast</summary><div class="dd-m">
         <a href="/videos.html">Vidéos</a>
         <a href="/reportages.html">Bondy raconte</a>
         <a href="/point-de-vue.html">Mon point de vue</a>
+        <a href="/images.html">Bondy en images</a>
         <a href="/podcast.html">Le podcast</a>
       </div></details>
       <a href="/elus.html">Noter vos élus</a>
-      <details class="dd"><summary>Habitants</summary><div class="dd-m">
-        <a href="/habitants.html">Espace habitants</a>
+      <details class="dd"><summary>Prendre la parole</summary><div class="dd-m">
         <a href="/temoigner.html">Parole de Bondynois</a>
-      </div></details>
-      <details class="dd"><summary>Annonces</summary><div class="dd-m">
-        <a href="/annonces.html">Le vide-grenier</a>
-        <a href="/pro.html">Commerçants et associations</a>
+        <a href="/habitants.html">Écrire un article</a>
       </div></details>
     </nav>
   </div>
@@ -849,7 +844,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var inner = ICONS[k] || esc(r.reseau);
       return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur ' + esc(r.reseau) + '" title="' + esc(r.reseau) + '">' + inner + "</a>";
     }).join("");
-    $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + ' · <a href="/confidentialite.html">Confidentialité</a></span>';
+    $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + ' · <a href="/publicite.html">Votre pub</a> · <a href="/confidentialite.html">Confidentialité</a></span>';
 
     behaviours();
     if (location.hash) {
