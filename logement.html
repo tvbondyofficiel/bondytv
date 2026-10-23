@@ -423,7 +423,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 /* menu : fermé = vraiment masqué ; dernier groupe aligné à droite */
 .bar nav details.dd:not([open])>.dd-m{display:none}
 .bar nav .dd-m{max-width:calc(100vw - 32px)}
-.bar nav details.dd:last-of-type .dd-m{left:auto;right:0}
+.bar nav details.dd:nth-last-of-type(-n+2) .dd-m{left:auto;right:0}
+@media(max-width:899px){.bar nav details.dd:nth-last-of-type(-n+2) .dd-m{left:0;right:auto}}
+.bar nav .esp>summary{background:#b8975a;color:#12141c!important;padding:7px 12px;border-radius:6px;border:0!important}
+.bar nav .esp[open]>summary,.bar nav .esp>summary:hover{filter:brightness(1.08)}
 .bar nav details.dd>summary{border-bottom:2px solid transparent;padding-bottom:0;margin-bottom:0!important;width:auto;font-family:inherit;text-transform:inherit;font-weight:inherit}
 .bar nav details.dd.on>summary{border-bottom-color:var(--red)}
 .bar nav .dd{position:relative}
@@ -519,6 +522,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <a href="/habitants.html">Écrire un article</a>
       <a href="/elus.html">Noter vos élus</a>
     </div></details>
+      <details class="dd esp"><summary>Mon espace</summary><div class="dd-m">
+        <a href="/habitants.html">Habitants</a>
+        <a href="/pro.html">Commerçants et associations</a>
+      </div></details>
     </nav>
   </div>
 
@@ -714,7 +721,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var inner = ICONS[k] || esc(r.reseau);
       return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur ' + esc(r.reseau) + '" title="' + esc(r.reseau) + '">' + inner + "</a>";
     }).join("");
-    $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + ' · <a href="/publicite.html">Votre pub</a> · <a href="/confidentialite.html">Confidentialité</a></span>';
+    $("pied").innerHTML = "<span>" + esc(pied.gauche) + '</span><div class="follow"><span class="follow-t">Suivez-nous sur</span><nav class="social" aria-label="Réseaux sociaux de Bondy TV">' + soc + "</nav></div><span>" + esc(pied.droite) + ' · <a href="/habitants.html">Espace habitants</a> · <a href="/pro.html">Espace pro</a> · <a href="/publicite.html">Votre pub</a> · <a href="/confidentialite.html">Confidentialité</a></span>';
 
     behaviours();
     if (location.hash) {
