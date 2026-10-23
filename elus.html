@@ -707,6 +707,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .el-bar2 a{background:#b8975a!important;color:#12141c!important;border-radius:8px;padding:14px 22px!important;font-size:17px}
 .el-bar2.has a{background:#0b6b3a!important;color:#fff!important;animation:hsp 2.4s ease-in-out infinite}
 @media(max-width:700px){.el-bar2{bottom:76px!important;right:auto!important;left:50%!important;font-size:14px!important;padding:8px 8px 8px 14px!important;gap:10px!important}.el-bar2 a{padding:12px 14px!important;font-size:14px}.hs-big{padding:18px 26px!important;font-size:19px!important}}
+.el-fine{font-size:13.5px;line-height:1.55;margin-top:26px}
 </style>
 </head>
 <body>
@@ -884,7 +885,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var html = '<div class="el-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (el.introduction ? '<p>' + esc(el.introduction) + '</p>' : "") + '</div>';
       html += '<div class="edm" id="edm" hidden></div>';
       html += '<div class="hs-inv" style="--bgi:url(/images/une-elus-drapeau.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn hs-big" href="#elus-liste">Noter un élu <span aria-hidden="true">↓</span></a></div>';
-      html += '<div class="el-warn"><b>À savoir</b>' + esc(el.avertissement || "") + (el.source ? " " + esc(el.source) : "") + '</div>';
+      html += '<div class="el-warn"><b>À savoir</b>' + esc(el.avertissement_court || el.avertissement || "") + '</div>';
       html += '<ol class="el-steps"><li><i>1</i><b>Choisissez un élu</b><span>Touchez son nom dans la liste.</span></li><li><i>2</i><b>Donnez une note</b><span>De 0 à 10, et une phrase si vous le souhaitez.</span></li><li><i>3</i><b>Envoyez</b><span>Avec votre nom : une seule note par élu.</span></li></ol>';
       html += '<span id="elus-liste"></span>'; var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
       function fnc(e, g) { var p = String(e.fonction || "").split(" · "); if (/opposition/i.test(g)) return "Opposition"; if (/^conseill/i.test(p[0]) && p[1]) return p[1]; return p[0]; }
@@ -897,6 +898,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         }).join("") + '</div>';
       });
       html += '<div class="el-form el-cta"><h2>Envoyer mes notes</h2><div class="el-sel" id="elsel"><p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p></div><p class="hint">Une fois vos notes choisies, vous les envoyez sur une page à part, avec votre nom pour éviter les faux avis.</p><a class="el-send" id="elgo" href="/noter-mes-elus.html">Envoyer mes notes</a></div>';
+      html += '<p class="el-rep el-fine">' + esc(el.avertissement || "") + (el.source ? " " + esc(el.source) : "") + '</p>';
       html += '<p class="el-rep">' + esc(el.droit_de_reponse || "") + ' <a href="/confidentialite.html">Confidentialité et mentions légales</a></p>';
       html += '<div class="el-bar2" id="elbar"><span id="elcount"></span><a id="elbarlink" href="#elus-liste">Voir la liste ↓</a></div>';
       html += '<div class="el-modal' + (phr ? '' : ' nophr') + '" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Ce qu\'il ou elle a fait pour vous (facultatif)<textarea maxlength="280" placeholder="Une ou deux phrases, des faits. Pas d\'insulte, pas d\'accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';

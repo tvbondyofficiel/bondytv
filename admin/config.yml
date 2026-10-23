@@ -141,7 +141,8 @@ collections:
               - {label: "Introduction", name: introduction, widget: text}
               - {label: "Autoriser les phrases des habitants (laisser décoché au lancement)", name: phrases_actives, widget: boolean, default: false, required: false, hint: "Décoché : seules les notes sont demandées et affichées. Coché : les habitants peuvent ajouter une phrase, publiée seulement si vous l'approuvez. Si vous cochez, pensez à modifier l'introduction ci-dessus."}
               - {label: "Source des noms (affichée sur la page)", name: source, widget: string, required: false}
-              - {label: "Avertissement (ne pas supprimer : il vous protège)", name: avertissement, widget: text}
+              - {label: "Avertissement court, affiché en haut (ne pas supprimer : il vous protège)", name: avertissement_court, widget: text}
+              - {label: "Avertissement complet, affiché en bas (ne pas supprimer : il vous protège)", name: avertissement, widget: text}
               - {label: "Droit de réponse des élus", name: droit_de_reponse, widget: text, required: false}
               - label: "Les élus à noter"
                 name: liste
