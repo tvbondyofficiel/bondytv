@@ -533,7 +533,7 @@ details[open] > summary { margin-bottom: 6px; }
 .ar-grid>.art .chapo{font-size:15.5px;line-height:1.5;display:-webkit-box;-webkit-line-clamp:5;-webkit-box-orient:vertical;overflow:hidden}
 .ar-grid>.art:has(details[open]) .chapo{-webkit-line-clamp:unset;display:block}
 .ar-grid>.art.wide{grid-column:auto}
-.ar-grid>.art .vis.has-img,.ar-grid>.art.wide .vis.has-img{aspect-ratio:16/10!important}
+.ar-grid>.art .vis.has-img,.ar-grid>.art.wide .vis.has-img{aspect-ratio:16/7!important}
 .ar-grid>.art .vis.has-img.is-poster{aspect-ratio:auto!important}
 .ar-grid>.art:has(details[open]){grid-column:1/-1!important}
 .ar-grid>.art:has(details[open]) .vis.has-img:not(.is-poster){aspect-ratio:auto!important;height:360px}
@@ -541,7 +541,7 @@ details[open] > summary { margin-bottom: 6px; }
 @media(max-width:620px){.ar-grid{grid-template-columns:minmax(0,1fr)!important}}
 
 /* cartes homogènes : même hauteur d'image, même gabarit de texte */
-.ar-grid>.art:not(:has(details[open])) .vis,.ar-grid>.art:not(:has(details[open])) .vis.has-img,.ar-grid>.art:not(:has(details[open])) .vis.has-icon,.ar-grid>.art:not(:has(details[open])) .vis.has-ill,.ar-grid>.art:not(:has(details[open])) .vis.has-play,.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster{aspect-ratio:16/10!important;height:auto!important}
+.ar-grid>.art:not(:has(details[open])) .vis,.ar-grid>.art:not(:has(details[open])) .vis.has-img,.ar-grid>.art:not(:has(details[open])) .vis.has-icon,.ar-grid>.art:not(:has(details[open])) .vis.has-ill,.ar-grid>.art:not(:has(details[open])) .vis.has-play,.ar-grid>.art:not(:first-child):not(:has(details[open])) .vis.has-img.is-poster{aspect-ratio:16/7!important;height:auto!important}
 .ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster{background:#fff}
 .ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster img{position:absolute;inset:0;width:100%;height:100%;object-fit:contain;max-height:none}
 .ar-grid>.art:not(:has(details[open])) .vis.has-icon svg{height:46%}
@@ -561,6 +561,17 @@ details .more,.more.has-ph .tx{gap:8px}
 .art.wide .vis.has-img{aspect-ratio:21/8.5}
 .art .vis.has-img.is-poster{border-bottom:0}
 .ar-grid>.art .credit{font-size:13px}
+/* Cartes de la liste : plus courtes */
+.ar-grid>.art:not(:has(details[open])) .vis.has-img,.ar-grid>.art.wide:not(:has(details[open])) .vis.has-img{aspect-ratio:16/7!important}
+.ar-grid>.art:not(:has(details[open])) .vis.has-icon{aspect-ratio:16/6!important}
+.ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster{aspect-ratio:16/7!important}
+.ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster img{object-fit:cover;object-position:50% 4%}
+.ar-grid>.art:not(:has(details[open])) .chapo{-webkit-line-clamp:3;font-size:15px;line-height:1.45}
+.ar-grid>.art:not(:has(details[open])) .txt>.credit{margin-top:0!important}
+.ar-grid>.art .txt{padding:14px 18px 14px!important;gap:6px!important}
+.ar-grid>.art h3{font-size:clamp(19px,1.6vw,22px)!important}
+.ar-grid>.art .share a{padding:7px 12px!important;font-size:11px!important;letter-spacing:.1em!important}
+.ar-grid>.art details{margin-top:auto;padding-top:4px}
 .ar-grid>.art:not(:has(details[open])) .txt>.credit{margin-top:auto}
 .ar-grid>.art:has(details[open]) .vis.has-icon,.ar-grid>.art:has(details[open]) .vis.has-ill{aspect-ratio:auto!important;height:170px}
 .ar-grid>.art .tag{line-height:1.3;padding:6px 12px;border-radius:16px}
