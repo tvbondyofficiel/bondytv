@@ -493,9 +493,14 @@
         "reponse": "Associations, commerçants, habitants : écrivez à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Tout est sur la page [Témoigner ou proposer](/temoigner.html)."
       },
       {
+        "question": "Le podcast Zoom sous les étoiles",
+        "mots_cles": "podcast zoom etoiles invite inviter participer emission mohamed mohammed",
+        "reponse": "Zoom sous les étoiles est le podcast de Mohamed. Il choisit ses invités : entreprises, entrepreneurs, acteurs de la ville de Bondy, et aussi des débats de société. Pour proposer votre sujet, c'est sur la page [Le podcast](/podcast.html). Pour témoigner dans le magazine, c'est la page [La parole est à vous](/temoigner.html)."
+      },
+      {
         "question": "Où voir les vidéos ?",
-        "mots_cles": "video voir youtube tiktok instagram facebook reseaux podcast",
-        "reponse": "Sur [YouTube](https://www.youtube.com/@Bondytvofficiel), [TikTok](https://www.tiktok.com/@bondytvofficiel), [Instagram](https://www.instagram.com/bondy_tv/) et [Facebook](https://www.facebook.com/profile.php?id=61595506318556). Les podcasts sont sur la chaîne YouTube."
+        "mots_cles": "video voir youtube tiktok instagram facebook reseaux",
+        "reponse": "Sur [YouTube](https://www.youtube.com/@Bondytvofficiel), [TikTok](https://www.tiktok.com/@bondytvofficiel), [Instagram](https://www.instagram.com/bondy_tv/) et [Facebook](https://www.facebook.com/profile.php?id=61595506318556)."
       },
       {
         "question": "Comment installer l'application ?",
@@ -943,15 +948,7 @@
         "legende": "Une journée sur le terrain, au plus près des lieux où Bondy se retrouve.",
         "lien": "https://www.youtube.com/watch?v=5tBiSEFapGk"
       }
-    ],
-    "podcast": {
-      "etiquette": "Podcast du mois",
-      "titre": "Le podcast du mois arrive",
-      "legende": "Une rencontre, une voix de Bondy, à écouter et à regarder sur YouTube.",
-      "image": "",
-      "lien": "",
-      "bouton": "Écouter sur YouTube"
-    }
+    ]
   },
   "tribune": {
     "titre": "Tribune des élus",
@@ -959,7 +956,7 @@
   },
   "reportages": {
     "titre": "Bondy raconte",
-    "introduction": "Reportages, podcasts et coulisses : les histoires de Bondy, à regarder et à écouter sur YouTube.",
+    "introduction": "Reportages et coulisses : les histoires de Bondy, à regarder sur YouTube.",
     "lien": "https://www.youtube.com/@Bondytvofficiel",
     "bouton": "Voir la chaîne YouTube",
     "items": []
