@@ -554,6 +554,17 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 @media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
 @media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
 
+
+/* Installer l'appli */
+.getapp{max-width:960px;margin:34px auto 0;padding:26px clamp(20px,4vw,36px);background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 10px 26px rgba(18,20,28,.08);display:grid;grid-template-columns:1fr auto;gap:14px 24px;align-items:center}
+.getapp[hidden]{display:none}
+.getapp-t b{display:block;font:700 clamp(26px,3.4vw,36px)/1 var(--display);text-transform:uppercase;color:#12141c}
+.getapp-t span{display:block;margin-top:8px;font-size:16px;line-height:1.5;color:#555a69}
+.getapp-b{padding:18px 28px;background:#b8975a;color:#12141c;border:0;border-radius:8px;font:700 18px/1 var(--display);text-transform:uppercase;letter-spacing:.12em;cursor:pointer;box-shadow:0 0 0 5px rgba(184,151,90,.3);animation:hsp 2.4s ease-in-out infinite}
+.getapp-h{grid-column:1/-1;margin:0;padding:12px 14px;background:#f4f2ee;border-left:4px solid #b8975a;font-size:15px;line-height:1.5;color:#12141c}
+.getapp-a{grid-column:1/-1;font-size:14.5px;color:#555a69}
+@media(max-width:700px){.getapp{grid-template-columns:1fr}.getapp-b{width:100%}}
+@media(prefers-reduced-motion:reduce){.getapp-b{animation:none}}
 </style>
 </head>
 <body>
@@ -598,6 +609,12 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
   <section class="une une2" id="top"><p class="loading">Chargement du magazine…</p></section>
   <h2 class="fbt">Se connecter ou créer son compte</h2>
   <p class="fbtn"><a class="btn-acc elu" href="/tribune.html">Élus<small>Se connecter →</small></a><a class="btn-acc ann" href="/annonces.html">Vider mon grenier<small>Déposer une annonce →</small></a><a class="btn-acc hab" href="/habitants.html">Habitants<small>Se connecter →</small></a><a class="btn-all" href="/pro.html">Commerçants et associations<small>Se connecter →</small></a></p>
+  <section class="getapp" id="getapp" hidden>
+    <div class="getapp-t"><b>Gardez Bondy TV dans votre poche</b><span>Le magazine sur l'écran de votre téléphone, comme une appli. Un seul geste, gratuit.</span></div>
+    <button type="button" class="getapp-b" id="instbtn">Installer Bondy TV</button>
+    <p class="getapp-h" id="insthelp" hidden></p>
+    <a class="getapp-a" href="/affiche.html">Afficher le magazine chez vous : l'affiche à imprimer</a>
+  </section>
   <footer id="pied"></footer>
 </div>
 <noscript><p style="padding:24px">Ce magazine a besoin de JavaScript pour s'afficher.</p></noscript>
@@ -957,5 +974,24 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 document.addEventListener("click",function(e){all.forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 all.forEach(function(d){d.addEventListener("toggle",function(){if(d.open)closeOthers(d)});
 if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListener("mouseenter",function(){clearTimeout(t);closeOthers(d);d.setAttribute("open","")});d.addEventListener("mouseleave",function(){t=setTimeout(function(){d.removeAttribute("open")},180)});}})})();</script>
+<script>
+(function () {
+  var box = document.getElementById("getapp"), btn = document.getElementById("instbtn"), help = document.getElementById("insthelp"), dp = null;
+  if (!box) return;
+  var standalone = (window.matchMedia && matchMedia("(display-mode: standalone)").matches) || navigator.standalone === true;
+  if (standalone) return;
+  box.hidden = false;
+  window.addEventListener("beforeinstallprompt", function (e) { e.preventDefault(); dp = e; });
+  window.addEventListener("appinstalled", function () { box.hidden = true; });
+  btn.addEventListener("click", function () {
+    if (dp) { dp.prompt(); dp.userChoice.finally(function () { dp = null; }); return; }
+    var ios = /iphone|ipad|ipod/i.test(navigator.userAgent) || (navigator.platform === "MacIntel" && navigator.maxTouchPoints > 1);
+    help.textContent = ios
+      ? "Sur iPhone ou iPad : touchez le bouton Partager (le carré avec une flèche, en bas ou en haut de Safari), puis « Sur l'écran d'accueil »."
+      : "Ouvrez le menu de votre navigateur (les trois points), puis choisissez « Installer l'application » ou « Ajouter à l'écran d'accueil ».";
+    help.hidden = false;
+  });
+})();
+</script>
 </body>
 </html>

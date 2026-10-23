@@ -642,6 +642,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @keyframes hsp{0%,100%{box-shadow:0 0 0 4px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 12px rgba(184,151,90,.18),0 10px 24px rgba(0,0,0,.35)}}
 @media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
 @media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
+.share{margin:14px 0 0}.share a{display:inline-block;padding:9px 14px;border:2px solid #12141c;border-radius:8px;color:#12141c;text-decoration:none;font:700 13px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}.share a:hover{background:#12141c;color:#fff}
 </style>
 </head>
 <body>
@@ -769,6 +770,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (a.texte_visible) h += md(a.texte_visible);
     if (a.lien_video) h += "<p>" + link("Voir la vidéo", a.lien_video) + "</p>";
     if (a.texte) h += "<details><summary>Lire la suite</summary><div class=\"more\">" + md(a.texte) + "</div></details>";
+    h += '<p class="share"><a href="https://wa.me/?text=' + encodeURIComponent(a.titre + " — Bondy TV Magazine\n" + location.origin + "/videos.html#" + a.id) + '" target="_blank" rel="noopener">Partager sur WhatsApp</a></p>';
     return h + "</div></article>";
   }
 
