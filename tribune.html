@@ -461,6 +461,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @media (min-width:900px){.bar nav a,.bar nav .dd>summary{font-size:12.5px;letter-spacing:.03em}}
 
 .hs-inv h2,.hs-inv p{text-shadow:0 1px 8px rgba(0,0,0,.55)}
+
+/* Bouton d'action : même effet sur toutes les pages */
+.hs-inv>.hs-btn{padding:22px 38px!important;font-size:22px!important;box-shadow:0 0 0 6px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35);animation:hsp 2.4s ease-in-out infinite;align-self:center}
+.head-mid .hs-btn{box-shadow:0 0 0 4px rgba(184,151,90,.3);animation:hsp 2.4s ease-in-out infinite}
+@keyframes hsp{0%,100%{box-shadow:0 0 0 4px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 12px rgba(184,151,90,.18),0 10px 24px rgba(0,0,0,.35)}}
+@media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
+@media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
 </style>
 </head>
 <body>

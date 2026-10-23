@@ -546,6 +546,13 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 .head-vid i::after{content:"";position:absolute;left:13px;top:9px;border-left:11px solid #fff;border-top:8px solid transparent;border-bottom:8px solid transparent}
 @media(min-width:1241px){.une.une2>.head,.une2 .head{flex-wrap:nowrap}.head-mid{flex:0 1 240px;min-width:0;margin-left:clamp(44px,5vw,84px)}}
 @media(max-width:1240px){.head-vid{display:none}}
+
+/* Bouton d'action : même effet sur toutes les pages */
+.hs-inv>.hs-btn{padding:22px 38px!important;font-size:22px!important;box-shadow:0 0 0 6px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35);animation:hsp 2.4s ease-in-out infinite;align-self:center}
+.head-mid .hs-btn{box-shadow:0 0 0 4px rgba(184,151,90,.3);animation:hsp 2.4s ease-in-out infinite}
+@keyframes hsp{0%,100%{box-shadow:0 0 0 4px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 12px rgba(184,151,90,.18),0 10px 24px rgba(0,0,0,.35)}}
+@media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
+@media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
 </style>
 </head>
 <body>

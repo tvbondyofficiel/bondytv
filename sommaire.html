@@ -570,6 +570,13 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .smc-col:nth-child(3) ul{column-count:2;column-gap:28px;display:block}
 .smc-col:nth-child(3) li{break-inside:avoid;margin-bottom:8px}
 @media(max-width:820px){.smc-col:nth-child(n){grid-column:auto}.smc-col:nth-child(n) ul{column-count:1}}
+
+/* Bouton d'action : même effet sur toutes les pages */
+.hs-inv>.hs-btn{padding:22px 38px!important;font-size:22px!important;box-shadow:0 0 0 6px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35);animation:hsp 2.4s ease-in-out infinite;align-self:center}
+.head-mid .hs-btn{box-shadow:0 0 0 4px rgba(184,151,90,.3);animation:hsp 2.4s ease-in-out infinite}
+@keyframes hsp{0%,100%{box-shadow:0 0 0 4px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 12px rgba(184,151,90,.18),0 10px 24px rgba(0,0,0,.35)}}
+@media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
+@media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
 </style>
 </head>
 <body>
