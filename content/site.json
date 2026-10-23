@@ -525,7 +525,7 @@
       {
         "question": "Je suis habitant et je veux m'exprimer",
         "mots_cles": "habitant habitants exprimer parole parler texte ecrire code",
-        "reponse": "Rendez-vous sur la page [La parole aux habitants](/habitants.html). Vous faites une demande et on vous envoie votre code."
+        "reponse": "Rendez-vous sur la page [Espace habitants](/habitants.html). Vous faites une demande et on vous envoie votre code."
       },
       {
         "question": "Je suis élu",
@@ -540,7 +540,7 @@
       {
         "question": "Où déposer une annonce ou vider mon grenier ?",
         "mots_cles": "annonce annonces vide grenier vendre vente donner don troc deposer publier objet occasion",
-        "reponse": "C'est sur la page [Le vide-grenier de Bondy](/annonces.html) : vendre, donner, chercher, proposer un service, gratuitement entre Bondynois. Il faut un compte habitant : demandez-le sur la page [La parole aux habitants](/habitants.html)."
+        "reponse": "C'est sur la page [Le vide-grenier de Bondy](/annonces.html) : vendre, donner, chercher, proposer un service, gratuitement entre Bondynois. Il faut un compte habitant : demandez-le sur la page [Espace habitants](/habitants.html)."
       }
     ]
   },

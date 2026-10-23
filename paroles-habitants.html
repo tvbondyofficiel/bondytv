@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Paroles d'habitants · Bondy TV Magazine</title>
+<title>Articles des habitants · Bondy TV Magazine</title>
 <meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Vos articles · Bondy TV Magazine"><meta property="og:description" content="Les textes de vos voisins, de vos élus et des associations de Bondy, relus avant publication."><meta property="og:url" content="https://www.bondytv.com/vos-articles.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Les textes de vos voisins, de vos élus et des associations de Bondy, relus par Bondy TV avant publication.">
 <meta name="theme-color" content="#0c0e16">
@@ -512,7 +512,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       </div></details>
       <details class="dd on"><summary>Vos articles</summary><div class="dd-m">
         <a href="/vos-articles.html" aria-current="page">Tous vos articles</a>
-        <a href="/paroles-habitants.html" aria-current="page">Les habitants</a>
+        <a href="/paroles-habitants.html" aria-current="page">Articles des habitants</a>
         <a href="/tribune.html">Les élus</a>
         <a href="/vos-articles.html#associations">Associations et commerçants</a>
       </div></details>
@@ -953,7 +953,7 @@ if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListe
       return '<article class="tc"><span class="pill">Parole d\u2019habitant</span><h3>'+esc(t.titre)+'</h3><div class="corps" data-full="'+esc(full)+'"><p>'+esc(sh)+'</p></div>'+(long?'<button type="button" class="more">Lire la suite</button>':"")+sig(t.nom,"Habitant de Bondy")+'</article>'});
     if(!cards.length)[["Un souvenir de Bondy","Ici, un habitant raconte un souvenir de son quartier."],["Un coup de cœur","Ici, un habitant fait découvrir un lieu ou une personne qu\u2019il aime à Bondy."],["Une idée pour la ville","Ici, une habitante propose une idée simple pour améliorer le quotidien."],["Un merci","Ici, un habitant remercie un voisin, un commerçant ou une association."]].forEach(function(x){
       cards.push('<article class="tc ex"><span class="pill">Exemple</span><h3>'+esc(x[0])+'</h3><p class="ex-note"><b>Ceci est un exemple, pas un vrai texte.</b></p><div class="corps"><p>'+x[1]+'</p></div>'+sig("Prénom","Habitant de Bondy")+'</article>')});
-    root.innerHTML='<h1>Paroles <em>d\u2019habitants</em></h1><p class="lead">Un souvenir, un coup de cœur, une idée, un merci : les Bondynois écrivent, Bondy TV relit et publie.</p><a class="btn" href="/habitants.html">Écrire un texte</a><div class="tg">'+cards.join("")+'</div><p class="note">Chaque texte est relu par Bondy TV avant publication. Les textes des élus sont dans la <a href="/tribune.html">Tribune des élus</a>.</p>';
+    root.innerHTML='<h1>Articles <em>des habitants</em></h1><p class="lead">Un souvenir, un coup de cœur, une idée, un merci : les Bondynois écrivent, Bondy TV relit et publie.</p><a class="btn" href="/habitants.html">Écrire un texte</a><div class="tg">'+cards.join("")+'</div><p class="note">Chaque texte est relu par Bondy TV avant publication. Les textes des élus sont dans la <a href="/tribune.html">Tribune des élus</a>.</p>';
     root.addEventListener("click",function(e){var b=e.target.closest(".more");if(!b)return;var c=b.parentNode.querySelector(".corps");c.innerHTML=c.getAttribute("data-full");b.remove()});
   });
 })();

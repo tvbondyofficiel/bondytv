@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>La parole aux habitants · Bondy TV Magazine</title>
-<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="La parole aux habitants · Bondy TV Magazine"><meta property="og:description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen."><meta property="og:url" content="https://www.bondytv.com/habitants.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<title>Espace habitants · Bondy TV Magazine</title>
+<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Espace habitants · Bondy TV Magazine"><meta property="og:description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen."><meta property="og:url" content="https://www.bondytv.com/habitants.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen.">
 <meta name="theme-color" content="#0c0e16">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -463,7 +463,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       </div></details>
       <details class="dd"><summary>Vos articles</summary><div class="dd-m">
         <a href="/vos-articles.html">Tous vos articles</a>
-        <a href="/paroles-habitants.html">Les habitants</a>
+        <a href="/paroles-habitants.html">Articles des habitants</a>
         <a href="/tribune.html">Les élus</a>
         <a href="/vos-articles.html#associations">Associations et commerçants</a>
       </div></details>
@@ -659,7 +659,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     var t = d.tribune || {};
     var VGR = /(?:^|[?&])espace=videgrenier(?:&|$)/.test(location.search);
-    $("temoigner-titre").innerHTML = VGR ? "Mon <em>vide-grenier</em>" : "La parole <em>aux habitants</em>";
+    $("temoigner-titre").innerHTML = VGR ? "Mon <em>vide-grenier</em>" : "Espace <em>habitants</em>";
     if (VGR) { $("f-adr").hidden = true; $("f-piece").hidden = true; $("f-mail").hidden = false; $("h-adresse").required = false; $("h-piece").required = false; $("h-hint").textContent = "Votre nom, votre téléphone et votre e-mail servent uniquement à vous contacter pour vous donner votre accès. Ils ne sont jamais publiés."; }
     $("temoigner-intro").textContent = VGR ? "Vous habitez Bondy et vous voulez vider votre grenier ? Demandez votre accès : vous pourrez déposer une annonce gratuite, rien d\u2019autre." : "Vous vivez à Bondy ? Ce magazine est aussi le vôtre. Exprimez-vous : un avis, un coup de cœur, un souvenir, une idée pour la ville.";
     $("h-ban").innerHTML = VGR ? '<div><h2>Vider son grenier</h2><p>Demandez votre accès gratuit, puis déposez votre annonce.</p></div><a class="hs-btn" href="#hform">Demander mon accès</a>' : '<div><h2>Votre ville, votre parole</h2><p>Un avis, un coup de cœur, un souvenir, une idée pour la ville : demandez votre accès et écrivez dans le magazine.</p></div><a class="hs-btn" href="#hform">Demander mon accès</a>';
@@ -718,7 +718,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
           .then(function (j) {
             if (!j.ok) { say(ER[j.error] || "L'envoi n'a pas marché. Réessayez.", true); return; }
             f.reset(); say("Merci ! Votre demande est envoyée. Nous vous contactons par téléphone.", false);
-            try { var fd = new FormData(); fd.append("access_key", "a10cef59-fca0-479e-81ab-13a661ab12b5"); fd.append("subject", VGR ? "Demande d'accès : Mon vide-grenier" : "Demande d'accès : La parole aux habitants"); fd.append("from_name", "Bondy TV Magazine"); fd.append("nom", body.nom); fd.append("telephone", body.tel); fd.append("adresse", body.adresse); fetch("https://api.web3forms.com/submit", { method: "POST", body: fd }).catch(function () {}); } catch (x) {}
+            try { var fd = new FormData(); fd.append("access_key", "a10cef59-fca0-479e-81ab-13a661ab12b5"); fd.append("subject", VGR ? "Demande d'accès : Mon vide-grenier" : "Demande d'accès : Espace habitants"); fd.append("from_name", "Bondy TV Magazine"); fd.append("nom", body.nom); fd.append("telephone", body.tel); fd.append("adresse", body.adresse); fetch("https://api.web3forms.com/submit", { method: "POST", body: fd }).catch(function () {}); } catch (x) {}
           })
           .catch(function () { say("L'envoi n'a pas marché. Réessayez.", true); })
           .then(function () { bt.disabled = false; });
