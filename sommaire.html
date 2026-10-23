@@ -431,6 +431,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 /* menu : fermé = vraiment masqué ; dernier groupe aligné à droite */
 .bar nav details.dd:not([open])>.dd-m{display:none}
 .bar nav .dd-m{max-width:calc(100vw - 32px)}
+.bar nav details.dd:last-of-type .dd-m{left:auto;right:0}
 .bar nav details.dd>summary{border-bottom:2px solid transparent;padding-bottom:0;margin-bottom:0!important;width:auto;font-family:inherit;text-transform:inherit;font-weight:inherit}
 .bar nav details.dd.on>summary{border-bottom-color:var(--red)}
 .bar nav .dd{position:relative}
@@ -592,18 +593,24 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     <nav aria-label="Navigation du magazine">
       <a href="/">Accueil</a>
       <details class="dd on"><summary>Magazine</summary><div class="dd-m">
-        <a href="/edito.html">Édito</a>
-        <a href="/sommaire.html" aria-current="page">Sommaire</a>
-        <a href="/articles.html">Articles du magazine</a>
-        <a href="/vos-articles.html">Articles des habitants</a>
-      </div></details>
+      <a href="/edito.html">Édito</a>
+      <a href="/sommaire.html" aria-current="page">Sommaire</a>
+      <a href="/articles.html">Articles du magazine</a>
+      <a href="/vos-articles.html">Articles des habitants</a>
+    </div></details>
       <a href="/essentiel.html">L’essentiel</a>
+      <details class="dd"><summary>Images et vidéos</summary><div class="dd-m">
       <a href="/images.html">Bondy en images</a>
       <a href="/point-de-vue.html">Mon point de vue</a>
-      <a href="/elus.html">Noter vos élus</a>
+      <a href="/videos.html">Vidéos</a>
+      <a href="/podcast.html">Podcast</a>
+    </div></details>
+      <details class="dd"><summary>Les Bondynois</summary><div class="dd-m">
       <a href="/temoigner.html">Bondy raconte</a>
       <a href="/logement.html">Votre logement</a>
       <a href="/habitants.html">Écrire un article</a>
+      <a href="/elus.html">Noter vos élus</a>
+    </div></details>
     </nav>
   </div>
 
