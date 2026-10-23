@@ -4,7 +4,7 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
 <title>Vos articles · Bondy TV Magazine</title>
-<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Vos articles · Bondy TV Magazine"><meta property="og:description" content="Les textes de vos voisins, de vos élus et des associations de Bondy, relus avant publication."><meta property="og:url" content="https://www.bondytv.com/vos-articles.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Vos articles · Bondy TV Magazine"><meta property="og:description" content="Les textes de vos voisins, de vos élus et des associations de Bondy, relus avant publication."><meta property="og:url" content="https://www.bondytv.com/vos-articles.html"><meta property="og:image" content="https://www.bondytv.com/images/coeur-canal.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Les textes de vos voisins, de vos élus et des associations de Bondy, relus par Bondy TV avant publication.">
 <meta name="theme-color" content="#0c0e16">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -508,6 +508,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @keyframes hsp{0%,100%{box-shadow:0 0 0 4px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 12px rgba(184,151,90,.18),0 10px 24px rgba(0,0,0,.35)}}
 @media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
 @media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
+
+/* Cartes : même niveau + filtre photo clair */
+#pubtri .va-cols{align-items:stretch}
+#pubtri .va-col{display:flex;flex-direction:column;gap:12px}
+#pubtri .va-col .va-card{flex:1;position:relative;overflow:hidden;opacity:1!important;background:linear-gradient(180deg,rgba(255,255,255,.9) 0,rgba(255,255,255,.8) 100%),var(--ph) center/cover no-repeat #fff;border:1px solid rgba(18,20,28,.1);border-top:6px solid #b8975a}
+#pubtri .va-col .va-card h3{min-height:2.1em;display:flex;align-items:center}
+#pubtri .va-col .va-card .corps{min-height:3.2em}
+#habitants{--ph:url(/images/bondy-parc-automne.jpg)}
+#associations{--ph:url(/images/coeur-canal.jpg)}
+#commerces{--ph:url(/images/bondytv-ville.jpg)}
+#pubtri .va-col .va-card .pill{background:#12141c;color:#e2cd9b}
 </style>
 </head>
 <body>
