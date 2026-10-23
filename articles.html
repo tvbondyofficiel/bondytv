@@ -561,6 +561,24 @@ details .more,.more.has-ph .tx{gap:8px}
 .art.wide .vis.has-img{aspect-ratio:21/8.5}
 .art .vis.has-img.is-poster{border-bottom:0}
 .ar-grid>.art .credit{font-size:13px}
+/* Lecture façon magazine papier : texte en colonnes, lettrine, intertitres */
+.ar-grid>.art:has(details[open]){grid-column:1/-1!important;max-width:960px;margin:0 auto;width:100%}
+.ar-grid>.art:has(details[open]) .txt{padding:26px 44px 30px!important;gap:10px!important}
+.ar-grid>.art:has(details[open]) h3{font-size:clamp(28px,3.4vw,42px)!important;line-height:1.02;margin-bottom:4px}
+.ar-grid>.art:has(details[open]) .chapo{font:italic 400 20px/1.4 Georgia,"Iowan Old Style","Times New Roman",serif;color:#3a3d48;max-width:none;padding-bottom:12px;border-bottom:1px solid rgba(18,20,28,.14);margin-bottom:6px}
+.ar-grid>.art:has(details[open]) .more.has-side,.ar-grid>.art:has(details[open]) .more.has-ph{display:block}
+.ar-grid>.art:has(details[open]) .more .tx{column-count:2;column-gap:44px;column-rule:1px solid rgba(18,20,28,.14);text-align:justify;hyphens:auto;-webkit-hyphens:auto;font:400 17px/1.55 Georgia,"Iowan Old Style","Times New Roman",serif;display:block}
+.ar-grid>.art:has(details[open]) .more .tx p{max-width:none;margin:0 0 10px;line-height:1.55}
+.ar-grid>.art:has(details[open]) .more .tx>p:not(.inter):first-of-type::first-letter{float:left;font:700 3.6em/.82 var(--display);padding:4px 8px 0 0;color:#b8975a}
+.ar-grid>.art:has(details[open]) .more .tx p.inter{font:700 13px/1.2 var(--display);text-transform:uppercase;letter-spacing:.14em;color:#1f5a3a;margin:14px 0 6px;text-align:left;break-after:avoid;column-span:none}
+.ar-grid>.art:has(details[open]) .more .tx p.inter>strong{font-weight:700}
+.ar-grid>.art:has(details[open]) .more .tx ul{margin:0 0 10px;padding-left:18px;gap:3px;max-width:none;text-align:left}
+.ar-grid>.art:has(details[open]) .more .tx li{break-inside:avoid;line-height:1.5}
+.ar-grid>.art:has(details[open]) .more .side{display:grid;grid-template-columns:1fr 1fr;gap:14px;align-items:start;margin-top:18px;padding-top:16px;border-top:1px solid rgba(18,20,28,.14);width:auto;max-width:none}
+.ar-grid>.art:has(details[open]) .more .side>*{margin:0;min-height:0;height:auto}
+@media(max-width:700px){.ar-grid>.art:has(details[open]) .more .side{grid-template-columns:1fr}}
+.ar-grid>.art:has(details[open]) .share{margin:8px 0 0}
+@media(max-width:860px){.ar-grid>.art:has(details[open]) .txt{padding:18px 18px 20px!important}.ar-grid>.art:has(details[open]) .more .tx{column-count:1;text-align:left;font-size:17px}.ar-grid>.art:has(details[open]) .chapo{font-size:18px}}
 /* Cartes de la liste : plus courtes */
 .ar-grid>.art:not(:has(details[open])) .vis.has-img,.ar-grid>.art.wide:not(:has(details[open])) .vis.has-img{aspect-ratio:16/7!important}
 .ar-grid>.art:not(:has(details[open])) .vis.has-icon{aspect-ratio:16/6!important}
@@ -715,6 +733,7 @@ details .more,.more.has-ph .tx{gap:8px}
       }
       if (/^> /.test(b)) return '<p class="note">' + inline(b.slice(2)) + "</p>";
       if (/^@ /.test(b)) return '<p class="credit">' + inline(b.slice(2)) + "</p>";
+      if (lines.length === 1 && /^\*\*[^*]+\*\*$/.test(lines[0])) return '<p class="inter">' + inline(lines[0]) + "</p>";
       return "<p>" + lines.map(inline).join("<br>") + "</p>";
     }).join("\n");
   }
