@@ -548,6 +548,15 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .va-steps em{color:#cfcabd!important}
 .va-steps li:not(:last-child)::after{content:"›";position:absolute;right:10px;bottom:10px;color:#b8975a;font:700 28px/1 Arial}
 @media (max-width:700px){.va-steps li:not(:last-child)::after{content:"⌄";right:auto;left:50%;bottom:2px}}
+.found-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.fc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:190px;padding:20px 22px;border-radius:10px;overflow:hidden;text-decoration:none;color:#fff;background:linear-gradient(180deg,rgba(18,20,28,.1) 0,rgba(18,20,28,.78) 100%),var(--p) center/cover no-repeat #12141c;box-shadow:0 10px 24px rgba(18,20,28,.16);border-bottom:5px solid #b8975a;transition:transform .2s,box-shadow .2s}
+.fc:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,20,28,.24)}
+.fc b{font:700 clamp(24px,2.6vw,30px)/1 var(--display);text-transform:uppercase;letter-spacing:.03em;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.fc span{margin-top:8px;font-size:15px;line-height:1.4;color:#efece5;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.fc::after{content:"→";position:absolute;right:18px;top:16px;font-size:22px;color:#e2cd9b}
+@media(max-width:520px){.found-g{grid-template-columns:minmax(0,1fr)}.fc{min-height:150px}}
+.es-g{grid-column:1/-1;max-width:1120px;width:100%;margin:34px auto 0}
+.es-g .fc:last-child:nth-child(3n+1){grid-column:2}
 </style>
 </head>
 <body>
@@ -577,6 +586,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     <p class="intro" id="temoigner-intro"></p>
     
     <div id="pubtri" hidden></div>
+    <div class="found-g es-g"><a class="fc" href="/videos.html" style="--p:url(/images/point-de-vue-1.jpg)"><b>Vidéos</b><span>Portraits, vie de la ville, point de vue</span></a><a class="fc" href="/podcast.html" style="--p:url(/images/podcast-studio.jpg)"><b>Le podcast</b><span>Zoom sous les étoiles</span></a><a class="fc" href="/temoigner.html" style="--p:url(/images/coeur-canal.jpg)"><b>Bondy raconte</b><span>Les histoires de Bondy</span></a><a class="fc" href="/images.html" style="--p:url(/images/bondy-parc-automne.jpg)"><b>Bondy en images</b><span>Les photos de la ville</span></a><a class="fc" href="/logement.html" style="--p:url(/images/bondy-rue-automne.jpg)"><b>Votre logement</b><span>Vous l’attendez depuis longtemps ? Dites-le.</span></a><a class="fc" href="/elus.html" style="--p:url(/images/une-elus-drapeau.jpg)"><b>Notez vos élus</b><span>Notez-les et dites pourquoi</span></a><a class="fc" href="/annonces.html" style="--p:url(/images/une-bois.jpg)"><b>Le vide-grenier</b><span>Annonces gratuites entre habitants</span></a></div>
     <aside class="t-side" id="t-side" hidden></aside>
   </section>
   <footer id="pied"></footer>
@@ -725,7 +735,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 
     $("temoigner-titre").innerHTML = "L’<em>essentiel</em>";
-    $("temoigner-intro").innerHTML = "Tout l’essentiel de Bondy TV, bientôt ici, au même endroit.";
+    $("temoigner-intro").innerHTML = "Tout l’essentiel de Bondy TV, au même endroit.";
     $("t-side").hidden = true;
 
     var p = d.proposer || {};
