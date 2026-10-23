@@ -696,6 +696,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 /* Envoyer : bouton vers la page des notes */
 .el-cta .el-send{display:inline-block;text-align:center;text-decoration:none;box-sizing:border-box}
+
+/* Boutons bien visibles */
+.hs-big{padding:22px 38px!important;font-size:22px!important;box-shadow:0 0 0 6px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35);animation:hsp 2.4s ease-in-out infinite}
+.hs-big span{margin-left:8px}
+@keyframes hsp{0%,100%{box-shadow:0 0 0 4px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 12px rgba(184,151,90,.18),0 10px 24px rgba(0,0,0,.35)}}
+.hs-inv>a.hs-big{align-self:center}
+.el-bar2{left:50%!important;right:auto!important;bottom:16px!important;transform:translateX(-50%);width:max-content;max-width:calc(100vw - 32px);border-radius:12px;padding:10px 10px 10px 22px!important;font-size:17px!important;gap:18px!important;transition:opacity .25s,transform .25s}
+.el-bar2.off{opacity:0;pointer-events:none;transform:translate(-50%,20px)}
+.el-bar2 a{background:#b8975a!important;color:#12141c!important;border-radius:8px;padding:14px 22px!important;font-size:17px}
+.el-bar2.has a{background:#0b6b3a!important;color:#fff!important;animation:hsp 2.4s ease-in-out infinite}
+@media(max-width:700px){.el-bar2{bottom:76px!important;right:auto!important;left:50%!important;font-size:14px!important;padding:8px 8px 8px 14px!important;gap:10px!important}.el-bar2 a{padding:12px 14px!important;font-size:14px}.hs-big{padding:18px 26px!important;font-size:19px!important}}
 </style>
 </head>
 <body>
@@ -872,7 +883,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var tt = esc(el.titre || "Vos élus, votre avis").split(" "), lw = tt.splice(-2).join(" ");
       var html = '<div class="el-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (el.introduction ? '<p>' + esc(el.introduction) + '</p>' : "") + '</div>';
       html += '<div class="edm" id="edm" hidden></div>';
-      html += '<div class="hs-inv" style="--bgi:url(/images/une-pepitheque.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn" href="#elus-liste">Noter un élu</a></div>';
+      html += '<div class="hs-inv" style="--bgi:url(/images/une-pepitheque.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn hs-big" href="#elus-liste">Noter un élu <span aria-hidden="true">↓</span></a></div>';
       html += '<div class="el-warn"><b>À savoir</b>' + esc(el.avertissement || "") + (el.source ? " " + esc(el.source) : "") + '</div>';
       html += '<ol class="el-steps"><li><i>1</i><b>Choisissez un élu</b><span>Touchez son nom dans la liste.</span></li><li><i>2</i><b>Donnez une note</b><span>De 0 à 10, et une phrase si vous le souhaitez.</span></li><li><i>3</i><b>Envoyez</b><span>Avec votre nom : une seule note par élu.</span></li></ol>';
       html += '<span id="elus-liste"></span>'; var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
@@ -887,7 +898,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       });
       html += '<div class="el-form el-cta"><h2>Envoyer mes notes</h2><div class="el-sel" id="elsel"><p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p></div><p class="hint">Une fois vos notes choisies, vous les envoyez sur une page à part, avec votre nom pour éviter les faux avis.</p><a class="el-send" id="elgo" href="/noter-mes-elus.html">Envoyer mes notes</a></div>';
       html += '<p class="el-rep">' + esc(el.droit_de_reponse || "") + ' <a href="/confidentialite.html">Confidentialité et mentions légales</a></p>';
-      html += '<div class="el-bar2" id="elbar" hidden><span id="elcount"></span><a href="/noter-mes-elus.html">Envoyer</a></div>';
+      html += '<div class="el-bar2" id="elbar"><span id="elcount"></span><a id="elbarlink" href="#elus-liste">Voir la liste ↓</a></div>';
       html += '<div class="el-modal' + (phr ? '' : ' nophr') + '" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Ce qu\'il ou elle a fait pour vous (facultatif)<textarea maxlength="280" placeholder="Une ou deux phrases, des faits. Pas d\'insulte, pas d\'accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';
       document.getElementById("elus").innerHTML = html;
 
@@ -908,7 +919,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         var ids = Object.keys(sel), box = document.getElementById("elsel");
         box.innerHTML = ids.length ? '<div class="chips">' + ids.map(function (id) { return '<button type="button" class="chip" data-id="' + id + '" title="Modifier">' + esc(byId[id].nom) + ' · <b>' + sel[id].note + '/10</b></button>'; }).join("") + '</div>' : '<p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p>';
         var go = document.getElementById("elgo"); if (go) go.style.display = ids.length ? "" : "none";
-        var bar = document.getElementById("elbar"); bar.hidden = !ids.length; document.getElementById("elcount").textContent = ids.length + " note" + (ids.length > 1 ? "s" : "") + " choisie" + (ids.length > 1 ? "s" : "");
+        var bar = document.getElementById("elbar"), bl = document.getElementById("elbarlink"); bar.classList.toggle("has", !!ids.length); bl.setAttribute("href", ids.length ? "/noter-mes-elus.html" : "#elus-liste"); bl.textContent = ids.length ? "Envoyer mes notes →" : "Voir la liste ↓"; document.getElementById("elcount").textContent = ids.length ? ids.length + " note" + (ids.length > 1 ? "s" : "") + " choisie" + (ids.length > 1 ? "s" : "") : "Touchez un élu pour le noter"; barVis();
       }
       function setPill(v) { pillsBox.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-checked", String(x.dataset.v) === String(v) ? "true" : "false"); }); }
       function openM(id) {
@@ -948,6 +959,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
           box.innerHTML = '<span class="edm-p">Élu du mois</span><h2>' + esc(best.e.nom) + '</h2><p class="edm-f">' + esc(best.e.fonction || "") + '</p><div class="edm-n"><b>' + String(best.s.moyenne).replace(".", ",") + '<small>/10</small></b><span>' + best.s.n + ' avis de Bondynois</span></div>';
         }
       }
+      function barVis() { var bar = document.getElementById("elbar"), l = document.getElementById("elus-liste"); if (!bar || !l) return; var past = l.getBoundingClientRect().top < window.innerHeight * 0.6; bar.classList.toggle("off", !bar.classList.contains("has") && past); }
+      window.addEventListener("scroll", barVis, { passive: true });
       refresh();
       edm();
 
