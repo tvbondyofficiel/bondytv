@@ -67,6 +67,7 @@ export async function onRequestPost({ request, env }) {
     const kMail = "s:" + id + ":" + hMail, kTel = "p:" + id + ":" + hTel;
     if ((await env.VOTES.get(kMail)) || (await env.VOTES.get(kTel))) { resultats.push({ id, statut: "deja_vote" }); continue; }
     const comment = phrases ? cleanText(v.commentaire, MAX_COMMENT) : "";
+    if (phrases && comment.length < 10) { resultats.push({ id, statut: "motif_manquant" }); continue; }
     const rec = { id, note: score, commentaire: comment, nom, email, telephone: tel, ts: Date.now(), statut: comment ? "en_attente" : "sans_commentaire", ip: hIp };
     await env.VOTES.put(kMail, JSON.stringify(rec), { expirationTtl: TTL, metadata: { s: score } });
     await env.VOTES.put(kTel, "1", { expirationTtl: TTL });

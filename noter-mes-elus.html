@@ -925,9 +925,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
             if (x.s === 429) return say("Trop de tentatives. Réessayez dans une heure.", 1);
             if (x.s === 503) return say("Les avis ouvrent très bientôt.", 1);
             if (x.s !== 200) { var m = { nom: "Indiquez votre prénom et votre nom.", email: "Adresse e-mail non valide.", telephone: "Numéro de téléphone non valide.", consentement: "Cochez les trois engagements." }; return say(m[x.j.error] || "Envoi impossible, réessayez.", 1); }
-            var ok = 0, dup = 0;
-            (x.j.resultats || []).forEach(function (r) { if (r.statut === "ok") { ok++; done[r.id] = 1; delete sel[r.id]; } if (r.statut === "deja_vote") { dup++; done[r.id] = 1; delete sel[r.id]; } });
+            var ok = 0, dup = 0, miss = 0;
+            (x.j.resultats || []).forEach(function (r) { if (r.statut === "motif_manquant") miss++; if (r.statut === "ok") { ok++; done[r.id] = 1; delete sel[r.id]; } if (r.statut === "deja_vote") { dup++; done[r.id] = 1; delete sel[r.id]; } });
             try { localStorage.setItem("elus-votes", JSON.stringify(done)); localStorage.setItem("elus-sel", JSON.stringify(sel)); } catch (e) {}
+            if (miss && !ok && !dup) return say("Il manque le motif de la note : retournez la modifier et dites pourquoi.", 1);
             if (!Object.keys(sel).length) { document.getElementById("elus").innerHTML = '<div class="el-head"><h1>Merci <em>!</em></h1></div><div class="el-form nm-empty"><h2>Notes envoyées</h2><p class="hint">' + (ok ? ok + " note" + (ok > 1 ? "s" : "") + " enregistrée" + (ok > 1 ? "s" : "") + "." + (phr ? " Vos phrases seront relues avant d\'être publiées." : "") : "") + (dup ? " " + dup + " élu(s) avaient déjà reçu une note de votre part : une seule note par personne est possible." : "") + '</p><a class="el-send" href="/elus.html">Retour aux élus</a></div>'; window.scrollTo(0, 0); return; }
             say((ok ? "Merci ! " + ok + " note" + (ok > 1 ? "s" : "") + " enregistrée" + (ok > 1 ? "s" : "") + "." + (phr ? " Vos phrases seront relues avant d'être publiées." : "") : "") + (dup ? " " + dup + " élu(s) avaient déjà reçu une note de votre part : une seule note par personne est possible." : ""));
           }).catch(function () { btn.disabled = false; say("Envoi impossible, vérifiez votre connexion.", 1); });
