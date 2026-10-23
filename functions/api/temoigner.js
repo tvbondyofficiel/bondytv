@@ -31,7 +31,10 @@ export async function onRequestPost({ request, env }) {
   const ts = Date.now();
   const suf = Array.from(crypto.getRandomValues(new Uint8Array(3))).map((x) => x.toString(16).padStart(2, "0")).join("");
   const id = ts + "-" + suf;
-  const rec = { nom, tel, adresse, type, message, lien: lien || "", ts };
+  let page = "";
+  try { page = new URL(request.headers.get("Referer") || "").pathname.replace(/\.html$/, "").replace(/^\//, ""); } catch (e) {}
+  if (["logement", "essentiel", "temoigner"].indexOf(page) < 0) page = "";
+  const rec = { nom, tel, adresse, type, message, lien: lien || "", ts, page };
   const file = f.get("piece");
   if (file && typeof file !== "string" && file.size) {
     if (file.size > MAX_PIECE) return json({ error: "piece_taille" }, 413);

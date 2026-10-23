@@ -24,7 +24,7 @@ pre{white-space:pre-wrap;background:#fff;border:2px solid var(--line);padding:12
 <h2>Demandes d'accès des habitants</h2>
 <div id="dm"></div>
 <div id="newh"></div>
-<h2>Messages reçus (Bondy raconte et podcast)</h2>
+<h2>Messages reçus</h2>
 <div id="ms"></div>
 <h2>Créer un compte</h2>
 <p class="m">Faites-le seulement après avoir vérifié son justificatif d'élu.</p>
@@ -56,9 +56,10 @@ function draw(){var f=$("flt").value;
 }
 var DEST={"Logement":["logement","/logement.html","Parlons de votre logement"],"L'essentiel":["essentiel","/essentiel.html","Le fil de la ville"],"Un témoignage":["temoignage","/temoigner.html","Bondy raconte"]};
 function pren(n){var p=String(n||"").trim().split(/\s+/);return p.length>1?p[0]+" "+p[p.length-1].charAt(0).toUpperCase()+".":p[0]||""}
+var PG={logement:"Votre logement",essentiel:"L'essentiel",temoigner:"Bondy raconte"};
 function drawMsg(){var L=data.messages||[];
  $("ms").innerHTML=L.length?L.map(function(m){var D=DEST[m.type],pub=m.statut==="publie";
-  return '<div class="c '+(pub?"pub":"att")+'"><div class="top"><span>'+e(m.nom)+' · <a href="tel:'+e(m.tel)+'">'+e(m.tel)+'</a></span><span class="tag">'+e(m.type)+(pub?' · Publié':'')+'</span></div><p class="m">'+e(m.adresse)+' · '+new Date(m.ts).toLocaleString("fr-FR")+'</p><p style="white-space:pre-wrap">'+e(m.message)+'</p>'+(m.lien?'<p><a href="'+e(m.lien)+'" target="_blank" rel="noopener">'+e(m.lien)+'</a></p>':'')+
+  return '<div class="c '+(pub?"pub":"att")+'"><div class="top"><span>'+e(m.nom)+' · <a href="tel:'+e(m.tel)+'">'+e(m.tel)+'</a></span><span class="tag">'+e(m.type)+(pub?' · Publié':'')+'</span></div><p class="m"><b>Reçu depuis la page : '+e(PG[m.page]||"non précisée")+'</b></p><p class="m">'+e(m.adresse)+' · '+new Date(m.ts).toLocaleString("fr-FR")+'</p><p style="white-space:pre-wrap">'+e(m.message)+'</p>'+(m.lien?'<p><a href="'+e(m.lien)+'" target="_blank" rel="noopener">'+e(m.lien)+'</a></p>':'')+
   (D?'<div class="pubbox"><p class="m"><b>Sera publié sur : '+e(D[2])+'</b> (<a href="'+D[1]+'" target="_blank" rel="noopener">'+D[1]+'</a>)</p><label class="m">Texte affiché (vous pouvez corriger)</label><textarea rows="5" data-mt="'+e(m.cle)+'">'+e(m.texte_pub||m.message)+'</textarea><label class="m">Nom affiché</label><input type="text" data-mn="'+e(m.cle)+'" value="'+e(m.nom_pub!=null&&m.statut==="publie"?m.nom_pub:pren(m.nom))+'" placeholder="Prénom, quartier"></div>':'<p class="m">Ce type de message ne se publie pas ici.</p>')+
   '<div class="act">'+(m.piece?'<button class="l" data-m="piece" data-k="'+e(m.cle)+'">Voir la pièce jointe</button>':'')+(D?'<button class="g" data-m="publier_message" data-k="'+e(m.cle)+'">'+(pub?'Mettre à jour':'Publier')+'</button>':'')+(pub?'<button class="l" data-m="retirer_message" data-k="'+e(m.cle)+'">Retirer du site</button>':'')+'<button class="r" data-m="supprimer_message" data-k="'+e(m.cle)+'">Supprimer</button></div></div>'}).join(""):'<p class="m">Aucun message pour l\'instant.</p>';
 }
