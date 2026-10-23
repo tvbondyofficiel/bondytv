@@ -543,7 +543,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 .el-head{text-align:center}
 .el-head p{margin:14px auto 0;border-left:0;padding-left:0;text-align:center;font-size:clamp(19px,2.2vw,24px);max-width:56ch}
 #elus>*:not(.el-head){max-width:960px;margin-left:auto;margin-right:auto}
-#elus>.hs-inv{margin-top:34px}
+#elus>.hs-inv{margin-top:34px;background-position:center 38%!important}
 .el-grp{text-align:center;border-bottom:0;letter-spacing:0;font-size:clamp(28px,4vw,40px);margin-top:46px}
 .el-grp::after{content:"";display:block;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
 .el-steps{justify-content:center}
@@ -883,7 +883,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var tt = esc(el.titre || "Vos élus, votre avis").split(" "), lw = tt.splice(-2).join(" ");
       var html = '<div class="el-head"><h1>' + tt.join(" ") + ' <em>' + lw + '</em></h1>' + (el.introduction ? '<p>' + esc(el.introduction) + '</p>' : "") + '</div>';
       html += '<div class="edm" id="edm" hidden></div>';
-      html += '<div class="hs-inv" style="--bgi:url(/images/une-pepitheque.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn hs-big" href="#elus-liste">Noter un élu <span aria-hidden="true">↓</span></a></div>';
+      html += '<div class="hs-inv" style="--bgi:url(/images/une-elus-drapeau.jpg)"><div><h2>Donnez votre avis</h2><p>Choisissez un élu, donnez-lui une note de 0 à 10 et dites en une phrase ce qu\'il ou elle a fait pour vous.</p></div><a class="hs-btn hs-big" href="#elus-liste">Noter un élu <span aria-hidden="true">↓</span></a></div>';
       html += '<div class="el-warn"><b>À savoir</b>' + esc(el.avertissement || "") + (el.source ? " " + esc(el.source) : "") + '</div>';
       html += '<ol class="el-steps"><li><i>1</i><b>Choisissez un élu</b><span>Touchez son nom dans la liste.</span></li><li><i>2</i><b>Donnez une note</b><span>De 0 à 10, et une phrase si vous le souhaitez.</span></li><li><i>3</i><b>Envoyez</b><span>Avec votre nom : une seule note par élu.</span></li></ol>';
       html += '<span id="elus-liste"></span>'; var groupes = []; liste.forEach(function (e) { var g = e.groupe || "Élus"; if (groupes.indexOf(g) < 0) groupes.push(g); });
