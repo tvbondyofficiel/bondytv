@@ -633,6 +633,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .yt-btn b{display:block;font:700 26px/1 var(--display);text-transform:uppercase;letter-spacing:.04em}
 #rep .intro{text-align:center;max-width:none}
 @media (max-width:480px){.yt-btn b{font-size:21px}}
+
+/* lecteur vidéo (vidéos hébergées sur le site) */
+.pv-modal{position:fixed;inset:0;z-index:9999;background:rgba(10,12,18,.9);display:flex;align-items:center;justify-content:center;padding:16px}
+.pv-modal video{max-height:92vh;max-width:min(92vw,520px);width:auto;border-radius:12px;background:#000;box-shadow:0 20px 60px rgba(0,0,0,.5)}
+.pv-modal .pv-x{position:absolute;top:14px;right:14px;width:44px;height:44px;border-radius:50%;border:0;background:#b8975a;color:#12141c;font:700 26px/1 var(--display);cursor:pointer}
 </style>
 </head>
 <body>
@@ -836,7 +841,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var V = d.point_de_vue || {};
     if (document.getElementById("vid")) {
       var tt = esc(V.titre || "Bondy en vidéos").split(" "); var last = tt.pop();
-      document.getElementById("vid").innerHTML = '<div class="ph-head" id="videos"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><div class="hs-inv" style="--bgi:url(/images/une-bois.jpg)"><div><h2>Et vous, qu\'en pensez-vous ?</h2><p>Une idée, un coup de gueule, une réflexion ? Filmez-vous en vertical, comme un Short, un TikTok ou une Story : 1 min 10 maximum. Envoyez-nous votre vidéo.</p></div><a class="hs-btn" href="/temoigner.html?type=pdv#tform">Envoyer ma vidéo</a></div><h2 class="hs-t">Les points de vue des Bondynois</h2><ul class="vtiles">' + (V.items || []).map(function (x) { return '<li><a href="' + esc(safeUrl(x.lien)) + '" target="_blank" rel="noopener"><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><span class="pill">' + esc(x.type || "Short") + '</span><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '<span class="go">Regarder le Short</span></span></a></li>'; }).join("") + (function () { var n = Math.max(0, 6 - (V.items || []).length), h = ""; for (var k = 0; k < n; k++) h += '<li><div class="vide"><span class="im"><span class="play"></span></span><span class="cap"><span class="pill">Bientôt</span><b>Point de vue à venir</b></span></div></li>'; return h; })() + '</ul>' + (function () { var P = V.podcast; if (!P || !P.titre || !P.lien) return ""; var lien = safeUrl(P.lien || V.lien || ""); return '<div class="pod"><a class="pim" href="' + esc(lien) + '" target="_blank" rel="noopener" aria-label="' + esc(P.titre) + '">' + (P.image ? '<img src="' + esc(P.image) + '" alt="" loading="lazy">' : "") + '<span class="play"></span></a><div class="ptx"><span class="pet">' + esc(P.etiquette || "Podcast du mois") + '</span><h2>' + esc(P.titre) + '</h2>' + (P.legende ? '<p>' + esc(P.legende) + '</p>' : "") + '<a class="pb" href="' + esc(lien) + '" target="_blank" rel="noopener">' + esc(P.bouton || "Écouter sur YouTube") + '</a></div></div>'; })() ;
+      document.getElementById("vid").innerHTML = '<div class="ph-head" id="videos"><h1>' + tt.join(" ") + ' <em>' + last + '</em></h1>' + (V.introduction ? '<p>' + esc(V.introduction) + '</p>' : "") + '</div><div class="hs-inv" style="--bgi:url(/images/une-bois.jpg)"><div><h2>Et vous, qu\'en pensez-vous ?</h2><p>Une idée, un coup de gueule, une réflexion ? Filmez-vous en vertical, comme un Short, un TikTok ou une Story : 1 min 10 maximum. Envoyez-nous votre vidéo.</p></div><a class="hs-btn" href="/temoigner.html?type=pdv#tform">Envoyer ma vidéo</a></div><h2 class="hs-t">Les points de vue des Bondynois</h2><ul class="vtiles">' + (V.items || []).map(function (x) { var loc = /\.mp4($|\?)/i.test(x.lien || ""); return '<li><a href="' + esc(safeUrl(x.lien)) + '"' + (loc ? ' class="pv-local" data-src="' + esc(safeUrl(x.lien)) + '"' : ' target="_blank" rel="noopener"') + '><span class="im"><img src="' + esc(x.image) + '" alt="' + esc(x.titre) + '" loading="lazy"><span class="play"></span></span><span class="cap"><span class="pill">' + esc(x.type || "Short") + '</span><b>' + esc(x.titre) + '</b>' + (x.legende ? '<small>' + esc(x.legende) + '</small>' : "") + '<span class="go">' + (loc ? "Regarder la vidéo" : "Regarder le Short") + '</span></span></a></li>'; }).join("") + (function () { var n = Math.max(0, 6 - (V.items || []).length), h = ""; for (var k = 0; k < n; k++) h += '<li><div class="vide"><span class="im"><span class="play"></span></span><span class="cap"><span class="pill">Bientôt</span><b>Point de vue à venir</b></span></div></li>'; return h; })() + '</ul>' + (function () { var P = V.podcast; if (!P || !P.titre || !P.lien) return ""; var lien = safeUrl(P.lien || V.lien || ""); return '<div class="pod"><a class="pim" href="' + esc(lien) + '" target="_blank" rel="noopener" aria-label="' + esc(P.titre) + '">' + (P.image ? '<img src="' + esc(P.image) + '" alt="" loading="lazy">' : "") + '<span class="play"></span></a><div class="ptx"><span class="pet">' + esc(P.etiquette || "Podcast du mois") + '</span><h2>' + esc(P.titre) + '</h2>' + (P.legende ? '<p>' + esc(P.legende) + '</p>' : "") + '<a class="pb" href="' + esc(lien) + '" target="_blank" rel="noopener">' + esc(P.bouton || "Écouter sur YouTube") + '</a></div></div>'; })() ;
     }
 
     if (document.getElementById("rep")) {
@@ -1059,5 +1064,19 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 document.addEventListener("click",function(e){all.forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 all.forEach(function(d){d.addEventListener("toggle",function(){if(d.open)closeOthers(d)});
 if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListener("mouseenter",function(){clearTimeout(t);closeOthers(d);d.setAttribute("open","")});d.addEventListener("mouseleave",function(){t=setTimeout(function(){d.removeAttribute("open")},180)});}})})();</script>
+
+<script>
+document.addEventListener("click", function (e) {
+  var a = e.target.closest && e.target.closest("a.pv-local"); if (!a) return;
+  e.preventDefault();
+  var m = document.createElement("div"); m.className = "pv-modal"; m.setAttribute("role", "dialog"); m.setAttribute("aria-modal", "true");
+  m.innerHTML = '<button class="pv-x" type="button" aria-label="Fermer">×</button><video controls autoplay playsinline></video>';
+  var v = m.querySelector("video"); v.src = a.getAttribute("data-src");
+  function close() { v.pause(); m.remove(); document.body.style.overflow = ""; document.removeEventListener("keydown", key); }
+  function key(ev) { if (ev.key === "Escape") close(); }
+  m.addEventListener("click", function (ev) { if (ev.target === m || ev.target.classList.contains("pv-x")) close(); });
+  document.addEventListener("keydown", key); document.body.style.overflow = "hidden"; document.body.appendChild(m);
+});
+</script>
 </body>
 </html>

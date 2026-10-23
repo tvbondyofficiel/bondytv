@@ -969,6 +969,14 @@
     "introduction": "Chacun a son point de vue. Une minute pour dire ce que vous pensez, en vidéo verticale, filmée avec votre téléphone.",
     "lien": "https://www.youtube.com/@Bondytvofficiel",
     "bouton": "Voir la chaîne YouTube",
-    "items": []
+    "items": [
+      {
+        "image": "/images/point-de-vue-1.jpg",
+        "titre": "Mon point de vue",
+        "type": "Réflexion",
+        "legende": "Mohammed",
+        "lien": "/videos/point-de-vue-1.mp4"
+      }
+    ]
   }
 }

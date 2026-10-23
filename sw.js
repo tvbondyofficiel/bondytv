@@ -1,4 +1,4 @@
-const VERSION = "bondy-tv-v253";
+const VERSION = "bondy-tv-v254";
 const SHELL = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
@@ -17,6 +17,7 @@ self.addEventListener("fetch", (e) => {
   const req = e.request;
   if (req.method !== "GET") return;
   if (req.headers.has("range")) return;
+  if (new URL(req.url).pathname.endsWith(".mp4")) return;
   const url = new URL(req.url);
   const sameOrigin = url.origin === self.location.origin;
   if (sameOrigin && (url.pathname.startsWith("/admin") || url.pathname.startsWith("/api"))) return;
