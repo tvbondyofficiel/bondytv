@@ -223,7 +223,7 @@ collections:
                   - {label: "Titre", name: titre, widget: string}
                   - {label: "Légende", name: legende, widget: text, required: false}
                   - {label: "Adresse de la vidéo (YouTube)", name: lien, widget: string}
-          - label: "Section « Reportages » (page Images et vidéos)"
+          - label: "Section « Bondy raconte »"
             name: reportages
             widget: object
             collapsed: true
@@ -240,7 +240,7 @@ collections:
                 fields:
                   - {label: "Image", name: image, widget: image}
                   - {label: "Titre", name: titre, widget: string}
-                  - {label: "Type", name: type, widget: select, options: ["Reportage", "Podcast", "Short", "Story"], required: false}
+                  - {label: "Type", name: type, widget: select, options: ["Histoire", "Podcast", "Short", "Story"], required: false}
                   - {label: "Légende", name: legende, widget: text, required: false}
                   - {label: "Adresse (YouTube)", name: lien, widget: string}
           - label: "Page « Mon point de vue »"
