@@ -482,7 +482,7 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 }
 
 /* menu resserré (9 onglets) */
-.bar nav { gap: 8px 13px; font-size: 13.5px; letter-spacing: .05em; }
+.bar nav { gap: 8px 11px; font-size: 13px; letter-spacing: .03em; }
 
 /* luxe : beige dominant ; vert réservé aux titres et mots à mettre en valeur */
 .btn-all, .a5.free .gratuit, .a5 .tx .go, .pubpage .suite .btn-all, .ph-cta a, .pg-cta .acts a, .pubpage .ici .acts a, .cc-act a, .tform button[type="submit"], .pubpop .txt a, .filters button[aria-pressed="true"] { background: var(--beige) !important; color: var(--on-beige) !important; border: 1px solid #c9b58a !important; }
@@ -510,7 +510,7 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { color: #b8975a !important; }
 
 /* nav 12 */
-@media (min-width: 900px) { .bar nav { gap: 6px 11px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .03em !important; } }
+@media (min-width: 900px) { .bar nav { gap: 6px 9px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .02em !important; } }
 .vid-grid { margin-top: 34px; }
 .art .vis.has-icon { background: var(--beige); aspect-ratio: 16 / 6; border-bottom: 1px solid #c9b58a; }
 .art .vis.has-icon::before { display: none; }
@@ -535,7 +535,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 /* menu à listes déroulantes */
 /* menu : fermé = vraiment masqué ; dernier groupe aligné à droite */
 .bar nav details.dd:not([open])>.dd-m{display:none}
-.bar nav details.dd:last-of-type .dd-m{left:auto;right:0}
 .bar nav .dd-m{max-width:calc(100vw - 32px)}
 .bar nav details.dd>summary{border-bottom:2px solid transparent;padding-bottom:0;margin-bottom:0!important;width:auto;font-family:inherit;text-transform:inherit;font-weight:inherit}
 .bar nav details.dd.on>summary{border-bottom-color:var(--red)}
@@ -684,17 +683,15 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <a href="/edito.html">Édito</a>
         <a href="/sommaire.html">Sommaire</a>
         <a href="/articles.html">Articles du magazine</a>
+        <a href="/vos-articles.html">Articles des habitants</a>
       </div></details>
-      <a href="/vos-articles.html">Vos articles</a>
       <a href="/essentiel.html">L’essentiel</a>
       <a href="/images.html">Bondy en images</a>
       <a href="/point-de-vue.html">Mon point de vue</a>
       <a href="/elus.html">Noter vos élus</a>
-      <details class="dd"><summary>Prendre la parole</summary><div class="dd-m">
-        <a href="/temoigner.html">Bondy raconte</a>
-        <a href="/logement.html">Votre logement</a>
-        <a href="/habitants.html">Écrire un article</a>
-      </div></details>
+      <a href="/temoigner.html">Bondy raconte</a>
+      <a href="/logement.html">Votre logement</a>
+      <a href="/habitants.html">Écrire un article</a>
     </nav>
   </div>
 

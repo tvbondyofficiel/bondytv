@@ -374,7 +374,7 @@ footer .social { display: flex; justify-content: center; align-items: center; ga
 
 
 /* menu resserré (9 onglets) */
-.bar nav { gap: 8px 13px; font-size: 13.5px; letter-spacing: .05em; }
+.bar nav { gap: 8px 11px; font-size: 13px; letter-spacing: .03em; }
 
 /* sommaire de magazine */
 .som-head { margin: 36px 0 26px; display: flex; align-items: flex-end; gap: 18px 24px; flex-wrap: wrap; }
@@ -425,12 +425,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @media (max-width: 760px) { .sc .th.logo { width: 56px; } }
 
 /* nav 12 */
-@media (min-width: 900px) { .bar nav { gap: 6px 11px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .03em !important; } }
+@media (min-width: 900px) { .bar nav { gap: 6px 9px !important; } .bar nav a { font-size: 12.5px !important; letter-spacing: .02em !important; } }
 
 /* menu à listes déroulantes */
 /* menu : fermé = vraiment masqué ; dernier groupe aligné à droite */
 .bar nav details.dd:not([open])>.dd-m{display:none}
-.bar nav details.dd:last-of-type .dd-m{left:auto;right:0}
 .bar nav .dd-m{max-width:calc(100vw - 32px)}
 .bar nav details.dd>summary{border-bottom:2px solid transparent;padding-bottom:0;margin-bottom:0!important;width:auto;font-family:inherit;text-transform:inherit;font-weight:inherit}
 .bar nav details.dd.on>summary{border-bottom-color:var(--red)}
@@ -596,17 +595,15 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         <a href="/edito.html">Édito</a>
         <a href="/sommaire.html" aria-current="page">Sommaire</a>
         <a href="/articles.html">Articles du magazine</a>
+        <a href="/vos-articles.html">Articles des habitants</a>
       </div></details>
-      <a href="/vos-articles.html">Vos articles</a>
       <a href="/essentiel.html">L’essentiel</a>
       <a href="/images.html">Bondy en images</a>
       <a href="/point-de-vue.html">Mon point de vue</a>
       <a href="/elus.html">Noter vos élus</a>
-      <details class="dd"><summary>Prendre la parole</summary><div class="dd-m">
-        <a href="/temoigner.html">Bondy raconte</a>
-        <a href="/logement.html">Votre logement</a>
-        <a href="/habitants.html">Écrire un article</a>
-      </div></details>
+      <a href="/temoigner.html">Bondy raconte</a>
+      <a href="/logement.html">Votre logement</a>
+      <a href="/habitants.html">Écrire un article</a>
     </nav>
   </div>
 
