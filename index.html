@@ -506,6 +506,18 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 @media(max-width:820px){.cov img{box-shadow:none!important;border-radius:8px}}
 @media(max-width:900px){.cbar .fbtn{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:480px){.cbar .fbtn{grid-template-columns:minmax(0,1fr)}.cbar{align-items:stretch}}
+
+/* une façon magazine : grand logo, grand titre, rond */
+.une2 .logo .name{font-size:clamp(72px,14vw,170px)}
+.une2 .logo .tv{font-size:clamp(34px,5vw,54px)}
+.cov-rond{position:absolute;z-index:3;top:22px;right:22px;width:clamp(120px,14vw,168px);aspect-ratio:1;border-radius:50%;background:#b8975a;color:#12141c;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:6px;padding:14px;text-decoration:none;box-shadow:0 10px 26px rgba(0,0,0,.35);transition:transform .2s}
+.cov-rond:hover{transform:scale(1.05) rotate(-3deg)}
+.cov-rond b{font:700 clamp(15px,1.8vw,21px)/1.05 var(--display);text-transform:uppercase}
+.cov-rond span{font:600 clamp(11px,1.1vw,13px)/1.2 var(--body)}
+.cov-lines a:first-child{font-size:clamp(34px,6.4vw,76px)!important;padding:12px 24px 12px 26px;background:#12141c!important;color:#fff!important}
+.cov-lines a:first-child small{font-size:.34em}
+.cov-lines a:not(:first-child){font-size:clamp(16px,2.2vw,24px)}
+@media(max-width:820px){.cov-rond{top:12px;right:12px;width:104px}.cov-rond span{display:none}.cov-lines a:first-child{font-size:30px!important}.cov-lines a:not(:first-child){font-size:17px}}
 </style>
 </head>
 <body>
@@ -682,7 +694,7 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
     })();
     var c = d.couverture || {};
     var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
-    une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {
+    une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<a class="cov-rond" href="/point-de-vue.html"><b>Votre point de vue ?</b><span>Filmez-vous, 1 min 10</span></a><div class="cov-lines">' + (c.lignes || []).map(function (l) {
       return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div></div>";
     $("top").innerHTML = une;
