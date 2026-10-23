@@ -1086,7 +1086,7 @@
   },
   "point_de_vue": {
     "titre": "Mon point de vue",
-    "introduction": "Chacun a son point de vue. Une minute pour dire ce que vous pensez, en vidéo verticale, filmée avec votre téléphone.",
+    "introduction": "Un point de vue sur Bondy, en moins d'une minute. Ce qu'on peut changer, ce qu'on peut faire, ce qu'on peut raconter, Bondy dans 5 ans… tout ce qui concerne la ville.",
     "lien": "https://www.youtube.com/@Bondytvofficiel",
     "bouton": "Voir la chaîne YouTube",
     "items": [
@@ -1097,6 +1097,14 @@
         "legende": "Bondy TV",
         "lien": "/videos/point-de-vue-1.mp4"
       }
+    ],
+    "themes": [
+      "Ce qu'on peut changer",
+      "Ce qu'on peut faire",
+      "Ce qu'on peut raconter",
+      "Bondy dans 5 ans",
+      "La petite enfance",
+      "La ville"
     ]
   },
   "essentiel": {
