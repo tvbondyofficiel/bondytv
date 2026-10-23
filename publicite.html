@@ -553,6 +553,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 @keyframes hsp{0%,100%{box-shadow:0 0 0 4px rgba(184,151,90,.35),0 10px 24px rgba(0,0,0,.35)}50%{box-shadow:0 0 0 12px rgba(184,151,90,.18),0 10px 24px rgba(0,0,0,.35)}}
 @media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
 @media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
+.pubpop{inset:auto auto 18px 18px!important;display:block!important;padding:0!important;background:none!important;width:min(300px,calc(100vw - 36px));pointer-events:none}
+.pubpop .box{width:100%!important;max-height:none!important;overflow:hidden!important;border-top-width:4px!important;pointer-events:auto;box-shadow:0 14px 34px rgba(0,0,0,.4)!important;border-radius:6px}
+.pubpop .x{width:32px!important;height:32px!important;font-size:20px!important;top:6px!important;right:6px!important}
+.pubpop .bar2{height:3px!important}
+@media(max-width:600px){.pubpop{width:min(230px,62vw);inset:auto auto 16px 12px!important}}
 </style>
 </head>
 <body>
@@ -674,7 +679,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var ok = b.actif && (b.image || b.titre) && (!b.debut || today >= String(b.debut).slice(0, 10)) && (!b.fin || today <= String(b.fin).slice(0, 10));
       if (!ok) return;
       var key = "pub-" + [b.image, b.titre, b.debut, b.fin].join("|");
-      var n0 = 0, last0 = 0, gap = 45000; try { n0 = Number(sessionStorage.getItem(key + "#n")) || 0; last0 = Number(sessionStorage.getItem(key + "#t")) || 0; } catch (e) {} if (n0 >= 2) return; var shown = n0;
+      var n0 = 0, last0 = 0, gap = 45000; try { n0 = Number(sessionStorage.getItem(key + "#n")) || 0; last0 = Number(sessionStorage.getItem(key + "#t")) || 0; } catch (e) {} try { if (localStorage.getItem(key)) return; } catch (e) {} if (n0 >= 1) return; var shown = n0;
       var delai = Math.max(0, Number(b.delai) || 2), duree = Math.max(4, Number(b.duree) || 12), prev = null, timer = null;
       setTimeout(function show() {
         if (document.getElementById("pubpop")) return;
@@ -682,17 +687,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         var body = b.image ? '<img src="' + esc(b.image) + '" alt="' + esc(b.annonceur || "Partenaire") + '">' : '<div class="txt"><b>' + esc(b.titre) + "</b>" + (b.sous_titre ? "<span>" + esc(b.sous_titre) + "</span>" : "") + (b.bouton ? "<em>" + esc(b.bouton) + " →</em>" : "") + "</div>";
         var wrap = b.lien ? '<a class="go" href="' + esc(safeUrl(b.lien)) + '"' + (ext ? ' target="_blank" rel="sponsored noopener"' : "") + ">" + body + "</a>" : body;
         var el = document.createElement("div");
-        el.className = "pubpop"; el.id = "pubpop"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "true"); el.setAttribute("aria-label", b.annonceur || "Publicité");
+        el.className = "pubpop"; el.id = "pubpop"; el.setAttribute("role", "dialog"); el.setAttribute("aria-modal", "false"); el.setAttribute("aria-label", b.annonceur || "Publicité");
         el.innerHTML = '<div class="box"><span class="tag2">' + esc(b.etiquette || "Partenaire") + '</span><button class="x" type="button" aria-label="Fermer">×</button>' + wrap + '<div class="bar2"><i style="animation-duration:' + duree + 's"></i></div></div>';
-        var closed = false; function close() { if (!closed) { closed = true; if (shown < 2) setTimeout(show, gap); } clearTimeout(timer); document.removeEventListener("keydown", onkey); el.classList.remove("on"); document.body.style.overflow = prev; setTimeout(function () { el.remove(); }, 400); if (window.__pubprev && window.__pubprev.focus) window.__pubprev.focus(); }
+        var closed = false; function close() { if (!closed) { closed = true;  } clearTimeout(timer); document.removeEventListener("keydown", onkey); el.classList.remove("on"); document.body.style.overflow = prev; setTimeout(function () { el.remove(); }, 400); if (window.__pubprev && window.__pubprev.focus) window.__pubprev.focus(); }
         function onkey(e) { if (e.key === "Escape") close(); }
-        window.__pubprev = document.activeElement; prev = document.body.style.overflow; document.body.style.overflow = "hidden";
+        window.__pubprev = document.activeElement; prev = document.body.style.overflow;
         document.body.appendChild(el); document.addEventListener("keydown", onkey);
         el.querySelector(".x").addEventListener("click", close);
         el.addEventListener("click", function (e) { if (e.target === el) close(); });
-        requestAnimationFrame(function () { el.classList.add("on"); el.querySelector(".x").focus(); });
+        requestAnimationFrame(function () { el.classList.add("on");  });
         timer = setTimeout(close, duree * 1000);
-        shown++; try { sessionStorage.setItem(key + "#n", String(shown)); sessionStorage.setItem(key + "#t", String(Date.now())); } catch (e) {}
+        shown++; try { localStorage.setItem(key, "1"); sessionStorage.setItem(key + "#n", String(shown)); sessionStorage.setItem(key + "#t", String(Date.now())); } catch (e) {}
       }, Math.max(delai * 1000, n0 ? gap - (Date.now() - last0) : 0));
     })();
     function $(id) { return document.getElementById(id) || {}; }
