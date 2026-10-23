@@ -529,6 +529,7 @@ var _h=document.createElement("p");_h.className="hint";_h.id="f-rules";_h.hidden
 function _r(){_h.hidden=!(_s.value==="Logement"||_s.value==="Ce qui doit changer à Bondy")}_s.addEventListener("change",_r);_r();}catch(e){}</script>
     <aside class="t-side" id="t-side" hidden></aside>
   </section>
+  <div id="paroles-pub" style="max-width:960px;margin:0 auto;padding:0 16px"></div>
   <footer id="pied"></footer>
 </div>
 <noscript><p style="padding:24px">Ce magazine a besoin de JavaScript pour s'afficher.</p></noscript>
@@ -887,5 +888,6 @@ function _r(){_h.hidden=!(_s.value==="Logement"||_s.value==="Ce qui doit changer
 document.addEventListener("click",function(e){all.forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 all.forEach(function(d){d.addEventListener("toggle",function(){if(d.open)closeOthers(d)});
 if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListener("mouseenter",function(){clearTimeout(t);closeOthers(d);d.setAttribute("open","")});d.addEventListener("mouseleave",function(){t=setTimeout(function(){d.removeAttribute("open")},180)});}})})();</script>
+<script src="/paroles.js" data-type="temoignage" defer></script>
 </body>
 </html>

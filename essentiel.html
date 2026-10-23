@@ -555,6 +555,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     <h2 class="lg-h">Le fil de la ville</h2>
     <div id="fil-f"></div>
     <div id="lg-list"></div>
+    <div id="paroles-pub"></div>
     <h2 class="lg-h" id="dites-le">Dites-le</h2>
     <p class="lg-rules">Des faits, sans insulte ni nom de particulier. La personne ou l’organisme concerné peut répondre : c’est son droit.</p>
     <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
@@ -950,5 +951,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 document.addEventListener("click",function(e){all.forEach(function(d){if(!d.contains(e.target))d.removeAttribute("open")})});
 all.forEach(function(d){d.addEventListener("toggle",function(){if(d.open)closeOthers(d)});
 if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListener("mouseenter",function(){clearTimeout(t);closeOthers(d);d.setAttribute("open","")});d.addEventListener("mouseleave",function(){t=setTimeout(function(){d.removeAttribute("open")},180)});}})})();</script>
+<script src="/paroles.js" data-type="essentiel" defer></script>
 </body>
 </html>

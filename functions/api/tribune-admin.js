@@ -2,6 +2,8 @@
 // Protégée par MOD_TOKEN (le même mot de passe que la modération).
 import { json, clean, cleanLine, normTel, slug, newCode, codeHash, modAllowed, listPrefix, rebuildPub, sameOrigin } from "../_lib/tribune.js";
 
+const MSG_RUBRIQUES = { "Logement": "logement", "L'essentiel": "essentiel", "Un témoignage": "temoignage" };
+
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
   if (!modAllowed(request, env)) return json({ error: "refuse" }, 401);
@@ -80,6 +82,24 @@ export async function onRequestPost({ request, env }) {
     if (!/^tm:\d+-[a-f0-9]{6}$/.test(cle)) return json({ error: "cle" }, 400);
     await env.VOTES.delete("tf:" + cle.slice(3));
     await env.VOTES.delete(cle);
+    return json({ ok: true });
+  }
+  if (a === "publier_message" || a === "retirer_message") {
+    const cle = String(b.cle || "");
+    if (!/^tm:\d+-[a-f0-9]{6}$/.test(cle)) return json({ error: "cle" }, 400);
+    const m = await env.VOTES.get(cle, "json");
+    if (!m) return json({ error: "introuvable" }, 404);
+    if (a === "publier_message") {
+      if (!MSG_RUBRIQUES[m.type]) return json({ error: "type" }, 400);
+      const texte = clean(b.texte, 3000), nom = cleanLine(b.nom, 80);
+      if (texte.length < 5) return json({ error: "texte" }, 400);
+      m.statut = "publie"; m.texte_pub = texte; m.nom_pub = nom; m.pub_ts = Date.now();
+    } else { m.statut = "retire"; }
+    await env.VOTES.put(cle, JSON.stringify(m));
+    const pub = (await listPrefix(env, "tm:")).filter((x) => x.statut === "publie" && MSG_RUBRIQUES[x.type])
+      .sort((x, y) => (y.pub_ts || y.ts) - (x.pub_ts || x.ts))
+      .map((x) => ({ rubrique: MSG_RUBRIQUES[x.type], nom: x.nom_pub || "", texte: x.texte_pub || "", ts: x.pub_ts || x.ts }));
+    await env.VOTES.put("mpub", JSON.stringify(pub));
     return json({ ok: true });
   }
   if (a === "nouveau_code" || a === "desactiver" || a === "activer") {
