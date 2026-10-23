@@ -773,7 +773,6 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (a.texte_visible) h += md(a.texte_visible);
     if (a.lien_video) h += "<p>" + link("Voir la vidéo", a.lien_video) + "</p>";
     if (a.texte) h += "<details><summary>Lire la suite</summary><div class=\"more\">" + md(a.texte) + "</div></details>";
-    h += '<p class="share"><a href="https://wa.me/?text=' + encodeURIComponent(a.titre + " — Bondy TV Magazine\n" + location.origin + "/videos.html#" + a.id) + '" target="_blank" rel="noopener">Partager sur WhatsApp</a></p>';
     return h + "</div></article>";
   }
 
