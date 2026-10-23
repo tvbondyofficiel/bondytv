@@ -416,22 +416,6 @@
       "image_portrait": false
     },
     {
-      "id": "tribune",
-      "rubrique": "Politique",
-      "etiquette": "Politique · Tribune des élus",
-      "titre": "Avis à tous les élus : une tribune pour vous",
-      "chapo": "Majorité, opposition, élus de tous bords : chaque mois, Bondy TV vous donne la parole dans le magazine.",
-      "visuel": "icone-mairie",
-      "image": "",
-      "image_description": "",
-      "image_portrait": false,
-      "lien_video": "",
-      "credit": "",
-      "texte_visible": "",
-      "pleine_largeur": false,
-      "texte": "Les habitants veulent connaître celles et ceux qui les représentent, et entendre ce qu'ils font pour la ville. Bondy TV vous offre un espace pour vous adresser à eux, directement et avec vos mots.\n\n**Une tribune chaque mois**\n\nChaque mois, le magazine ouvre une tribune aux élus de Bondy. C'est un espace libre : vous y présentez une action, un projet, une idée, ce qui compte pour vous et pour la ville.\n\n**La même place pour tous**\n\nMajorité ou opposition, chaque élu et chaque groupe a la même place, la même taille et la même visibilité. Personne n'est favorisé.\n\n**Gratuit et sans condition**\n\nCette tribune est gratuite. Vous écrivez ce que vous voulez dire, nous le publions dans le respect de la loi, et chaque habitant peut le lire.\n\n**Comment participer ?**\n\nContactez-nous. Envoyez-nous votre texte, ou une courte vidéo, et nous le publions dans le prochain numéro.\n\n[Je veux ma tribune](/tribune.html)"
-    },
-    {
       "id": "idee",
       "rubrique": "Témoignage",
       "etiquette": "Témoignage · Une idée pour Bondy",
@@ -515,7 +499,7 @@
       {
         "question": "Je suis bondynois",
         "mots_cles": "bondynois bondynoise bonjour salut bonsoir coucou habite bondy",
-        "reponse": "Bienvenue chez vous ! Bondy TV est le magazine gratuit des Bondynois. Vous pouvez lire les articles, témoigner, lire la tribune des élus et la parole aux habitants, ou me poser une question."
+        "reponse": "Bienvenue chez vous ! Bondy TV est le magazine gratuit des Bondynois. Vous pouvez lire les articles, témoigner, donner votre avis sur vos élus et lire la parole des habitants, ou me poser une question."
       },
       {
         "question": "Où trouver les articles ?",
@@ -529,8 +513,8 @@
       },
       {
         "question": "Je suis élu",
-        "mots_cles": "elu elus tribune mairie conseiller connecter connexion",
-        "reponse": "La tribune des élus est sur la page [Tribune](/tribune.html). Le bouton rouge « Se connecter » vous y donne accès."
+        "mots_cles": "elu elus mairie conseiller reponse droit",
+        "reponse": "Les habitants donnent leur avis sur la page [Votez pour vos élus](/elus.html). Pour répondre, écrivez à tvbondy@gmail.com : votre réponse est publiée sur cette page."
       },
       {
         "question": "Faire de la publicité",

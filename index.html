@@ -565,6 +565,8 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 .getapp-a{grid-column:1/-1;font-size:14.5px;color:#555a69}
 @media(max-width:700px){.getapp{grid-template-columns:1fr}.getapp-b{width:100%}}
 @media(prefers-reduced-motion:reduce){.getapp-b{animation:none}}
+p.fbtn{grid-template-columns:repeat(3,225px)!important;justify-content:center!important}
+@media(max-width:760px){p.fbtn{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important}}
 </style>
 </head>
 <body>
@@ -593,7 +595,6 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
       </div></details>
       <details class="dd"><summary>Élus</summary><div class="dd-m">
         <a href="/elus.html">Votez pour vos élus</a>
-        <a href="/tribune.html">Tribune des élus</a>
       </div></details>
       <details class="dd"><summary>Habitants</summary><div class="dd-m">
         <a href="/habitants.html">Espace habitants</a>
@@ -608,7 +609,7 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 
   <section class="une une2" id="top"><p class="loading">Chargement du magazine…</p></section>
   <h2 class="fbt">Se connecter ou créer son compte</h2>
-  <p class="fbtn"><a class="btn-acc elu" href="/tribune.html">Élus<small>Se connecter →</small></a><a class="btn-acc ann" href="/annonces.html">Vider mon grenier<small>Déposer une annonce →</small></a><a class="btn-acc hab" href="/habitants.html">Habitants<small>Se connecter →</small></a><a class="btn-all" href="/pro.html">Commerçants et associations<small>Se connecter →</small></a></p>
+  <p class="fbtn"><a class="btn-acc ann" href="/annonces.html">Vider mon grenier<small>Déposer une annonce →</small></a><a class="btn-acc hab" href="/habitants.html">Habitants<small>Se connecter →</small></a><a class="btn-all" href="/pro.html">Commerçants et associations<small>Se connecter →</small></a></p>
   <section class="getapp" id="getapp" hidden>
     <div class="getapp-t"><b>Gardez Bondy TV dans votre poche</b><span>Le magazine sur l'écran de votre téléphone, comme une appli. Un seul geste, gratuit.</span></div>
     <button type="button" class="getapp-b" id="instbtn">Installer Bondy TV</button>

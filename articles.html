@@ -601,7 +601,6 @@ details[open] > summary { margin-bottom: 6px; }
       </div></details>
       <details class="dd"><summary>Élus</summary><div class="dd-m">
         <a href="/elus.html">Votez pour vos élus</a>
-        <a href="/tribune.html">Tribune des élus</a>
       </div></details>
       <details class="dd"><summary>Habitants</summary><div class="dd-m">
         <a href="/habitants.html">Espace habitants</a>
@@ -853,10 +852,9 @@ details[open] > summary { margin-bottom: 6px; }
   }
 
 
-  // Tribunes d'élus et paroles d'habitants publiées : rubriques ajoutées seulement s'il y en a.
+  // Paroles d'habitants publiées : rubriques ajoutées seulement s'il y en a.
   function community() {
     var groups = [
-      { url: "/api/tribunes", key: "tribunes", cat: "Tribune des élus", tag: "Tribune des élus", sig: function (t) { return esc(t.nom) + " · " + esc(t.fonction) + (t.groupe ? " · " + esc(t.groupe) : ""); } },
       { url: "/api/habitants", key: "textes", cat: "Paroles d\u2019habitants", tag: "Parole d\u2019habitant", sig: function (t) { return esc(t.nom) + ", habitant de Bondy"; } }
     ];
     groups.forEach(function (g) {

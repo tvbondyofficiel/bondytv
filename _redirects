@@ -6,3 +6,5 @@
 /infos.html /publicite.html#infos 301
 /images-videos /images.html 301
 /images-videos.html /images.html 301
+/tribune.html /elus.html 302
+/tribune /elus.html 302
