@@ -725,7 +725,7 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
     var pvi = ((d.point_de_vue || {}).items || [])[0];
     var pvi = ((d.point_de_vue || {}).items || [])[0];
     var vcar = pvi && pvi.image ? '<a class="head-vid" href="/point-de-vue.html" aria-label="Vidéo du mois"><img src="' + esc(pvi.image) + '" alt=""><i></i></a>' : "";
-    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="head-mid"><span class="hm-k">Le magazine de Bondy</span><b>Ici, la parole est à vous.</b><a class="hs-btn" href="/point-de-vue.html">Envoyer ma vidéo</a></div>' + vcar + '<div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
+    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="head-mid"><span class="hm-k">Le magazine de Bondy</span><b>Ici, la parole est à vous.</b><a class="hs-btn" href="/temoigner.html">Prendre la parole</a></div>' + vcar + '<div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
     une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {
       return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div></div>";
