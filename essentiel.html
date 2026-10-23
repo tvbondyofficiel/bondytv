@@ -820,7 +820,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       .then(function (r) { return r.json(); })
       .then(function (r) {
         if (!r.ok) { say(ER[r.error] || "L'envoi n'a pas marché. Écrivez-nous à tvbondy@gmail.com.", true); return; }
-        try { var m = new FormData(form); m.delete("piece"); fetch("https://api.web3forms.com/submit", { method: "POST", body: m }).catch(function () {}); } catch (x) {}
+        try { var m = new FormData(form); m.delete("piece"); m.set("piece_jointe", pf ? "OUI : " + pf.name + " (" + Math.round(pf.size / 1024) + " Ko). À voir dans la page de modération : https://www.bondytv.com/tribune-admin.html" : "Non"); fetch("https://api.web3forms.com/submit", { method: "POST", body: m }).catch(function () {}); } catch (x) {}
         form.reset(); say("Merci ! Votre message est bien envoyé. Nous vous répondrons vite.", false);
       })
       .catch(function () { say("L'envoi n'a pas marché. Écrivez-nous à tvbondy@gmail.com.", true); })
