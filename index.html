@@ -567,9 +567,29 @@ body { background-image: url("data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.o
 .getapp-a{grid-column:1/-1;font-size:14.5px;color:#555a69}
 @media(max-width:700px){.getapp{grid-template-columns:1fr}.getapp-b{width:100%}}
 @media(prefers-reduced-motion:reduce){.getapp-b{animation:none}}
-p.fbtn{grid-template-columns:repeat(3,225px)!important;justify-content:center!important}
+p.fbtn{display:flex!important;flex-wrap:wrap;justify-content:center;align-items:stretch!important;gap:14px!important;max-width:800px;margin-left:auto!important;margin-right:auto!important}
+p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 @media(max-width:760px){p.fbtn{grid-template-columns:repeat(auto-fit,minmax(150px,1fr))!important}}
 .sr-only{position:absolute;width:1px;height:1px;margin:-1px;padding:0;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+
+/* Ce que vous trouvez */
+.found{max-width:1120px;margin:46px auto 0}
+.found .fbt{text-align:center}
+.found-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.fc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:190px;padding:20px 22px;border-radius:10px;overflow:hidden;text-decoration:none;color:#fff;background:linear-gradient(180deg,rgba(18,20,28,.1) 0,rgba(18,20,28,.78) 100%),var(--p) center/cover no-repeat #12141c;box-shadow:0 10px 24px rgba(18,20,28,.16);border-bottom:5px solid #b8975a;transition:transform .2s,box-shadow .2s}
+.fc:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,20,28,.24)}
+.fc b{font:700 clamp(24px,2.6vw,30px)/1 var(--display);text-transform:uppercase;letter-spacing:.03em;text-shadow:0 1px 8px rgba(0,0,0,.5)}
+.fc span{margin-top:8px;font-size:15px;line-height:1.4;color:#efece5;text-shadow:0 1px 6px rgba(0,0,0,.5)}
+.fc::after{content:"→";position:absolute;right:18px;top:16px;font-size:22px;color:#e2cd9b}
+@media(max-width:900px){.found-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(max-width:520px){.found-g{grid-template-columns:minmax(0,1fr)}.fc{min-height:150px}}
+/* bloc appli + QR */
+.getapp{grid-template-columns:1fr auto auto}
+.getapp-qr{display:flex;align-items:center;gap:12px;font-size:13px;line-height:1.35;color:#555a69;max-width:170px}
+.getapp-qr img{width:84px;height:84px;border:1px solid rgba(18,20,28,.15);padding:4px;background:#fff}
+@media(max-width:900px){.getapp{grid-template-columns:1fr}.getapp-qr{display:none}}
+.head-mid{gap:12px}
+@media(min-width:1241px){.head-mid{flex:0 1 270px!important}.head-mid b{font-size:clamp(28px,2.6vw,36px)}.head-mid .hs-btn{padding:15px 22px;white-space:nowrap}}
 </style>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "NewsMediaOrganization", "name": "Bondy TV Magazine", "alternateName": "Bondy TV", "url": "https://www.bondytv.com/", "logo": "https://www.bondytv.com/icons/icon-512.png", "description": "Bondy TV Magazine : le magazine gratuit de Bondy (93). Actualité de la ville, portraits, commerces, vidéos et parole des Bondynois.", "areaServed": {"@type": "City", "name": "Bondy"}, "inLanguage": "fr", "sameAs": ["https://www.facebook.com/profile.php?id=61595506318556", "https://www.tiktok.com/@bondytvofficiel", "https://www.instagram.com/bondy_tv/", "https://www.youtube.com/@Bondytvofficiel"]}</script>
 <script type="application/ld+json">{"@context": "https://schema.org", "@type": "WebSite", "name": "Bondy TV Magazine", "url": "https://www.bondytv.com/", "inLanguage": "fr"}</script>
@@ -614,13 +634,25 @@ p.fbtn{grid-template-columns:repeat(3,225px)!important;justify-content:center!im
 
   <h1 class="sr-only">Bondy TV Magazine : le magazine gratuit de Bondy</h1>
   <section class="une une2" id="top"><p class="loading">Chargement du magazine…</p></section>
+  <section class="found" aria-labelledby="foundt">
+    <h2 class="fbt" id="foundt">Ce que vous trouvez sur Bondy TV</h2>
+    <div class="found-g">
+      <a class="fc" href="/videos.html" style="--p:url(/images/point-de-vue-1.jpg)"><b>Vidéos</b><span>Portraits, vie de la ville, point de vue</span></a>
+      <a class="fc" href="/podcast.html" style="--p:url(/images/podcast-studio.jpg)"><b>Le podcast</b><span>Zoom sous les étoiles</span></a>
+      <a class="fc" href="/reportages.html" style="--p:url(/images/coeur-canal.jpg)"><b>Reportages</b><span>Les histoires de Bondy, en coulisses</span></a>
+      <a class="fc" href="/elus.html" style="--p:url(/images/une-elus-drapeau.jpg)"><b>Vos élus</b><span>Notez-les et dites pourquoi</span></a>
+      <a class="fc" href="/temoigner.html" style="--p:url(/images/sommaire-parc.jpg)"><b>Parole de Bondynois</b><span>Témoignage, vidéo, photo, idée</span></a>
+      <a class="fc" href="/annonces.html" style="--p:url(/images/une-bois.jpg)"><b>Le vide-grenier</b><span>Annonces gratuites entre habitants</span></a>
+    </div>
+  </section>
   <h2 class="fbt">Se connecter ou créer son compte</h2>
   <p class="fbtn"><a class="btn-acc ann" href="/annonces.html">Vider mon grenier<small>Déposer une annonce →</small></a><a class="btn-acc hab" href="/habitants.html">Habitants<small>Se connecter →</small></a><a class="btn-all" href="/pro.html">Commerçants et associations<small>Se connecter →</small></a></p>
   <section class="getapp" id="getapp" hidden>
-    <div class="getapp-t"><b>Gardez Bondy TV dans votre poche</b><span>Le magazine sur l'écran de votre téléphone, comme une appli. Un seul geste, gratuit.</span></div>
+    <div class="getapp-t"><b>Gardez Bondy TV dans votre poche</b><span>Le média sur l'écran de votre téléphone, comme une appli. Un seul geste, gratuit.</span></div>
     <button type="button" class="getapp-b" id="instbtn">Installer Bondy TV</button>
+    <div class="getapp-qr"><img src="/images/qr-bondytv-www.png" alt="QR code Bondy TV" width="84" height="84"><span>Sur ordinateur ? Flashez avec votre téléphone.</span></div>
     <p class="getapp-h" id="insthelp" hidden></p>
-    <a class="getapp-a" href="/affiche.html">Afficher le magazine chez vous : l'affiche à imprimer</a>
+    <a class="getapp-a" href="/affiche.html">Afficher Bondy TV chez vous : l'affiche à imprimer</a>
   </section>
   <footer id="pied"></footer>
 </div>
@@ -744,7 +776,7 @@ p.fbtn{grid-template-columns:repeat(3,225px)!important;justify-content:center!im
     (function () {
       var ed = ((d.articles || []).filter(function (a) { return a.id === "edito"; })[0]) || {};
       var fb = document.querySelector(".fbtn");
-      if (ed.contact_qr && fb && !document.querySelector(".cbar")) {
+      if (false && ed.contact_qr && fb && !document.querySelector(".cbar")) {
         var bar = document.createElement("div"); bar.className = "cbar";
         fb.parentNode.insertBefore(bar, fb); bar.appendChild(fb);
         var q = document.createElement("div"); q.className = "qrbox";
@@ -756,7 +788,7 @@ p.fbtn{grid-template-columns:repeat(3,225px)!important;justify-content:center!im
     var pvi = ((d.point_de_vue || {}).items || [])[0];
     var pvi = ((d.point_de_vue || {}).items || [])[0];
     var vcar = pvi && pvi.image ? '<a class="head-vid" href="/point-de-vue.html" aria-label="Vidéo du mois"><img src="' + esc(pvi.image) + '" alt=""><i></i></a>' : "";
-    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="head-mid"><span class="hm-k">Le magazine de Bondy</span><b>Ici, la parole est à vous.</b><a class="hs-btn" href="/temoigner.html">Prendre la parole</a></div>' + vcar + '<div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
+    var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="head-mid"><span class="hm-k">Le média de Bondy</span><b>Ici, la parole est à vous.</b><a class="hs-btn" href="/temoigner.html">Prendre la parole</a></div>' + vcar + '<div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
     une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {
       return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div></div>";
