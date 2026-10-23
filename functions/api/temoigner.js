@@ -3,7 +3,7 @@
 import { json, clean, cleanLine, normTel, validLink, sameOrigin, limit } from "../_lib/tribune.js";
 
 const MAX_PIECE = 8 * 1024 * 1024;
-const TYPES = ["Un témoignage", "Une vidéo", "Une photo", "Une idée de sujet"];
+const TYPES = ["Un témoignage", "Une vidéo", "Une photo", "Une idée de sujet", "Invité du podcast"];
 
 function typeReel(u8) {
   if (u8.length > 4 && u8[0] === 0x25 && u8[1] === 0x50 && u8[2] === 0x44 && u8[3] === 0x46) return "application/pdf";
