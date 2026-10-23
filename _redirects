@@ -10,3 +10,6 @@
 /tribune /elus.html 302
 /paroles-habitants.html /vos-articles.html 301
 /paroles-habitants /vos-articles.html 301
+
+/reportages.html /temoigner.html 301
+/reportages /temoigner.html 301
