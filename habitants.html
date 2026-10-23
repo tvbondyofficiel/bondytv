@@ -3,11 +3,11 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Espace habitants · Bondy TV Magazine</title>
-<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Espace habitants · Bondy TV Magazine"><meta property="og:description" content="Espace habitants de Bondy TV Magazine : écrivez un texte, partagez une idée ou déposez une annonce de vide-grenier."><meta property="og:url" content="https://www.bondytv.com/habitants.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<title>Écrire un article · Bondy TV Magazine</title>
+<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Écrire un article · Bondy TV Magazine"><meta property="og:description" content="Écrire un article sur Bondy TV Magazine : écrivez un texte, partagez une idée ou déposez une annonce de vide-grenier."><meta property="og:url" content="https://www.bondytv.com/habitants.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <link rel="canonical" href="https://www.bondytv.com/habitants.html">
 <meta property="og:url" content="https://www.bondytv.com/habitants.html">
-<meta name="description" content="Espace habitants de Bondy TV Magazine : écrivez un texte, partagez une idée ou déposez une annonce de vide-grenier.">
+<meta name="description" content="Écrire un article sur Bondy TV Magazine : écrivez un texte, partagez une idée ou déposez une annonce de vide-grenier.">
 <meta name="theme-color" content="#0c0e16">
 <link rel="manifest" href="/manifest.webmanifest">
 <link rel="icon" type="image/png" href="/icons/icon-192.png">
@@ -649,7 +649,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     var t = d.tribune || {};
     var VGR = /(?:^|[?&])espace=videgrenier(?:&|$)/.test(location.search);
-    $("temoigner-titre").innerHTML = VGR ? "Mon <em>vide-grenier</em>" : "Espace <em>habitants</em>";
+    $("temoigner-titre").innerHTML = VGR ? "Mon <em>vide-grenier</em>" : "Écrire un <em>article</em>";
     if (VGR) { $("f-adr").hidden = true; $("f-piece").hidden = true; $("f-mail").hidden = false; $("h-adresse").required = false; $("h-piece").required = false; $("h-hint").textContent = "Votre nom, votre téléphone et votre e-mail servent uniquement à vous contacter pour vous donner votre accès. Ils ne sont jamais publiés."; }
     $("temoigner-intro").textContent = VGR ? "Vous habitez Bondy et vous voulez vider votre grenier ? Demandez votre accès : vous pourrez déposer une annonce gratuite, rien d\u2019autre." : "Vous vivez à Bondy ? Ce magazine est aussi le vôtre. Exprimez-vous : un avis, un coup de cœur, un souvenir, une idée pour la ville.";
     $("h-ban").innerHTML = VGR ? '<div><h2>Vider son grenier</h2><p>Demandez votre accès gratuit, puis déposez votre annonce.</p></div><a class="hs-btn" href="#hform">Demander mon accès</a>' : '<div><h2>Votre ville, votre parole</h2><p>Un avis, un coup de cœur, un souvenir, une idée pour la ville : demandez votre accès et écrivez dans le magazine.</p></div><a class="hs-btn" href="#hform">Demander mon accès</a>';
