@@ -508,6 +508,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 <option>Mon point de vue (vidéo d'1 min 10 maximum)</option>
 <option>Une photo</option>
 <option>Une idée de sujet</option>
+<option>Logement</option>
+<option>Ce qui doit changer à Bondy</option>
 </select>
 </div>
 <div class="fld"><label for="f-msg">Votre message</label><textarea id="f-msg" name="message" required=""></textarea></div>
@@ -519,7 +521,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 <button class="send" id="f-send" type="submit">Envoyer</button>
 <p aria-live="polite" class="status" id="f-status" role="status"></p>
 </form>
-<script>try{if(/[?&]type=pdv/.test(location.search)){var _s=document.getElementById("f-type");_s.selectedIndex=2;}}catch(e){}</script>
+<script>try{var _s=document.getElementById("f-type"),_q=location.search;if(/[?&]type=pdv/.test(_q))_s.selectedIndex=2;else if(/[?&]type=logement/.test(_q))_s.value="Logement";else if(/[?&]type=changer/.test(_q))_s.value="Ce qui doit changer à Bondy";
+var _h=document.createElement("p");_h.className="hint";_h.id="f-rules";_h.hidden=true;_h.textContent="Pour ce sujet : des faits, sans insulte ni nom de particulier. Votre texte est relu par Bondy TV avant publication, et la personne ou l'organisme concerné peut répondre.";_s.parentNode.appendChild(_h);
+function _r(){_h.hidden=!(_s.value==="Logement"||_s.value==="Ce qui doit changer à Bondy")}_s.addEventListener("change",_r);_r();}catch(e){}</script>
     <aside class="t-side" id="t-side" hidden></aside>
   </section>
   <footer id="pied"></footer>

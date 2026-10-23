@@ -575,6 +575,7 @@ details[open] > summary { margin-bottom: 6px; }
 @media(max-width:700px){.hs-inv>.hs-btn{padding:18px 26px!important;font-size:19px!important}}
 @media(prefers-reduced-motion:reduce){.hs-inv>.hs-btn,.head-mid .hs-btn{animation:none}}
 .share{margin:14px 0 0}.share a{display:inline-block;padding:9px 14px;border:2px solid #12141c;border-radius:8px;color:#12141c;text-decoration:none;font:700 13px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}.share a:hover{background:#12141c;color:#fff}
+.ar-empty{max-width:760px;margin:26px auto;padding:24px 26px;background:#fff;border:1px solid rgba(18,20,28,.12);border-left:5px solid #b8975a;border-radius:6px;text-align:left}.ar-empty p{margin:0 0 10px;font-size:17px;line-height:1.5}.ar-empty .hs-btn{margin-top:6px}
 </style>
 </head>
 <body>
@@ -820,8 +821,9 @@ details[open] > summary { margin-bottom: 6px; }
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
     var tt = String(d.articles_titre || "Les articles du magazine").split(" "), tl = tt.pop();
     var f = '<div class="ar-head"><h1>' + esc(tt.join(" ")) + " <em>" + esc(tl) + '</em></h1><p>Écrits par l\u2019équipe de Bondy TV. Les textes des Bondynois, des élus et des associations sont dans <a href="/vos-articles.html">Vos articles</a>.</p></div><div class="hs-inv" style="--bgi:url(/images/une-ville.jpg)"><div><h2>Un article à proposer ?</h2><p>Associations, commerçants, habitants : racontez ce qui se passe à Bondy. Contactez-nous !</p></div><a class="hs-btn" href="/temoigner.html">Proposer un article</a></div><h2 class="hs-t">Les articles de Bondy</h2><div class="filters ar-filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tous</button>';
+    ["Logement", "Ce qui doit changer"].forEach(function (k) { if (cats.indexOf(k) < 0) cats.push(k); });
     f += cats.map(function (k) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="false">' + esc(k) + "</button>"; }).join("");
-    f += '</div><div class="grid ar-grid">' + list.map(article).join("") + "</div>";
+    f += '</div><div class="ar-empty" id="ar-empty" hidden></div><div class="grid ar-grid">' + list.map(article).join("") + "</div>";
     $("articles").innerHTML = f;
 
 
@@ -887,7 +889,13 @@ details[open] > summary { margin-bottom: 6px; }
     var arts = document.querySelectorAll("#articles .art");
     function apply(f) {
       buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.f === f ? "true" : "false"); });
-      document.querySelectorAll("#articles .art").forEach(function (a) { a.hidden = !(f === "all" || a.dataset.cat === f); });
+      var shown = 0;
+      document.querySelectorAll("#articles .art").forEach(function (a) { a.hidden = !(f === "all" || a.dataset.cat === f); if (!a.hidden) shown++; });
+      var em = document.getElementById("ar-empty");
+      if (em) {
+        var T = { "Logement": ["Logement : loyers, travaux, bailleurs, démarches.", "logement"], "Ce qui doit changer": ["Ce qui doit changer : un problème à Bondy, avec des faits et une solution à proposer.", "changer"] }[f];
+        if (T && !shown) { em.innerHTML = "<p><b>" + T[0] + "</b></p><p>Aucun texte pour l\u2019instant. Chaque texte est relu avant publication, avec droit de réponse.</p><a class=\"hs-btn\" href=\"/temoigner.html?type=" + T[1] + "#tform\">Envoyer mon texte</a>"; em.hidden = false; } else em.hidden = true;
+      }
     }
     buttons.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.f); }); });
     if (buttons.length) apply(buttons[0].dataset.f);
