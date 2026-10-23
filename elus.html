@@ -693,6 +693,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 #elus .el-send[disabled]{background:#d9c9a0;color:#5b6070}
 @media(max-width:820px){#elus .el-steps{grid-template-columns:minmax(0,1fr)}#elus .el-grp em{display:none}}
 @media(max-width:700px){#elus .el-tile .fn{display:none}#elus .el-tile{min-height:60px}}
+
+/* Envoyer : bouton vers la page des notes */
+.el-cta .el-send{display:inline-block;text-align:center;text-decoration:none;box-sizing:border-box}
 </style>
 </head>
 <body>
@@ -882,22 +885,20 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
           return '<button type="button" class="el-tile' + (/opposition/i.test(g) ? ' opp' : '') + '" data-id="' + esc(e.id) + '"><span class="av" aria-hidden="true">' + esc(ini(e.nom)) + '</span><span class="tx"><span class="nm">' + esc(e.nom) + '</span><span class="fn">' + esc(fnc(e, g)) + '</span></span><span class="bd" aria-hidden="true"></span></button>';
         }).join("") + '</div>';
       });
-      html += '<form class="el-form" id="vote" novalidate autocomplete="on"><h2>Envoyer mes notes</h2><div class="el-sel" id="elsel"><p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p></div>';
-      html += '<p class="hint">Une seule note par élu et par personne. Votre nom, votre e-mail et votre téléphone sont demandés pour éviter les faux avis : ils ne sont <strong>jamais publiés</strong>.</p>';
-      html += '<div class="el-id"><label class="f">Prénom et nom<input type="text" name="nom" autocomplete="name" required maxlength="80"></label><label class="f">Adresse e-mail<input type="email" name="email" autocomplete="email" required maxlength="120"></label><label class="f">Téléphone<input type="tel" name="telephone" autocomplete="tel" required maxlength="20" inputmode="tel"></label></div>';
-      html += '<div class="el-checks"><label><input type="checkbox" name="habitant"><span>Je déclare être habitant(e) de Bondy et avoir 15 ans ou plus.</span></label><label><input type="checkbox" name="charte"><span>Je m\'engage à rester respectueux(se) : mon avis porte sur l\'action publique de l\'élu(e), sans insulte, sans accusation et sans vie privée.</span></label><label><input type="checkbox" name="consentement"><span>J\'accepte que Bondy TV conserve mon nom, mon e-mail et mon téléphone pendant 12 mois pour vérifier mon avis, comme expliqué dans la <a href="/confidentialite.html" target="_blank">politique de confidentialité</a>.</span></label></div>';
-      html += '<div class="el-hp" aria-hidden="true"><label>Ne pas remplir<input type="text" name="site" tabindex="-1" autocomplete="off"></label></div><button class="el-send" type="submit">Envoyer mes notes</button><div class="el-msg" id="elmsg" role="status"></div></form>';
+      html += '<div class="el-form el-cta"><h2>Envoyer mes notes</h2><div class="el-sel" id="elsel"><p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p></div><p class="hint">Une fois vos notes choisies, vous les envoyez sur une page à part, avec votre nom pour éviter les faux avis.</p><a class="el-send" id="elgo" href="/noter-mes-elus.html">Envoyer mes notes</a></div>';
       html += '<p class="el-rep">' + esc(el.droit_de_reponse || "") + ' <a href="/confidentialite.html">Confidentialité et mentions légales</a></p>';
-      html += '<div class="el-bar2" id="elbar" hidden><span id="elcount"></span><a href="#vote">Envoyer</a></div>';
+      html += '<div class="el-bar2" id="elbar" hidden><span id="elcount"></span><a href="/noter-mes-elus.html">Envoyer</a></div>';
       html += '<div class="el-modal' + (phr ? '' : ' nophr') + '" id="elmodal" hidden role="dialog" aria-modal="true" aria-labelledby="mtitle"><div class="mbox"><button type="button" class="mx" aria-label="Fermer">×</button><h3 id="mtitle"></h3><p class="mfn"></p><div class="mres"></div><div class="mq">Votre note de 0 à 10</div><div class="pills" role="radiogroup" aria-label="Note"></div><label class="mt">Ce qu\'il ou elle a fait pour vous (facultatif)<textarea maxlength="280" placeholder="Une ou deux phrases, des faits. Pas d\'insulte, pas d\'accusation."></textarea></label><div class="cnt">0 / 280</div><div class="mact"><button type="button" class="el-btn ok">Garder cette note</button><button type="button" class="el-btn alt rm">Retirer</button></div></div></div>';
       document.getElementById("elus").innerHTML = html;
 
-      var form = document.getElementById("vote"), msg = document.getElementById("elmsg"), modal = document.getElementById("elmodal"), sel = {}, done = {}, stats = {}, curId = null;
+      var modal = document.getElementById("elmodal"), sel = {}, done = {}, stats = {}, curId = null;
       var byId = {}; liste.forEach(function (e) { byId[e.id] = e; });
       try { done = JSON.parse(localStorage.getItem("elus-votes") || "{}"); } catch (e) {}
+      try { sel = JSON.parse(localStorage.getItem("elus-sel") || "{}"); } catch (e) {}
+      Object.keys(sel).forEach(function (id) { if (!byId[id] || done[id]) delete sel[id]; });
       var pillsBox = modal.querySelector(".pills"), ta = modal.querySelector("textarea");
       for (var i = 0; i <= 10; i++) pillsBox.insertAdjacentHTML("beforeend", '<button type="button" role="radio" aria-checked="false" data-v="' + i + '" aria-label="' + i + ' sur 10">' + i + '</button>');
-      function say(t, bad) { msg.textContent = t; msg.className = "el-msg on" + (bad ? " bad" : ""); msg.scrollIntoView({ block: "center", behavior: "smooth" }); }
+      function save() { try { localStorage.setItem("elus-sel", JSON.stringify(sel)); } catch (e) {} }
       function refresh() {
         document.querySelectorAll(".el-tile").forEach(function (t) {
           var id = t.dataset.id, bd = t.querySelector(".bd"), s = stats[id];
@@ -906,6 +907,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         });
         var ids = Object.keys(sel), box = document.getElementById("elsel");
         box.innerHTML = ids.length ? '<div class="chips">' + ids.map(function (id) { return '<button type="button" class="chip" data-id="' + id + '" title="Modifier">' + esc(byId[id].nom) + ' · <b>' + sel[id].note + '/10</b></button>'; }).join("") + '</div>' : '<p class="hint">Aucune note choisie pour l\'instant : touchez le nom d\'un élu, plus haut.</p>';
+        var go = document.getElementById("elgo"); if (go) go.style.display = ids.length ? "" : "none";
         var bar = document.getElementById("elbar"); bar.hidden = !ids.length; document.getElementById("elcount").textContent = ids.length + " note" + (ids.length > 1 ? "s" : "") + " choisie" + (ids.length > 1 ? "s" : "");
       }
       function setPill(v) { pillsBox.querySelectorAll("button").forEach(function (x) { x.setAttribute("aria-checked", String(x.dataset.v) === String(v) ? "true" : "false"); }); }
@@ -930,9 +932,9 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       modal.querySelector(".ok").addEventListener("click", function () {
         var on = pillsBox.querySelector('[aria-checked="true"]'); if (!on) { modal.querySelector(".mq").textContent = "Choisissez d'abord une note de 0 à 10"; modal.querySelector(".mq").style.color = "var(--red)"; return; }
         modal.querySelector(".mq").textContent = "Votre note de 0 à 10"; modal.querySelector(".mq").style.color = "";
-        sel[curId] = { note: +on.dataset.v, commentaire: phr ? ta.value : "" }; closeM(); refresh();
+        sel[curId] = { note: +on.dataset.v, commentaire: phr ? ta.value : "" }; save(); closeM(); refresh();
       });
-      modal.querySelector(".rm").addEventListener("click", function () { delete sel[curId]; closeM(); refresh(); });
+      modal.querySelector(".rm").addEventListener("click", function () { delete sel[curId]; save(); closeM(); refresh(); });
       modal.querySelector(".mx").addEventListener("click", closeM);
       modal.addEventListener("click", function (ev) { if (ev.target === modal) closeM(); });
       document.addEventListener("keydown", function (ev) { if (ev.key === "Escape" && !modal.hidden) closeM(); });
@@ -950,31 +952,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       edm();
 
       fetch("/api/elus", { cache: "no-store" }).then(function (r) { if (r.status === 503) throw new Error("off"); return r.json(); }).then(function (j) { stats = j.elus || {}; refresh(); edm(); })
-      .catch(function () { form.querySelector(".el-send").disabled = true; form.querySelector(".el-send").textContent = "Ouverture très bientôt"; });
-
-      form.addEventListener("submit", function (ev) {
-        ev.preventDefault();
-        var f = form.elements, votes = Object.keys(sel).map(function (id) { return { id: id, note: sel[id].note, commentaire: sel[id].commentaire }; });
-        if (!votes.length) return say("Touchez d'abord le nom d'un élu et choisissez une note de 0 à 10.", 1);
-        if (f.nom.value.trim().length < 3 || !/\s|-/.test(f.nom.value.trim())) return say("Indiquez votre prénom et votre nom.", 1);
-        if (!/^[^@\s]+@[^@\s]+\.[^@\s]{2,}$/.test(f.email.value.trim())) return say("Indiquez une adresse e-mail valide.", 1);
-        if (f.telephone.value.replace(/\D/g, "").length < 9) return say("Indiquez un numéro de téléphone valide.", 1);
-        if (!f.habitant.checked || !f.charte.checked || !f.consentement.checked) return say("Cochez les trois engagements pour envoyer vos notes.", 1);
-        var btn = form.querySelector(".el-send"); btn.disabled = true;
-        fetch("/api/elus", { method: "POST", headers: { "Content-Type": "application/json" }, body: JSON.stringify({ nom: f.nom.value, email: f.email.value, telephone: f.telephone.value, habitant: f.habitant.checked, charte: f.charte.checked, consentement: f.consentement.checked, site: f.site.value, votes: votes }) })
-          .then(function (r) { return r.json().then(function (j) { return { s: r.status, j: j }; }); })
-          .then(function (x) {
-            btn.disabled = false;
-            if (x.s === 429) return say("Trop de tentatives. Réessayez dans une heure.", 1);
-            if (x.s === 503) return say("Les avis ouvrent très bientôt.", 1);
-            if (x.s !== 200) { var m = { nom: "Indiquez votre prénom et votre nom.", email: "Adresse e-mail non valide.", telephone: "Numéro de téléphone non valide.", consentement: "Cochez les trois engagements." }; return say(m[x.j.error] || "Envoi impossible, réessayez.", 1); }
-            var ok = 0, dup = 0;
-            (x.j.resultats || []).forEach(function (r) { if (r.statut === "ok") { ok++; done[r.id] = 1; delete sel[r.id]; } if (r.statut === "deja_vote") { dup++; done[r.id] = 1; delete sel[r.id]; } });
-            try { localStorage.setItem("elus-votes", JSON.stringify(done)); } catch (e) {}
-            refresh();
-            say((ok ? "Merci ! " + ok + " note" + (ok > 1 ? "s" : "") + " enregistrée" + (ok > 1 ? "s" : "") + "." + (phr ? " Vos phrases seront relues avant d'être publiées." : "") : "") + (dup ? " " + dup + " élu(s) avaient déjà reçu une note de votre part : une seule note par personne est possible." : ""));
-          }).catch(function () { btn.disabled = false; say("Envoi impossible, vérifiez votre connexion.", 1); });
-      });
+      .catch(function () {});
     }
 
     var pied = d.pied_de_page || {};
