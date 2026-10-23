@@ -525,6 +525,25 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .mo-more::after{content:"";flex:none;width:70px;height:4px;margin:12px auto 0;background:#b8975a}
 @media(max-width:900px){.som-grid{grid-template-columns:repeat(2,minmax(0,1fr))}.som-grid li:last-child:nth-child(3n+1){grid-column:auto}}
 @media(max-width:560px){.som-grid{grid-template-columns:minmax(0,1fr)}.mo-pages{grid-template-columns:minmax(0,1fr)}}
+
+/* sommaire façon magazine */
+.sm{max-width:960px;margin:34px auto 0;display:flex;flex-direction:column;gap:0}
+.sm-sec{display:grid;grid-template-columns:minmax(0,220px) minmax(0,1fr);gap:clamp(22px,4vw,48px);padding:34px 0;border-top:1px solid #12141c}
+.sm-ph{margin:0;display:flex;flex-direction:column;gap:14px}
+.sm-ph img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.sm-ph img+img{aspect-ratio:3/2}
+.sm-hd{margin:0 0 18px}
+.sm-hd i{display:block;font:italic 400 clamp(46px,6vw,64px)/1 Georgia,"Times New Roman",serif;color:#12141c}
+.sm-hd span{display:block;margin-top:6px;font:400 clamp(20px,2.4vw,26px)/1.1 var(--display);text-transform:uppercase;letter-spacing:.08em;color:#4a4f5c}
+.sm-hd::after{content:"";display:block;width:56px;height:3px;margin-top:14px;background:#b8975a}
+.sm-l{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:16px}
+.sm-l a{display:grid;grid-template-columns:44px minmax(0,1fr);gap:8px;color:#12141c;text-decoration:none}
+.sm-l a:hover b{color:#b8975a}
+.sm-l .n{font:700 15px/1.5 var(--display);letter-spacing:.06em;color:#b8975a}
+.sm-l b{display:block;font:700 18px/1.25 Georgia,"Times New Roman",serif}
+.sm-l small{display:block;margin-top:3px;font-size:14px;line-height:1.4;color:#5b6070}
+.sm-l .r{display:block;font:700 11.5px/1.2 var(--display);text-transform:uppercase;letter-spacing:.14em;color:#8c8f9a;margin-bottom:3px}
+@media(max-width:760px){.sm-sec{grid-template-columns:minmax(0,1fr)}.sm-ph{flex-direction:row}.sm-ph img{width:50%;aspect-ratio:4/5}.sm-ph img+img{display:none}}
 </style>
 </head>
 <body>
@@ -741,8 +760,32 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var more = pages.map(function (p, i) {
       return '<li class="mp" style="--d:' + i * 60 + 'ms"><a href="' + p.href + '"><span class="mp-r">' + esc(p.rub) + '</span><b>' + esc(p.t) + '</b><i aria-hidden="true">→</i></a></li>';
     }).join("");
+    var GR = [
+      { t: "C\'est Bondy", r: ["À la une", "Édito", "À l'honneur", "Reportage", "Les bons acteurs de Bondy"] },
+      { t: "C\'est la ville", r: ["Ville", "Vie de la ville"] },
+      { t: "C\'est à vous", r: ["Témoignage", "Politique", "La bonne adresse"] }
+    ];
+    function cut(t, n) { t = String(t || ""); return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "…" : t; }
+    var used = {};
+    var secs = GR.map(function (g) {
+      var items = [];
+      arts.forEach(function (a, i) { if (g.r.indexOf(a.rubrique) > -1) { used[a.id] = 1; items.push({ a: a, n: i + 1 }); } });
+      return { t: g.t, items: items };
+    });
+    var rest = []; arts.forEach(function (a, i) { if (!used[a.id]) rest.push({ a: a, n: i + 1 }); });
+    if (rest.length) secs.push({ t: "À lire aussi", items: rest });
+    function nb(n) { return n < 10 ? "0" + n : String(n); }
+    var smh = secs.filter(function (g) { return g.items.length; }).map(function (g, gi) {
+      var imgs = g.items.filter(function (x) { return x.a.image && !x.a.affiche_entiere; }).slice(0, 2);
+      var ph = imgs.length ? '<figure class="sm-ph">' + imgs.map(function (x) { return '<img src="' + esc(x.a.image) + '" alt="" loading="lazy">'; }).join("") + "</figure>" : "<div></div>";
+      var li = g.items.map(function (x) {
+        var a = x.a, href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
+        return '<li><a href="' + href + '"><span class="n">' + nb(x.n) + '</span><span><span class="r">' + esc(a.rubrique || "") + '</span><b>' + esc(a.titre) + '</b><small>' + esc(cut(a.chapo, 90)) + "</small></span></a></li>";
+      }).join("");
+      return '<section class="sm-sec">' + ph + '<div><h3 class="sm-hd"><i>' + nb(gi + 1) + "</i><span>" + esc(g.t) + '</span></h3><ul class="sm-l">' + li + "</ul></div></section>";
+    }).join("");
     var nn = String(d.numero || "").replace(/\D/g, "") || "1", st = String(d.sommaire_titre || "Dans ce numéro").split(" "), sl = st.pop();
-    $("sommaire").innerHTML = '<div class="ph-head"><h1>' + esc(st.join(" ")) + ' <em>' + esc(sl) + '</em></h1><p>N°' + esc(nn) + ' · ' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><div class="hs-inv" style="--bgi:url(/images/une-ville.jpg)"><div><h2>Un sujet à proposer ?</h2><p>Associations, commerçants, habitants : racontez ce qui se passe à Bondy.</p></div><a class="hs-btn" href="/temoigner.html">Proposer un sujet</a></div><h2 class="hs-t">Les sujets du numéro</h2><ul class="som-grid">' + som + '</ul><h3 class="mo-more">Et aussi dans le magazine</h3><ul class="mo-pages">' + more + "</ul>";
+    $("sommaire").innerHTML = '<div class="ph-head"><h1>' + esc(st.join(" ")) + ' <em>' + esc(sl) + '</em></h1><p>N°' + esc(nn) + ' · ' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div><div class="hs-inv" style="--bgi:url(/images/une-ville.jpg)"><div><h2>Un sujet à proposer ?</h2><p>Associations, commerçants, habitants : racontez ce qui se passe à Bondy.</p></div><a class="hs-btn" href="/temoigner.html">Proposer un sujet</a></div><div class="sm">' + smh + '</div><h3 class="mo-more">Et aussi dans le magazine</h3><ul class="mo-pages">' + more + "</ul>";
 
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
