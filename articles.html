@@ -579,6 +579,13 @@ details .more,.more.has-ph .tx{gap:8px}
 @media(max-width:700px){.ar-grid>.art:has(details[open]) .more .side{grid-template-columns:1fr}}
 .ar-grid>.art:has(details[open]) .share{margin:8px 0 0}
 @media(max-width:860px){.ar-grid>.art:has(details[open]) .txt{padding:18px 18px 20px!important}.ar-grid>.art:has(details[open]) .more .tx{column-count:1;text-align:left;font-size:17px}.ar-grid>.art:has(details[open]) .chapo{font-size:18px}}
+/* Mêmes colonnes et lettrine pour les articles courts (sans colonne latérale) */
+.ar-grid>.art:has(details[open]) .more:not(.has-side):not(.has-ph){column-count:2;column-gap:44px;column-rule:1px solid rgba(18,20,28,.14);text-align:justify;hyphens:auto;-webkit-hyphens:auto;font:400 17px/1.55 Georgia,"Iowan Old Style","Times New Roman",serif;display:block}
+.ar-grid>.art:has(details[open]) .more:not(.has-side):not(.has-ph)>p{max-width:none;margin:0 0 10px;line-height:1.55}
+.ar-grid>.art:has(details[open]) .more:not(.has-side):not(.has-ph)>p:not(.inter):not(.credit):not(.note):first-of-type::first-letter{float:left;font:700 3.6em/.82 var(--display);padding:4px 8px 0 0;color:#b8975a}
+.ar-grid>.art:has(details[open]) .more:not(.has-side):not(.has-ph)>p.inter{font:700 13px/1.2 var(--display);text-transform:uppercase;letter-spacing:.14em;color:#1f5a3a;margin:14px 0 6px;text-align:left;break-after:avoid}
+.ar-grid>.art:has(details[open]) .more:not(.has-side):not(.has-ph)>ul{margin:0 0 10px;padding-left:18px;max-width:none;text-align:left}
+@media(max-width:860px){.ar-grid>.art:has(details[open]) .more:not(.has-side):not(.has-ph){column-count:1;text-align:left}}
 /* Cartes de la liste : plus courtes */
 .ar-grid>.art:not(:has(details[open])) .vis.has-img,.ar-grid>.art.wide:not(:has(details[open])) .vis.has-img{aspect-ratio:16/7!important}
 .ar-grid>.art:not(:has(details[open])) .vis.has-icon{aspect-ratio:16/6!important}
