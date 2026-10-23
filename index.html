@@ -582,6 +582,7 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 .fc b{font:700 clamp(24px,2.6vw,30px)/1 var(--display);text-transform:uppercase;letter-spacing:.03em;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 .fc span{margin-top:8px;font-size:15px;line-height:1.4;color:#efece5;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .fc::after{content:"→";position:absolute;right:18px;top:16px;font-size:22px;color:#e2cd9b}
+@media(min-width:901px){.found-g:has(.fc:nth-child(5):last-child){grid-template-columns:repeat(6,minmax(0,1fr))}.found-g:has(.fc:nth-child(5):last-child) .fc{grid-column:span 2}.found-g:has(.fc:nth-child(5):last-child) .fc:nth-child(4){grid-column:2/4}.found-g:has(.fc:nth-child(5):last-child) .fc:nth-child(5){grid-column:4/6}}
 @media(max-width:900px){.found-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
 @media(max-width:520px){.found-g{grid-template-columns:minmax(0,1fr)}.fc{min-height:150px}}
 /* bloc appli + QR */
@@ -624,7 +625,6 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
       <a href="/temoigner.html">Bondy raconte</a>
       <a href="/logement.html">Votre logement</a>
       <a href="/habitants.html">Écrire un article</a>
-      <a href="/elus.html">Noter vos élus</a>
     </div></details>
       <details class="dd esp"><summary>Mon espace</summary><div class="dd-m">
         <a href="/habitants.html">Habitants</a>
@@ -641,7 +641,7 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
       <a class="fc" href="/videos.html" style="--p:url(/images/point-de-vue-1.jpg)"><b>Vidéos</b><span>Portraits, vie de la ville, point de vue</span></a>
       <a class="fc" href="/podcast.html" style="--p:url(/images/podcast-studio.jpg)"><b>Le podcast</b><span>Zoom sous les étoiles</span></a>
       <a class="fc" href="/temoigner.html" style="--p:url(/images/coeur-canal.jpg)"><b>Bondy raconte</b><span>Les histoires de Bondy</span></a>
-      <a class="fc" href="/elus.html" style="--p:url(/images/une-elus-drapeau.jpg)"><b>Notez vos élus</b><span>Notez-les et dites pourquoi</span></a>
+      
       <a class="fc" href="/logement.html" style="--p:url(/images/bondy-rue-automne.jpg)"><b>Votre logement</b><span>Vous l’attendez depuis longtemps ? Dites-le.</span></a>
       <a class="fc" href="/images.html" style="--p:url(/images/photos/bondy-01.jpg)"><b>Bondy en images</b><span>Les photos de la ville</span></a>
     </div>

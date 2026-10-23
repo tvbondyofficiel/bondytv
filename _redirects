@@ -6,8 +6,12 @@
 /infos.html /publicite.html#infos 301
 /images-videos /images.html 301
 /images-videos.html /images.html 301
-/tribune.html /elus.html 302
-/tribune /elus.html 302
+/tribune.html / 302
+/tribune / 302
+/elus.html / 302
+/elus / 302
+/noter-mes-elus.html / 302
+/noter-mes-elus / 302
 /paroles-habitants.html /vos-articles.html 301
 /paroles-habitants /vos-articles.html 301
 
