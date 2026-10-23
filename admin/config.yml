@@ -243,6 +243,24 @@ collections:
                   - {label: "Type", name: type, widget: select, options: ["Histoire", "Podcast", "Short", "Story"], required: false}
                   - {label: "Légende", name: legende, widget: text, required: false}
                   - {label: "Adresse (YouTube)", name: lien, widget: string}
+          - label: "Page « L'essentiel » (le fil de la ville)"
+            name: essentiel
+            widget: object
+            collapsed: true
+            fields:
+              - label: "Messages du fil (les plus récents en premier)"
+                name: items
+                widget: list
+                required: false
+                summary: "{{fields.categorie}} · {{fields.titre}}"
+                fields:
+                  - {label: "Titre", name: titre, widget: string}
+                  - {label: "Sujet", name: categorie, widget: select, options: ["Propreté", "Sécurité et police municipale", "Logement", "Mobilisations", "Réflexions", "Ras-le-bol"]}
+                  - {label: "Lieu (rue, quartier)", name: lieu, widget: string, required: false}
+                  - {label: "Date (AAAA-MM-JJ)", name: date, widget: string, required: false, hint: "Ex : 2026-10-23"}
+                  - {label: "Texte (des faits, sans insulte ni nom de particulier)", name: texte, widget: text}
+                  - {label: "Photo", name: image, widget: image, required: false}
+                  - {label: "Droit de réponse (si la personne ou l'organisme répond)", name: reponse, widget: text, required: false}
           - label: "Page « Mon point de vue »"
             name: point_de_vue
             widget: object
