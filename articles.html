@@ -554,7 +554,8 @@ details[open] > summary { margin-bottom: 6px; }
 .side h4{margin:0 0 12px}
 .side .sb-rl .phs figure{box-shadow:5px 5px 0 var(--beige)}
 .more.has-side.short{display:block}
-.more.has-side.short .side.short{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start;margin-top:22px;max-width:none}
+.more.has-side.short .side.short{display:block;margin-top:22px;max-width:none}
+.more.has-side.short .side.short .sb-media{display:flex;align-items:center;gap:14px;flex-wrap:wrap;margin:0}.more.has-side.short .side.short .sb-media h4{margin:0 8px 0 0}.more.has-side.short .side.short .sb-media .sb-btn{margin:0;padding:11px 18px}
 .more.has-side.short .side.short .sb-media{align-self:start;margin-top:31px}
 .more.has-side.short .side.short .phs img{aspect-ratio:16/10;object-fit:cover}
 @media(max-width:860px){.more.has-side.short .side.short{display:flex;flex-direction:column;max-width:440px}.more.has-side.short .side.short .sb-media{margin-top:0}}
@@ -724,7 +725,7 @@ details[open] > summary { margin-bottom: 6px; }
     var ids = (d.articles || []).map(function (x) { return x.id; });
     var all = (d.articles || []).filter(function (x) { return x.id !== "edito" && x.image && x.id !== a.id; });
     var i = ids.indexOf(a.id), rel = all.filter(function (x) { return ids.indexOf(x.id) > i; }).concat(all).slice(0, String(a.texte || "").length < 1300 ? 1 : 2);
-    if (rel.length) s += '<div class="sb-rl"><h4>À lire aussi</h4><div class="phs">' + rel.map(function (x) { return '<figure><a href="#' + esc(x.id) + '"><img src="' + esc(x.image) + '" alt="' + esc(x.image_description || x.titre) + '" loading="lazy"></a><figcaption>' + esc(x.titre) + "</figcaption></figure>"; }).join("") + "</div></div>";
+    if (false && rel.length) s += '<div class="sb-rl"><h4>À lire aussi</h4><div class="phs">' + rel.map(function (x) { return '<figure><a href="#' + esc(x.id) + '"><img src="' + esc(x.image) + '" alt="' + esc(x.image_description || x.titre) + '" loading="lazy"></a><figcaption>' + esc(x.titre) + "</figcaption></figure>"; }).join("") + "</div></div>";
     s += '<div class="sb sb-media"><h4>Un média complet</h4><a class="sb-btn" href="' + yt + '/podcasts" target="_blank" rel="noopener">Écouter le podcast</a><a class="sb-btn" href="' + yt + '" target="_blank" rel="noopener">Voir la chaîne YouTube</a></div>';
     if (String(a.texte || "").length < 1300) return s + "</aside>";
     s += '<div class="sb sb-row"><div><h4>Nous suivre</h4><div class="sb-soc">' + soc.map(function (r) { var k = String(r.reseau || "").toLowerCase(); return '<a href="' + esc(safeUrl(r.adresse)) + '" target="_blank" rel="noopener" aria-label="Bondy TV sur ' + esc(r.reseau) + '" title="' + esc(r.reseau) + '">' + (ICONS[k] || esc(r.reseau)) + "</a>"; }).join("") + "</div></div>" + (ed.contact_qr ? '<div class="sb-qr"><img src="' + esc(ed.contact_qr) + '" alt="QR code Bondy TV" width="64" height="64"><b>Scannez-moi</b></div>' : "") + "</div>";
