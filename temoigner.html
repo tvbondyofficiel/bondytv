@@ -3,8 +3,8 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Témoigner · Bondy TV Magazine</title>
-<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Témoigner · Bondy TV Magazine"><meta property="og:description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen."><meta property="og:url" content="https://www.bondytv.com/temoigner.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
+<title>Parole de Bondynois · Bondy TV Magazine</title>
+<meta property="og:type" content="website"><meta property="og:site_name" content="Bondy TV Magazine"><meta property="og:locale" content="fr_FR"><meta property="og:title" content="Parole de Bondynois · Bondy TV Magazine"><meta property="og:description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen."><meta property="og:url" content="https://www.bondytv.com/temoigner.html"><meta property="og:image" content="https://www.bondytv.com/images/partage.jpg"><meta property="og:image:width" content="1200"><meta property="og:image:height" content="630"><meta name="twitter:card" content="summary_large_image">
 <meta name="description" content="Le magazine gratuit de Bondy : ville, portraits, économie, politique locale et engagement citoyen.">
 <meta name="theme-color" content="#0c0e16">
 <link rel="manifest" href="/manifest.webmanifest">
@@ -471,7 +471,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       </div></details>
       <details class="dd on"><summary>Habitants</summary><div class="dd-m">
         <a href="/habitants.html">Espace habitants</a>
-        <a href="/temoigner.html" aria-current="page">La parole est à vous</a>
+        <a href="/temoigner.html" aria-current="page">Parole de Bondynois</a>
       </div></details>
       <details class="dd"><summary>Annonces</summary><div class="dd-m">
         <a href="/annonces.html">Le vide-grenier</a>
@@ -663,7 +663,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
 
     var t = d.temoigner || {};
-    $("temoigner-titre").textContent = t.titre || "";
+    (function () { var w = String(t.titre || "").split(" "), l = w.pop(); $("temoigner-titre").innerHTML = esc(w.join(" ")) + (w.length ? " " : "") + '<span style="color:#b8975a">' + esc(l) + "</span>"; })();
     $("temoigner-intro").textContent = t.introduction || "";
     if (t.encart && t.encart.citation && document.getElementById("t-side")) { var sd = document.getElementById("t-side"); sd.innerHTML = "<blockquote>" + esc(t.encart.citation) + '</blockquote><p class="t-auteur">' + esc(t.encart.auteur || "") + "</p><p>" + esc(t.encart.texte || "") + "</p>"; sd.hidden = false; }
 

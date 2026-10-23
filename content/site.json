@@ -23,7 +23,7 @@
   },
   "sommaire_titre": "Dans ce numéro",
   "temoigner": {
-    "titre": "La parole est à vous",
+    "titre": "Parole de Bondynois",
     "introduction": "Racontez-nous votre histoire. Un témoignage, une vidéo, une photo, une idée de sujet : dites-nous comment vous voyez le nouveau visage de Bondy. Quelques lignes suffisent.",
     "encart": {
       "citation": "Chacun mérite d'être vu et entendu.",
@@ -458,7 +458,7 @@
     "etiquette": "Bondy TV",
     "titre": "Publiez ce que vous voulez, quand vous voulez",
     "sous_titre": "Un texte, une idée, une photo, une vidéo : Bondy TV est à vous. Une seule condition : que ce soit bénéfique pour la ville.",
-    "bouton": "Témoigner ou proposer",
+    "bouton": "Prendre la parole",
     "delai": 2,
     "duree": 12
   },
@@ -485,17 +485,17 @@
       {
         "question": "Comment témoigner ?",
         "mots_cles": "temoigner temoignage raconter histoire parole video",
-        "reponse": "Vous pouvez passer par la page [La parole est à vous](/temoigner.html), ou laisser vos coordonnées ici avec le bouton vert : l'équipe vous recontacte. Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées."
+        "reponse": "Vous pouvez passer par la page [Parole de Bondynois](/temoigner.html), ou laisser vos coordonnées ici avec le bouton vert : l'équipe vous recontacte. Une vidéo n'est publiée qu'avec l'accord écrit des personnes filmées."
       },
       {
         "question": "Comment proposer un sujet ?",
         "mots_cles": "proposer sujet idee article projet association commerce",
-        "reponse": "Associations, commerçants, habitants : écrivez à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Tout est sur la page [Témoigner ou proposer](/temoigner.html)."
+        "reponse": "Associations, commerçants, habitants : écrivez à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Tout est sur la page [Parole de Bondynois](/temoigner.html)."
       },
       {
         "question": "Le podcast Zoom sous les étoiles",
         "mots_cles": "podcast zoom etoiles invite inviter participer emission mohamed mohammed",
-        "reponse": "Zoom sous les étoiles est le podcast de Mohamed. Il choisit ses invités : entreprises, entrepreneurs, acteurs de la ville de Bondy, et aussi des débats de société. Pour proposer votre sujet, c'est sur la page [Le podcast](/podcast.html). Pour témoigner dans le magazine, c'est la page [La parole est à vous](/temoigner.html)."
+        "reponse": "Zoom sous les étoiles est le podcast de Mohamed. Il choisit ses invités : entreprises, entrepreneurs, acteurs de la ville de Bondy, et aussi des débats de société. Pour proposer votre sujet, c'est sur la page [Le podcast](/podcast.html). Pour témoigner dans le magazine, c'est la page [Parole de Bondynois](/temoigner.html)."
       },
       {
         "question": "Où voir les vidéos ?",
