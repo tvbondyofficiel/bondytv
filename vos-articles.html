@@ -524,6 +524,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .va-tabs2{margin:30px auto 26px;justify-content:center}
 #pubtri .va-cols.one{grid-template-columns:minmax(0,520px);justify-content:center}
 .va-col[hidden],.va-card[hidden]{display:none!important}
+.va-steps{list-style:none;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:14px;max-width:960px;margin:34px auto 30px;padding:0}
+.va-steps li{display:flex;flex-direction:column;gap:6px;background:#fff;border:1px solid rgba(18,20,28,.1);border-top:4px solid #b8975a;border-radius:8px;padding:18px 20px;box-shadow:0 8px 20px rgba(18,20,28,.06)}
+.va-steps b{width:34px;height:34px;border-radius:50%;background:#12141c;color:#e2cd9b;display:grid;place-items:center;font:700 17px/1 var(--display,Arial Narrow)}
+.va-steps span{font:700 21px/1.05 var(--display,Arial Narrow);text-transform:uppercase}
+.va-steps em{font-style:normal;color:#555a69;font-size:15px;line-height:1.4}
+.va-where{max-width:760px;margin:6px auto 22px;text-align:center;background:#f3ead6;border-left:5px solid #b8975a;padding:14px 18px;font-size:17px;line-height:1.45}
+.va-where[hidden]{display:none}
+#pubtri .va-extra.va-cols.on{max-width:960px;margin:22px auto 0;grid-template-columns:repeat(auto-fit,minmax(260px,320px));justify-content:center}
+#pubtri .va-cols.one{grid-template-columns:minmax(0,320px)!important}
+#pubtri .va-cols.one .va-col{align-items:stretch}
+@media (max-width:700px){.va-steps{grid-template-columns:minmax(0,1fr)}}
 </style>
 </head>
 <body>
@@ -751,14 +762,20 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var extra = []; SEC.forEach(function (c) { data[c.id].slice(1).forEach(function (h) { extra.push(h.replace('<article class="va-card" style="', '<article class="va-card" style="')); }); });
       var tous = extra.length ? '<div class="va-moretxt"><button type="button" class="va-all" data-l="Voir tous les autres textes (' + extra.length + ')">Voir tous les autres textes (' + extra.length + ')</button><div class="va-extra va-cols" style="margin-top:16px">' + extra.join("") + "</div></div>" : "";
       var box = $("pubtri");
+      var steps = '<ol class="va-steps"><li><b>1</b><span>Vous écrivez</span><em>Votre texte, en quelques minutes.</em></li><li><b>2</b><span>Bondy TV relit</span><em>Aucun texte n\u2019est publié sans relecture.</em></li><li><b>3</b><span>C\u2019est publié ici</span><em>Dans « Vos articles », pas dans le magazine.</em></li></ol><p class="va-where" id="va-where" hidden></p>';
       var tabs = '<div class="filters va-tabs2" role="group" aria-label="Choisir une catégorie"><button type="button" data-f="all" aria-pressed="true">Tous</button><button type="button" data-f="habitants" aria-pressed="false">Les habitants</button><button type="button" data-f="commerces" aria-pressed="false">Les commerçants</button><button type="button" data-f="associations" aria-pressed="false">Les associations</button></div>';
-      box.innerHTML = note + tabs + '<div class="va-cols" id="va-cols">' + cols + "</div>" + tous;
+      box.innerHTML = note + steps + tabs + '<div class="va-cols" id="va-cols">' + cols + "</div>" + tous;
       (function () {
         var bt = box.querySelectorAll(".va-tabs2 button"), wrap = document.getElementById("va-cols");
         function apply(f) {
           bt.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.f === f ? "true" : "false"); });
           wrap.querySelectorAll(".va-col").forEach(function (c) { c.hidden = f !== "all" && c.id !== f; });
           wrap.classList.toggle("one", f !== "all");
+          var W = { habitants: "Les habitants", commerces: "Les commerçants", associations: "Les associations" }, wh = document.getElementById("va-where");
+          var fc = wrap.querySelector("#" + f + " .pill"), vide = fc && /exemple/i.test(fc.textContent);
+          wh.hidden = f === "all" || !vide; if (f !== "all" && vide) wh.innerHTML = "Aucun texte pour l\u2019instant. Le vôtre apparaîtra <b>ici</b>, dans « " + W[f] + " », une fois relu. La carte ci-dessous est un exemple de ce que verront les lecteurs.";
+          var ex = box.querySelector(".va-extra"), mb = box.querySelector(".va-all"); if (ex) { if (f !== "all") ex.classList.add("on"); else ex.classList.remove("on"); }
+          if (mb) mb.style.display = f === "all" ? "" : "none";
           box.querySelectorAll(".va-extra .va-card").forEach(function (c) { c.hidden = f !== "all" && c.dataset.cat !== f; });
         }
         bt.forEach(function (b) { b.addEventListener("click", function () { apply(b.dataset.f); }); });
