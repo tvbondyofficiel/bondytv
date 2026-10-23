@@ -5,4 +5,4 @@ Disallow: /tribune-admin.html
 Disallow: /elu.html
 Disallow: /habitant.html
 Disallow: /api/
-Sitemap: https://bondytv.pages.dev/sitemap.xml
+Sitemap: https://www.bondytv.com/sitemap.xml
