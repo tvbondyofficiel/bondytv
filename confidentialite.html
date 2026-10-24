@@ -757,7 +757,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var une = '<div><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="no1">' + esc(d.numero) + '</div></div></div><div class="mag">Magazine</div>';
     if (c.image) une += '<div class="photo has-img has-plain"><img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high"></div>';
     une += '</div><div class="lines">' + (c.lignes || []).map(function (l) {
-      return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
+      return '<a href="/article/' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div>";
     $("top").innerHTML = une;
 

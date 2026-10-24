@@ -80,12 +80,12 @@
       {
         "image": "/images/une-pepitheque.jpg",
         "legende": "La Pépithèque Mariama Bâ",
-        "lien": "/articles.html#pepitheque"
+        "lien": "/article/pepitheque"
       },
       {
         "image": "/images/coeur-canal.jpg",
         "legende": "Au cœur de la ville",
-        "lien": "/articles.html#coeur"
+        "lien": "/article/coeur"
       },
       {
         "image": "/images/une-terrain.jpg",

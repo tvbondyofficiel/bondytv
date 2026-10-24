@@ -666,7 +666,7 @@ select { font: inherit; width: 100%; padding: 14px 16px; border: 2px solid var(-
     var une = '<div><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="no1">' + esc(d.numero) + '</div></div></div><div class="mag">Magazine</div>';
     if (c.image) une += '<div class="photo has-img has-plain"><img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high"></div>';
     une += '</div><div class="lines">' + (c.lignes || []).map(function (l) {
-      return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
+      return '<a href="/article/' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div>";
     $("top").innerHTML = une;
 
@@ -677,7 +677,7 @@ select { font: inherit; width: 100%; padding: 14px 16px; border: 2px solid var(-
       document.getElementById("edito").innerHTML = '<div class="edito-page"><div><div class="tag">' + esc(ed.etiquette || "Édito") + '</div><h1>' + esc(ed.titre) + '</h1>' + (ed.chapo ? '<p class="lede">' + inline(ed.chapo) + '</p>' : "") + '<div class="corps">' + md(ed.texte) + '</div><p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div>' + ph + '</div>';
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
-    var toc = arts.map(function (a) { return '<li><a href="' + (a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id)) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
+    var toc = arts.map(function (a) { return '<li><a href="' + (a.id === "edito" ? "/edito.html" : "/article/" + esc(a.id)) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
     $("sommaire").innerHTML = '<h2 class="sec-title">' + esc(d.sommaire_titre) + '</h2><ul class="toc">' + toc + "</ul>";
 
     var cats = [];

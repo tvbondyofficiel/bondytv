@@ -19,3 +19,4 @@
 /reportages /temoigner.html 301
 /annonces.html / 301
 /annonces / 301
+/article/* /article.html 200

@@ -782,7 +782,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var une = '<div><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="no1">' + esc(d.numero) + '</div></div></div><div class="mag">Magazine</div>';
     if (c.image) une += '<div class="photo has-img has-plain"><img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high"></div>';
     une += '</div><div class="lines">' + (c.lignes || []).map(function (l) {
-      return '<a href="/articles.html#' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
+      return '<a href="/article/' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
     }).join("") + "</div>";
     $("top").innerHTML = une;
 
@@ -818,7 +818,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var ICOS = { bondytv: "tv", attention: "food", edito: "pen", visage: "bridge", entreprises: "bag", "food-trucks": "truck", idee: "bulb", tribune: "mega", "tradition-pain": "bag", entraide: "heart", "faire-le-bien": "heart" };
     function tile(a, i) {
       var n = String(i + 1); if (n.length < 2) n = "0" + n;
-      var href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
+      var href = a.id === "edito" ? "/edito.html" : "/article/" + esc(a.id);
       var img = a.affiche_entiere ? "" : a.image;
       var vis = img ? '<img src="' + esc(img) + '" alt="" loading="' + (i < 6 ? "eager" : "lazy") + '">' : (ICOS[a.id] ? ico(ICOS[a.id]) : "");
       return '<li><a class="sg" href="' + href + '"><span class="sg-im">' + vis + '<span class="sg-n">' + n + '</span></span><span class="sg-c"><span class="sg-r">' + esc(a.rubrique || "") + '</span><b>' + esc(a.titre) + '</b></span></a></li>';
@@ -851,14 +851,14 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var imgs = g.items.filter(function (x) { return x.a.image && !x.a.affiche_entiere; }).slice(0, 2);
       var ph = imgs.length ? '<figure class="sm-ph">' + imgs.map(function (x) { return '<img src="' + esc(x.a.image) + '" alt="" loading="lazy">'; }).join("") + "</figure>" : "<div></div>";
       var li = g.items.map(function (x) {
-        var a = x.a, href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
+        var a = x.a, href = a.id === "edito" ? "/edito.html" : "/article/" + esc(a.id);
         return '<li><a href="' + href + '"><span class="n">' + nb(x.n) + '</span><span><span class="r">' + esc(a.rubrique || "") + '</span><b>' + esc(a.titre) + '</b><small>' + esc(cut(a.chapo, 90)) + "</small></span></a></li>";
       }).join("");
       return '<section class="sm-sec">' + ph + '<div><h3 class="sm-hd"><i>' + nb(gi + 1) + "</i><span>" + esc(g.t) + '</span></h3><ul class="sm-l">' + li + "</ul></div></section>";
     }).join("");
     var cols = secs.filter(function (g) { return g.items.length; }).map(function (g, gi) {
       var li = g.items.map(function (x) {
-        var a = x.a, href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
+        var a = x.a, href = a.id === "edito" ? "/edito.html" : "/article/" + esc(a.id);
         return '<li><a href="' + href + '"><span class="n">' + nb(x.n) + '</span><b>' + esc(a.titre) + '</b></a></li>';
       }).join("");
       return '<div class="smc-col"><h3><i>' + nb(gi + 1) + '</i><span>' + esc(g.t) + '</span></h3><ul>' + li + '</ul></div>';
@@ -876,7 +876,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       return '<div class="sx-i sx-no"><span>' + nb(n) + '</span></div>';
     }
     function sxCard(x) {
-      var a = x.a, href = a.id === "edito" ? "/edito.html" : "/articles.html#" + esc(a.id);
+      var a = x.a, href = a.id === "edito" ? "/edito.html" : "/article/" + esc(a.id);
       return '<li><a class="sx-c" href="' + href + '">' + sxImg(a, x.n) + '<div class="sx-t"><span class="n">' + nb(x.n) + '</span><b>' + esc(a.titre) + '</b><small>' + esc(cut(a.chapo, 95)) + '</small></div></a></li>';
     }
     var byId = {}; arts.forEach(function (a, i) { byId[a.id] = { a: a, n: i + 1 }; });
@@ -884,7 +884,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var feat = "";
     if (une) {
       var ua = une.a;
-      feat = '<section class="sx-une"><a class="sx-big" href="/articles.html#' + esc(ua.id) + '">' + (ua.image ? '<img src="' + esc(ua.image) + '" alt="" fetchpriority="high">' : "") + '<span class="sx-bt"><em>À la une</em><b>' + esc(ua.titre) + '</b><small>' + esc(cut(ua.chapo, 130)) + '</small></span></a>' +
+      feat = '<section class="sx-une"><a class="sx-big" href="/article/' + esc(ua.id) + '">' + (ua.image ? '<img src="' + esc(ua.image) + '" alt="" fetchpriority="high">' : "") + '<span class="sx-bt"><em>À la une</em><b>' + esc(ua.titre) + '</b><small>' + esc(cut(ua.chapo, 130)) + '</small></span></a>' +
         "" + '</section>';
     }
     var sxs = SX.map(function (g, gi) {
