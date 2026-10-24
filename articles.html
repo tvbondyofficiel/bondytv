@@ -658,7 +658,7 @@ details .more,.more.has-ph .tx{gap:8px}
 .ar-grid>.art:has(details[open]) .chapo{-webkit-line-clamp:unset}
 .ar-grid>.art:has(details[open]) h3{font-size:clamp(28px,3vw,40px)!important}
 @media(max-width:1000px){.ar-grid{grid-template-columns:repeat(2,minmax(0,1fr))!important}}
-@media(max-width:620px){.ar-grid{grid-template-columns:minmax(0,1fr)!important}}</style></head>
+@media(max-width:620px){.ar-grid{grid-template-columns:minmax(0,1fr)!important}}</style><style>.ar-gh{grid-column:1/-1;display:flex;align-items:baseline;gap:12px;margin:22px 0 2px;padding-bottom:8px;border-bottom:2px solid #12141c}.ar-gh i{font:italic 700 30px/1 Georgia,'Times New Roman',serif;color:#b8975a}.ar-gh span{font:700 clamp(20px,2.2vw,28px)/1 var(--display);text-transform:uppercase;color:#12141c}.ar-gh[hidden]{display:none}.ar-grid{grid-auto-flow:row}</style></head>
 <body>
 <div class="wrap">
   <div class="bar">
@@ -900,7 +900,27 @@ details .more,.more.has-ph .tx{gap:8px}
     var tt = String("L’actualité de Bondy").split(" "), tl = tt.pop();
     var f = '<div class="ar-head"><h1>' + esc(tt.join(" ")) + " <em>" + esc(tl) + '</em></h1><p>Écrit par l\u2019équipe de Bondy TV. Les textes des habitants et des associations sont dans <a href="/vos-articles.html">Articles des habitants</a>.</p></div><div class="filters ar-filters" role="group" aria-label="Filtrer par rubrique"><button type="button" data-f="all" aria-pressed="true">Tous</button>';
     f += cats.map(function (k) { return '<button type="button" data-f="' + esc(k) + '" aria-pressed="false">' + esc(k) + "</button>"; }).join("");
-    f += '</div><div class="ar-empty" id="ar-empty" hidden></div><div class="grid ar-grid">' + list.map(article).join("") + "</div>";
+    f += '</div><div class="ar-empty" id="ar-empty" hidden></div><div class="grid ar-grid">' + (function () {
+      var G = [
+        { t: "", r: ["À la une"] },
+        { t: "L\u2019actualité", r: ["Actualité", "Ville", "Vie de la ville"] },
+        { t: "Balades et culture", r: ["Culture et balades"] },
+        { t: "Histoire et fierté", r: ["Histoire et fierté"] },
+        { t: "Commerce", r: ["Commerce", "À l'honneur", "La bonne adresse"] },
+        { t: "Solidarité et bons acteurs", r: ["Solidarité et associations", "Les bons acteurs de Bondy"] },
+        { t: "C\u2019est à vous", r: ["Politique", "Témoignage"] }
+      ];
+      var used = {}, out = "", num = 0;
+      function grp(g, items) {
+        if (!items.length) return;
+        if (g.t) { num++; out += '<h3 class="ar-gh"><i>' + (num < 10 ? "0" + num : num) + "</i><span>" + g.t + "</span></h3>"; }
+        out += items.map(article).join("");
+      }
+      G.forEach(function (g) { var items = list.filter(function (a) { return !used[a.id] && g.r.indexOf(a.rubrique) > -1; }); items.forEach(function (a) { used[a.id] = 1; }); grp(g, items); });
+      var rest = list.filter(function (a) { return !used[a.id]; });
+      grp({ t: "À lire aussi" }, rest);
+      return out;
+    })() + "</div>";
     $("articles").innerHTML = f;
 
 
@@ -968,6 +988,7 @@ details .more,.more.has-ph .tx{gap:8px}
       buttons.forEach(function (b) { b.setAttribute("aria-pressed", b.dataset.f === f ? "true" : "false"); });
       var shown = 0;
       document.querySelectorAll("#articles .art").forEach(function (a) { a.hidden = !(f === "all" || a.dataset.cat === f); if (!a.hidden) shown++; });
+      document.querySelectorAll("#articles .ar-gh").forEach(function (h) { h.hidden = f !== "all"; });
       var em = document.getElementById("ar-empty");
       if (em) {
         var T = { "Logement": ["Logement : loyers, travaux, bailleurs, démarches.", "logement"], "Ce qui doit changer": ["Ce qui doit changer : un problème à Bondy, avec des faits et une solution à proposer.", "changer"] }[f];
