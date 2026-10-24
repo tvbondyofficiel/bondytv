@@ -4,11 +4,11 @@
   if (!box || !type) return;
   function esc(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   var st = document.createElement("style");
-  st.textContent = ".pp-list{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;margin:24px 0;align-items:start}"
+  st.textContent = ".pp-list{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px;margin:24px 0;align-items:start}"
     + ".pp-c{position:relative;background:#f3ead6;border-left:5px solid #1f5a3a;border-radius:3px;padding:20px 22px 16px;box-shadow:0 6px 16px rgba(18,20,28,.06)}"
     + ".pp-c::before{content:'\\201C';position:absolute;right:16px;top:-2px;font:700 90px/1 Georgia,serif;color:#b8975a;opacity:.45;pointer-events:none}"
-    + ".pp-c h3{margin:0 40px 10px 0;font:700 21px/1.1 var(--display,inherit);text-transform:uppercase}"
-    + ".pp-t{font:400 16px/1.5 Georgia,'Iowan Old Style','Times New Roman',serif;color:#12141c;max-height:11.5em;overflow:hidden;position:relative}"
+    + ".pp-c h3{margin:0 34px 10px 0;font:700 17px/1.1 var(--display,inherit);text-transform:uppercase}"
+    + ".pp-t{font:400 15px/1.5 Georgia,'Iowan Old Style','Times New Roman',serif;color:#12141c;max-height:11.5em;overflow:hidden;position:relative}"
     + ".pp-c.open .pp-t{max-height:none}"
     + ".pp-c:not(.open) .pp-t.cut::after{content:'';position:absolute;left:0;right:0;bottom:0;height:3em;background:linear-gradient(rgba(243,234,214,0),#f3ead6)}"
     + ".pp-t p{margin:0 0 8px;max-width:none}"
@@ -17,7 +17,7 @@
     + ".pp-by{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid rgba(18,20,28,.16)}"
     + ".pp-by b{font:700 13px/1.2 var(--display,inherit);text-transform:uppercase;letter-spacing:.12em;color:#1f5a3a}"
     + ".pp-by time{font-size:12.5px;opacity:.7}"
-    + "@media(max-width:700px){.pp-list{grid-template-columns:minmax(0,1fr)}}";
+    + "@media(max-width:1100px){.pp-list{grid-template-columns:repeat(2,minmax(0,1fr))}}@media(max-width:700px){.pp-list{grid-template-columns:minmax(0,1fr)}}";
   document.head.appendChild(st);
   function get(u, k) { return fetch(u).then(function (r) { return r.json(); }).then(function (d) { return d[k] || []; }).catch(function () { return []; }); }
   Promise.all([get("/api/paroles", "items"), get("/content/site.json", "paroles")]).then(function (r) {
