@@ -227,6 +227,20 @@ details .more { display: flex; flex-direction: column; gap: 12px; }
 .temoigner .hs-inv{grid-row:4!important;grid-column:1/-1;width:100%;min-height:200px;margin:34px auto 40px!important}
 .temoigner .tform{grid-row:5!important;grid-column:1/-1;width:100%;max-width:640px;margin:0 auto;gap:10px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);padding:20px 24px 22px;box-sizing:border-box}
 .temoigner .t-side{grid-row:6!important;grid-column:1/-1;position:static;max-width:640px;margin:26px auto 0}
+.temoigner .tform{max-width:560px!important;padding:16px 20px 18px!important;gap:8px!important}
+.temoigner .tform .fld{gap:3px}
+.temoigner .tform textarea{min-height:64px!important}
+.temoigner .tform .moreinfo summary{font:600 13px/1.4 var(--body);color:var(--muted);cursor:pointer;text-transform:none;letter-spacing:0;border:0;width:auto;padding:0}
+.temoigner .tform .moreinfo[open] summary{margin-bottom:6px}
+.temoigner .tform .moreinfo .hint{margin:0 0 6px}
+.temoigner .tform input[type="file"]{font-size:13px}
+.temoigner .tform .send{padding:10px 20px!important;font-size:14px!important}
+.temoigner .hs-inv{grid-row:3!important;margin:22px auto 8px!important;min-height:150px!important;padding:20px 26px!important}
+.temoigner .hs-inv h2{font-size:clamp(24px,3.2vw,34px)!important}
+.temoigner .t-side{max-width:560px!important;padding:16px 20px!important}
+.temoigner .t-side blockquote{font-size:clamp(24px,2.6vw,30px)!important}
+.temoigner #paroles-pub{grid-row:4!important}
+.temoigner .tform{grid-row:5!important}
 .temoigner .tform .row2{gap:10px}
 .temoigner .tform label{font-size:13px;letter-spacing:.08em}
 .temoigner .tform input[type="text"],.temoigner .tform input[type="tel"],.temoigner .tform input[type="url"],.temoigner .tform select,.temoigner .tform textarea{padding:8px 10px;font-size:15px}
@@ -505,8 +519,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   <section class="temoigner" id="temoigner">
     <h1 class="sec-title" id="temoigner-titre"></h1>
     <p class="intro" id="temoigner-intro"></p>
-    <div id="paroles-pub"></div>
     <div class="hs-inv" style="--bgi:url(/images/sommaire-parc.jpg)"><div><h2>Racontez-nous votre histoire</h2><p>Un témoignage, une vidéo, une photo, une idée de sujet : dites-nous comment vous voyez le nouveau visage de Bondy.</p></div><a class="hs-btn" href="#tform">Écrire à Bondy TV</a></div>
+    <div id="paroles-pub"></div>
     <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
 <input name="access_key" type="hidden" value="a10cef59-fca0-479e-81ab-13a661ab12b5"/>
 <input name="subject" type="hidden" value="Nouveau message depuis Bondy TV Magazine"/>
@@ -516,8 +530,8 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 <div class="fld"><label for="f-nom">Prénom et nom</label><input autocomplete="name" id="f-nom" name="nom" required="" type="text"/></div>
 <div class="fld"><label for="f-contact">Numéro de téléphone</label><input autocomplete="tel" id="f-contact" inputmode="tel" name="telephone" placeholder="06 12 34 56 78" required="" type="tel"/></div>
 </div>
+<div class="row2">
 <div class="fld"><label for="f-adresse">Votre adresse à Bondy</label><input autocomplete="street-address" id="f-adresse" name="adresse" placeholder="Numéro, rue" required="" type="text"/></div>
-<p class="hint">Votre nom, votre téléphone et votre adresse nous servent à vérifier que vous habitez Bondy. Ils ne sont jamais publiés.</p>
 <div class="fld">
 <label for="f-type">Vous voulez nous envoyer</label>
 <select id="f-type" name="type">
@@ -530,11 +544,15 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 <option>Ce qui doit changer à Bondy</option>
 </select>
 </div>
+</div>
+<p class="hint">Votre nom, votre téléphone et votre adresse nous servent à vérifier que vous habitez Bondy. Ils ne sont jamais publiés.</p>
 <div class="fld"><label for="f-msg">Votre message</label><textarea id="f-msg" name="message" required=""></textarea></div>
 <div class="fld"><label for="f-piece">Votre fichier <span class="opt">(facultatif : photo ou PDF, 8 Mo au maximum)</span></label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="f-piece" name="piece" type="file"/></div>
+<details class="moreinfo"><summary>Vidéo, podcast, autre demande : plus d'informations</summary>
 <p class="hint">Pour « Mon point de vue » : une vidéo verticale d'1 min 10 maximum, filmée avec votre téléphone. Collez ici le lien (YouTube, Instagram…) dans votre message, ou envoyez la vidéo à tvbondy@gmail.com ou sur WhatsApp. Si des personnes apparaissent dans la vidéo, vous confirmez avoir leur accord (pour un enfant, celui de ses parents).</p>
 <p class="hint">Vous voulez être invité(e) au podcast <b>Zoom sous les étoiles</b> ? Ce n'est pas ici : <a href="/podcast.html">rendez-vous sur la page du podcast</a>.</p>
 <p class="hint">Pour une autre vidéo, écrivez à tvbondy@gmail.com ou <a class="walink" href="https://wa.me/33749554391" rel="noopener" target="_blank">écrivez-nous sur WhatsApp</a>.</p>
+</details>
 <label class="check" for="f-ok"><input id="f-ok" name="accord" required="" type="checkbox" value="oui"/><span>J'accepte que Bondy TV puisse publier mon message dans le magazine. Je peux demander son retrait à tout moment.</span></label>
 <button class="send" id="f-send" type="submit">Envoyer</button>
 <p aria-live="polite" class="status" id="f-status" role="status"></p>
