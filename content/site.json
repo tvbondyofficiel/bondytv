@@ -208,14 +208,15 @@
       "pleine_largeur": true,
       "titre": "Rats à Bondy : que fait la mairie ?",
       "texte": "**Des rats, et des questions**\n\nDans les rues, près des poubelles, dans les espaces verts, aux abords des immeubles : quand des rats apparaissent, ce n’est pas qu’une affaire d’image. C’est l’hygiène, la tranquillité et la santé de tous.\n\n**Ce que dit la ville**\n\nSur [ville-bondy.fr](https://www.ville-bondy.fr/actualite/deratisation-dans-bondy-2025/), la mairie rappelle que **quatre campagnes de dératisation sont obligatoires chaque année**. Celle de 2025 a démarré le 21 juillet : bâtiments municipaux, squares, parcs, écoles, crèches. Propriétaires, bailleurs, syndics et locataires doivent aussi y participer.\n\n**La vraie question**\n\nEst-ce suffisant dans les quartiers concernés ? Les habitants savent-ils où signaler un rat, et ce qui est fait ensuite ? Il ne s’agit pas d’accuser, mais de demander de la transparence et des résultats.\n\n**Vous en avez vu ? Dites-le**\n\n📍 Dans quel quartier ?\n\n📸 Envoyez vos photos et vos témoignages à Bondy TV, depuis [Écrivez-nous](/ecrire.html).\n\nPour signaler un problème : service d’hygiène de la mairie, 01 48 50 54 87.\n\n**NOTRE VILLE, NOTRE QUOTIDIEN, NOTRE VOIX**\n\nBondy mérite des rues propres et des réponses concrètes.",
-      "image_description": "Bondy TV",
+      "image_description": "Un rat qui regarde par-dessus une planche, dans l'herbe",
       "credit": "Anonyme · Bondy TV",
       "id": "rats",
-      "image": "/images/logo.png",
+      "image": "/images/rats.jpg",
       "chapo": "Propreté, hygiène, santé : les Bondynois attendent des réponses.",
-      "visuel": "logo",
+      "visuel": "image",
       "etiquette": "Actualité · Propreté",
-      "image_portrait": false
+      "image_portrait": false,
+      "image_focus": "50% 56%"
     },
     {
       "id": "pepitheque",
