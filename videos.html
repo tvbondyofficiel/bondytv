@@ -882,7 +882,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     $("proposer").innerHTML = "<h2>" + esc(p.titre) + "</h2><p>" + esc(p.texte) + '</p><div class="contact">' +
       '<div class="c-row"><a href="mailto:' + esc(p.email) + '">' + esc(p.email) + '</a><button type="button" class="copy" data-copy="' + esc(p.email) + '">Copier</button></div>' +
       '<div class="c-row"><a href="tel:' + esc(p.telephone_lien) + '">' + esc(p.telephone) + '</a><button type="button" class="copy" data-copy="' + esc(p.telephone_lien) + '">Copier</button>' +
-      '<a class="wa" href="' + esc(safeUrl(p.whatsapp)) + '" target="_blank" rel="noopener" aria-label="Écrire à Bondy TV sur WhatsApp" title="WhatsApp"><svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="' + WA + '"/></svg></a></div></div>';
+      '</div></div>';
     if (document.getElementById("galerie") && (p.galerie || []).length) document.getElementById("galerie").innerHTML = '<ul class="gal">' + p.galerie.map(function (g) { var fig = "<figure><img src=\"" + esc(g.image) + "\" alt=\"" + esc(g.legende) + "\" loading=\"lazy\"><figcaption>" + esc(g.legende) + "</figcaption></figure>"; return "<li>" + (g.lien ? "<a href=\"" + esc(safeUrl(g.lien)) + "\">" + fig + "</a>" : fig) + "</li>"; }).join("") + "</ul>";
 
     var pied = d.pied_de_page || {};
