@@ -4,14 +4,15 @@
   if (!box || !type) return;
   function esc(t) { return String(t == null ? "" : t).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   var st = document.createElement("style");
-  st.textContent = ".pp-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:22px 0}.pp-c{background:#f3ead6;border-left:5px solid #1f5a3a;padding:18px 20px;border-radius:2px}.pp-c p{margin:0;font-size:17px;line-height:1.55;white-space:pre-wrap}.pp-c b{display:block;margin-top:12px;font-family:var(--display,inherit);text-transform:uppercase;letter-spacing:.08em;font-size:14px;color:#1f5a3a}.pp-c time{display:block;font-size:13px;opacity:.7;margin-top:2px}";
+  st.textContent = ".pp-list{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin:22px 0}.pp-c{background:#f3ead6;border-left:5px solid #1f5a3a;padding:18px 20px;border-radius:2px}.pp-c h3{margin:0 0 10px;font:700 24px/1.1 var(--display,inherit);text-transform:uppercase}.pp-c p{margin:0;font-size:17px;line-height:1.55;white-space:pre-wrap}.pp-c b{display:block;margin-top:12px;font-family:var(--display,inherit);text-transform:uppercase;letter-spacing:.08em;font-size:14px;color:#1f5a3a}.pp-c time{display:block;font-size:13px;opacity:.7;margin-top:2px}";
   document.head.appendChild(st);
-  fetch("/api/paroles").then(function (r) { return r.json(); }).then(function (d) {
-    var L = (d.items || []).filter(function (x) { return x.rubrique === type; });
+  function get(u, k) { return fetch(u).then(function (r) { return r.json(); }).then(function (d) { return d[k] || []; }).catch(function () { return []; }); }
+  Promise.all([get("/api/paroles", "items"), get("/content/site.json", "paroles")]).then(function (r) {
+    var L = r[0].concat(r[1]).filter(function (x) { return x.rubrique === type; }).sort(function (a, b) { return b.ts - a.ts; });
     if (!L.length) return;
     box.innerHTML = '<div class="pp-list">' + L.map(function (x) {
       var dt = new Date(x.ts).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
-      return '<article class="pp-c"><p>' + esc(x.texte) + '</p>' + (x.nom ? '<b>' + esc(x.nom) + '</b>' : '') + '<time>' + esc(dt) + '</time></article>';
+      return '<article class="pp-c">' + (x.titre ? '<h3>' + esc(x.titre) + '</h3>' : '') + '<p>' + esc(x.texte) + '</p>' + (x.nom ? '<b>' + esc(x.nom) + '</b>' : '') + '<time>' + esc(dt) + '</time></article>';
     }).join("") + '</div>';
   }).catch(function () {});
 })();

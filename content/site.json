@@ -1122,5 +1122,14 @@
   },
   "essentiel": {
     "items": []
-  }
+  },
+  "paroles": [
+    {
+      "rubrique": "temoignage",
+      "titre": "Bondy, retrouvons l’esprit d’autrefois ❤️",
+      "nom": "Sophie, citoyenne de Bondy",
+      "texte": "En tant que citoyenne de Bondy, je suis triste de voir notre ville se diviser. J’ai le sentiment que nous avons perdu une partie de cette solidarité, de cette convivialité et de cette proximité qui faisaient la richesse de notre ville.\n\nBondy, c’est notre histoire, nos quartiers, nos familles et nos souvenirs. Au-delà de nos différences, nous devons apprendre à nous écouter, à nous respecter et à nous retrouver.\n\nJ’aimerais que Bondy retrouve son unité, son calme et cette ambiance chaleureuse d’autrefois. Parce qu’une ville ne se construit pas uniquement avec des bâtiments, mais surtout avec des habitants qui vivent ensemble.\n\nIl est temps de nous rassembler pour faire revivre l’esprit de Bondy.\n\nUn message du cœur, pour une ville que nous aimons tous.",
+      "ts": 1792814169724
+    }
+  ]
 }
