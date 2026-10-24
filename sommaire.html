@@ -898,7 +898,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       return '<section class="sx-sec"><header class="sx-h"><i>' + nb(sxn) + '</i><h3>' + esc(g.t) + '</h3><span>' + g.items.length + (g.items.length > 1 ? " sujets" : " sujet") + '</span></header><ul class="sx-g">' + g.items.map(sxCard).join("") + '</ul></section>';
     }).join("");
     var nn = String(d.numero || "").replace(/\D/g, "") || "1", st = String(d.sommaire_titre || "Dans ce numéro").split(" "), sl = st.pop();
-    $("sommaire").innerHTML = '<div class="ph-head"><h1>' + esc(st.join(" ")) + ' <em>' + esc(sl) + '</em></h1><p>N°' + esc(nn) + ' · ' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div>' + smc + '<div class="hs-inv" style="--bgi:url(/images/une-ville.jpg)"><div><h2>Un sujet à proposer ?</h2><p>Associations, commerçants, habitants : racontez ce qui se passe à Bondy.</p></div><a class="hs-btn" href="/temoigner.html">Proposer un sujet</a></div><h3 class="mo-more">Et aussi dans le magazine</h3><ul class="mo-pages">' + more + "</ul>";
+    $("sommaire").innerHTML = '<div class="ph-head"><h1>' + esc(st.join(" ")) + ' <em>' + esc(sl) + '</em></h1><p>N°' + esc(nn) + ' · ' + arts.length + ' sujets à découvrir, des gens d\'ici, des histoires vraies.</p></div>' + smc + '<h3 class="mo-more">Et aussi dans le magazine</h3><ul class="mo-pages">' + more + "</ul>";
 
     var cats = [];
     list.forEach(function (a) { if (a.rubrique && cats.indexOf(a.rubrique) < 0) cats.push(a.rubrique); });
