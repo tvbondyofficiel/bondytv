@@ -609,6 +609,10 @@ details .more,.more.has-ph .tx{gap:8px}
 .ar-grid>.art:not(:has(details[open])) .txt>.credit{margin-top:auto}
 .ar-grid>.art:has(details[open]) .vis.has-icon,.ar-grid>.art:has(details[open]) .vis.has-ill{aspect-ratio:auto!important;height:170px}
 .ar-grid>.art .tag{line-height:1.3;padding:6px 12px;border-radius:16px}
+.ar-grid>.art .tag.t0{background:#12141c;color:#fff!important}
+.ar-grid>.art .tag.t1{background:#1f5a3a;color:#fff!important}
+.ar-grid>.art .tag.t2{background:#d4202a;color:#fff!important}
+.ar-grid>.art .tag.t3{background:#b8975a;color:#12141c!important}
 
 /* article déplié : colonne latérale alignée et sans grand vide */
 .side{margin-top:0}
@@ -821,7 +825,7 @@ details .more,.more.has-ph .tx{gap:8px}
   function article(a) {
     var h = '<article class="art' + (a.pleine_largeur ? " wide" : "") + '" id="' + esc(a.id) + '"' + (a.rubrique ? ' data-cat="' + esc(a.rubrique) + '"' : "") + ">";
     h += vis(a) + '<div class="txt">';
-    h += '<div class="tag">' + esc(a.etiquette) + "</div>";
+    h += '<div class="tag t' + (((DATA.articles || []).map(function (x) { return x.id; }).indexOf(a.id) + 4) % 4) + '">' + esc(a.etiquette) + "</div>";
     h += "<h3>" + esc(a.titre) + "</h3>";
     if (a.chapo) h += '<p class="chapo">' + inline(a.chapo) + "</p>";
     if (a.credit) h += '<p class="credit">' + inline(a.credit) + "</p>";
