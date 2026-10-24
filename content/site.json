@@ -202,6 +202,22 @@
       "texte": ""
     },
     {
+      "lien_video": "",
+      "texte_visible": "",
+      "rubrique": "Actualité",
+      "pleine_largeur": true,
+      "titre": "Bondy face aux rats : les habitants ont-ils été abandonnés ?",
+      "texte": "À Bondy, la propreté des rues et la qualité de vie des habitants sont des sujets qui méritent toute notre attention. La présence de rats dans les espaces publics, lorsqu’elle est constatée, soulève de véritables questions : comment lutter efficacement contre leur prolifération ? Quelles mesures sont mises en place ? Et surtout, quelles solutions concrètes sont proposées aux habitants ?\n\nDerrière ce problème, il y a une réalité quotidienne : des familles, des enfants, des commerçants et des riverains qui veulent simplement vivre dans un environnement propre, sain et agréable.\n\n**Un problème de propreté, mais aussi de santé publique**\n\nLa présence de rats dans les rues, près des poubelles, dans les espaces verts ou aux abords des immeubles n’est pas un sujet à prendre à la légère. Ces rongeurs peuvent transmettre certaines maladies et contaminer les surfaces ou les aliments.\n\nLes déchets abandonnés, les poubelles débordantes, les dépôts sauvages et les accès aux réseaux d’assainissement peuvent favoriser leur présence. Mais pour comprendre la situation à Bondy, il faut aller sur le terrain, observer les endroits concernés et identifier les causes.\n\nLa question est simple : les moyens déployés sont-ils suffisants pour répondre aux besoins des habitants ?\n\n**Des rues propres et des réponses concrètes**\n\nLes habitants ont le droit de vivre dans une ville où la propreté est une priorité. La lutte contre les rats ne peut pas reposer uniquement sur des interventions ponctuelles. Elle nécessite une stratégie durable : nettoyage régulier, gestion efficace des déchets, traitement des zones infestées, prévention et suivi des signalements.\n\nIl est également essentiel d’informer les riverains sur les mesures prises et les démarches à effectuer lorsqu’ils constatent la présence de rongeurs.\n\nL’objectif n’est pas de désigner des responsables sans preuve, mais de demander des réponses claires et des résultats visibles.\n\n**Bondy TV donne la parole aux habitants**\n\nChez Bondy TV, nous pensons que les problèmes du quotidien doivent être entendus. La propreté de notre ville concerne tout le monde.\n\nHabitants de Bondy, avez-vous constaté la présence de rats dans votre rue, près de votre immeuble ou dans un espace public ? Depuis combien de temps ? Avez-vous déjà signalé le problème aux services concernés ?\n\nVos témoignages sont importants pour mieux comprendre la situation sur le terrain. Parce que Bondy appartient à celles et ceux qui y vivent, leur parole doit compter.\n\n**L’actualité locale, au plus près des habitants**\n\nNotre ville mérite de l’attention, des actions et des réponses. Parler des problèmes qui touchent les Bondynois, c’est aussi participer à la vie citoyenne.\n\nLa propreté n’est pas un luxe. C’est une exigence pour tous.",
+      "image_description": "Bondy TV",
+      "credit": "Rédigé par Axel, Bondy TV",
+      "id": "rats",
+      "image": "/images/logo.png",
+      "chapo": "Une situation qui interroge et qui ne peut plus être ignorée.",
+      "visuel": "logo",
+      "etiquette": "Actualité · Propreté",
+      "image_portrait": false
+    },
+    {
       "id": "pepitheque",
       "rubrique": "Culture et balades",
       "etiquette": "Ville · Culture",
