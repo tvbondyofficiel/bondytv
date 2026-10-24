@@ -227,6 +227,7 @@ details .more { display: flex; flex-direction: column; gap: 12px; }
 .temoigner .hs-inv{grid-row:4!important;grid-column:1/-1;width:100%;min-height:200px;margin:34px auto 40px!important}
 .temoigner .tform{grid-row:5!important;grid-column:1/-1;width:100%;max-width:640px;margin:0 auto;gap:10px;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);padding:20px 24px 22px;box-sizing:border-box}
 .temoigner .t-side{grid-row:6!important;grid-column:1/-1;position:static;max-width:640px;margin:26px auto 0}
+.temoigner .tform.is-closed{display:none!important}
 .temoigner .tform{max-width:560px!important;padding:16px 20px 18px!important;gap:8px!important}
 .temoigner .tform .fld{gap:3px}
 .temoigner .tform textarea{min-height:64px!important}
@@ -521,7 +522,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     <p class="intro" id="temoigner-intro"></p>
     <div class="hs-inv" style="--bgi:url(/images/sommaire-parc.jpg)"><div><h2>Racontez-nous votre histoire</h2><p>Un témoignage, une vidéo, une photo, une idée de sujet : dites-nous comment vous voyez le nouveau visage de Bondy.</p></div><a class="hs-btn" href="#tform">Écrire à Bondy TV</a></div>
     <div id="paroles-pub"></div>
-    <form action="https://api.web3forms.com/submit" class="tform" id="tform" method="POST">
+    <form action="https://api.web3forms.com/submit" class="tform is-closed" id="tform" method="POST">
 <input name="access_key" type="hidden" value="a10cef59-fca0-479e-81ab-13a661ab12b5"/>
 <input name="subject" type="hidden" value="Nouveau message depuis Bondy TV Magazine"/>
 <input name="from_name" type="hidden" value="Bondy TV Magazine"/>
@@ -920,5 +921,13 @@ document.addEventListener("click",function(e){all.forEach(function(d){if(!d.cont
 all.forEach(function(d){d.addEventListener("toggle",function(){if(d.open)closeOthers(d)});
 if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListener("mouseenter",function(){clearTimeout(t);closeOthers(d);d.setAttribute("open","")});d.addEventListener("mouseleave",function(){t=setTimeout(function(){d.removeAttribute("open")},180)});}})})();</script>
 <script src="/paroles.js" data-type="temoignage" defer></script>
+<script>
+(function(){var f=document.getElementById("tform");if(!f)return;
+function ouvrir(go){f.classList.remove("is-closed");if(go){setTimeout(function(){try{f.scrollIntoView({behavior:"smooth",block:"start"})}catch(e){f.scrollIntoView()}},60)}}
+document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a[href]");if(!a)return;var h=a.getAttribute("href")||"";if(h==="#tform"||/temoigner(\.html)?#tform$/.test(h)){e.preventDefault();ouvrir(true)}});
+if(location.hash==="#tform"||/[?&]type=/.test(location.search))ouvrir(true);
+window.addEventListener("hashchange",function(){if(location.hash==="#tform")ouvrir(true)});
+})();
+</script>
 </body>
 </html>
