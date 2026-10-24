@@ -344,13 +344,14 @@
       "etiquette": "Ville · Marchés",
       "titre": "Les marchés de Bondy : où faire son marché, et quand",
       "chapo": "Trois marchés, cinq jours par semaine : mardi, mercredi, jeudi, samedi et dimanche.",
-      "visuel": "icone-sac",
-      "image": "",
-      "image_description": "",
-      "credit": "Source : ville-bondy.fr",
+      "visuel": "image",
+      "image": "/images/marches.jpg",
+      "image_description": "Étal de fruits et légumes colorés sur un marché",
+      "credit": "Photo d'illustration : Unsplash · Horaires : ville-bondy.fr",
       "pleine_largeur": false,
       "texte_visible": "Faire son marché, c'est une habitude de bon vivant. À Bondy, la ville en recense trois, à des endroits et des jours différents, tous de 8h à 13h.",
-      "texte": "**Marché Suzanne Buisson** : dans le nord de la ville, les mardis, jeudis et samedis, de 8h à 13h.\n\n**Marché du centre-ville** : place du 11 novembre, les dimanches, de 8h à 13h. Le parking souterrain de l'Hôtel de Ville est ouvert aux véhicules.\n\n**Marché de la Gare** : place de la République, les mercredis et samedis, de 8h à 13h.\n\n**Et aussi, des rendez-vous spéciaux.** En décembre 2024, la ville a organisé la première édition d'un marché des producteurs place du 11 Novembre 1918, à l'initiative de la SEMACO, avec des producteurs et artisans locaux et régionaux, des animations et des dégustations.\n\n> Jours et horaires indiqués par la ville de Bondy. Ils peuvent changer : vérifiez sur ville-bondy.fr.\n\n**Vous avez votre étal préféré ?** Dites-nous lequel, et pourquoi : [Écrivez-nous](/ecrire.html). Il pourrait avoir son portrait dans le prochain numéro."
+      "texte": "**Marché Suzanne Buisson** : dans le nord de la ville, les mardis, jeudis et samedis, de 8h à 13h.\n\n**Marché du centre-ville** : place du 11 novembre, les dimanches, de 8h à 13h. Le parking souterrain de l'Hôtel de Ville est ouvert aux véhicules.\n\n**Marché de la Gare** : place de la République, les mercredis et samedis, de 8h à 13h.\n\n**Et aussi, des rendez-vous spéciaux.** En décembre 2024, la ville a organisé la première édition d'un marché des producteurs place du 11 Novembre 1918, à l'initiative de la SEMACO, avec des producteurs et artisans locaux et régionaux, des animations et des dégustations.\n\n> Jours et horaires indiqués par la ville de Bondy. Ils peuvent changer : vérifiez sur ville-bondy.fr.\n\n**Vous avez votre étal préféré ?** Dites-nous lequel, et pourquoi : [Écrivez-nous](/ecrire.html). Il pourrait avoir son portrait dans le prochain numéro.",
+      "image_focus": "50% 62%"
     },
     {
       "id": "attention",
