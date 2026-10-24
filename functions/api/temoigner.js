@@ -33,7 +33,8 @@ export async function onRequestPost({ request, env }) {
   const id = ts + "-" + suf;
   let page = "";
   try { page = new URL(request.headers.get("Referer") || "").pathname.replace(/\.html$/, "").replace(/^\//, ""); } catch (e) {}
-  if (["logement", "essentiel", "temoigner"].indexOf(page) < 0) page = "";
+  if (["logement", "essentiel", "temoigner", "ecrire"].indexOf(page) < 0) page = "";
+  if (page === "ecrire") page = "temoigner";
   const rec = { nom, tel, adresse, type, message, lien: lien || "", ts, page };
   const file = f.get("piece");
   if (file && typeof file !== "string" && file.size) {
