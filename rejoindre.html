@@ -812,9 +812,12 @@ if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListe
 
 <script id="act-js">document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a.sum-a");if(a&&!(window.matchMedia&&matchMedia("(hover:hover)").matches)){e.preventDefault();var d=a.closest("details");if(d)d.open=!d.open}});</script>
 <script>(function(){var f=document.getElementById("rform");if(!f)return;var st=document.getElementById("r-status"),b=document.getElementById("r-send");
+function ok(){f.reset();b.disabled=false;st.textContent="Merci et bienvenue ! Vous faites maintenant partie de la communauté Bondy TV.";st.className="status ok"}
+function secours(){var o={};new FormData(f).forEach(function(v,k){o[k]=v});
+return fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(o)}).then(function(r){return r.json()}).then(function(j){if(j&&j.success)ok();else throw 0})}
 f.addEventListener("submit",function(e){e.preventDefault();b.disabled=true;st.textContent="Envoi en cours…";
-var o={};new FormData(f).forEach(function(v,k){o[k]=v});
-fetch("https://api.web3forms.com/submit",{method:"POST",headers:{"Content-Type":"application/json",Accept:"application/json"},body:JSON.stringify(o)}).then(function(r){return r.json()}).then(function(j){
-if(j&&j.success){f.reset();st.textContent="Merci et bienvenue ! Vous faites maintenant partie de la communauté Bondy TV.";st.className="status ok"}else{throw 0}}).catch(function(){b.disabled=false;st.textContent="L’envoi n’a pas marché. Réessayez, ou écrivez-nous à tvbondy@gmail.com."})});})();</script>
+fetch("/api/rejoindre",{method:"POST",body:new FormData(f)}).then(function(r){return r.json().catch(function(){return {}}).then(function(j){if(r.ok&&j.ok)ok();else if(r.status===400)throw "invalide";else return secours()})}).catch(function(x){
+if(x==="invalide"){b.disabled=false;st.textContent="Vérifiez votre prénom et votre adresse e-mail, puis réessayez.";return}
+secours().catch(function(){b.disabled=false;st.textContent="L’envoi n’a pas marché. Réessayez, ou écrivez-nous à tvbondy@gmail.com."})})});})();</script>
 </body>
 </html>
