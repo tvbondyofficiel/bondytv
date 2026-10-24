@@ -26,7 +26,7 @@
     box.innerHTML = '<div class="pp-list">' + L.map(function (x) {
       var dt = new Date(x.ts).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
       var paras = String(x.texte || "").split(/\n\s*\n/).map(function (t) { return '<p>' + esc(t.trim()).replace(/\n/g, "<br>") + '</p>'; }).join("");
-      return '<article class="pp-c">' + (x.titre ? '<h3>' + esc(x.titre) + '</h3>' : '') + '<div class="pp-t">' + paras + '</div><button type="button" class="pp-more">Lire la suite</button><div class="pp-by">' + (x.nom ? '<b>' + esc(x.nom) + '</b>' : '') + '<time>' + esc(dt) + '</time></div></article>';
+      return '<article class="pp-c">' + (x.titre ? '<h3>' + esc(x.titre) + '</h3>' : '') + '<div class="pp-t">' + paras + '</div><button type="button" class="pp-more">Lire la suite</button><div class="pp-by">' + (x.nom ? '<b>' + esc(x.nom) + '</b>' : '') + '</div></article>';
     }).join("") + '</div>';
     box.querySelectorAll(".pp-c").forEach(function (c) {
       var t = c.querySelector(".pp-t");

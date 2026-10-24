@@ -760,7 +760,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       return '<article class="va-card" data-cat="' + c.id + '" style="--c:' + c.c + ';--t:' + c.t + '"><span class="pill">' + esc(c.tag) + "</span><h3>" + esc(t.titre) + "</h3>" + im +
         '<div class="corps" data-full="' + esc(paras(txt)) + '" data-cut="' + esc(paras(cut)) + '">' + paras(cut) + "</div>" + lk +
         (long ? '<button type="button" class="more">Lire la suite</button>' : "") +
-        '<div class="va-sig"><span class="av">' + esc(ini) + "</span><div><b>" + esc(sig) + "</b><span>" + esc(det) + " · " + new Date(t.ts).toLocaleDateString("fr-FR") + "</span></div></div></article>";
+        '<div class="va-sig"><span class="av">' + esc(ini) + "</span><div><b>" + esc(sig) + "</b><span>" + esc(det) + "</span></div></div></article>";
     }
     Promise.all([
       fetch("/api/habitants").then(function (r) { return r.json(); }).catch(function () { return {}; }),

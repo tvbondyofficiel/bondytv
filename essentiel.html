@@ -731,7 +731,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     function fdate(s) { var x = new Date(s); return isNaN(x) ? "" : x.toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" }); }
     function fcard(a) {
       var im = a.image ? '<img class="ph" src="' + esc(a.image) + '" alt="' + esc(a.titre) + '" loading="lazy">' : "";
-      var meta = [a.lieu, fdate(a.date)].filter(Boolean).join(" · ");
+      var meta = [a.lieu].filter(Boolean).join(" · ");
       return '<article class="va-card fil-card" data-cat="' + esc(a.categorie || "") + '" style="--c:#b8975a;--t:#12141c">' + im + '<span class="pill">' + esc(a.categorie || "Bondy") + '</span><h3>' + esc(a.titre) + '</h3>' + (meta ? '<p class="fil-meta">' + esc(meta) + '</p>' : "") + '<div class="corps">' + String(a.texte || "").split(/\n{2,}/).map(function (q) { return "<p>" + esc(q).replace(/\n/g, "<br>") + "</p>"; }).join("") + '</div>' + (a.reponse ? '<div class="fil-rep"><b>Droit de réponse</b><p>' + esc(a.reponse) + '</p></div>' : "") + '</article>';
     }
     var box = $("lg-list"), fbar = $("fil-f");
