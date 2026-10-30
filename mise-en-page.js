@@ -16,17 +16,21 @@
 
   var DEV = { pc: "(min-width:1101px)", tablette: "(min-width:621px) and (max-width:1100px)", mobile: "(max-width:620px)" };
   function tag() {
-    var root = document.querySelector(".wrap"); if (!root) return; var seen = {};
+    var root = document.querySelector(".wrap"); if (!root) return;
+    function ok(el) { return !(/^(SCRIPT|STYLE|NAV|LINK|BR|HR|NOSCRIPT|OPTION|SVG|PATH)$/i.test(el.tagName) || el.classList.contains("sr-only") || el.hidden || el.classList.contains("mp-add")); }
     function t(el, P) {
-      if (el.dataset.bloc) return;
-      if (/^(SCRIPT|STYLE|NAV|LINK)$/.test(el.tagName) || el.classList.contains("sr-only") || el.hidden) return;
-      var par = P || el.parentElement.id || el.parentElement.dataset.bloc || "wrap";
-      var k = par + ">" + (el.id || (el.tagName.toLowerCase() + (el.classList[0] ? "." + el.classList[0] : "")));
-      seen[k] = (seen[k] || 0) + 1; if (seen[k] > 1) k += "~" + seen[k];
+      if (el.dataset.bloc || !ok(el)) return;
+      if (el.parentElement.matches("#top>.head")) P = "top";
+      var base = (P || "wrap") + ">" + (el.id || (el.tagName.toLowerCase() + (el.classList[0] ? "." + el.classList[0] : ""))), k = base, n = 1;
+      while (document.querySelector('[data-bloc="' + k + '"]')) { n++; k = base + "~" + n; }
       el.dataset.bloc = k;
     }
+    function walk(el, depth) {
+      if (depth >= 3 || /\b(bar|pied)\b/.test(el.className + " " + el.id)) return;
+      [].forEach.call(el.children, function (c) { t(c, el.dataset.bloc && el.id ? el.id : el.dataset.bloc); if (c.dataset.bloc && c.children.length <= 14) walk(c, depth + 1); });
+    }
     [].forEach.call(root.children, function (e) { t(e); });
-    var head = root.querySelector("#top>.head"); if (head) [].forEach.call(head.children, function (e) { t(e, "top"); });
+    [].forEach.call(root.children, function (e) { if (e.dataset.bloc) walk(e, 1); });
   }
   function applyV(V) {
     var st = document.getElementById("mp-visuel");
@@ -88,7 +92,7 @@
   /* ---- Blocs ajoutés depuis l'éditeur visuel ---- */
   var COUL = { noir: "#12141c", or: "#b8975a", vert: "#006233", rouge: "#d3141f" };
   var acss = document.createElement("style");
-  acss.textContent = ".mp-add{margin:28px auto;max-width:100%}.mp-add-titre,.mp-add-bouton,.mp-add-separateur{text-align:center}.mp-add-texte{text-align:left;max-width:70ch}.mp-add-image{text-align:center}.mp-add h2{font-family:var(--display,inherit);text-transform:uppercase;letter-spacing:.02em;line-height:1.05;margin:0;text-align:inherit}.mp-add-texte p{margin:0 0 14px;line-height:1.6;font-size:18px}.mp-add-texte ul{margin:0 0 14px;padding-left:22px}.mp-add-texte .note{border-left:3px solid #d3141f;padding-left:12px;color:#555a69}.mp-add img{display:inline-block;max-width:100%;height:auto;border-radius:8px}.mp-add figcaption{font-size:14px;color:#555a69;margin-top:6px}.mp-add figure{margin:0}.mp-add .mp-btn{display:inline-block;padding:14px 26px;border-radius:8px;text-decoration:none;font:700 15px/1 var(--display,inherit);text-transform:uppercase;letter-spacing:.1em}.mp-add .mp-sep hr{border:0;border-top:1px solid rgba(18,20,28,.25);margin:0;position:relative;top:50%}.mp-add.mp-off{opacity:.35}";
+  acss.textContent = ".mp-add{margin:28px auto;max-width:100%;grid-column:1/-1}.mp-add-titre,.mp-add-bouton,.mp-add-separateur{text-align:center}.mp-add-texte{text-align:left;max-width:70ch}.mp-add-image{text-align:center}.mp-add h2{font-family:var(--display,inherit);text-transform:uppercase;letter-spacing:.02em;line-height:1.05;margin:0;text-align:inherit}.mp-add-texte p{margin:0 0 14px;line-height:1.6;font-size:18px}.mp-add-texte ul{margin:0 0 14px;padding-left:22px}.mp-add-texte .note{border-left:3px solid #d3141f;padding-left:12px;color:#555a69}.mp-add img{display:inline-block;max-width:100%;height:auto;border-radius:8px}.mp-add figcaption{font-size:14px;color:#555a69;margin-top:6px}.mp-add figure{margin:0}.mp-add .mp-btn{display:inline-block;padding:14px 26px;border-radius:8px;text-decoration:none;font:700 15px/1 var(--display,inherit);text-transform:uppercase;letter-spacing:.1em}.mp-add .mp-sep hr{border:0;border-top:1px solid rgba(18,20,28,.25);margin:0;position:relative;top:50%}.mp-add.mp-off{opacity:.35}";
   document.head.appendChild(acss);
   function e2(x) { return String(x == null ? "" : x).replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/"/g, "&quot;"); }
   function inl(x) { return e2(x).replace(/\*\*(.+?)\*\*/g, "<strong>$1</strong>"); }
@@ -133,8 +137,9 @@
     if (window.mpReselect) window.mpReselect();
   }
   window.mpAjouts = function (l) { addForce = false; renderAdds(l, true); };
-  window.mpTopKey = function (k) { var el = document.querySelector('[data-bloc="' + k + '"]'); while (el && el.parentElement && !el.parentElement.classList.contains("wrap")) el = el.parentElement; return el && el.dataset.bloc && !el.classList.contains("mp-add") ? el.dataset.bloc : (el ? el.dataset.bloc : null); };
-  window.mpTopList = function () { var r = []; [].forEach.call((document.querySelector(".wrap") || { children: [] }).children, function (e) { if (e.dataset && e.dataset.bloc && !e.classList.contains("mp-add")) { var t = (e.innerText || "").trim().replace(/\s+/g, " ").slice(0, 40); r.push({ key: e.dataset.bloc, label: t || e.dataset.bloc }); } }); return r; };
+  window.mpTopKeyOld = function (k) { var el = document.querySelector('[data-bloc="' + k + '"]'); while (el && el.parentElement && !el.parentElement.classList.contains("wrap")) el = el.parentElement; return el && el.dataset.bloc && !el.classList.contains("mp-add") ? el.dataset.bloc : (el ? el.dataset.bloc : null); };
+  window.mpTopKey = function (k) { var el = document.querySelector('[data-bloc="' + k + '"]'); return el ? el.dataset.bloc : null; };
+  window.mpTopListOld = function () { var r = []; [].forEach.call((document.querySelector(".wrap") || { children: [] }).children, function (e) { if (e.dataset && e.dataset.bloc && !e.classList.contains("mp-add")) { var t = (e.innerText || "").trim().replace(/\s+/g, " ").slice(0, 40); r.push({ key: e.dataset.bloc, label: t || e.dataset.bloc }); } }); return r; };
   function go(d) {
     var M = (d && d.mise_en_page) || {}, b = document.body, c = b.classList;
     var mag = POS[M.bouton_magazine] ? M.bouton_magazine : "gauche", qst = POS[M.bouton_question] ? M.bouton_question : "droite";
@@ -176,4 +181,15 @@
   }
   function start() { fetch("/content/site.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(go).catch(function () {}); }
   if (document.readyState === "loading") document.addEventListener("DOMContentLoaded", start); else start();
+})();
+
+(function () {
+  window.mpTopList = function () {
+    var r = []; [].forEach.call(document.querySelectorAll("[data-bloc]"), function (e) {
+      if (e.classList.contains("mp-add") || r.length >= 90) return;
+      var d = 0, x = e; while (x.parentElement && x.parentElement !== document.querySelector(".wrap")) { x = x.parentElement; if (x.dataset && x.dataset.bloc) d++; }
+      var t = (e.innerText || "").trim().replace(/\s+/g, " ").slice(0, 34);
+      r.push({ key: e.dataset.bloc, label: new Array(d + 1).join("– ") + (t || e.dataset.bloc) });
+    }); return r;
+  };
 })();
