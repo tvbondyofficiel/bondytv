@@ -151,6 +151,7 @@
       return "<p>" + L.map(inl).join("<br>") + "</p>";
     }).join("");
   }
+  function pv(p) { try { var E = window.parent !== window && window.parent.__mpEdit; return (E && E.preview && E.preview(p)) || p; } catch (x) { return p; } }
   function buildAdd(a) {
     var el = document.createElement("div"), ty = a.type || "texte";
     el.id = "ajout-" + a.id; el.dataset.bloc = "ajout-" + a.id; el.dataset.apres = a.apres || "";
@@ -158,7 +159,7 @@
     var c = COUL[a.couleur] || COUL.noir;
     if (ty === "titre") el.innerHTML = '<h2 style="font-size:' + ({ petit: 26, moyen: 38, grand: 56 }[a.taille] || 38) + "px;color:" + c + '">' + inl(a.texte || "Titre") + "</h2>";
     else if (ty === "texte") el.innerHTML = mdA(a.texte);
-    else if (ty === "image") el.innerHTML = a.image ? '<figure><img src="' + e2(a.image) + '" alt="' + e2(a.alt || "") + '" style="width:' + ({ petite: 40, moyenne: 70, grande: 100 }[a.largeur] || 70) + '%">' + (a.legende ? "<figcaption>" + inl(a.legende) + "</figcaption>" : "") + "</figure>" : '<p style="color:#888">Image à choisir</p>';
+    else if (ty === "image") el.innerHTML = a.image ? '<figure><img src="' + e2(pv(a.image)) + '" alt="' + e2(a.alt || "") + '" style="width:' + ({ petite: 40, moyenne: 70, grande: 100 }[a.largeur] || 70) + '%">' + (a.legende ? "<figcaption>" + inl(a.legende) + "</figcaption>" : "") + "</figure>" : '<p style="color:#888">Image à choisir</p>';
     else if (ty === "bouton") { var bg = COUL[a.couleur] || COUL.or; el.innerHTML = '<a class="mp-btn" href="' + e2(sf(a.lien)) + '"' + (/^https?:/i.test(a.lien || "") ? ' target="_blank" rel="noopener"' : "") + ' style="background:' + bg + ";color:" + (a.couleur === "noir" || a.couleur === "vert" || a.couleur === "rouge" ? "#fff" : "#12141c") + '">' + e2(a.texte || "Bouton") + "</a>"; }
     else if (ty === "separateur") el.innerHTML = '<div class="mp-sep" style="height:' + (Number(a.hauteur) || 40) + 'px">' + (a.ligne ? "<hr>" : "") + "</div>";
     if (ty === "forme") {
@@ -167,7 +168,7 @@
       if (fo === "trait") { el.innerHTML = '<div style="position:absolute;left:0;right:0;top:50%;height:' + Math.max(1, t || 3) + "px;margin-top:-" + (Math.max(1, t || 3) / 2) + "px;background:" + e2(a.fond || "#12141c") + '"></div>'; el.style.height = Math.max(1, t || 3) + "px"; if (!a.libre) { el.style.width = (Number(a.w) || 60) + "%"; el.style.margin = "24px auto"; } }
       else {
         var cp = CP[fo] || CP.rect, bd = a.bord && t, inset = bd ? "inset:" + t + "px;" : "inset:0;";
-        el.innerHTML = '<span class="mp-forme-s"></span>' + (bd ? '<div class="mp-forme-o" style="clip-path:' + cp + ";background:" + e2(a.bord) + '"></div>' : "") + '<div class="mp-forme-i" style="' + inset + "clip-path:" + cp + ";background-color:" + e2(a.fond || "#b8975a") + (a.image ? ";background-image:url('" + e2(a.image) + "');background-size:" + (a.ajust === "contain" ? "contain;background-repeat:no-repeat" : "cover") : "") + '"></div>';
+        el.innerHTML = '<span class="mp-forme-s"></span>' + (bd ? '<div class="mp-forme-o" style="clip-path:' + cp + ";background:" + e2(a.bord) + '"></div>' : "") + '<div class="mp-forme-i" style="' + inset + "clip-path:" + cp + ";background-color:" + e2(a.fond || "#b8975a") + (a.image ? ";background-image:url('" + e2(pv(a.image)) + "');background-size:" + (a.ajust === "contain" ? "contain;background-repeat:no-repeat" : "cover") : "") + '"></div>';
         if (!a.libre) el.style.width = (Number(a.w) || 40) + "%";
       }
     }
