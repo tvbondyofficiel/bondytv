@@ -57,22 +57,29 @@
   };
   function editor(API) {
     var st = document.createElement("style");
-    st.textContent = "[data-bloc]{cursor:grab}[data-bloc]:hover{outline:2px dashed #b8975a!important;outline-offset:-2px}[data-bloc].mp-sel{outline:3px solid #d3141f!important;outline-offset:-3px}.mp-guide{position:fixed;top:0;bottom:0;width:0;border-left:1px dashed #d3141f;z-index:99999;pointer-events:none}.pubpop{display:none!important}.bt-fab,.pdf-coin{pointer-events:none!important;opacity:.35}*{animation:none!important}";
+    st.textContent = "html:not(.mp-col) [data-bloc]{cursor:grab}html.mp-col,html.mp-col *{cursor:crosshair!important}html.mp-col body *:hover{outline:2px solid #b8975a!important;outline-offset:-2px}[data-bloc]{}html:not(.mp-col) [data-bloc]:hover{outline:2px dashed #b8975a!important;outline-offset:-2px}[data-bloc].mp-sel{outline:3px solid #d3141f!important;outline-offset:-3px}.mp-guide{position:fixed;top:0;bottom:0;width:0;border-left:1px dashed #d3141f;z-index:99999;pointer-events:none}.pubpop{display:none!important}.bt-fab,.pdf-coin{pointer-events:none!important;opacity:.35}*{animation:none!important}";
     document.head.appendChild(st);
     var sel = null, drag = null, guide = document.createElement("div"); guide.className = "mp-guide"; guide.style.display = "none"; document.body.appendChild(guide);
     function cur(k) { return Object.assign({}, API.get(k)); }
-    function label(el) { var t = (el.innerText || "").trim().replace(/\s+/g, " ").slice(0, 44); return t || el.dataset.bloc; }
-    function select(el) { if (sel) sel.classList.remove("mp-sel"); sel = el; if (el) el.classList.add("mp-sel"); API.selected(el ? el.dataset.bloc : null, el ? label(el) : ""); }
-    window.mpReselect = function () { if (sel && sel.dataset && !document.body.contains(sel)) { var n = document.querySelector('[data-bloc="' + sel.dataset.bloc + '"]'); sel = n; } if (sel) sel.classList.add("mp-sel"); };
+    function label(el) { var t = (el.innerText || "").trim().replace(/\s+/g, " ").slice(0, 44); return t || el.dataset.bloc || ("<" + el.tagName.toLowerCase() + ">"); }
+    function ckey(el) { var ps = []; while (el && el !== document.body && el !== document.documentElement) { if (el.id) { ps.unshift("#" + (window.CSS && CSS.escape ? CSS.escape(el.id) : el.id)); return "css:" + ps.join(">"); } var i = 1, s2 = el; while ((s2 = s2.previousElementSibling)) i++; ps.unshift(el.tagName.toLowerCase() + ":nth-child(" + i + ")"); el = el.parentElement; } return "css:body>" + ps.join(">"); }
+    function select(el, key) { if (sel) sel.classList.remove("mp-sel"); sel = el; if (el) { el.classList.add("mp-sel"); el.__mk = key || el.dataset.bloc; } API.selected(el ? el.__mk : null, el ? label(el) : ""); }
+    window.mpReselect = function () { if (sel && !document.body.contains(sel)) { var n = sel.__mk ? document.querySelector(qsel(sel.__mk)) : null; if (n) n.__mk = sel.__mk; sel = n; } if (sel) sel.classList.add("mp-sel"); };
     window.mpSelect = function (k) { var n = document.querySelector('[data-bloc="' + k + '"]'); if (n) select(n); };
-    window.mpSelectParent = function () { if (sel && sel.parentElement) { var p = sel.parentElement.closest("[data-bloc]"); if (p) select(p); } };
+    window.mpSelectParent = function (any) { if (!sel) return; if (any || !sel.dataset.bloc) { var p = sel.parentElement; if (p && p !== document.body && p !== document.documentElement) select(p, ckey(p)); } else if (sel.parentElement) { var q = sel.parentElement.closest("[data-bloc]"); if (q) select(q); } };
     document.addEventListener("click", function (e) { if (e.target.closest("[data-bloc]") || e.target.closest("a,button,summary")) e.preventDefault(); }, true);
     document.addEventListener("pointerdown", function (e) {
-      var el = e.target.closest("[data-bloc]"); if (!el) return;
       var tl = API.tool ? API.tool() : "select";
-      if (tl !== "select") { e.preventDefault(); select(el); if (tl === "pip") API.pick(el.dataset.bloc, window.mpComputed(el.dataset.bloc)); else API.paint(el.dataset.bloc, tl); return; }
+      if (tl !== "select") {
+        var t = e.target; if (!t || !t.tagName || t === document.documentElement || t === document.body || t.classList.contains("mp-guide")) return;
+        e.preventDefault(); e.stopPropagation(); var k = ckey(t); select(t, k);
+        if (tl === "pip") API.pick(k, window.mpComputed(k)); else if (tl === "touch") API.touch(k, window.mpComputed(k), e.clientX, e.clientY); else API.paint(k, tl);
+        return;
+      }
+      var el = e.target.closest("[data-bloc]"); if (!el) return;
       e.preventDefault(); select(el); var o = cur(el.dataset.bloc); drag = { el: el, x: e.clientX, y: e.clientY, dx: o.dx || 0, dy: o.dy || 0 };
     }, true);
+    document.addEventListener("mouseover", function (e) { var c = (API.tool ? API.tool() : "select") !== "select"; document.documentElement.classList.toggle("mp-col", c); }, true);
     document.addEventListener("pointermove", function (e) {
       if (!drag) return; var k = drag.el.dataset.bloc, o = cur(k);
       var dx = drag.dx + e.clientX - drag.x, dy = drag.dy + e.clientY - drag.y, g = null;
@@ -193,21 +200,22 @@
     });
   }
   window.mpRecolor = recolor;
+  function qsel(k) { return String(k).indexOf("css:") === 0 ? k.slice(4) : '[data-bloc="' + String(k).replace(/"/g, "") + '"]'; }
   function applyB(B) {
     var st = document.getElementById("mp-blocs");
     if (!st) { st = document.createElement("style"); st.id = "mp-blocs"; document.head.appendChild(st); }
     var out = "";
     Object.keys(B || {}).forEach(function (k) {
-      var o = B[k], q = '[data-bloc="' + k.replace(/"/g, "") + '"]', p = "";
+      var o = B[k], q = qsel(k), p = "";
       if (o.fond) out += q + "{background-color:" + o.fond + "!important;background-image:none!important}";
       if (o.texte) out += q + "," + q + " *{color:" + o.texte + "!important}";
-      if (o.bord) out += q + "{border-color:" + o.bord + "!important}";
+      if (o.bord) out += q + "{border:2px solid " + o.bord + "!important}";
     });
     st.textContent = out;
   }
   window.mpBlocs = applyB;
   window.mpComputed = function (k) {
-    var el = document.querySelector('[data-bloc="' + k + '"]'); if (!el) return {};
+    var el; try { el = document.querySelector(qsel(k)); } catch (x) {} if (!el) return {};
     var cs = getComputedStyle(el);
     function hx(c) { var m = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([\d.]+))?/.exec(c || ""); if (!m || (m[4] != null && Number(m[4]) === 0)) return ""; return "#" + [m[1], m[2], m[3]].map(function (v) { return ("0" + Number(v).toString(16)).slice(-2); }).join(""); }
     return { fond: hx(cs.backgroundColor), texte: hx(cs.color), bord: hx(cs.borderTopColor) };
