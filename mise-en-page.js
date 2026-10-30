@@ -214,6 +214,22 @@
     st.textContent = out;
   }
   window.mpBlocs = applyB;
+  function applyT(T) {
+    Object.keys(T || {}).forEach(function (k) {
+      var el; try { el = document.querySelector(qsel(k)); } catch (x) {} if (!el) return;
+      var v = String(T[k]); if (el.__tv === v) return;
+      if (el.__ot === undefined) el.__ot = el.innerHTML;
+      el.innerHTML = v.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/>/g, "&gt;").replace(/\n/g, "<br>"); el.__tv = v;
+    });
+  }
+  window.mpTextes = applyT;
+  window.mpTextOf = function (k) {
+    if (page() === "article.html") return null;
+    var el; try { el = document.querySelector(qsel(k)); } catch (x) {} if (!el || el.closest(".bar nav,.mp-add,script,style")) return null;
+    if (el.querySelector("a,button,img,input,svg,select,textarea,video,iframe,picture,canvas,summary,details")) return null;
+    var c = el.cloneNode(true); [].forEach.call(c.querySelectorAll("br"), function (b) { b.replaceWith("\n"); });
+    var t = c.textContent.replace(/[ \t]+\n/g, "\n").trim(); return t && t.length < 800 ? t : null;
+  };
   window.mpComputed = function (k) {
     var el; try { el = document.querySelector(qsel(k)); } catch (x) {} if (!el) return {};
     var cs = getComputedStyle(el);
@@ -244,9 +260,9 @@
     tag(); applyV(API ? API.all(page()) : (M.visuel || {})[page()]);
     renderAdds(API ? API.ajouts(page()) : (M.ajouts || {})[page()], !!API);
     tag(); var IM = function () { return API ? API.imgs(page()) : (M.images || {})[page()]; }; applyImgs(IM()); window.mpImgs = function () { applyImgs(IM()); };
-    if (API) { editor(API); var tt2; new MutationObserver(function () { clearTimeout(tt2); tt2 = setTimeout(function () { tag(); applyV(API.all(page())); applyImgs(IM()); recolor(API.couleurs()); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
-    else { var tt3; new MutationObserver(function () { clearTimeout(tt3); tt3 = setTimeout(function () { tag(); applyV((M.visuel || {})[page()]); applyImgs(IM()); recolor(M.couleurs); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
-    recolor(API ? API.couleurs() : M.couleurs); applyB(API ? API.cb(page()) : (M.couleurs_blocs || {})[page()]);
+    if (API) { editor(API); var tt2; new MutationObserver(function () { clearTimeout(tt2); tt2 = setTimeout(function () { tag(); applyV(API.all(page())); applyImgs(IM()); recolor(API.couleurs()); applyT(API.textes(page())); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
+    else { var tt3; new MutationObserver(function () { clearTimeout(tt3); tt3 = setTimeout(function () { tag(); applyV((M.visuel || {})[page()]); applyImgs(IM()); recolor(M.couleurs); applyT((M.textes || {})[page()]); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
+    recolor(API ? API.couleurs() : M.couleurs); applyT(API ? API.textes(page()) : (M.textes || {})[page()]); applyB(API ? API.cb(page()) : (M.couleurs_blocs || {})[page()]);
     if (!API) { try { localStorage.setItem("mpcol", JSON.stringify(M.couleurs || {})); } catch (e) {} }
     var ordre = P.blocs_ordre || [], caches = P.blocs_caches || [];
     function blocs() {
