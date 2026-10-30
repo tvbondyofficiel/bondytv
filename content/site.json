@@ -1461,7 +1461,7 @@
   },
   "pages_libres": [],
   "diaporama": {
-    "actif": true,
+    "actif": false,
     "titre": "Photos de Bondy",
     "auto": true,
     "photos": [
