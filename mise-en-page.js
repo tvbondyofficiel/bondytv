@@ -140,6 +140,32 @@
   window.mpTopKeyOld = function (k) { var el = document.querySelector('[data-bloc="' + k + '"]'); while (el && el.parentElement && !el.parentElement.classList.contains("wrap")) el = el.parentElement; return el && el.dataset.bloc && !el.classList.contains("mp-add") ? el.dataset.bloc : (el ? el.dataset.bloc : null); };
   window.mpTopKey = function (k) { var el = document.querySelector('[data-bloc="' + k + '"]'); return el ? el.dataset.bloc : null; };
   window.mpTopListOld = function () { var r = []; [].forEach.call((document.querySelector(".wrap") || { children: [] }).children, function (e) { if (e.dataset && e.dataset.bloc && !e.classList.contains("mp-add")) { var t = (e.innerText || "").trim().replace(/\s+/g, " ").slice(0, 40); r.push({ key: e.dataset.bloc, label: t || e.dataset.bloc }); } }); return r; };
+
+  function urlOf(v) { var m = /url\(\s*["']?([^"')]+)["']?\s*\)/.exec(v || ""); return m ? m[1] : ""; }
+  window.mpImgInfo = function (k) {
+    var el = document.querySelector('[data-bloc="' + k + '"]'), root = document.querySelector(".wrap");
+    while (el && el !== root) {
+      if (el.dataset && el.dataset.bloc && !el.classList.contains("mp-add")) {
+        var st = el.style, v;
+        if ((v = st.getPropertyValue("--bgi")) && urlOf(v)) return { key: el.dataset.bloc, kind: "bgi", url: urlOf(v) };
+        if ((v = st.getPropertyValue("--p")) && urlOf(v)) return { key: el.dataset.bloc, kind: "p", url: urlOf(v) };
+        if (urlOf(st.backgroundImage)) return { key: el.dataset.bloc, kind: "bg", url: urlOf(st.backgroundImage) };
+        var im = el.tagName === "IMG" ? el : el.querySelector("img");
+        if (im && im.getAttribute("src") && !/^data:/.test(im.getAttribute("src"))) return { key: el.dataset.bloc, kind: "img", url: im.getAttribute("src") };
+      }
+      el = el.parentElement;
+    }
+    return null;
+  };
+  function applyImgs(map) {
+    Object.keys(map || {}).forEach(function (k) {
+      var el = document.querySelector('[data-bloc="' + k + '"]'), u = map[k]; if (!el || !u) return; var st = el.style;
+      if (urlOf(st.getPropertyValue("--bgi"))) st.setProperty("--bgi", 'url("' + u + '")');
+      else if (urlOf(st.getPropertyValue("--p"))) st.setProperty("--p", 'url("' + u + '")');
+      else if (urlOf(st.backgroundImage)) st.backgroundImage = 'url("' + u + '")';
+      else { var im = el.tagName === "IMG" ? el : el.querySelector("img"); if (im && im.getAttribute("src") !== u) { im.setAttribute("src", u); im.removeAttribute("srcset"); } }
+    });
+  }
   function go(d) {
     var M = (d && d.mise_en_page) || {}, b = document.body, c = b.classList;
     var mag = POS[M.bouton_magazine] ? M.bouton_magazine : "gauche", qst = POS[M.bouton_question] ? M.bouton_question : "droite";
@@ -162,9 +188,9 @@
     var API = null; try { if (/[?&]mpedit=1/.test(location.search) && window.parent !== window && window.parent.__mpEdit) API = window.parent.__mpEdit; } catch (e) {}
     tag(); applyV(API ? API.all(page()) : (M.visuel || {})[page()]);
     renderAdds(API ? API.ajouts(page()) : (M.ajouts || {})[page()], !!API);
-    tag();
-    if (API) { editor(API); var tt2; new MutationObserver(function () { clearTimeout(tt2); tt2 = setTimeout(function () { tag(); applyV(API.all(page())); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
-    else { var tt3; new MutationObserver(function () { clearTimeout(tt3); tt3 = setTimeout(function () { tag(); applyV((M.visuel || {})[page()]); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
+    tag(); var IM = function () { return API ? API.imgs(page()) : (M.images || {})[page()]; }; applyImgs(IM()); window.mpImgs = function () { applyImgs(IM()); };
+    if (API) { editor(API); var tt2; new MutationObserver(function () { clearTimeout(tt2); tt2 = setTimeout(function () { tag(); applyV(API.all(page())); applyImgs(IM()); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
+    else { var tt3; new MutationObserver(function () { clearTimeout(tt3); tt3 = setTimeout(function () { tag(); applyV((M.visuel || {})[page()]); applyImgs(IM()); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
     var ordre = P.blocs_ordre || [], caches = P.blocs_caches || [];
     function blocs() {
       var ids = {}; ordre.concat(caches).forEach(function (i) { ids[i] = 1; });
