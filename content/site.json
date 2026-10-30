@@ -1222,14 +1222,14 @@
   "livres": [
     {
       "id": "bienvenue-dans-mon-monde",
-      "exemple": false,
+      "exemple": true,
       "titre": "Bienvenue dans mon monde",
       "auteur": "",
       "description": "Réflexions sur l'humanité, la liberté et le sens de l'existence.",
       "couverture": "/images/bienvenue-dans-mon-monde-vevent-mvup716y.jpg",
-      "fichier": "",
+      "fichier": "/livres/bienvenue-dans-mon-monde-apercu-visuel-a5-mvupud4c.pdf",
       "format": "PDF",
-      "taille": ""
+      "taille": "0,9 Mo"
     }
   ]
 }
