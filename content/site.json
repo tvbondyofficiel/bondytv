@@ -1258,8 +1258,8 @@
             "dy": 2
           },
           "wrap>div.pg>div.n1b": {
-            "dx": 1,
-            "dy": -6
+            "dy": -15,
+            "dx": 5
           },
           "wrap>div.pg~20>img.bl": {
             "dy": -274,
@@ -1303,8 +1303,9 @@
           "undefined": "#ffffff"
         },
         "wrap>div.pg>div.n1b": {
-          "undefined": "none",
-          "cache": "N° 1"
+          "undefined": "#12141c",
+          "cache": "N°1",
+          "texte": "#12141c"
         },
         "wrap>div.pg>div.n1b>span": {
           "texte": "#d3141f"
@@ -1315,7 +1316,7 @@
     "textes": {
       "magazine/edition.html": {
         "wrap>div.pg>div.n1b>span": "N°1",
-        "wrap>div.pg>div.n1b": "N°1"
+        "css:body>div:nth-child(2)>div:nth-child(1)>div:nth-child(2)": "N°1"
       }
     }
   }
