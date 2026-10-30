@@ -744,6 +744,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       h += '</div><div class="box"><p class="kick" style="margin:0">' + esc(col ? col.nom : "Boutique") + "</p><h1>" + esc(a.nom) + '</h1><div class="big">' + eur(a.prix) + "</div>";
       if (a.description) h += '<p class="lead" style="margin:0;font-size:17px">' + esc(a.description) + "</p>";
       if (a.createur) h += '<p class="note">Création de <b>' + esc(a.createur) + "</b></p>";
+      (a.infos || []).forEach(function (x) { if (x && (x.titre || x.texte)) h += '<div>' + (x.titre ? '<span class="lb">' + esc(x.titre) + "</span>" : "") + '<p class="note" style="font-size:16px;color:inherit;white-space:pre-line">' + esc(x.texte) + "</p></div>"; });
       if (tailles.length) {
         h += '<div><span class="lb">Taille</span><div class="sz" role="group" aria-label="Taille">';
         tailles.forEach(function (t) { h += '<button type="button" data-t="' + esc(t) + '" aria-pressed="' + (st.t === t) + '"' + (stockOf(a, t) > 0 ? "" : " disabled") + ">" + esc(t) + "</button>"; });
