@@ -208,6 +208,7 @@
     Object.keys(B || {}).forEach(function (k) {
       var o = B[k], q = qsel(k), p = "";
       if (o.fond === "none") out += q + "{background:none!important;background-color:transparent!important;box-shadow:none!important}"; else if (o.fond) out += q + "{background-color:" + o.fond + "!important;background-image:none!important}";
+      if (o.cache) out += /[?&]mpedit=1/.test(location.search) ? q + "{opacity:.18!important;outline:1px dashed #8a8a8a!important}" : q + "{display:none!important}";
       if (typeof o.zoom === "number" && o.zoom > 0) out += q + "{zoom:" + o.zoom + "%!important}";
       if (o.texte) out += q + "," + q + " *{color:" + o.texte + "!important}";
       if (o.bord === "none") out += q + "{border:none!important;outline:none}"; else if (o.bord) out += q + "{border:2px solid " + o.bord + "!important}";
