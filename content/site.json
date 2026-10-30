@@ -168,7 +168,7 @@
       "id": "visage",
       "image": "/images/nouveau-visage-accueil.jpg",
       "chapo": "Bondy a plusieurs visages. Entre le nord et le sud, une fracture existe, et la ville cherche à recréer du lien.",
-      "visuel": "pont",
+      "visuel": "image",
       "etiquette": "Ville",
       "image_portrait": false
     },
