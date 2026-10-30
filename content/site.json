@@ -1234,5 +1234,10 @@
   ],
   "pages_desactivees": [
     "logement.html"
-  ]
+  ],
+  "mise_en_page": {
+    "bouton_magazine": "gauche",
+    "bouton_question": "centre",
+    "pages": {}
+  }
 }

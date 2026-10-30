@@ -578,15 +578,14 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 /* Ce que vous trouvez */
 .found{max-width:1120px;margin:46px auto 0}
 .found .fbt{text-align:center}
-.found-g{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px;margin-top:22px}
+.found-g{display:flex;flex-wrap:wrap;justify-content:center;gap:16px;margin-top:22px}.found-g>.fc{flex:0 0 calc((100% - 32px)/3);box-sizing:border-box}
 .fc{position:relative;display:flex;flex-direction:column;justify-content:flex-end;min-height:190px;padding:20px 22px;border-radius:10px;overflow:hidden;text-decoration:none;color:#fff;background:linear-gradient(180deg,rgba(18,20,28,.1) 0,rgba(18,20,28,.78) 100%),var(--p) center/cover no-repeat #12141c;box-shadow:0 10px 24px rgba(18,20,28,.16);border-bottom:5px solid #b8975a;transition:transform .2s,box-shadow .2s}
 .fc:hover{transform:translateY(-4px);box-shadow:0 16px 30px rgba(18,20,28,.24)}
 .fc b{font:700 clamp(24px,2.6vw,30px)/1 var(--display);text-transform:uppercase;letter-spacing:.03em;text-shadow:0 1px 8px rgba(0,0,0,.5)}
 .fc span{margin-top:8px;font-size:15px;line-height:1.4;color:#efece5;text-shadow:0 1px 6px rgba(0,0,0,.5)}
 .fc::after{content:"→";position:absolute;right:18px;top:16px;font-size:22px;color:#e2cd9b}
-@media(min-width:901px){.found-g:has(.fc:nth-child(5):last-child){grid-template-columns:repeat(6,minmax(0,1fr))}.found-g:has(.fc:nth-child(5):last-child) .fc{grid-column:span 2}.found-g:has(.fc:nth-child(5):last-child) .fc:nth-child(4){grid-column:2/4}.found-g:has(.fc:nth-child(5):last-child) .fc:nth-child(5){grid-column:4/6}}
-@media(max-width:900px){.found-g{grid-template-columns:repeat(2,minmax(0,1fr))}}
-@media(max-width:520px){.found-g{grid-template-columns:minmax(0,1fr)}.fc{min-height:150px}}
+@media(max-width:900px){.found-g>.fc{flex-basis:calc((100% - 16px)/2)}}
+@media(max-width:520px){.found-g>.fc{flex-basis:100%}.fc{min-height:150px}}
 /* bloc appli + QR */
 .getapp{grid-template-columns:1fr auto auto}
 .getapp-qr{display:flex;align-items:center;gap:12px;font-size:13px;line-height:1.35;color:#555a69;max-width:170px}
@@ -609,7 +608,7 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 <style id="tab-css">@media (min-width:700px) and (max-width:1280px){.bar{gap:8px!important}.bar nav{gap:4px 8px!important;min-width:0}.bar nav a,.bar nav summary{font-size:12px!important;letter-spacing:.01em!important}.bar nav a.nav-ecrire{padding:6px 9px!important}#install{padding:8px 10px!important;font-size:12px!important;letter-spacing:.04em!important}}</style>
 <style id="fbtn-css">html body p.fbtn:not(#_z) a.btn-acc,html body p.fbtn:not(#_z) a.btn-all{display:inline-flex!important;align-items:center!important;justify-content:center!important;text-align:center!important;min-height:60px!important;height:auto!important;padding:14px 18px!important;background:#b8975a!important;color:#fff!important;border:0!important;border-radius:8px!important;box-shadow:0 6px 16px rgba(18,20,28,.14)!important;font-weight:700!important;text-transform:uppercase!important;letter-spacing:.1em!important;text-decoration:none!important}</style>
 <style id="pdf-coin-css">.pdf-coin{position:fixed;left:14px;bottom:16px;z-index:60;display:flex;align-items:center;gap:8px;padding:11px 16px;background:#b8975a;color:#fff;border-radius:8px;text-decoration:none;font:700 14px/1 var(--display);text-transform:uppercase;letter-spacing:.08em;box-shadow:0 6px 18px rgba(18,20,28,.28)}.pdf-coin:hover{filter:brightness(1.08)}.pdf-coin svg{width:18px;height:18px;flex:none}@media(max-width:600px){.pdf-coin{left:10px;bottom:12px;padding:10px 12px;font-size:12px}.pdf-coin span.l{display:none}}@media print{.pdf-coin{display:none}}</style>
-<script src="/pages-actives.js" defer></script>
+<script src="/pages-actives.js" defer></script><script src="/mise-en-page.js" defer></script>
 </head>
 <body>
 <div class="wrap">

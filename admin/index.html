@@ -104,6 +104,7 @@ var RUBRIQUES=['À la une','Édito','Actualité','Culture et balades','Histoire 
 var RUBCOL={'À la une':['#d3141f','#fff'],'Édito':['#b8975a','#12141c'],'Actualité':['#006233','#fff'],'Culture et balades':['#b8975a','#12141c'],'Histoire et fierté':['#12141c','#fff'],'Commerce':['#b9a47f','#12141c'],'Solidarité et associations':['#006233','#fff'],'Les bons acteurs de Bondy':['#b8975a','#12141c'],'Politique':['#12141c','#fff'],'Témoignage':['#12141c','#fff']};
 var SECTIONS=[
  ['pages','Rubriques et pages','#006233','Activer ou désactiver une rubrique d\u2019articles ou une page du site.'],
+ ['mise_en_page','Mise en page du site','#b8975a','Centrer, aligner, espacer, ordonner les blocs et placer les boutons flottants.'],
  ['general','Réglages généraux','#12141c','Titre du site, numéro en cours, titres de rubriques.'],
  ['couverture','Couverture','#d3141f','La photo de couverture et les lignes à la une.'],
  ['numeros','Les numéros (PDF)','#006233','Ajouter le numéro 2, 3… et son PDF à télécharger.'],
@@ -229,7 +230,7 @@ function listEditor(arr,onch){
 function articles(){return S.data.articles||(S.data.articles=[])}
 function caches(){return S.data.articles_caches||(S.data.articles_caches=[])}
 function nav(){
- var items=[['home','Tableau de bord',''],['articles','Articles',String(articles().length)]].concat(SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||S.data[s[0]]!==undefined}).map(function(s){return [s[0],s[1],'']}));
+ var items=[['home','Tableau de bord',''],['articles','Articles',String(articles().length)]].concat(SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||s[0]==='mise_en_page'||S.data[s[0]]!==undefined}).map(function(s){return [s[0],s[1],'']}));
  return h('aside',{},h('div',{class:'brand'},h('b',{},'Bond',h('i',{},'y')),h('span',{},'TV · Admin')),
   items.map(function(it){return h('button',{class:'nav'+(S.view===it[0]?' on':''),onclick:function(){S.view=it[0];S.q='';S.filter='Tous';S.confirm=null;S.toast=null;render();window.scrollTo(0,0)}},h('span',{},it[1]),it[2]?h('small',{},it[2]):null)}),
   h('div',{class:'aside-note'},'Une seule page pour tout le site. Vous changez, puis vous cliquez sur « Publier le site ».',h('br'),h('br'),h('a',{href:'/admin/avance.html'},'Ancienne version'),' · ',h('a',{href:'#',onclick:function(e){e.preventDefault();if(!isDirty()||confirm('Des changements ne sont pas publiés. Se déconnecter quand même ?'))logout()}},'Se déconnecter')))}
@@ -242,7 +243,7 @@ function homeView(){
   [[a+c,'articles au total','#12141c'],[a,'visibles sur le site','#006233'],[c,'brouillons (cachés)','#8a6d2e'],[(S.data.numeros||[]).length,'numéros PDF en ligne','#a30f18']].map(function(s){return h('div',{class:'card stat'},h('b',{style:'color:'+s[2]},s[0]),h('span',{},s[1]))})),
   h('h2',{},'Tout le site, en un coup d’œil'),
   h('div',{class:'tiles'},[h('button',{class:'tile',style:'--c:#006233',onclick:function(){S.view='articles';render()}},h('b',{},'Articles'),h('span',{style:'color:#555a69;font-size:15px'},(a+c)+' articles : ajouter, modifier, ranger, supprimer.'),h('em',{},'Modifier →'))].concat(
-   SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||S.data[s[0]]!==undefined}).map(function(s){return h('button',{class:'tile',style:'--c:'+s[2],onclick:function(){S.view=s[0];render()}},h('b',{},s[1]),h('span',{style:'color:#555a69;font-size:15px'},s[3]),h('em',{},'Modifier →'))}))))}
+   SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||s[0]==='mise_en_page'||S.data[s[0]]!==undefined}).map(function(s){return h('button',{class:'tile',style:'--c:'+s[2],onclick:function(){S.view=s[0];render()}},h('b',{},s[1]),h('span',{style:'color:#555a69;font-size:15px'},s[3]),h('em',{},'Modifier →'))}))))}
 function restore(a){var at=typeof a.ordre==='number'?Math.min(a.ordre,articles().length):articles().length;delete a.ordre;articles().splice(at,0,a)}
 function artRow(a,idx,draft){
  var col=RUBCOL[a.rubrique]||['#12141c','#fff'];var cf=S.confirm===(draft?'c':'a')+idx;
@@ -317,10 +318,42 @@ function pagesView(){
   pg.appendChild(h('div',{class:'row',style:'border:1px solid #eee7d8;border-radius:8px;margin-bottom:8px'},h('div',{class:'t'},h('b',{},p[1]),h('div',{class:'meta'},h('span',{class:'st',style:'color:#555a69'},'/'+p[0]))),
    sw(on,'Page '+p[1],function(){if(on)off.push(p[0]);else off.splice(off.indexOf(p[0]),1);render()})))});
  box.appendChild(pg);return box}
+var MPB={};
+function seg(label,opts,cur,dflt,set){var g=h('div',{class:'grp'},h('b',{},label));var sg=h('div',{class:'seg',role:'radiogroup','aria-label':label});opts.forEach(function(c){sg.appendChild(h('button',{type:'button',role:'radio','aria-checked':String(cur===c[0]),onclick:function(){set(c[0]===dflt?null:c[0]);render()}},c[1]))});g.appendChild(sg);return g}
+function mpBlocks(page){if(MPB[page])return MPB[page];MPB[page]={loading:true,list:[]};
+ fetch('/'+page,{cache:'no-store'}).then(function(r){return r.text()}).then(function(t){var d=new DOMParser().parseFromString(t,'text/html');var l=[];d.querySelectorAll('section[id]').forEach(function(e){if(e.hidden||e.id==='getapp')return;var hh=e.querySelector('h1,h2,h3');l.push({id:e.id,titre:e.id==='top'?'À la une (couverture)':((hh?hh.textContent.trim():'')||('Bloc '+e.id))})});MPB[page]={list:l};render()}).catch(function(){MPB[page]={list:[]};render()});return MPB[page]}
+function mpSiteView(){
+ var M=S.data.mise_en_page||{pages:{}};M.pages=M.pages||{};var box=h('div');var cur=S.mpPage||'index.html';var P=M.pages[cur]||{};
+ var touch=function(){S.data.mise_en_page=M;M.pages[cur]=P};
+ var set=function(o,k){return function(v){touch();if(v==null)delete o[k];else o[k]=v}};
+ var fl=h('section',{class:'card panel mp',style:'max-width:none;margin-bottom:18px'},h('h2',{},'Boutons flottants'),h('p',{class:'sub'},'Les deux boutons qui restent en bas de l’écran. Quand les deux sont au milieu, ils s’empilent.'));
+ var POSS=[['gauche','À gauche'],['centre','Au milieu'],['droite','À droite']];
+ fl.appendChild(seg('« Télécharger le magazine · PDF »',POSS,M.bouton_magazine||'gauche','gauche',set(M,'bouton_magazine')));
+ fl.appendChild(seg('« Une question ? » (l’assistant)',POSS,M.bouton_question||'droite','droite',set(M,'bouton_question')));
+ box.appendChild(fl);
+ var pages=[['index.html','Accueil']].concat(PAGES);
+ var pg=h('section',{class:'card panel mp',style:'max-width:none'},h('h2',{},'Mise en page d’une page'),h('p',{class:'sub'},'Choisissez la page, puis réglez-la. Pensez à « Publier le site ».'));
+ var sel=h('select',{'aria-label':'Page à régler',onchange:function(e){S.mpPage=e.target.value;render()}});pages.forEach(function(x){sel.appendChild(h('option',{value:x[0],selected:x[0]===cur||null},x[1]))});pg.appendChild(h('div',{class:'grp'},h('b',{},'Page'),sel));
+ pg.appendChild(seg('Titres et textes d’introduction',[['gauche','À gauche'],['centre','Centrés']],P.alignement||'gauche','gauche',set(P,'alignement')));
+ pg.appendChild(seg('Largeur du contenu',[['etroit','Étroite'],['normal','Normale'],['large','Large']],P.largeur||'normal','normal',set(P,'largeur')));
+ pg.appendChild(seg('Espace entre les blocs',[['compact','Serré'],['normal','Normal'],['aere','Aéré']],P.espace||'normal','normal',set(P,'espace')));
+ var B=mpBlocks(cur);var grp=h('div',{class:'grp'},h('b',{},'Blocs de la page (monter, descendre, cacher)'));
+ if(B.loading)grp.appendChild(h('p',{class:'sub'},'Chargement des blocs…'));
+ else if(!B.list.length)grp.appendChild(h('p',{class:'sub'},'Cette page n’a pas de blocs réglables.'));
+ else{var ids=B.list.map(function(b){return b.id}),ord=(P.blocs_ordre||[]).filter(function(i){return ids.indexOf(i)>=0});ids.forEach(function(i){if(ord.indexOf(i)<0)ord.push(i)});var hid=P.blocs_caches||[];
+  var title=function(i){return B.list.filter(function(b){return b.id===i})[0].titre};
+  var save=function(){touch();P.blocs_ordre=ord.slice();if(!hid.length)delete P.blocs_caches;else P.blocs_caches=hid;render()};
+  ord.forEach(function(i,n){var off=hid.indexOf(i)>=0;
+   grp.appendChild(h('div',{class:'row',style:'border:1px solid #eee7d8;border-radius:8px;margin-bottom:8px;background:#fff'},h('div',{class:'t'},h('b',{},title(i)),h('div',{class:'meta'},h('span',{class:'st',style:'color:#555a69'},'#'+i))),
+    h('button',{type:'button',class:'btn sq','aria-label':'Monter '+title(i),disabled:n===0||null,onclick:function(){ord.splice(n-1,0,ord.splice(n,1)[0]);save()}},'▲'),
+    h('button',{type:'button',class:'btn sq','aria-label':'Descendre '+title(i),disabled:n===ord.length-1||null,onclick:function(){ord.splice(n+1,0,ord.splice(n,1)[0]);save()}},'▼'),
+    sw(!off,'Bloc '+title(i),function(){if(off)hid.splice(hid.indexOf(i),1);else hid.push(i);save()})))})}
+ pg.appendChild(grp);box.appendChild(pg);return box}
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){var d=isDirty();var el=root.querySelector('.dirty');if(el){el.className='dirty'+(d?'':' ok');el.textContent=d?'Changements pas encore publiés':'Tout est publié'}var b=root.querySelector('.btn.gold');if(b)b.disabled=!d};
  if(key==='livres')return livresView(onch);
  if(key==='pages')return pagesView();
+ if(key==='mise_en_page')return mpSiteView();
  if(key==='general'){box.appendChild(h('h2',{style:'font-size:22px'},'Logo et images du site'));box.appendChild(siteImage('Logo de Bondy TV','Le logo en haut à gauche de chaque page. Choisissez de préférence une image PNG à fond transparent.','images/logo.png','logo',110,72));box.appendChild(siteImage('Image de partage','L\u2019image qui s\u2019affiche quand on partage le site sur WhatsApp ou Facebook. Elle est recadrée en 1200 × 630.','images/partage.jpg','share',190,100));box.appendChild(h('h2',{style:'font-size:22px;margin-top:26px'},'Textes généraux'));GENERAL_KEYS.forEach(function(k){if(S.data[k]!==undefined)box.appendChild(field(S.data,k,onch))})}
  else if(Array.isArray(S.data[key]))box.appendChild(listEditor(S.data[key],onch));
  else objectEditor(box,S.data[key],onch);
