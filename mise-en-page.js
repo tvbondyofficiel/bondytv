@@ -57,7 +57,7 @@
   };
   function editor(API) {
     var st = document.createElement("style");
-    st.textContent = "html:not(.mp-col) [data-bloc]{cursor:grab}html.mp-col,html.mp-col *{cursor:crosshair!important}html.mp-col body *:hover{outline:2px solid #b8975a!important;outline-offset:-2px}[data-bloc]{}html:not(.mp-col) [data-bloc]:hover{outline:2px dashed #b8975a!important;outline-offset:-2px}[data-bloc].mp-sel{outline:3px solid #d3141f!important;outline-offset:-3px}.mp-guide{position:fixed;top:0;bottom:0;width:0;border-left:1px dashed #d3141f;z-index:99999;pointer-events:none}.pubpop{display:none!important}.bt-fab,.pdf-coin{pointer-events:none!important;opacity:.35}*{animation:none!important}";
+    st.textContent = "html:not(.mp-col) [data-bloc]{cursor:grab}html.mp-col,html.mp-col *{cursor:crosshair!important}html.mp-col body *:hover{outline:2px solid #b8975a!important;outline-offset:-2px}[data-bloc]{}html:not(.mp-col) [data-bloc]:hover{outline:2px dashed #b8975a!important;outline-offset:-2px}[data-bloc].mp-sel{outline:2px dashed #12141c!important;outline-offset:-2px}.mp-guide{position:fixed;top:0;bottom:0;width:0;border-left:1px dashed #d3141f;z-index:99999;pointer-events:none}.pubpop{display:none!important}.bt-fab,.pdf-coin{pointer-events:none!important;opacity:.35}*{animation:none!important}";
     document.head.appendChild(st);
     var sel = null, drag = null, tap = null, guide = document.createElement("div"); guide.className = "mp-guide"; guide.style.display = "none"; document.body.appendChild(guide);
     function cur(k) { return Object.assign({}, API.get(k)); }
@@ -207,9 +207,10 @@
     var out = "";
     Object.keys(B || {}).forEach(function (k) {
       var o = B[k], q = qsel(k), p = "";
-      if (o.fond) out += q + "{background-color:" + o.fond + "!important;background-image:none!important}";
+      if (o.fond === "none") out += q + "{background:none!important;background-color:transparent!important;box-shadow:none!important}"; else if (o.fond) out += q + "{background-color:" + o.fond + "!important;background-image:none!important}";
+      if (typeof o.zoom === "number" && o.zoom > 0) out += q + "{zoom:" + o.zoom + "%!important}";
       if (o.texte) out += q + "," + q + " *{color:" + o.texte + "!important}";
-      if (o.bord) out += q + "{border:2px solid " + o.bord + "!important}";
+      if (o.bord === "none") out += q + "{border:none!important;outline:none}"; else if (o.bord) out += q + "{border:2px solid " + o.bord + "!important}";
     });
     st.textContent = out;
   }
