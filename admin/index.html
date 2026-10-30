@@ -262,10 +262,26 @@ function livresView(onch){
   wrap.appendChild(card)});
  wrap.appendChild(h('button',{class:'btn green',style:'min-height:50px;font-size:17px',onclick:function(){L.push({id:'livre-'+Date.now().toString(36),exemple:false,titre:'',auteur:'',description:'',couverture:'',fichier:'',format:'PDF',taille:''});onch();render()}},'+ Ajouter un livre'));
  return wrap}
+function overwrite(path,file,mode,cb){
+ var img=new Image(),u=URL.createObjectURL(file);
+ img.onerror=function(){say('Cette image ne peut pas être lue.',true)};
+ img.onload=function(){var c=document.createElement('canvas'),x=c.getContext('2d'),type='image/png',q;
+  if(mode==='logo'){var k=Math.min(1,600/img.width);c.width=Math.round(img.width*k);c.height=Math.round(img.height*k);x.drawImage(img,0,0,c.width,c.height)}
+  else{c.width=1200;c.height=630;var k2=Math.max(1200/img.width,630/img.height),w=img.width*k2,hh=img.height*k2;x.fillStyle='#fff';x.fillRect(0,0,1200,630);x.drawImage(img,(1200-w)/2,(630-hh)/2,w,hh);type='image/jpeg';q=.86}
+  URL.revokeObjectURL(u);
+  c.toBlob(function(b){var r=new FileReader();r.onload=function(){var data=String(r.result).split(',')[1];S.busy=true;render();
+   api('/contents/'+path+'?ref='+BR).then(function(cur){return cur.sha}).catch(function(){return null}).then(function(sha){
+    var body={message:'Tableau de bord : remplacement de '+path,content:data,branch:BR};if(sha)body.sha=sha;
+    return api('/contents/'+path,{method:'PUT',body:JSON.stringify(body)})}).then(function(){S.busy=false;S.bust=Date.now();cb();say('C\u2019est fait : l\u2019image est remplacée sur le site (visible dans une minute). Pas besoin de cliquer sur Publier pour elle.')}).catch(function(e){S.busy=false;say('Envoi impossible : '+e.message,true)})};r.readAsDataURL(b)},type,q)};
+ img.src=u}
+function siteImage(titre,aide,path,mode,w,hgt){
+ var inp=h('input',{type:'file',accept:'image/*',style:'display:none',onchange:function(){var f=inp.files[0];if(f)overwrite(path,f,mode,function(){render()})}});
+ var th=h('div',{style:'width:'+w+'px;height:'+hgt+'px;border-radius:8px;background:#ece6d8 center/contain no-repeat;border:1px solid #ddd8cf;flex:none;background-image:url("/'+path+'?t='+(S.bust||0)+'")'});
+ return h('div',{class:'fld'},h('span',{class:'lb',style:'font-size:18px'},titre),h('div',{class:'img'},th,h('div',{style:'flex:1 1 220px'},h('div',{style:'color:#555a69;font-size:14px;margin-bottom:8px'},aide),h('button',{type:'button',class:'btn dark',disabled:S.busy||null,onclick:function(){inp.click()}},S.busy?'Envoi en cours…':'Changer l\u2019image'),inp)))}
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){var d=isDirty();var el=root.querySelector('.dirty');if(el){el.className='dirty'+(d?'':' ok');el.textContent=d?'Changements pas encore publiés':'Tout est publié'}var b=root.querySelector('.btn.gold');if(b)b.disabled=!d};
  if(key==='livres')return livresView(onch);
- if(key==='general'){GENERAL_KEYS.forEach(function(k){if(S.data[k]!==undefined)box.appendChild(field(S.data,k,onch))})}
+ if(key==='general'){box.appendChild(h('h2',{style:'font-size:22px'},'Logo et images du site'));box.appendChild(siteImage('Logo de Bondy TV','Le logo en haut à gauche de chaque page. Choisissez de préférence une image PNG à fond transparent.','images/logo.png','logo',110,72));box.appendChild(siteImage('Image de partage','L\u2019image qui s\u2019affiche quand on partage le site sur WhatsApp ou Facebook. Elle est recadrée en 1200 × 630.','images/partage.jpg','share',190,100));box.appendChild(h('h2',{style:'font-size:22px;margin-top:26px'},'Textes généraux'));GENERAL_KEYS.forEach(function(k){if(S.data[k]!==undefined)box.appendChild(field(S.data,k,onch))})}
  else if(Array.isArray(S.data[key]))box.appendChild(listEditor(S.data[key],onch));
  else objectEditor(box,S.data[key],onch);
  return box}
