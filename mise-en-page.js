@@ -69,6 +69,8 @@
     document.addEventListener("click", function (e) { if (e.target.closest("[data-bloc]") || e.target.closest("a,button,summary")) e.preventDefault(); }, true);
     document.addEventListener("pointerdown", function (e) {
       var el = e.target.closest("[data-bloc]"); if (!el) return;
+      var tl = API.tool ? API.tool() : "select";
+      if (tl !== "select") { e.preventDefault(); select(el); if (tl === "pip") API.pick(el.dataset.bloc, window.mpComputed(el.dataset.bloc)); else API.paint(el.dataset.bloc, tl); return; }
       e.preventDefault(); select(el); var o = cur(el.dataset.bloc); drag = { el: el, x: e.clientX, y: e.clientY, dx: o.dx || 0, dy: o.dy || 0 };
     }, true);
     document.addEventListener("pointermove", function (e) {
@@ -166,6 +168,51 @@
       else { var im = el.tagName === "IMG" ? el : el.querySelector("img"); if (im && im.getAttribute("src") !== u) { im.setAttribute("src", u); im.removeAttribute("srcset"); } }
     });
   }
+
+  /* ---- Couleurs : palette du site et couleurs par bloc ---- */
+  function esx(x) { return x.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); }
+  function h2rgb(h) { h = String(h).replace("#", ""); if (h.length === 3) h = h.replace(/(.)/g, "$1$1"); var n = parseInt(h, 16); return [(n >> 16) & 255, (n >> 8) & 255, n & 255]; }
+  function recolor(map) {
+    var pairs = Object.keys(map || {}).filter(function (k) { return map[k] && /^#[0-9a-f]{6}$/i.test(map[k]) && map[k].toLowerCase() !== k.toLowerCase(); });
+    function rep(t) {
+      pairs.forEach(function (o) {
+        var n = map[o], a = h2rgb(o), b = h2rgb(n);
+        t = t.replace(new RegExp(esx(o) + "(?![0-9a-f])", "gi"), n);
+        t = t.replace(new RegExp("rgba?\\(\\s*" + a[0] + "\\s*,\\s*" + a[1] + "\\s*,\\s*" + a[2] + "\\b", "gi"), function (m) { return m.replace(/\(\s*\d+\s*,\s*\d+\s*,\s*\d+/, "(" + b[0] + "," + b[1] + "," + b[2]); });
+      });
+      return t;
+    }
+    [].forEach.call(document.querySelectorAll("style"), function (st) {
+      if (/^(mp-|)visuel$|^mp-blocs$/.test(st.id) || st === acss) return;
+      if (st.__o == null) st.__o = st.textContent;
+      var n = pairs.length ? rep(st.__o) : st.__o; if (n !== st.textContent) st.textContent = n;
+    });
+    if (pairs.length) [].forEach.call(document.querySelectorAll("[style]"), function (el) {
+      var cur = el.getAttribute("style"); if (!/#|rgb/i.test(cur)) return;
+      var n = rep(cur); if (n !== cur) el.setAttribute("style", n);
+    });
+  }
+  window.mpRecolor = recolor;
+  function applyB(B) {
+    var st = document.getElementById("mp-blocs");
+    if (!st) { st = document.createElement("style"); st.id = "mp-blocs"; document.head.appendChild(st); }
+    var out = "";
+    Object.keys(B || {}).forEach(function (k) {
+      var o = B[k], q = '[data-bloc="' + k.replace(/"/g, "") + '"]', p = "";
+      if (o.fond) out += q + "{background-color:" + o.fond + "!important;background-image:none!important}";
+      if (o.texte) out += q + "," + q + " *{color:" + o.texte + "!important}";
+      if (o.bord) out += q + "{border-color:" + o.bord + "!important}";
+    });
+    st.textContent = out;
+  }
+  window.mpBlocs = applyB;
+  window.mpComputed = function (k) {
+    var el = document.querySelector('[data-bloc="' + k + '"]'); if (!el) return {};
+    var cs = getComputedStyle(el);
+    function hx(c) { var m = /rgba?\(\s*(\d+)\s*,\s*(\d+)\s*,\s*(\d+)(?:\s*,\s*([\d.]+))?/.exec(c || ""); if (!m || (m[4] != null && Number(m[4]) === 0)) return ""; return "#" + [m[1], m[2], m[3]].map(function (v) { return ("0" + Number(v).toString(16)).slice(-2); }).join(""); }
+    return { fond: hx(cs.backgroundColor), texte: hx(cs.color), bord: hx(cs.borderTopColor) };
+  };
+  try { var lc = JSON.parse(localStorage.getItem("mpcol") || "null"); if (lc && !/[?&]mpedit=1/.test(location.search)) recolor(lc); } catch (e) {}
   function go(d) {
     var M = (d && d.mise_en_page) || {}, b = document.body, c = b.classList;
     var mag = POS[M.bouton_magazine] ? M.bouton_magazine : "gauche", qst = POS[M.bouton_question] ? M.bouton_question : "droite";
@@ -189,8 +236,10 @@
     tag(); applyV(API ? API.all(page()) : (M.visuel || {})[page()]);
     renderAdds(API ? API.ajouts(page()) : (M.ajouts || {})[page()], !!API);
     tag(); var IM = function () { return API ? API.imgs(page()) : (M.images || {})[page()]; }; applyImgs(IM()); window.mpImgs = function () { applyImgs(IM()); };
-    if (API) { editor(API); var tt2; new MutationObserver(function () { clearTimeout(tt2); tt2 = setTimeout(function () { tag(); applyV(API.all(page())); applyImgs(IM()); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
-    else { var tt3; new MutationObserver(function () { clearTimeout(tt3); tt3 = setTimeout(function () { tag(); applyV((M.visuel || {})[page()]); applyImgs(IM()); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
+    if (API) { editor(API); var tt2; new MutationObserver(function () { clearTimeout(tt2); tt2 = setTimeout(function () { tag(); applyV(API.all(page())); applyImgs(IM()); recolor(API.couleurs()); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
+    else { var tt3; new MutationObserver(function () { clearTimeout(tt3); tt3 = setTimeout(function () { tag(); applyV((M.visuel || {})[page()]); applyImgs(IM()); recolor(M.couleurs); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
+    recolor(API ? API.couleurs() : M.couleurs); applyB(API ? API.cb(page()) : (M.couleurs_blocs || {})[page()]);
+    if (!API) { try { localStorage.setItem("mpcol", JSON.stringify(M.couleurs || {})); } catch (e) {} }
     var ordre = P.blocs_ordre || [], caches = P.blocs_caches || [];
     function blocs() {
       var ids = {}; ordre.concat(caches).forEach(function (i) { ids[i] = 1; });
