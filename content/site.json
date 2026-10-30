@@ -1300,7 +1300,8 @@
           "texte": "#12141c"
         },
         "css:body>div:nth-child(2)>div:nth-child(20)": {
-          "undefined": "#ffffff"
+          "undefined": "#2b2d33",
+          "fond": "#2b2d33"
         },
         "wrap>div.pg>div.n1b": {
           "undefined": "#12141c",
@@ -1316,7 +1317,8 @@
     "textes": {
       "magazine/edition.html": {
         "wrap>div.pg>div.n1b>span": "N°1",
-        "css:body>div:nth-child(2)>div:nth-child(1)>div:nth-child(2)": "N°1"
+        "css:body>div:nth-child(2)>div:nth-child(1)>div:nth-child(2)": "N°1",
+        "css:body>div:nth-child(2)>div:nth-child(19)>div:nth-child(2)>div:nth-child(1)>div:nth-child(4)>div:nth-child(2)>b:nth-child(1)": "www.bondytv.com"
       }
     }
   },
