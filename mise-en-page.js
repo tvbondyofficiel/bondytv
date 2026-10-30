@@ -83,6 +83,13 @@
       }
       document.addEventListener("pointermove", mv, true); document.addEventListener("pointerup", up, true);
     }
+    document.addEventListener("dragover", function (e) { if (e.dataTransfer && [].indexOf.call(e.dataTransfer.types || [], "Files") >= 0) { e.preventDefault(); e.dataTransfer.dropEffect = "copy"; } }, true);
+    document.addEventListener("drop", function (e) {
+      var f = e.dataTransfer && e.dataTransfer.files && e.dataTransfer.files[0]; if (!f) return; e.preventDefault(); e.stopPropagation();
+      if (!/^image\//.test(f.type) || !API.dropPhoto) return;
+      var t = e.target, pg = t.closest && t.closest(".pg"), ad = t.closest && t.closest(".mp-add"), bl = t.closest && t.closest("[data-bloc]"), r = pg ? pg.getBoundingClientRect() : null;
+      API.dropPhoto(f, { pg: pg ? [].indexOf.call(document.querySelectorAll(".pg"), pg) + 1 : 0, x: r ? (e.clientX - r.left) / r.width * 100 : 50, y: r ? (e.clientY - r.top) / r.height * 100 : 50, shape: ad ? ad.dataset.bloc : "", apres: bl ? bl.dataset.bloc : "" });
+    }, true);
     function beginEdit(t, k) {
       var bak = t.innerHTML; t.contentEditable = "true"; t.style.outline = "2px solid #b8975a"; t.style.cursor = "text"; t.focus();
       try { var r = document.createRange(); r.selectNodeContents(t); var sl = window.getSelection(); sl.removeAllRanges(); sl.addRange(r); } catch (x) {}
