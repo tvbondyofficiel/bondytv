@@ -170,7 +170,9 @@
       "chapo": "Bondy a plusieurs visages. Entre le nord et le sud, une fracture existe, et la ville cherche à recréer du lien.",
       "visuel": "image",
       "etiquette": "Ville",
-      "image_portrait": false
+      "image_portrait": false,
+      "affiche_entiere": true,
+      "image_focus": "50% 70%"
     },
     {
       "id": "bondy-nord-travaux",
