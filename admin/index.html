@@ -102,7 +102,7 @@ var SECTIONS=[
  ['general','Réglages généraux','#12141c','Titre du site, numéro en cours, titres de rubriques.'],
  ['couverture','Couverture','#d3141f','La photo de couverture et les lignes à la une.'],
  ['numeros','Les numéros (PDF)','#006233','Ajouter le numéro 2, 3… et son PDF à télécharger.'],
- ['livres','Le livre (téléchargement)','#b8975a','Ajouter un livre à télécharger gratuitement, avec compteur.'],
+ ['livres','Le livre (télécharger)','#b8975a','Ajouter un livre à télécharger gratuitement, avec compteur.'],
  ['en_images','Images et vidéos','#12141c','Les photos de « Bondy en images ».'],
  ['videos','Vidéos','#12141c','La page des vidéos.'],
  ['reportages','Reportages','#12141c','Les reportages.'],
@@ -242,8 +242,29 @@ function articlesView(){
  return h('section',{},h('div',{class:'tools'},si,h('button',{class:'btn green',style:'min-height:48px;font-size:17px',onclick:function(){S.drawer={list:'c',idx:-1,isNew:true,obj:{id:'',rubrique:'Actualité',etiquette:'',titre:'',chapo:'',texte_visible:'',texte:'',visuel:'none',image:'',image_description:'',credit:'Photo : Bondy TV'}};render()}},'+ Nouvel article')),
   h('div',{class:'chips'},chips),h('div',{class:'card list'},rows.length?rows:h('div',{class:'empty'},'Aucun article ne correspond. Essayez un autre mot, ou cliquez sur « Tous ».')),
   h('p',{class:'hint'},'Les numéros 1, 2, 3… sont l’ordre d’affichage sur le site ; les flèches changent l’ordre. Un « brouillon » n’est pas visible sur le site ; un nouvel article commence en brouillon.'))}
+function livresView(onch){
+ var wrap=h('div');var L=S.data.livres||(S.data.livres=[]);
+ wrap.appendChild(h('div',{class:'card panel',style:'margin-bottom:18px;max-width:820px;background:#fff7e3'},h('b',{style:'font-size:18px'},'Pour mettre un livre en téléchargement :'),h('ol',{style:'margin:10px 0 0;padding-left:22px;line-height:1.7;font-size:17px'},h('li',{},'Remplissez le titre et la présentation.'),h('li',{},'Cliquez sur « Choisir le fichier du livre » et prenez votre PDF (moins de 24 Mo).'),h('li',{},'Cliquez sur « Publier le site » en haut. Le bouton se met à jour tout seul sur la page « Le livre ».'))));
+ L.forEach(function(b,i){
+  var card=h('section',{class:'card panel',style:'margin-bottom:18px'});
+  var has=!!b.fichier;
+  var cnt=h('b',{style:'font:700 34px/1 Barlow Condensed,sans-serif'},'…');
+  card.appendChild(h('div',{style:'display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between;margin-bottom:16px'},
+   h('h2',{style:'margin:0'},b.titre||'Nouveau livre'),
+   h('div',{style:'text-align:right'},cnt,h('div',{style:'color:#555a69;font-size:14px'},'téléchargements'))));
+  if(b.id&&has)fetch('/api/telecharger?compte=1&id='+encodeURIComponent(b.id)).then(function(r){return r.json()}).then(function(j){cnt.textContent=Number(j.total||0).toLocaleString('fr-FR')}).catch(function(){cnt.textContent='–'});else cnt.textContent='0';
+  card.appendChild(h('div',{style:'margin-bottom:18px;padding:12px 14px;border-radius:8px;font-weight:600;background:'+(has?'#e4f1e9':'#f3ead6')+';color:'+(has?'#006233':'#8a6d2e')},has?'✓ Le fichier est prêt : '+b.fichier+' — les visiteurs peuvent le télécharger.':'Pas encore de fichier : le bouton affiche « Bientôt disponible ».'));
+  var fl=function(k,opt){card.appendChild(field(b,k,onch,opt||{}))};
+  fl('titre');fl('auteur',{label:'Auteur (facultatif)'});fl('description',{label:'Présentation du livre'});fl('couverture',{label:'Couverture du livre'});
+  card.appendChild(h('div',{class:'fld'},h('span',{class:'lb',style:'font-size:18px'},'Fichier du livre (PDF ou ePub)'),pdfWidget(b,'fichier',onch)));
+  fl('exemple');
+  card.appendChild(h('div',{class:'acts',style:'justify-content:flex-start;margin-top:8px'},has?h('a',{class:'btn',style:'display:inline-flex;align-items:center;text-decoration:none;color:#12141c',href:'/livre.html',target:'_blank'},'Voir la page publique'):null,h('button',{class:'btn warn',onclick:function(){if(confirm('Supprimer ce livre du site ?')){L.splice(i,1);onch();render()}}},'Supprimer ce livre')));
+  wrap.appendChild(card)});
+ wrap.appendChild(h('button',{class:'btn green',style:'min-height:50px;font-size:17px',onclick:function(){L.push({id:'livre-'+Date.now().toString(36),exemple:false,titre:'',auteur:'',description:'',couverture:'',fichier:'',format:'PDF',taille:''});onch();render()}},'+ Ajouter un livre'));
+ return wrap}
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){var d=isDirty();var el=root.querySelector('.dirty');if(el){el.className='dirty'+(d?'':' ok');el.textContent=d?'Changements pas encore publiés':'Tout est publié'}var b=root.querySelector('.btn.gold');if(b)b.disabled=!d};
+ if(key==='livres')return livresView(onch);
  if(key==='general'){GENERAL_KEYS.forEach(function(k){if(S.data[k]!==undefined)box.appendChild(field(S.data,k,onch))})}
  else if(Array.isArray(S.data[key]))box.appendChild(listEditor(S.data[key],onch));
  else objectEditor(box,S.data[key],onch);
