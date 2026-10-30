@@ -1,0 +1,14 @@
+/* Mise en page choisie dans le tableau de bord (champs mp_*) */
+.art.mp-photo-sans>.vis{display:none!important}
+.art.mp-photo-bas{flex-direction:column-reverse!important}
+.art.mp-photo-bas>.vis{border-bottom:0!important;border-top:1px solid rgba(18,20,28,.1)}
+.art.mp-taille-moyenne:not(.mp-photo-gauche):not(.mp-photo-droite)>.vis.has-img:not(.is-poster),.art.mp-taille-moyenne:not(.mp-photo-gauche):not(.mp-photo-droite)>.vis.yt-box{aspect-ratio:auto!important;height:240px!important}
+.art.mp-taille-petite:not(.mp-photo-gauche):not(.mp-photo-droite)>.vis.has-img:not(.is-poster),.art.mp-taille-petite:not(.mp-photo-gauche):not(.mp-photo-droite)>.vis.yt-box{aspect-ratio:auto!important;height:130px!important}
+.art.mp-texte-grand .txt p,.art.mp-texte-grand .txt li{font-size:1.18em!important;line-height:1.6!important}
+.art.mp-largeur-etroit .txt .more,.art.mp-largeur-etroit .txt .tx{max-width:62ch;margin-left:auto;margin-right:auto}
+@media(min-width:861px){
+.art.mp-photo-gauche,.art.mp-photo-droite{flex-direction:row!important;align-items:stretch}
+.art.mp-photo-droite{flex-direction:row-reverse!important}
+.art.mp-photo-gauche>.vis,.art.mp-photo-droite>.vis{flex:0 0 38%;aspect-ratio:auto!important;height:auto!important;min-height:260px;border-bottom:0!important}
+.art.mp-photo-gauche>.txt,.art.mp-photo-droite>.txt{flex:1 1 0;min-width:0}
+}
