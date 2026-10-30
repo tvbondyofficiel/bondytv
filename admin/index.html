@@ -331,6 +331,13 @@ function mpSiteView(){
  fl.appendChild(seg('« Télécharger le magazine · PDF »',POSS,M.bouton_magazine||'gauche','gauche',set(M,'bouton_magazine')));
  fl.appendChild(seg('« Une question ? » (l’assistant)',POSS,M.bouton_question||'droite','droite',set(M,'bouton_question')));
  box.appendChild(fl);
+ var MENU=['Accueil','Lire','Voir','Témoigner','Le magazine','Mon compte','Prendre la parole'];
+ var mo=(M.menu_ordre||MENU).filter(function(x){return MENU.indexOf(x)>=0});MENU.forEach(function(x){if(mo.indexOf(x)<0)mo.push(x)});
+ var mn=h('section',{class:'card panel mp',style:'max-width:none;margin-bottom:18px'},h('h2',{},'Ordre du menu du haut'),h('p',{class:'sub'},'Montez ou descendez un onglet. Le changement vaut pour toutes les pages.'));
+ mo.forEach(function(x,n){mn.appendChild(h('div',{class:'row',style:'border:1px solid #eee7d8;border-radius:8px;margin-bottom:8px;background:#fff'},h('div',{class:'t'},h('b',{},(n+1)+'. '+x)),
+  h('button',{type:'button',class:'btn sq','aria-label':'Monter '+x,disabled:n===0||null,onclick:function(){touch();mo.splice(n-1,0,mo.splice(n,1)[0]);M.menu_ordre=mo.slice();render()}},'▲'),
+  h('button',{type:'button',class:'btn sq','aria-label':'Descendre '+x,disabled:n===mo.length-1||null,onclick:function(){touch();mo.splice(n+1,0,mo.splice(n,1)[0]);M.menu_ordre=mo.slice();render()}},'▼')))});
+ box.appendChild(mn);
  var pages=[['index.html','Accueil']].concat(PAGES);
  var pg=h('section',{class:'card panel mp',style:'max-width:none'},h('h2',{},'Mise en page d’une page'),h('p',{class:'sub'},'Choisissez la page, puis réglez-la. Pensez à « Publier le site ».'));
  var sel=h('select',{'aria-label':'Page à régler',onchange:function(e){S.mpPage=e.target.value;render()}});pages.forEach(function(x){sel.appendChild(h('option',{value:x[0],selected:x[0]===cur||null},x[1]))});pg.appendChild(h('div',{class:'grp'},h('b',{},'Page'),sel));

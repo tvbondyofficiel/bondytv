@@ -510,21 +510,23 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .num-soon{border-style:dashed;background:#faf7f0;display:flex;flex-direction:column;justify-content:center;min-height:200px}.num-soon b{color:#b8975a}
 @media(max-width:700px){.num-top{grid-template-columns:1fr}.num-top img{max-width:260px;margin:0 auto}.num-btn{width:100%}}</style>
 <script src="/pages-actives.js" defer></script><script src="/mise-en-page.js" defer></script>
+<style>.bar nav a.nav-home{color:var(--muted);font-weight:700;border-bottom:2px solid transparent}.bar nav a.nav-home:hover{color:var(--fg)}.bar nav a.nav-home[aria-current]{color:var(--fg);border-bottom-color:#d3141f}</style>
 </head>
 <body>
 <div class="wrap">
   <div class="bar">
     <a class="mini" href="/" aria-label="Bondy TV, retour en haut"><img src="/images/logo.png" alt="Bondy TV" width="67" height="44"></a>
     <nav aria-label="Navigation du magazine">
-      <details class="dd"><summary>Voir</summary><div class="dd-m">
-        <a href="/videos.html">Vidéos</a>
-        <a href="/images.html">Bondy en images</a>
-        <a href="/podcast.html">Podcast</a>
-      </div></details>
+      <a class="nav-home" href="/">Accueil</a>
       <details class="dd"><summary>Lire</summary><div class="dd-m">
         <a href="/articles.html">Toute l’actualité</a>
         <a href="/essentiel.html">L’essentiel</a>
         <a href="/point-de-vue.html">Mon point de vue</a>
+      </div></details>
+      <details class="dd"><summary>Voir</summary><div class="dd-m">
+        <a href="/videos.html">Vidéos</a>
+        <a href="/images.html">Bondy en images</a>
+        <a href="/podcast.html">Podcast</a>
       </div></details>
       <details class="dd"><summary>Témoigner</summary><div class="dd-m">
         <a href="/temoigner.html">Bondy raconte</a>

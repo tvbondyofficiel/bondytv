@@ -19,6 +19,15 @@
     if (mag !== "gauche") c.add("mp-mag-" + mag);
     if (qst !== "droite") c.add("mp-qst-" + qst);
     if (mag === qst || mag === "centre" || qst === "centre") c.add("mp-stack");
+    if (M.menu_ordre && M.menu_ordre.length) {
+      var nav = document.querySelector(".bar nav");
+      if (nav) {
+        var kids = [].slice.call(nav.children), lab = function (e) { var sm = e.querySelector && e.querySelector("summary"); return (sm || e).textContent.trim(); };
+        var want = M.menu_ordre.map(function (l) { return kids.filter(function (e) { return lab(e) === l; })[0]; }).filter(Boolean);
+        kids.forEach(function (e) { if (want.indexOf(e) < 0) want.push(e); });
+        want.forEach(function (e) { nav.appendChild(e); });
+      }
+    }
     var P = (M.pages || {})[page()] || {};
     if (P.alignement === "centre") c.add("mp-al-centre");
     if (P.largeur === "etroit" || P.largeur === "large") c.add("mp-lg-" + P.largeur);
