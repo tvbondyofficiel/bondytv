@@ -1,4 +1,4 @@
-const VERSION = "bondy-tv-v466";
+const VERSION = "bondy-tv-v467";
 const SHELL = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {
@@ -23,7 +23,7 @@ self.addEventListener("fetch", (e) => {
   if (sameOrigin && (url.pathname.startsWith("/admin") || url.pathname.startsWith("/api"))) return;
 
   // Pages et contenu : réseau d'abord, copie en cache si hors-ligne
-  if (req.mode === "navigate" || (sameOrigin && url.pathname.endsWith(".json"))) {
+  if (req.mode === "navigate" || (sameOrigin && /\.(json|js|css)$/.test(url.pathname))) {
     e.respondWith(
       fetch(req).then((res) => {
         if (res && res.ok) { const copy = res.clone(); caches.open(VERSION).then((c) => c.put(req, copy)); }

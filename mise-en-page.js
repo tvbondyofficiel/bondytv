@@ -83,9 +83,29 @@
       }
       document.addEventListener("pointermove", mv, true); document.addEventListener("pointerup", up, true);
     }
+    function beginEdit(t, k) {
+      var bak = t.innerHTML; t.contentEditable = "true"; t.style.outline = "2px solid #b8975a"; t.style.cursor = "text"; t.focus();
+      try { var r = document.createRange(); r.selectNodeContents(t); var sl = window.getSelection(); sl.removeAllRanges(); sl.addRange(r); } catch (x) {}
+      var done = false;
+      function fin(ok) {
+        if (done) return; done = true; t.removeEventListener("blur", onb); t.removeEventListener("keydown", onk);
+        var v = t.innerText.replace(/\u00a0/g, " ").replace(/\n{3,}/g, "\n\n").trim();
+        t.contentEditable = "false"; t.style.outline = ""; t.style.cursor = "";
+        if (ok && v) API.setText(k, v); else t.innerHTML = bak;
+      }
+      function onb() { fin(true); }
+      function onk(e) { if (e.key === "Escape") { e.preventDefault(); fin(false); } else if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); fin(true); } e.stopPropagation(); }
+      t.addEventListener("blur", onb); t.addEventListener("keydown", onk);
+    }
+    document.addEventListener("dblclick", function (e) {
+      var t = e.target; if (!t || !t.tagName || t === document.body || t === document.documentElement || t.isContentEditable) return;
+      var k = ckey(t); if (window.mpTextOf(k) == null) return;
+      e.preventDefault(); e.stopPropagation(); drag = null; beginEdit(t, k);
+    }, true);
     document.addEventListener("pointerdown", function (e) {
       var tl = API.tool ? API.tool() : "select";
       if (tl === "touch" && e.target.closest && e.target.closest(".mp-add")) tl = "select";
+      if (e.target.isContentEditable) return;
       if (/^f:/.test(tl)) { e.preventDefault(); e.stopPropagation(); startDraw(e, tl.slice(2)); return; }
       if (tl !== "select") {
         var t = e.target; if (!t || !t.tagName || t === document.documentElement || t === document.body || t.classList.contains("mp-guide")) return;
