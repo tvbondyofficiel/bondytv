@@ -592,6 +592,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
   var edit = Q.has("mpedit"), apercu = Q.has("apercu");
   fetch("/content/site.json", { cache: "no-store" }).then(function (r) { return r.json(); }).then(function (d) {
     var list = d.pages_libres || []; try { if (edit && window.parent !== window && window.parent.__mpEdit && window.parent.__mpEdit.libres) list = window.parent.__mpEdit.libres() || list; } catch (e) {}
+    try { if (/[?&]apercupub=1/.test(location.search) && window.opener && window.opener.__mpEdit) { list = window.opener.__mpEdit.libres() || list; Q.set('apercu', '1'); apercu = true; } } catch (e) {}
     var pg = list.filter(function (x) { return x.slug === slug; })[0];
     if (!pg || (!pg.actif && !apercu && !edit)) {
       document.title = "Page indisponible · Bondy TV Magazine";

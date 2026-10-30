@@ -359,7 +359,9 @@
     return { fond: hx(cs.backgroundColor), texte: hx(cs.color), bord: hx(cs.borderTopColor) };
   };
   try { var lc = JSON.parse(localStorage.getItem("mpcol") || "null"); if (lc && !/[?&]mpedit=1/.test(location.search)) recolor(lc); } catch (e) {}
+  var PVW = null; try { if (/[?&]apercupub=1/.test(location.search) && window.opener && window.opener.__mpEdit && window.opener.__mpEdit.data) PVW = window.opener.__mpEdit.data(); } catch (e) {}
   function go(d) {
+    if (PVW) { d = PVW; try { var bn = document.createElement("div"); bn.setAttribute("style", "position:fixed;left:0;right:0;top:0;z-index:99999;background:#b8975a;color:#12141c;font:700 14px/1.3 Arial,sans-serif;text-align:center;padding:8px 12px"); bn.className = "no-print"; bn.textContent = "APERÇU : tes changements ne sont pas encore publiés. Ferme cet onglet pour revenir à l’admin."; document.body.appendChild(bn); var sy = document.createElement("style"); sy.textContent = "@media print{.no-print{display:none!important}}"; document.head.appendChild(sy); } catch (e) {} }
     var M = (d && d.mise_en_page) || {}, b = document.body, c = b.classList;
     var mag = POS[M.bouton_magazine] ? M.bouton_magazine : "gauche", qst = POS[M.bouton_question] ? M.bouton_question : "droite";
     if (mag !== "gauche") c.add("mp-mag-" + mag);
@@ -385,7 +387,7 @@
     if (API) { editor(API); var tt2; new MutationObserver(function () { clearTimeout(tt2); tt2 = setTimeout(function () { tag(); applyV(API.all(page())); applyImgs(IM()); recolor(API.couleurs()); applyT(API.textes(page())); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
     else { var tt3; new MutationObserver(function () { clearTimeout(tt3); tt3 = setTimeout(function () { tag(); applyV((M.visuel || {})[page()]); applyImgs(IM()); recolor(M.couleurs); applyT((M.textes || {})[page()]); }, 60); }).observe(document.body, { childList: true, subtree: true }); }
     recolor(API ? API.couleurs() : M.couleurs); applyT(API ? API.textes(page()) : (M.textes || {})[page()]); applyB(API ? API.cb(page()) : (M.couleurs_blocs || {})[page()]);
-    if (!API) { try { localStorage.setItem("mpcol", JSON.stringify(M.couleurs || {})); } catch (e) {} }
+    if (!API && !PVW) { try { localStorage.setItem("mpcol", JSON.stringify(M.couleurs || {})); } catch (e) {} }
     var ordre = P.blocs_ordre || [], caches = P.blocs_caches || [];
     function blocs() {
       var ids = {}; ordre.concat(caches).forEach(function (i) { ids[i] = 1; });
