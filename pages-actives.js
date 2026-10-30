@@ -1,6 +1,21 @@
 /* Pages désactivées depuis le tableau de bord : on les retire du menu et des liens, et la page elle-même s'efface. */
 (function () {
   fetch("/content/site.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
+    var bq = d && d.boutique;
+    if (bq && bq.actif) {
+      var addTab = function () {
+        var nav = document.querySelector(".bar nav");
+        if (!nav || nav.querySelector("a.nav-boutique")) return;
+        var a = document.createElement("a");
+        a.className = "nav-home nav-boutique"; a.href = "/boutique.html"; a.textContent = "Boutique";
+        if (/\/boutique(\.html)?$/.test(location.pathname)) a.setAttribute("aria-current", "page");
+        var dds = nav.querySelectorAll("details.dd"), ref = null;
+        dds.forEach(function (x) { var s = x.querySelector("summary"); if (s && /magazine/i.test(s.textContent)) ref = x; });
+        if (ref && ref.nextSibling) nav.insertBefore(a, ref.nextSibling); else nav.appendChild(a);
+      };
+      addTab();
+      document.addEventListener("DOMContentLoaded", addTab);
+    }
     var off = (d && d.pages_desactivees) || [];
     if (!off.length) return;
     function which(href) {

@@ -1319,5 +1319,120 @@
         "css:body>div:nth-child(2)>div:nth-child(1)>div:nth-child(2)": "N°1"
       }
     }
+  },
+  "boutique": {
+    "actif": false,
+    "titre": "Porte Bondy fièrement.",
+    "intro": "Des t-shirts imprimés avec les mots de notre ville. Tu choisis, tu paies avec PayPal, on t'envoie le colis.",
+    "paypal_email": "",
+    "devise": "EUR",
+    "frais_livraison": 4.9,
+    "delai_livraison": "",
+    "retours": "Échange ou retour sous 14 jours. Les règles complètes sont dans les conditions de vente.",
+    "societe": "",
+    "collections": [
+      {
+        "id": "je-suis-bondynois",
+        "nom": "Je suis Bondynois",
+        "texte": "Pour dire d'où tu viens.",
+        "photo": "",
+        "exemple": true
+      },
+      {
+        "id": "vert-de-bondy",
+        "nom": "Vert de Bondy",
+        "texte": "Le vert de notre ville.",
+        "photo": "",
+        "exemple": true
+      },
+      {
+        "id": "notre-ville",
+        "nom": "Bondy, c'est notre ville",
+        "texte": "La fierté de Bondy.",
+        "photo": "",
+        "exemple": true
+      }
+    ],
+    "articles": [
+      {
+        "id": "tshirt-je-suis-bondynois",
+        "collection": "je-suis-bondynois",
+        "nom": "Je suis Bondynois",
+        "prix": 25,
+        "description": "T-shirt noir, impression or et crème.",
+        "tailles": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ],
+        "stock": {},
+        "photos": [],
+        "createur": "",
+        "couleur": "#12141c",
+        "lignes": [
+          "JE SUIS",
+          "BONDYNOIS"
+        ],
+        "couleur_texte": "#e8dcc0",
+        "exemple": true,
+        "epuise": false,
+        "cache": false
+      },
+      {
+        "id": "tshirt-vert-de-bondy",
+        "collection": "vert-de-bondy",
+        "nom": "Vert de Bondy",
+        "prix": 25,
+        "description": "T-shirt vert, impression crème.",
+        "tailles": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ],
+        "stock": {},
+        "photos": [],
+        "createur": "",
+        "couleur": "#006233",
+        "lignes": [
+          "VERT",
+          "DE BONDY"
+        ],
+        "couleur_texte": "#e8dcc0",
+        "exemple": true,
+        "epuise": false,
+        "cache": false
+      },
+      {
+        "id": "tshirt-notre-ville",
+        "collection": "notre-ville",
+        "nom": "Bondy, c'est notre ville",
+        "prix": 25,
+        "description": "T-shirt crème, impression noire et or.",
+        "tailles": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ],
+        "stock": {},
+        "photos": [],
+        "createur": "",
+        "couleur": "#fbf8f1",
+        "lignes": [
+          "BONDY,",
+          "C'EST NOTRE",
+          "VILLE"
+        ],
+        "couleur_texte": "#12141c",
+        "exemple": true,
+        "epuise": false,
+        "cache": false
+      }
+    ]
   }
 }
