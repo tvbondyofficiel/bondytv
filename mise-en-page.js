@@ -77,9 +77,10 @@
         document.removeEventListener("pointermove", mv, true); document.removeEventListener("pointerup", up, true); rb.remove();
         var W = Math.abs(ev.clientX - x0), H = Math.abs(ev.clientY - y0), L = Math.min(x0, ev.clientX), T = Math.min(y0, ev.clientY);
         var ref = (pg || document.querySelector(".wrap")).getBoundingClientRect();
-        if (W < 10 && H < 10) { W = ref.width * 0.4; H = forme === "trait" ? 0 : W; L = x0 - W / 2; T = y0 - H / 2; }
+        var wasClick = W < 10 && H < 10;
+        if (wasClick) { W = ref.width * 0.4; H = forme === "trait" ? 0 : W; L = x0 - W / 2; T = y0 - H / 2; }
         var cl = function (v) { return Math.max(0, Math.min(100, v)); };
-        API.draw({ forme: forme, pg: pg ? [].indexOf.call(document.querySelectorAll(".pg"), pg) + 1 : 0, x: cl((L - ref.left) / ref.width * 100), y: cl((T - ref.top) / ref.height * 100), w: Math.max(3, Math.min(100, W / ref.width * 100)), h: Math.max(2, Math.min(100, H / ref.height * 100)), apres: bl && !pg ? bl.dataset.bloc : (bl ? bl.dataset.bloc : "") });
+        API.draw({ forme: forme, pg: pg ? [].indexOf.call(document.querySelectorAll(".pg"), pg) + 1 : 0, x: cl((L - ref.left) / ref.width * 100), y: cl((T - ref.top) / ref.height * 100), w: Math.max(3, Math.min(100, W / ref.width * 100)), h: Math.max(2, Math.min(100, H / ref.height * 100)), apres: bl && !pg ? bl.dataset.bloc : (bl ? bl.dataset.bloc : ""), click: wasClick, shape: (e.target.closest && e.target.closest(".mp-add")) ? e.target.closest(".mp-add").dataset.bloc : "" });
       }
       document.addEventListener("pointermove", mv, true); document.addEventListener("pointerup", up, true);
     }
@@ -137,6 +138,7 @@
     }, true);
     document.addEventListener("pointerup", function (e) { if (tap && Math.abs(e.clientX - tap.x) < 4 && Math.abs(e.clientY - tap.y) < 4 && tap.t && tap.t.tagName && API.touch) { var tk = ckey(tap.t); API.touch(tk, window.mpComputed(tk), tap.x, tap.y, label(tap.t), tap.b); } tap = null; drag = null; guide.style.display = "none"; }, true);
     document.addEventListener("keydown", function (e) {
+      if (!e.target.isContentEditable && (e.metaKey || e.ctrlKey) && String(e.key).toLowerCase() === "z" && API.undo) { e.preventDefault(); if (e.shiftKey) API.redo(); else API.undo(); return; }
       if (!sel) return; var d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key]; if (!d) return;
       e.preventDefault(); var k = sel.dataset.bloc, o = cur(k), n = e.shiftKey ? 10 : 1; o.dx = (o.dx || 0) + d[0] * n; o.dy = (o.dy || 0) + d[1] * n; API.set(k, o);
     }, true);
