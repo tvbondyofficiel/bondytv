@@ -4,366 +4,860 @@ backend:
   branch: main
   base_url: https://bondytv.pages.dev
   auth_endpoint: api/auth
-
 locale: fr
 site_url: https://bondytv.pages.dev
 display_url: https://bondytv.pages.dev
 publish_mode: simple
-media_folder: "images"
-public_folder: "/images"
-
+media_folder: images
+public_folder: /images
 collections:
-  - name: magazine
-    label: "Le magazine"
-    files:
-      - name: contenu
-        label: "Tout le contenu du magazine"
-        file: "content/site.json"
+- name: magazine
+  label: Mon magazine
+  files:
+  - name: contenu
+    label: Modifier le contenu du site
+    file: content/site.json
+    fields:
+    - label: Les articles
+      name: articles
+      widget: list
+      summary: '{{fields.titre}}'
+      fields:
+      - label: Titre de l'article
+        name: titre
+        widget: string
+      - label: Illustration (choisir « Une image » pour mettre une photo)
+        name: visuel
+        widget: select
+        options:
+        - label: Aucune image pour l'instant
+          value: none
+        - label: Pictogramme sac (e-commerce)
+          value: icone-sac
+        - label: Pictogramme camion (food truck)
+          value: icone-camion
+        - label: Pictogramme micro (micro-trottoir)
+          value: icone-micro
+        - label: Pictogramme ampoule (idée)
+          value: icone-ampoule
+        - label: Pictogramme mairie (politique)
+          value: icone-mairie
+        - label: Une image
+          value: image
+        - label: Logo Bondy TV
+          value: logo
+        - label: Illustration du pont
+          value: pont
+        - label: Bouton lecture (vidéo)
+          value: play
+        default: none
+      - label: Photo de l'article (si Illustration = Une image)
+        name: image
+        widget: image
+        required: false
+      - label: Description de la photo (pour les malvoyants)
+        name: image_description
+        widget: string
+        required: false
+      - label: Résumé sous le titre
+        name: chapo
+        widget: text
+        required: false
+      - label: Texte toujours visible
+        name: texte_visible
+        widget: text
+        required: false
+      - label: Texte complet (après « Lire la suite »)
+        name: texte
+        widget: text
+        required: false
+        hint: Ligne vide = nouveau paragraphe. **gras**. [mot](adresse) = lien. Ligne qui commence par « - » = liste.
+      - label: 'Lien de la vidéo (YouTube : la vidéo se lit dans la page ; TikTok, Instagram : simple lien)'
+        name: lien_video
+        widget: string
+        required: false
+      - label: Vidéo envoyée sur le site (fichier MP4, 25 Mo maximum)
+        name: fichier_video
+        widget: file
+        required: false
+        choose_url: false
+      - label: Ligne sous le résumé (crédit, durée...)
+        name: credit
+        widget: string
+        required: false
+      - label: Étiquette au-dessus du titre (ex. À la une, Ville)
+        name: etiquette
+        widget: string
+      - label: 'Rubrique (sert au filtre, ex: Ville, Portrait, La bonne adresse)'
+        name: rubrique
+        widget: string
+        required: false
+      - label: '⚙ Option : article en pleine largeur'
+        name: pleine_largeur
+        widget: boolean
+        default: false
+      - label: '⚙ Option : image verticale (portrait)'
+        name: image_portrait
+        widget: boolean
+        default: false
+      - label: '⚙ Option : afficher l''image entière (affiche, flyer)'
+        name: affiche_entiere
+        widget: boolean
+        default: false
+        required: false
+      - label: '⚙ Option : logo ou vignette pour le sommaire'
+        name: vignette
+        widget: image
+        required: false
+      - label: ⚙ Grande citation (affichée en vert dans l'édito)
+        name: citation
+        widget: text
+        required: false
+        hint: 'Une phrase forte, sincère, qui donne envie de lire. Ex : Chacun mérite d''être vu et entendu.'
+      - label: '⚙ Édito : afficher l''encart de contact sous la citation'
+        name: contact_actif
+        widget: boolean
+        default: false
+        required: false
+      - label: '⚙ Édito : nom dans l''encart'
+        name: contact_nom
+        widget: string
+        required: false
+      - label: '⚙ Édito : fonction dans l''encart'
+        name: contact_role
+        widget: string
+        required: false
+      - label: '⚙ Édito : votre message (je suis joignable, à votre écoute...)'
+        name: contact_texte
+        widget: text
+        required: false
+      - label: ⚙ QR code affiché sur la page d'accueil (image carrée)
+        name: contact_qr
+        widget: image
+        required: false
+      - label: ⚙ Phrase à côté du QR code (page d'accueil)
+        name: contact_qr_legende
+        widget: string
+        required: false
+      - label: ⚙ Identifiant (ne jamais changer pour un article déjà publié)
+        name: id
+        widget: string
+      collapsed: true
+      minimize_collapsed: true
+    - label: Couverture (photo et grandes lignes de la une)
+      name: couverture
+      widget: object
+      fields:
+      - label: Photo de couverture
+        name: image
+        widget: image
+      - label: Description de la photo
+        name: image_description
+        widget: string
+      - label: Lignes de la couverture
+        name: lignes
+        widget: list
+        summary: '{{fields.titre}}'
         fields:
-          - {label: "Nom du magazine", name: titre_site, widget: string}
-          - {label: "Numéro (ex: N°2)", name: numero, widget: string}
-          - label: "Couverture"
-            name: couverture
-            widget: object
-            fields:
-              - {label: "Photo de couverture", name: image, widget: image}
-              - {label: "Description de la photo", name: image_description, widget: string}
-              - label: "Lignes de la couverture"
-                name: lignes
-                widget: list
-                summary: "{{fields.titre}}"
-                fields:
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Sous-titre", name: sous_titre, widget: string, required: false}
-                  - {label: "Ouvre cet article", name: cible, widget: relation, collection: magazine, file: contenu, search_fields: ["articles.*.titre"], value_field: "articles.*.id", display_fields: ["articles.*.titre"]}
-                  - {label: "Sur fond rouge", name: en_rouge, widget: boolean, default: false}
-          - {label: "Titre du sommaire", name: sommaire_titre, widget: string}
-          - {label: "Titre de la section articles", name: articles_titre, widget: string}
-          - label: "Articles"
-            name: articles
-            widget: list
-            summary: "{{fields.titre}}"
-            fields:
-              - {label: "Identifiant (une seule fois, sans espace ni accent, ex: portrait-hassiba)", name: id, widget: string}
-              - {label: "Rubrique (sert au filtre, ex: Ville, Portrait, La bonne adresse)", name: rubrique, widget: string, required: false}
-              - {label: "Étiquette au-dessus du titre", name: etiquette, widget: string}
-              - {label: "Article en pleine largeur", name: pleine_largeur, widget: boolean, default: false}
-              - {label: "Titre", name: titre, widget: string}
-              - {label: "Résumé sous le titre", name: chapo, widget: text, required: false}
-              - {label: "Édito : afficher l'encart de contact sous la citation", name: contact_actif, widget: boolean, default: false, required: false}
-              - {label: "Édito : nom dans l'encart", name: contact_nom, widget: string, required: false}
-              - {label: "Édito : fonction dans l'encart", name: contact_role, widget: string, required: false}
-              - {label: "Édito : votre message (je suis joignable, à votre écoute...)", name: contact_texte, widget: text, required: false}
-              - {label: "QR code affiché sur la page d'accueil (image carrée)", name: contact_qr, widget: image, required: false}
-              - {label: "Phrase à côté du QR code (page d'accueil)", name: contact_qr_legende, widget: string, required: false}
-              - {label: "Grande citation (affichée en vert dans l'édito)", name: citation, widget: text, required: false, hint: "Une phrase forte, sincère, qui donne envie de lire. Ex : Chacun mérite d'être vu et entendu."}
-              - label: "Visuel"
-                name: visuel
-                widget: select
-                options:
-                  - {label: "Aucune image pour l'instant", value: none}
-                  - {label: "Pictogramme sac (e-commerce)", value: icone-sac}
-                  - {label: "Pictogramme camion (food truck)", value: icone-camion}
-                  - {label: "Pictogramme micro (micro-trottoir)", value: icone-micro}
-                  - {label: "Pictogramme ampoule (idée)", value: icone-ampoule}
-                  - {label: "Pictogramme mairie (politique)", value: icone-mairie}
-                  - {label: "Une image", value: image}
-                  - {label: "Logo Bondy TV", value: logo}
-                  - {label: "Illustration du pont", value: pont}
-                  - {label: "Bouton lecture (vidéo)", value: play}
-                default: none
-              - {label: "Logo ou vignette pour le sommaire (facultatif)", name: vignette, widget: image, required: false}
-              - {label: "Image (si Visuel = Une image)", name: image, widget: image, required: false}
-              - {label: "Description de l'image (pour les malvoyants)", name: image_description, widget: string, required: false}
-              - {label: "Image verticale (portrait)", name: image_portrait, widget: boolean, default: false}
-              - {label: "Afficher l'image entière (affiche, flyer)", name: affiche_entiere, widget: boolean, default: false, required: false}
-              - {label: "Lien de la vidéo (YouTube : la vidéo se lit dans la page ; TikTok, Instagram : simple lien)", name: lien_video, widget: string, required: false}
-              - {label: "Vidéo envoyée sur le site (fichier MP4, 25 Mo maximum)", name: fichier_video, widget: file, required: false, choose_url: false}
-              - {label: "Ligne sous le résumé (crédit, durée...)", name: credit, widget: string, required: false}
-              - {label: "Texte toujours visible", name: texte_visible, widget: text, required: false}
-              - {label: "Texte de l'article (après « Lire la suite »)", name: texte, widget: text, required: false, hint: "Ligne vide = nouveau paragraphe. **gras**. [mot](adresse) = lien. Ligne qui commence par « - » = liste."}
-          - label: "Publicité en fenêtre (location d'espace)"
-            name: banniere
-            widget: object
-            collapsed: false
-            fields:
-              - {label: "Afficher la bannière", name: actif, widget: boolean, default: false}
-              - {label: "Nom de l'annonceur", name: annonceur, widget: string, required: false}
-              - {label: "Apparaît après (secondes)", name: delai, widget: number, value_type: int, min: 0, max: 60, default: 2, required: false}
-              - {label: "Disparaît toute seule après (secondes)", name: duree, widget: number, value_type: int, min: 4, max: 300, default: 12, required: false, hint: "Le lecteur peut aussi la fermer avec la croix. Elle ne s'affiche qu'une fois par visite."}
-              - {label: "Mention sur la bannière", name: etiquette, widget: string, required: false, default: "Partenaire", hint: "Ex. Partenaire, Publicité"}
-              - {label: "Image de la bannière (format large, ex. 1200 × 200)", name: image, widget: image, required: false, hint: "Si vous n'avez pas d'image, remplissez le titre ci-dessous : la bannière sera faite en texte."}
-              - {label: "Titre (bannière en texte, sans image)", name: titre, widget: string, required: false}
-              - {label: "Sous-titre (bannière en texte)", name: sous_titre, widget: string, required: false}
-              - {label: "Texte du bouton (bannière en texte)", name: bouton, widget: string, required: false}
-              - {label: "Lien de l'annonceur", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
-              - {label: "Premier jour (AAAA-MM-JJ)", name: debut, widget: string, required: false, hint: "Ex. 2026-11-02. Vide = tout de suite."}
-              - {label: "Dernier jour (AAAA-MM-JJ)", name: fin, widget: string, required: false, hint: "Ex. 2026-11-08. La bannière disparaît toute seule le lendemain."}
-          - label: "Page « Les bonnes infos »"
-            name: bonnes_infos
-            widget: object
-            collapsed: false
-            fields:
-              - {label: "Titre de la page", name: titre, widget: string}
-              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
-              - {label: "Titre du bloc réseaux sociaux", name: reseaux_titre, widget: string, required: false}
-              - label: "Infos utiles (carré beige)"
-                name: utiles
-                widget: object
-                required: false
-                fields:
-                  - {label: "Titre", name: titre, widget: string}
-                  - label: "Blocs"
-                    name: items
-                    widget: list
-                    summary: "{{fields.titre}}"
-                    fields:
-                      - {label: "Titre", name: titre, widget: string}
-                      - {label: "Texte (une ligne par information)", name: texte, widget: text}
-                  - {label: "Note en bas", name: note, widget: string, required: false}
-              - label: "Les infos (la plus récente en premier)"
-                name: cartes
-                widget: list
-                summary: "{{fields.rubrique}} · {{fields.titre}}"
-                fields:
-                  - {label: "Rubrique", name: rubrique, widget: select, options: ["Actualités", "Événements", "Vie locale", "Infos pratiques"]}
-                  - {label: "Date (ex. 12 novembre)", name: date, widget: string, required: false}
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Texte (quelques phrases, que des faits sûrs)", name: texte, widget: text}
-                  - {label: "Lien (adresse complète ou /page.html)", name: lien, widget: string, required: false}
-                  - {label: "Texte du bouton du lien", name: lien_texte, widget: string, required: false}
-          - label: "Page « Vos élus, votre avis » (notes des habitants)"
-            name: elus
-            widget: object
-            collapsed: true
-            fields:
-              - {label: "Titre de la page", name: titre, widget: string}
-              - {label: "Introduction", name: introduction, widget: text}
-              - {label: "Autoriser les phrases des habitants (laisser décoché au lancement)", name: phrases_actives, widget: boolean, default: false, required: false, hint: "Décoché : seules les notes sont demandées et affichées. Coché : les habitants peuvent ajouter une phrase, publiée seulement si vous l'approuvez. Si vous cochez, pensez à modifier l'introduction ci-dessus."}
-              - {label: "Source des noms (affichée sur la page)", name: source, widget: string, required: false}
-              - {label: "Avertissement court, affiché en haut (ne pas supprimer : il vous protège)", name: avertissement_court, widget: text}
-              - {label: "Avertissement complet, affiché en bas (ne pas supprimer : il vous protège)", name: avertissement, widget: text}
-              - {label: "Droit de réponse des élus", name: droit_de_reponse, widget: text, required: false}
-              - label: "Les élus à noter"
-                name: liste
-                widget: list
-                summary: "{{fields.nom}}"
-                fields:
-                  - {label: "Identifiant (sans espace ni accent, ex: marie-dupont ; ne plus le changer ensuite)", name: id, widget: string}
-                  - {label: "Nom et prénom (comme sur le site officiel de la ville)", name: nom, widget: string}
-                  - {label: "Fonction (comme sur le site officiel de la ville)", name: fonction, widget: string}
-                  - {label: "Groupe (écrire exactement comme les autres : Le maire et les adjoints / Conseillers municipaux délégués (majorité) / Opposition municipale)", name: groupe, widget: string}
-          - label: "Page « Bondy en images »"
-            name: en_images
-            widget: object
-            collapsed: false
-            fields:
-              - {label: "Titre de la page", name: titre, widget: string}
-              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
-              - label: "Photos (la première est affichée en très grand)"
-                name: photos
-                widget: list
-                summary: "{{fields.titre}}"
-                fields:
-                  - {label: "Photo (de préférence en largeur, bien nette)", name: image, widget: image}
-                  - {label: "Date (ex. 9 juillet)", name: date, widget: string, required: false}
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Légende (une ou deux phrases)", name: legende, widget: text, required: false}
-                  - {label: "Description de la photo (pour les malvoyants)", name: description, widget: string, required: false}
-              - {label: "Titre de la section des affiches", name: affiches_titre, widget: string, required: false, default: "Affiches et annonces des associations"}
-              - label: "Affiches et annonces des associations"
-                name: affiches
-                widget: list
-                required: false
-                summary: "{{fields.titre}}"
-                fields:
-                  - {label: "Affiche (image entière)", name: image, widget: image}
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Légende", name: legende, widget: text, required: false}
-                  - {label: "Description de l'affiche (pour les malvoyants)", name: description, widget: string, required: false}
-                  - {label: "Lien vers un article (ex. /articles.html#mon-article)", name: lien, widget: string, required: false}
-                  - {label: "Texte du lien", name: lien_texte, widget: string, required: false}
-          - label: "Page de publicité « Votre publicité ici » (après la couverture)"
-            name: page_pub
-            widget: object
-            collapsed: false
-            fields:
-              - {label: "Mention en haut de page", name: etiquette, widget: string, required: false, default: "Publicité"}
-              - {label: "Grand titre", name: titre, widget: string}
-              - {label: "Message d'aide aux commerces qui démarrent", name: introduction, widget: text, required: false}
-              - {label: "Tarif ou conditions (affiché sous les cases, laissez vide si vous ne voulez rien afficher)", name: tarif, widget: string, required: false, hint: "Ex. Case offerte pour les commerces qui démarrent. Ne mettez que ce que vous avez décidé."}
-              - {label: "Nombre de cases au total (les cases libres affichent « Votre pub ici »)", name: nombre_cases, widget: number, value_type: int, min: 1, max: 24, default: 6}
-              - label: "Les cases déjà occupées (la première apparaît en premier)"
-                name: emplacements
-                widget: list
-                summary: "{{fields.nom}}"
-                fields:
-                  - {label: "Nom du commerce", name: nom, widget: string}
-                  - {label: "Activité (ex. Boulangerie, Coiffeur, Association)", name: activite, widget: string, required: false}
-                  - {label: "Affiche A5 (image verticale, de préférence 1480 × 2100)", name: image, widget: image, required: false, hint: "Si vous mettez une affiche, elle remplit toute la case. Sinon la case est faite avec le texte ci-dessous."}
-                  - {label: "Description de l'affiche (pour les malvoyants)", name: image_description, widget: string, required: false}
-                  - {label: "Texte court (2 ou 3 phrases, que des faits)", name: texte, widget: text, required: false}
-                  - {label: "Téléphone (ex. 07 00 00 00 00)", name: telephone, widget: string, required: false}
-                  - {label: "Lien (site, Instagram, Facebook...)", name: lien, widget: string, required: false, hint: "Adresse complète, ex. https://www.exemple.fr"}
-          - label: "Page « Bondy en vidéos »"
-            name: videos
-            widget: object
-            collapsed: true
-            fields:
-              - {label: "Titre de la page", name: titre, widget: string}
-              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
-              - {label: "Adresse de la chaîne YouTube", name: lien, widget: string, required: false}
-              - {label: "Texte du bouton", name: bouton, widget: string, required: false}
-              - label: "Vidéos (une image cliquable par vidéo)"
-                name: items
-                widget: list
-                summary: "{{fields.titre}}"
-                fields:
-                  - {label: "Image", name: image, widget: image}
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Légende", name: legende, widget: text, required: false}
-                  - {label: "Adresse de la vidéo (YouTube)", name: lien, widget: string}
-          - label: "Section « Bondy raconte »"
-            name: reportages
-            widget: object
-            collapsed: true
-            fields:
-              - {label: "Titre de la section", name: titre, widget: string}
-              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
-              - {label: "Adresse de la chaîne YouTube", name: lien, widget: string, required: false}
-              - {label: "Texte du bouton", name: bouton, widget: string, required: false}
-              - label: "Contenus (une image cliquable par contenu)"
-                name: items
-                widget: list
-                required: false
-                summary: "{{fields.titre}}"
-                fields:
-                  - {label: "Image", name: image, widget: image}
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Type", name: type, widget: select, options: ["Histoire", "Podcast", "Short", "Story"], required: false}
-                  - {label: "Légende", name: legende, widget: text, required: false}
-                  - {label: "Adresse (YouTube)", name: lien, widget: string}
-          - label: "Page « L'essentiel » (le fil de la ville)"
-            name: essentiel
-            widget: object
-            collapsed: true
-            fields:
-              - label: "Messages du fil (les plus récents en premier)"
-                name: items
-                widget: list
-                required: false
-                summary: "{{fields.categorie}} · {{fields.titre}}"
-                fields:
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Sujet", name: categorie, widget: select, options: ["Propreté", "Sécurité et police municipale", "Logement", "Mobilisations", "Réflexions", "Ras-le-bol"]}
-                  - {label: "Lieu (rue, quartier)", name: lieu, widget: string, required: false}
-                  - {label: "Date (AAAA-MM-JJ)", name: date, widget: string, required: false, hint: "Ex : 2026-10-23"}
-                  - {label: "Texte (des faits, sans insulte ni nom de particulier)", name: texte, widget: text}
-                  - {label: "Photo", name: image, widget: image, required: false}
-                  - {label: "Droit de réponse (si la personne ou l'organisme répond)", name: reponse, widget: text, required: false}
-          - label: "Page « Mon point de vue »"
-            name: point_de_vue
-            widget: object
-            collapsed: true
-            fields:
-              - {label: "Titre de la page", name: titre, widget: string}
-              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
-              - {label: "Adresse de la chaîne YouTube", name: lien, widget: string, required: false}
-              - {label: "Texte du bouton", name: bouton, widget: string, required: false}
-              - label: "Contenus (une carte par point de vue)"
-                name: items
-                widget: list
-                required: false
-                summary: "{{fields.titre}}"
-                fields:
-                  - {label: "Image", name: image, widget: image}
-                  - {label: "Titre", name: titre, widget: string}
-                  - {label: "Type", name: type, widget: select, options: ["Short", "Réflexion", "Vidéo"], required: false}
-                  - {label: "Légende", name: legende, widget: text, required: false}
-                  - {label: "Adresse (YouTube, podcast…)", name: lien, widget: string}
-          - label: "Page « Tribune des élus »"
-            name: tribune
-            widget: object
-            collapsed: true
-            fields:
-              - {label: "Titre", name: titre, widget: string}
-              - {label: "Phrase d'introduction", name: introduction, widget: text, required: false}
-          - label: "Assistant du site (bulle « Une question ? »)"
-            name: assistant
-            widget: object
-            collapsed: true
-            fields:
-              - {label: "Afficher l'assistant", name: actif, widget: boolean, default: true}
-              - {label: "Nom de l'assistant", name: nom, widget: string}
-              - {label: "Texte du bouton flottant", name: bouton, widget: string}
-              - {label: "Texte du bouton vert (contact)", name: bouton_contact, widget: string}
-              - {label: "Message d'accueil", name: accueil, widget: text}
-              - {label: "Quand il ne sait pas répondre", name: inconnu, widget: text}
-              - {label: "Message après l'envoi des coordonnées", name: merci, widget: text}
-              - {label: "Phrase d'accord à cocher (données personnelles)", name: consentement, widget: text}
-              - label: "Questions et réponses"
-                name: faq
-                widget: list
-                summary: "{{fields.question}}"
-                fields:
-                  - {label: "Question (bouton affiché)", name: question, widget: string}
-                  - {label: "Mots-clés (séparés par des espaces)", name: mots_cles, widget: string, required: false, hint: "Les mots que les gens peuvent écrire pour cette question"}
-                  - {label: "Réponse", name: reponse, widget: text, hint: "[texte](adresse) = lien. Nouvelle ligne = retour à la ligne."}
-          - label: "Section Racontez-nous votre histoire"
-            name: temoigner
-            widget: object
-            fields:
-              - {label: "Titre", name: titre, widget: string}
-              - {label: "Introduction", name: introduction, widget: text}
-              - label: "Encadré à droite du formulaire"
-                name: encart
-                widget: object
-                fields:
-                  - {label: "Citation", name: citation, widget: string}
-                  - {label: "Auteur", name: auteur, widget: string}
-                  - {label: "Texte", name: texte, widget: text}
-          - label: "Section Un sujet pour le prochain numéro"
-            name: proposer
-            widget: object
-            fields:
-              - {label: "Titre", name: titre, widget: string}
-              - {label: "Texte", name: texte, widget: text}
-              - {label: "E-mail", name: email, widget: string}
-              - label: "Galerie de photos sous le bloc (4 ou 5 photos)"
-                name: galerie
-                widget: list
-                required: false
-                summary: "{{fields.legende}}"
-                fields:
-                  - {label: "Photo", name: image, widget: image}
-                  - {label: "Légende", name: legende, widget: string}
-                  - {label: "Lien au clic (ex. /articles.html#podcast)", name: lien, widget: string, required: false}
-              - {label: "Téléphone (affiché)", name: telephone, widget: string}
-              - {label: "Téléphone (sans espaces, pour le bouton Copier)", name: telephone_lien, widget: string}
-              - {label: "Lien WhatsApp (https://wa.me/33...)", name: whatsapp, widget: string}
-          - label: "Les numéros à télécharger (PDF)"
-            name: numeros
-            widget: list
-            required: false
-            summary: "{{fields.numero}} · {{fields.date}}"
-            fields:
-              - {label: "Numéro (ex: N°2)", name: numero, widget: string}
-              - {label: "Titre du numéro", name: titre, widget: string}
-              - {label: "Date (ex: Novembre 2026)", name: date, widget: string}
-              - {label: "Couverture (image)", name: couverture, widget: image}
-              - {label: "Le magazine en PDF", name: pdf, widget: file, media_folder: "/magazine", public_folder: "/magazine"}
-              - {label: "Nombre de pages (ex: 29 pages)", name: pages, widget: string, required: false}
-              - {label: "Poids du fichier (ex: 5,8 Mo)", name: taille, widget: string, required: false}
-          - label: "Bas de page"
-            name: pied_de_page
-            widget: object
-            fields:
-              - {label: "Texte à gauche", name: gauche, widget: string}
-              - {label: "Texte à droite", name: droite, widget: string}
-              - label: "Réseaux sociaux"
-                name: reseaux
-                widget: list
-                summary: "{{fields.reseau}}"
-                fields:
-                  - {label: "Réseau (Facebook, TikTok, Instagram ou YouTube)", name: reseau, widget: string}
-                  - {label: "Adresse", name: adresse, widget: string}
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Sous-titre
+          name: sous_titre
+          widget: string
+          required: false
+        - label: Ouvre cet article
+          name: cible
+          widget: relation
+          collection: magazine
+          file: contenu
+          search_fields:
+          - articles.*.titre
+          value_field: articles.*.id
+          display_fields:
+          - articles.*.titre
+        - label: Sur fond rouge
+          name: en_rouge
+          widget: boolean
+          default: false
+      collapsed: true
+    - label: ⚙ Nom du magazine
+      name: titre_site
+      widget: string
+    - label: '⚙ Numéro (ex: N°2)'
+      name: numero
+      widget: string
+    - label: ⚙ Titre du sommaire
+      name: sommaire_titre
+      widget: string
+    - label: ⚙ Titre de la section articles
+      name: articles_titre
+      widget: string
+    - label: Publicité en fenêtre (location d'espace)
+      name: banniere
+      widget: object
+      collapsed: false
+      fields:
+      - label: Afficher la bannière
+        name: actif
+        widget: boolean
+        default: false
+      - label: Nom de l'annonceur
+        name: annonceur
+        widget: string
+        required: false
+      - label: Apparaît après (secondes)
+        name: delai
+        widget: number
+        value_type: int
+        min: 0
+        max: 60
+        default: 2
+        required: false
+      - label: Disparaît toute seule après (secondes)
+        name: duree
+        widget: number
+        value_type: int
+        min: 4
+        max: 300
+        default: 12
+        required: false
+        hint: Le lecteur peut aussi la fermer avec la croix. Elle ne s'affiche qu'une fois par visite.
+      - label: Mention sur la bannière
+        name: etiquette
+        widget: string
+        required: false
+        default: Partenaire
+        hint: Ex. Partenaire, Publicité
+      - label: Image de la bannière (format large, ex. 1200 × 200)
+        name: image
+        widget: image
+        required: false
+        hint: 'Si vous n''avez pas d''image, remplissez le titre ci-dessous : la bannière sera faite en texte.'
+      - label: Titre (bannière en texte, sans image)
+        name: titre
+        widget: string
+        required: false
+      - label: Sous-titre (bannière en texte)
+        name: sous_titre
+        widget: string
+        required: false
+      - label: Texte du bouton (bannière en texte)
+        name: bouton
+        widget: string
+        required: false
+      - label: Lien de l'annonceur
+        name: lien
+        widget: string
+        required: false
+        hint: Adresse complète, ex. https://www.exemple.fr
+      - label: Premier jour (AAAA-MM-JJ)
+        name: debut
+        widget: string
+        required: false
+        hint: Ex. 2026-11-02. Vide = tout de suite.
+      - label: Dernier jour (AAAA-MM-JJ)
+        name: fin
+        widget: string
+        required: false
+        hint: Ex. 2026-11-08. La bannière disparaît toute seule le lendemain.
+    - label: Page « Les bonnes infos »
+      name: bonnes_infos
+      widget: object
+      collapsed: false
+      fields:
+      - label: Titre de la page
+        name: titre
+        widget: string
+      - label: Phrase d'introduction
+        name: introduction
+        widget: text
+        required: false
+      - label: Titre du bloc réseaux sociaux
+        name: reseaux_titre
+        widget: string
+        required: false
+      - label: Infos utiles (carré beige)
+        name: utiles
+        widget: object
+        required: false
+        fields:
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Blocs
+          name: items
+          widget: list
+          summary: '{{fields.titre}}'
+          fields:
+          - label: Titre
+            name: titre
+            widget: string
+          - label: Texte (une ligne par information)
+            name: texte
+            widget: text
+        - label: Note en bas
+          name: note
+          widget: string
+          required: false
+      - label: Les infos (la plus récente en premier)
+        name: cartes
+        widget: list
+        summary: '{{fields.rubrique}} · {{fields.titre}}'
+        fields:
+        - label: Rubrique
+          name: rubrique
+          widget: select
+          options:
+          - Actualités
+          - Événements
+          - Vie locale
+          - Infos pratiques
+        - label: Date (ex. 12 novembre)
+          name: date
+          widget: string
+          required: false
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Texte (quelques phrases, que des faits sûrs)
+          name: texte
+          widget: text
+        - label: Lien (adresse complète ou /page.html)
+          name: lien
+          widget: string
+          required: false
+        - label: Texte du bouton du lien
+          name: lien_texte
+          widget: string
+          required: false
+    - label: Page « Vos élus, votre avis » (notes des habitants)
+      name: elus
+      widget: object
+      collapsed: true
+      fields:
+      - label: Titre de la page
+        name: titre
+        widget: string
+      - label: Introduction
+        name: introduction
+        widget: text
+      - label: Autoriser les phrases des habitants (laisser décoché au lancement)
+        name: phrases_actives
+        widget: boolean
+        default: false
+        required: false
+        hint: 'Décoché : seules les notes sont demandées et affichées. Coché : les habitants peuvent ajouter une phrase, publiée seulement si vous l''approuvez. Si vous cochez, pensez à modifier l''introduction ci-dessus.'
+      - label: Source des noms (affichée sur la page)
+        name: source
+        widget: string
+        required: false
+      - label: 'Avertissement court, affiché en haut (ne pas supprimer : il vous protège)'
+        name: avertissement_court
+        widget: text
+      - label: 'Avertissement complet, affiché en bas (ne pas supprimer : il vous protège)'
+        name: avertissement
+        widget: text
+      - label: Droit de réponse des élus
+        name: droit_de_reponse
+        widget: text
+        required: false
+      - label: Les élus à noter
+        name: liste
+        widget: list
+        summary: '{{fields.nom}}'
+        fields:
+        - label: 'Identifiant (sans espace ni accent, ex: marie-dupont ; ne plus le changer ensuite)'
+          name: id
+          widget: string
+        - label: Nom et prénom (comme sur le site officiel de la ville)
+          name: nom
+          widget: string
+        - label: Fonction (comme sur le site officiel de la ville)
+          name: fonction
+          widget: string
+        - label: 'Groupe (écrire exactement comme les autres : Le maire et les adjoints / Conseillers municipaux délégués (majorité) / Opposition municipale)'
+          name: groupe
+          widget: string
+    - label: Page « Bondy en images »
+      name: en_images
+      widget: object
+      collapsed: false
+      fields:
+      - label: Titre de la page
+        name: titre
+        widget: string
+      - label: Phrase d'introduction
+        name: introduction
+        widget: text
+        required: false
+      - label: Photos (la première est affichée en très grand)
+        name: photos
+        widget: list
+        summary: '{{fields.titre}}'
+        fields:
+        - label: Photo (de préférence en largeur, bien nette)
+          name: image
+          widget: image
+        - label: Date (ex. 9 juillet)
+          name: date
+          widget: string
+          required: false
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Légende (une ou deux phrases)
+          name: legende
+          widget: text
+          required: false
+        - label: Description de la photo (pour les malvoyants)
+          name: description
+          widget: string
+          required: false
+      - label: Titre de la section des affiches
+        name: affiches_titre
+        widget: string
+        required: false
+        default: Affiches et annonces des associations
+      - label: Affiches et annonces des associations
+        name: affiches
+        widget: list
+        required: false
+        summary: '{{fields.titre}}'
+        fields:
+        - label: Affiche (image entière)
+          name: image
+          widget: image
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Légende
+          name: legende
+          widget: text
+          required: false
+        - label: Description de l'affiche (pour les malvoyants)
+          name: description
+          widget: string
+          required: false
+        - label: Lien vers un article (ex. /articles.html#mon-article)
+          name: lien
+          widget: string
+          required: false
+        - label: Texte du lien
+          name: lien_texte
+          widget: string
+          required: false
+    - label: Page de publicité « Votre publicité ici » (après la couverture)
+      name: page_pub
+      widget: object
+      collapsed: false
+      fields:
+      - label: Mention en haut de page
+        name: etiquette
+        widget: string
+        required: false
+        default: Publicité
+      - label: Grand titre
+        name: titre
+        widget: string
+      - label: Message d'aide aux commerces qui démarrent
+        name: introduction
+        widget: text
+        required: false
+      - label: Tarif ou conditions (affiché sous les cases, laissez vide si vous ne voulez rien afficher)
+        name: tarif
+        widget: string
+        required: false
+        hint: Ex. Case offerte pour les commerces qui démarrent. Ne mettez que ce que vous avez décidé.
+      - label: Nombre de cases au total (les cases libres affichent « Votre pub ici »)
+        name: nombre_cases
+        widget: number
+        value_type: int
+        min: 1
+        max: 24
+        default: 6
+      - label: Les cases déjà occupées (la première apparaît en premier)
+        name: emplacements
+        widget: list
+        summary: '{{fields.nom}}'
+        fields:
+        - label: Nom du commerce
+          name: nom
+          widget: string
+        - label: Activité (ex. Boulangerie, Coiffeur, Association)
+          name: activite
+          widget: string
+          required: false
+        - label: Affiche A5 (image verticale, de préférence 1480 × 2100)
+          name: image
+          widget: image
+          required: false
+          hint: Si vous mettez une affiche, elle remplit toute la case. Sinon la case est faite avec le texte ci-dessous.
+        - label: Description de l'affiche (pour les malvoyants)
+          name: image_description
+          widget: string
+          required: false
+        - label: Texte court (2 ou 3 phrases, que des faits)
+          name: texte
+          widget: text
+          required: false
+        - label: Téléphone (ex. 07 00 00 00 00)
+          name: telephone
+          widget: string
+          required: false
+        - label: Lien (site, Instagram, Facebook...)
+          name: lien
+          widget: string
+          required: false
+          hint: Adresse complète, ex. https://www.exemple.fr
+    - label: Page « Bondy en vidéos »
+      name: videos
+      widget: object
+      collapsed: true
+      fields:
+      - label: Titre de la page
+        name: titre
+        widget: string
+      - label: Phrase d'introduction
+        name: introduction
+        widget: text
+        required: false
+      - label: Adresse de la chaîne YouTube
+        name: lien
+        widget: string
+        required: false
+      - label: Texte du bouton
+        name: bouton
+        widget: string
+        required: false
+      - label: Vidéos (une image cliquable par vidéo)
+        name: items
+        widget: list
+        summary: '{{fields.titre}}'
+        fields:
+        - label: Image
+          name: image
+          widget: image
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Légende
+          name: legende
+          widget: text
+          required: false
+        - label: Adresse de la vidéo (YouTube)
+          name: lien
+          widget: string
+    - label: Section « Bondy raconte »
+      name: reportages
+      widget: object
+      collapsed: true
+      fields:
+      - label: Titre de la section
+        name: titre
+        widget: string
+      - label: Phrase d'introduction
+        name: introduction
+        widget: text
+        required: false
+      - label: Adresse de la chaîne YouTube
+        name: lien
+        widget: string
+        required: false
+      - label: Texte du bouton
+        name: bouton
+        widget: string
+        required: false
+      - label: Contenus (une image cliquable par contenu)
+        name: items
+        widget: list
+        required: false
+        summary: '{{fields.titre}}'
+        fields:
+        - label: Image
+          name: image
+          widget: image
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Type
+          name: type
+          widget: select
+          options:
+          - Histoire
+          - Podcast
+          - Short
+          - Story
+          required: false
+        - label: Légende
+          name: legende
+          widget: text
+          required: false
+        - label: Adresse (YouTube)
+          name: lien
+          widget: string
+    - label: Page « L'essentiel » (le fil de la ville)
+      name: essentiel
+      widget: object
+      collapsed: true
+      fields:
+      - label: Messages du fil (les plus récents en premier)
+        name: items
+        widget: list
+        required: false
+        summary: '{{fields.categorie}} · {{fields.titre}}'
+        fields:
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Sujet
+          name: categorie
+          widget: select
+          options:
+          - Propreté
+          - Sécurité et police municipale
+          - Logement
+          - Mobilisations
+          - Réflexions
+          - Ras-le-bol
+        - label: Lieu (rue, quartier)
+          name: lieu
+          widget: string
+          required: false
+        - label: Date (AAAA-MM-JJ)
+          name: date
+          widget: string
+          required: false
+          hint: 'Ex : 2026-10-23'
+        - label: Texte (des faits, sans insulte ni nom de particulier)
+          name: texte
+          widget: text
+        - label: Photo
+          name: image
+          widget: image
+          required: false
+        - label: Droit de réponse (si la personne ou l'organisme répond)
+          name: reponse
+          widget: text
+          required: false
+    - label: Page « Mon point de vue »
+      name: point_de_vue
+      widget: object
+      collapsed: true
+      fields:
+      - label: Titre de la page
+        name: titre
+        widget: string
+      - label: Phrase d'introduction
+        name: introduction
+        widget: text
+        required: false
+      - label: Adresse de la chaîne YouTube
+        name: lien
+        widget: string
+        required: false
+      - label: Texte du bouton
+        name: bouton
+        widget: string
+        required: false
+      - label: Contenus (une carte par point de vue)
+        name: items
+        widget: list
+        required: false
+        summary: '{{fields.titre}}'
+        fields:
+        - label: Image
+          name: image
+          widget: image
+        - label: Titre
+          name: titre
+          widget: string
+        - label: Type
+          name: type
+          widget: select
+          options:
+          - Short
+          - Réflexion
+          - Vidéo
+          required: false
+        - label: Légende
+          name: legende
+          widget: text
+          required: false
+        - label: Adresse (YouTube, podcast…)
+          name: lien
+          widget: string
+    - label: Page « Tribune des élus »
+      name: tribune
+      widget: object
+      collapsed: true
+      fields:
+      - label: Titre
+        name: titre
+        widget: string
+      - label: Phrase d'introduction
+        name: introduction
+        widget: text
+        required: false
+    - label: Assistant du site (bulle « Une question ? »)
+      name: assistant
+      widget: object
+      collapsed: true
+      fields:
+      - label: Afficher l'assistant
+        name: actif
+        widget: boolean
+        default: true
+      - label: Nom de l'assistant
+        name: nom
+        widget: string
+      - label: Texte du bouton flottant
+        name: bouton
+        widget: string
+      - label: Texte du bouton vert (contact)
+        name: bouton_contact
+        widget: string
+      - label: Message d'accueil
+        name: accueil
+        widget: text
+      - label: Quand il ne sait pas répondre
+        name: inconnu
+        widget: text
+      - label: Message après l'envoi des coordonnées
+        name: merci
+        widget: text
+      - label: Phrase d'accord à cocher (données personnelles)
+        name: consentement
+        widget: text
+      - label: Questions et réponses
+        name: faq
+        widget: list
+        summary: '{{fields.question}}'
+        fields:
+        - label: Question (bouton affiché)
+          name: question
+          widget: string
+        - label: Mots-clés (séparés par des espaces)
+          name: mots_cles
+          widget: string
+          required: false
+          hint: Les mots que les gens peuvent écrire pour cette question
+        - label: Réponse
+          name: reponse
+          widget: text
+          hint: '[texte](adresse) = lien. Nouvelle ligne = retour à la ligne.'
+    - label: Section Racontez-nous votre histoire
+      name: temoigner
+      widget: object
+      fields:
+      - label: Titre
+        name: titre
+        widget: string
+      - label: Introduction
+        name: introduction
+        widget: text
+      - label: Encadré à droite du formulaire
+        name: encart
+        widget: object
+        fields:
+        - label: Citation
+          name: citation
+          widget: string
+        - label: Auteur
+          name: auteur
+          widget: string
+        - label: Texte
+          name: texte
+          widget: text
+    - label: Section Un sujet pour le prochain numéro
+      name: proposer
+      widget: object
+      fields:
+      - label: Titre
+        name: titre
+        widget: string
+      - label: Texte
+        name: texte
+        widget: text
+      - label: E-mail
+        name: email
+        widget: string
+      - label: Galerie de photos sous le bloc (4 ou 5 photos)
+        name: galerie
+        widget: list
+        required: false
+        summary: '{{fields.legende}}'
+        fields:
+        - label: Photo
+          name: image
+          widget: image
+        - label: Légende
+          name: legende
+          widget: string
+        - label: Lien au clic (ex. /articles.html#podcast)
+          name: lien
+          widget: string
+          required: false
+      - label: Téléphone (affiché)
+        name: telephone
+        widget: string
+      - label: Téléphone (sans espaces, pour le bouton Copier)
+        name: telephone_lien
+        widget: string
+      - label: Lien WhatsApp (https://wa.me/33...)
+        name: whatsapp
+        widget: string
+    - label: Les numéros à télécharger (PDF)
+      name: numeros
+      widget: list
+      required: false
+      summary: '{{fields.numero}} · {{fields.date}}'
+      fields:
+      - label: 'Numéro (ex: N°2)'
+        name: numero
+        widget: string
+      - label: Titre du numéro
+        name: titre
+        widget: string
+      - label: 'Date (ex: Novembre 2026)'
+        name: date
+        widget: string
+      - label: Couverture (image)
+        name: couverture
+        widget: image
+      - label: Le magazine en PDF
+        name: pdf
+        widget: file
+        media_folder: /magazine
+        public_folder: /magazine
+      - label: 'Nombre de pages (ex: 29 pages)'
+        name: pages
+        widget: string
+        required: false
+      - label: 'Poids du fichier (ex: 5,8 Mo)'
+        name: taille
+        widget: string
+        required: false
+    - label: Bas de page
+      name: pied_de_page
+      widget: object
+      fields:
+      - label: Texte à gauche
+        name: gauche
+        widget: string
+      - label: Texte à droite
+        name: droite
+        widget: string
+      - label: Réseaux sociaux
+        name: reseaux
+        widget: list
+        summary: '{{fields.reseau}}'
+        fields:
+        - label: Réseau (Facebook, TikTok, Instagram ou YouTube)
+          name: reseau
+          widget: string
+        - label: Adresse
+          name: adresse
+          widget: string
+  editor:
+    preview: false
