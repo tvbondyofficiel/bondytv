@@ -1283,11 +1283,36 @@
           },
           "wrap>div.pg>div.cph": {
             "dy": 55
+          },
+          "ajout-amvvaydy9": {
+            "sc": 0.963,
+            "dy": 15,
+            "dx": 3
           }
         }
       }
     },
-    "ajouts": {},
+    "ajouts": {
+      "magazine/edition.html": [
+        {
+          "id": "amvvaydy9",
+          "type": "image",
+          "apres": "",
+          "image": "/images/img-5360-mvvaybmn.jpg",
+          "alt": "",
+          "legende": "",
+          "largeur": "moyenne",
+          "ajust": "cover",
+          "libre": true,
+          "pg": 12,
+          "w": 28.6,
+          "h": 26.2,
+          "x": 57.8,
+          "y": 68.3,
+          "z": "devant"
+        }
+      ]
+    },
     "couleurs_blocs": {
       "index.html": {
         "css:#top>div:nth-child(1)>div:nth-child(4)>b:nth-child(1)": {
