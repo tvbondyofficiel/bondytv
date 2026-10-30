@@ -555,6 +555,18 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .shop .note{font-size:14px;color:var(--muted);line-height:1.5;margin:0}
 .shop .err{background:#fbe9e9;border:1px solid #e3a5a5;color:#7a1414;border-radius:8px;padding:12px 16px;margin:8px 0}
 @media(max-width:760px){.shop .prod{grid-template-columns:1fr}.shop .grid{grid-template-columns:1fr}}
+.shop .idee{margin-top:44px;background:#12141c;color:#f6f4f1;border-radius:18px;padding:clamp(20px,4vw,40px);border-top:6px solid #b8975a}
+.shop .idee h2{font:800 clamp(30px,5vw,44px)/1 var(--display);text-transform:uppercase;margin:0 0 10px;color:#e8dcc0}
+.shop .idee p.lead{color:#d9d3c4;margin:0 0 20px}
+.shop .idee form{display:grid;grid-template-columns:1fr 1fr;gap:14px 18px;max-width:860px}
+.shop .idee label{display:flex;flex-direction:column;gap:6px;font:700 14px/1.2 var(--display);letter-spacing:.1em;text-transform:uppercase;color:#e8dcc0}
+.shop .idee input[type=text],.shop .idee input[type=tel],.shop .idee textarea,.shop .idee input[type=file]{font:400 17px/1.4 var(--body);padding:12px 14px;border-radius:8px;border:1.5px solid #6b6f7c;background:#fff;color:#12141c;width:100%;box-sizing:border-box;text-transform:none;letter-spacing:0}
+.shop .idee .full{grid-column:1 / -1}
+.shop .idee .chk{flex-direction:row;align-items:flex-start;gap:10px;font:400 15px/1.45 var(--body);letter-spacing:0;text-transform:none;color:#d9d3c4}
+.shop .idee .chk input{margin-top:4px;width:20px;height:20px}
+.shop .idee .st{min-height:24px;font-weight:600}.shop .idee .st.err{color:#ff9d9d}
+.shop .idee .hp{position:absolute;left:-9999px}
+@media(max-width:700px){.shop .idee form{grid-template-columns:1fr}}
 </style>
 
 <script src="/pages-actives.js" defer></script><script src="/mise-en-page.js" defer></script>
@@ -720,8 +732,39 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       h += "</div>";
     }
     h += '<div class="soon"><b>Bientôt : d’autres articles</b>Tote bags, casquettes, mugs… Reste connecté.</div>';
+    h += ideeForm();
     h += shopInfo(b);
     box.innerHTML = h;
+    bindIdee();
+  }
+
+  function ideeForm() {
+    return '<section class="idee" id="idee" aria-labelledby="idee-t"><h2 id="idee-t">Propose ton t-shirt</h2><p class="lead">Tu as une idée de slogan ou de dessin pour Bondy ? Envoie-la. Si elle est retenue, elle est imprimée et vendue ici, avec ton nom comme créateur.</p>' +
+      '<form id="idee-f" novalidate><input type="hidden" name="type" value="Idée de t-shirt (boutique)"><input class="hp" type="text" name="botcheck" tabindex="-1" autocomplete="off" aria-hidden="true">' +
+      '<label>Prénom et nom<input type="text" name="nom" autocomplete="name" required></label>' +
+      '<label>Téléphone<input type="tel" name="telephone" autocomplete="tel" required></label>' +
+      '<label class="full">Ta ville ou ton adresse<input type="text" name="adresse" autocomplete="street-address" required placeholder="Ex. : Bondy"></label>' +
+      '<label class="full">Ton idée (le texte du t-shirt, la couleur, ce que tu imagines)<textarea name="message" rows="5" required></textarea></label>' +
+      '<label class="full">Ton dessin ou ta photo (facultatif : JPG, PNG ou PDF, 8 Mo maximum)<input type="file" name="piece" accept="image/jpeg,image/png,application/pdf"></label>' +
+      '<label class="chk full"><input type="checkbox" name="accord" value="oui" required><span>Je suis l’auteur de cette idée. J’accepte que Bondy TV la relise et puisse l’imprimer et la vendre avec mon nom. Rien ne part en vente sans ton accord par téléphone.</span></label>' +
+      '<div class="full"><button class="go" type="submit" id="idee-b">Envoyer mon idée</button><p class="st" id="idee-s" role="status"></p></div></form></section>';
+  }
+  function bindIdee() {
+    var f = document.getElementById("idee-f"); if (!f) return;
+    var s = document.getElementById("idee-s"), bt = document.getElementById("idee-b");
+    var ER = { piece_taille: "Le fichier est trop lourd (8 Mo au maximum).", piece_type: "Le fichier doit être un PDF, un JPG ou un PNG.", trop_de_tentatives: "Trop d’envois. Réessaie plus tard.", non_branche: "Le service n’est pas encore activé. Écris-nous depuis la page Nous écrire.", nom: "Écris ton prénom et ton nom.", tel: "Le numéro de téléphone n’est pas valide.", adresse: "Écris ta ville ou ton adresse.", message: "Décris ton idée en quelques mots.", accord: "Coche la case d’accord pour envoyer." };
+    function say(m, e) { s.textContent = m; s.className = "st" + (e ? " err" : ""); }
+    f.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var pf = f.piece.files[0];
+      if (pf && pf.size > 8 * 1024 * 1024) { say(ER.piece_taille, true); return; }
+      if (!f.accord.checked) { say(ER.accord, true); return; }
+      bt.disabled = true; say("Envoi en cours…", false);
+      fetch("/api/temoigner", { method: "POST", body: new FormData(f) }).then(function (r) { return r.json(); }).then(function (r) {
+        if (!r.ok) { say(ER[r.error] || "L’envoi n’a pas marché. Écris-nous depuis la page Nous écrire.", true); return; }
+        f.reset(); say("Merci ! Ton idée est bien envoyée. Nous te répondons vite.", false);
+      }).catch(function () { say("L’envoi n’a pas marché. Réessaie plus tard.", true); }).then(function () { bt.disabled = false; });
+    });
   }
 
   function product(b, a, cols, head) {
