@@ -1249,6 +1249,13 @@
         }
       }
     },
-    "ajouts": {}
+    "ajouts": {},
+    "couleurs_blocs": {
+      "index.html": {
+        "css:#top>div:nth-child(1)>div:nth-child(4)>b:nth-child(1)": {
+          "fond": "#ffffff"
+        }
+      }
+    }
   }
 }
