@@ -1322,7 +1322,8 @@
       "magazine/edition.html": {
         "css:body>div:nth-child(2)>div:nth-child(1)>div:nth-child(2)": {
           "fond": "#ffffff",
-          "texte": "#12141c"
+          "texte": "#12141c",
+          "undefined": "#12141c"
         },
         "css:body>div:nth-child(2)>div:nth-child(20)": {
           "undefined": "#2b2d33",
