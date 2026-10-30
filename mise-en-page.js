@@ -68,9 +68,25 @@
     window.mpSelect = function (k) { var n = document.querySelector('[data-bloc="' + k + '"]'); if (n) select(n); };
     window.mpSelectParent = function (any) { if (!sel) return; if (any || !sel.dataset.bloc) { var p = sel.parentElement; if (p && p !== document.body && p !== document.documentElement) select(p, ckey(p)); } else if (sel.parentElement) { var q = sel.parentElement.closest("[data-bloc]"); if (q) select(q); } };
     document.addEventListener("click", function (e) { if (e.target.closest("[data-bloc]") || e.target.closest("a,button,summary")) e.preventDefault(); }, true);
+    function startDraw(e, forme) {
+      var x0 = e.clientX, y0 = e.clientY, pg = e.target.closest && e.target.closest(".pg"), bl = e.target.closest && e.target.closest("[data-bloc]");
+      var rb = document.createElement("div"); rb.className = "mp-rubber"; rb.style.cssText = "position:fixed;z-index:100000;pointer-events:none;border:2px dashed #b8975a;background:rgba(184,151,90,.22);left:" + x0 + "px;top:" + y0 + "px;width:0;height:0";
+      document.body.appendChild(rb);
+      function mv(ev) { rb.style.left = Math.min(x0, ev.clientX) + "px"; rb.style.top = Math.min(y0, ev.clientY) + "px"; rb.style.width = Math.abs(ev.clientX - x0) + "px"; rb.style.height = forme === "trait" ? "2px" : Math.abs(ev.clientY - y0) + "px"; }
+      function up(ev) {
+        document.removeEventListener("pointermove", mv, true); document.removeEventListener("pointerup", up, true); rb.remove();
+        var W = Math.abs(ev.clientX - x0), H = Math.abs(ev.clientY - y0), L = Math.min(x0, ev.clientX), T = Math.min(y0, ev.clientY);
+        var ref = (pg || document.querySelector(".wrap")).getBoundingClientRect();
+        if (W < 10 && H < 10) { W = ref.width * 0.4; H = forme === "trait" ? 0 : W; L = x0 - W / 2; T = y0 - H / 2; }
+        var cl = function (v) { return Math.max(0, Math.min(100, v)); };
+        API.draw({ forme: forme, pg: pg ? [].indexOf.call(document.querySelectorAll(".pg"), pg) + 1 : 0, x: cl((L - ref.left) / ref.width * 100), y: cl((T - ref.top) / ref.height * 100), w: Math.max(3, Math.min(100, W / ref.width * 100)), h: Math.max(2, Math.min(100, H / ref.height * 100)), apres: bl && !pg ? bl.dataset.bloc : (bl ? bl.dataset.bloc : "") });
+      }
+      document.addEventListener("pointermove", mv, true); document.addEventListener("pointerup", up, true);
+    }
     document.addEventListener("pointerdown", function (e) {
       var tl = API.tool ? API.tool() : "select";
       if (tl === "touch" && e.target.closest && e.target.closest(".mp-add")) tl = "select";
+      if (/^f:/.test(tl)) { e.preventDefault(); e.stopPropagation(); startDraw(e, tl.slice(2)); return; }
       if (tl !== "select") {
         var t = e.target; if (!t || !t.tagName || t === document.documentElement || t === document.body || t.classList.contains("mp-guide")) return;
         e.preventDefault(); e.stopPropagation(); var k = ckey(t); select(t, k);
