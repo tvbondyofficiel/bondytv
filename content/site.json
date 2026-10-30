@@ -1463,7 +1463,7 @@
   "diaporama": {
     "actif": true,
     "titre": "Photos de Bondy",
-    "auto": true,
+    "auto": false,
     "photos": [
       {
         "image": "/images/diapo-01.jpg",
