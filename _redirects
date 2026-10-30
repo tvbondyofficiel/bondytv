@@ -20,3 +20,4 @@
 /annonces.html / 301
 /annonces / 301
 /article/* /article.html 200
+/p/* /page.html 200

@@ -103,6 +103,7 @@ var AUTH_HOST='bondytv.pages.dev';
 var RUBRIQUES=['À la une','Édito','Actualité','Culture et balades','Histoire et fierté','Commerce','Solidarité et associations','Les bons acteurs de Bondy','Politique','Témoignage'];
 var RUBCOL={'À la une':['#d3141f','#fff'],'Édito':['#b8975a','#12141c'],'Actualité':['#006233','#fff'],'Culture et balades':['#b8975a','#12141c'],'Histoire et fierté':['#12141c','#fff'],'Commerce':['#b9a47f','#12141c'],'Solidarité et associations':['#006233','#fff'],'Les bons acteurs de Bondy':['#b8975a','#12141c'],'Politique':['#12141c','#fff'],'Témoignage':['#12141c','#fff']};
 var SECTIONS=[
+ ['pages_libres','Mes pages','#006233','Créer, dupliquer, cacher ou mettre au menu tes propres pages.'],
  ['boutique','Boutique (t-shirts)','#b8975a','Collections, articles, photos, prix, tailles, PayPal. Cachée du public tant que vous ne l\u2019activez pas.'],
  ['pages','Rubriques et pages','#006233','Activer ou désactiver une rubrique d\u2019articles ou une page du site.'],
  ['visuel','Éditeur visuel (glisser-déposer)','#d3141f','Voir la vraie page et déplacer, centrer, espacer chaque bloc à la souris.'],
@@ -387,7 +388,7 @@ function visuelView(){try{var _p=document.querySelector("[role=dialog][aria-labe
  function clean(){var P=V()[page];if(!P)return;Object.keys(P).forEach(function(d){Object.keys(P[d]).forEach(function(k){var o=P[d][k];Object.keys(o).forEach(function(f){if(o[f]==null||o[f]===''||((f==='dx'||f==='dy')&&!o[f])||(f==='sc'&&o[f]===1))delete o[f]});if(!Object.keys(o).length)delete P[d][k]});if(!Object.keys(P[d]).length)delete P[d]});if(!Object.keys(P).length)delete V()[page];var M=S.data.mise_en_page;if(M&&M.visuel&&!Object.keys(M.visuel).length)delete M.visuel}
  function push(){try{frame.contentWindow.mpApply((V()[page]))}catch(e){}}
  function setO(k,o){var P=V()[page]||(V()[page]={});(P[dev]||(P[dev]={}))[k]=o;clean();push();mark();paint()}
- window.__mpEdit={undo:undo,redo:redo,draw:function(d){if(d.forme==='photo'){var ff=S.placeFile,fd=S.placeFond||'';S.placeFond='';S.vt='select';S.placeFile=null;tbRefresh();try{frame.contentWindow.document.documentElement.classList.remove('mp-col')}catch(e){}if(ff)importPhoto(ff,{pg:d.pg,x:d.x+d.w/2,y:d.y+d.h/2,rect:d.click?null:d,shape:d.shape,apres:d.apres,fond:fd});return}window.__mpEdit.draw0(d)},dropPhoto:function(f,o){importPhoto(f,o)},preview:function(p){return (S.pv||{})[p]||null},setText:function(k,v){setTx(k,v);paint()},draw0:function(d){var a={id:'a'+Date.now().toString(36),type:'forme',apres:'',forme:d.forme,fond:'#b8975a',bord:'',epaisseur:0,image:'',ajust:'cover'};
+ window.__mpEdit={libres:function(){return S.data.pages_libres||[]},undo:undo,redo:redo,draw:function(d){if(d.forme==='photo'){var ff=S.placeFile,fd=S.placeFond||'';S.placeFond='';S.vt='select';S.placeFile=null;tbRefresh();try{frame.contentWindow.document.documentElement.classList.remove('mp-col')}catch(e){}if(ff)importPhoto(ff,{pg:d.pg,x:d.x+d.w/2,y:d.y+d.h/2,rect:d.click?null:d,shape:d.shape,apres:d.apres,fond:fd});return}window.__mpEdit.draw0(d)},dropPhoto:function(f,o){importPhoto(f,o)},preview:function(p){return (S.pv||{})[p]||null},setText:function(k,v){setTx(k,v);paint()},draw0:function(d){var a={id:'a'+Date.now().toString(36),type:'forme',apres:'',forme:d.forme,fond:'#b8975a',bord:'',epaisseur:0,image:'',ajust:'cover'};
  if(d.pg){a.libre=true;a.pg=d.pg;a.x=Math.round(d.x*10)/10;a.y=Math.round(d.y*10)/10;a.w=Math.round(d.w*10)/10;a.h=Math.round(d.h*10)/10;a.z='devant';if(d.forme==='trait'){delete a.h;a.fond='#12141c';a.epaisseur=3}}
  else{a.apres=d.apres||'';a.w=Math.max(10,Math.round(d.w));if(d.forme==='trait'){a.fond='#12141c';a.epaisseur=3}}
  adds().push(a);pushA();mark();S.vt='select';tbRefresh();try{frame.contentWindow.document.documentElement.classList.remove('mp-col')}catch(e){}setTimeout(function(){try{frame.contentWindow.mpSelect('ajout-'+a.id)}catch(e){}},80)},textes:function(pg){return ((S.data.mise_en_page||{}).textes||{})[pg]||{}},touch:function(k,c,x,y,l,bk){S.lastBk=bk||null;paint()},tool:function(){return S.vt||'select'},paint:function(k,t){paintB(k,t)},pick:function(k,c){S.vc=c.fond||c.texte||c.bord||S.vc;tbRefresh();paint()},couleurs:function(){return (S.data.mise_en_page||{}).couleurs||{}},cb:function(pg){return ((S.data.mise_en_page||{}).couleurs_blocs||{})[pg]||{}},imgs:function(pg){return ((S.data.mise_en_page||{}).images||{})[pg]||{}},ajouts:function(pg){return (AJ()[pg])||[]},device:function(){return dev},get:function(k){return cur(k)},set:setO,all:function(pg){return V()[pg]},selected:function(k,l){if(k!==sel&&pend){pend=null;pushB()}sel=k;selLabel=l;paint()}};
@@ -547,7 +548,7 @@ function visuelView(){try{var _p=document.querySelector("[role=dialog][aria-labe
  function fit(){var d=DEVS.filter(function(x){return x[0]===dev})[0];var W=wrapIn.clientWidth||900;var sc=Math.min(1,(W-4)/d[2]);var H=Math.max(560,Math.round(window.innerHeight-250));frame.style.width=d[2]+'px';frame.style.height=Math.round(H/sc)+'px';frame.style.transform='scale('+sc+')';wrapIn.style.height=H+'px';wrapIn.style.display='flex';wrapIn.style.justifyContent='center';frame.style.margin='0';frame.style.flex='none';wrapIn.style.overflow='hidden';var holder=frame.parentNode;if(holder&&holder!==wrapIn){holder.style.width=Math.round(d[2]*sc)+'px';holder.style.height=H+'px'}}
  frame.onload=function(){setTimeout(function(){try{frame.contentWindow.mpApply(V()[page])}catch(e){}},300)};
  var holder=h('div',{style:'position:relative'},frame);wrapIn.appendChild(holder);
- var pages=[['index.html','Accueil']].concat(PAGES,[['tribune.html','Tribune'],['confidentialite.html','Confidentialité'],['magazine/edition.html','Magazine N°1 (PDF)']]);var sp=h('select',{'aria-label':'Page',onchange:function(e){S.vp=e.target.value;S.vd=dev;render()}});pages.forEach(function(x){sp.appendChild(h('option',{value:x[0],selected:x[0]===page||null},x[1]))});
+ var pages=[['index.html','Accueil']].concat(PAGES,[['tribune.html','Tribune'],['confidentialite.html','Confidentialité'],['magazine/edition.html','Magazine N°1 (PDF)']],(S.data.pages_libres||[]).map(function(x){return ['p/'+x.slug+'.html',(x.titre||x.slug)+' (ma page)']}));var sp=h('select',{'aria-label':'Page',onchange:function(e){S.vp=e.target.value;S.vd=dev;render()}});pages.forEach(function(x){sp.appendChild(h('option',{value:x[0],selected:x[0]===page||null},x[1]))});
  var dv=h('div',{class:'seg mp',role:'radiogroup','aria-label':'Écran'});DEVS.forEach(function(d){dv.appendChild(h('button',{type:'button',role:'radio','aria-checked':String(d[0]===dev),onclick:function(){dev=d[0];S.vd=dev;[].forEach.call(dv.children,function(b,i){b.setAttribute('aria-checked',String(DEVS[i][0]===dev))});fit();paint()}},d[1]+' '+d[2]))});
  var bar=h('div',{class:'mp',style:'display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px;padding:10px 14px'},h('b',{},'Page'),sp,dv,h('button',{type:'button',class:'btn warn',onclick:function(){if(!confirm('Remettre toute la page « '+page+' » comme à l’origine, pour cet écran ?'))return;var P=V()[page];if(P)delete P[dev];clean();push();mark();paint()}},'Tout remettre (cet écran)'));
  var ab=h('div',{class:'mp',style:'display:flex;flex-wrap:wrap;gap:8px;align-items:center;margin-bottom:12px;padding:10px 14px'},h('b',{},'+ Ajouter un bloc'),[['titre','Titre'],['texte','Texte'],['image','Image'],['bouton','Bouton'],['separateur','Séparateur']].map(function(x){return h('button',{type:'button',class:'btn',onclick:function(){addNew(x[0])}},x[1])}),h('span',{class:'sub',style:'margin:0'},'Photo : glisse une photo de ton Bureau directement sur la page. Écrire : double-clique un texte. Formes : choisis une forme dans la barre noire, puis tire sur la page.'));
@@ -665,10 +666,39 @@ function boutiqueView(onch){
   cols.appendChild(right);fiche.appendChild(cols)}
  main.appendChild(fiche);wrap.appendChild(main);
  return wrap}
+
+function pagesLibresView(onch){
+ var L=S.data.pages_libres||(S.data.pages_libres=[]);var wrap=h('div');
+ var MK=['ajouts','visuel','images','couleurs_blocs','textes','pages'];
+ function key(sl){return 'p/'+sl+'.html'}
+ function uniq(base){var s0=slug(base)||'page',s1=s0,n=2;while(L.some(function(x){return x.slug===s1}))s1=s0+'-'+(n++);return s1}
+ function copyCfg(from,to){var M=S.data.mise_en_page;if(!M)return;MK.forEach(function(k){if(M[k]&&M[k][key(from)]!==undefined){var c=JSON.parse(JSON.stringify(M[k][key(from)]));if(k==='ajouts'&&Array.isArray(c))c.forEach(function(a,i){a.id='a'+Date.now().toString(36)+i});M[k][key(to)]=c}})}
+ function dropCfg(sl){var M=S.data.mise_en_page;if(!M)return;MK.forEach(function(k){if(M[k]&&M[k][key(sl)]!==undefined){delete M[k][key(sl)];if(!Object.keys(M[k]).length&&k!=='pages')delete M[k]}})}
+ wrap.appendChild(h('div',{class:'card panel',style:'margin-bottom:14px;max-width:none;background:#fff7e3'},h('b',{},'Comment ça marche : '),'tu crées une page, tu la remplis dans l’« Éditeur visuel » (titres, textes, photos, boutons, formes), puis tu l’affiches. Elle reste cachée tant que tu ne l’actives pas. Pour partir d’une page déjà faite, clique sur « Dupliquer ». N’oublie pas « Enregistrer » puis « Publier le site ».'));
+ L.forEach(function(p,i){
+  var on=!!p.actif,card=h('section',{class:'card panel',style:'margin-bottom:14px;max-width:none'});
+  card.appendChild(h('div',{style:'display:flex;flex-wrap:wrap;gap:8px;align-items:center;justify-content:space-between;margin-bottom:10px'},
+   h('div',{},h('b',{style:'font-size:20px'},p.titre||'Page sans titre'),h('div',{style:'color:#555a69;font-size:14px'},'Adresse : bondytv.com/p/'+p.slug+(on?'':' · cachée au public'))),
+   h('span',{class:'acts'},h('button',{type:'button',class:'btn sq','aria-label':'Monter',disabled:i===0||null,onclick:function(){var t=L[i];L[i]=L[i-1];L[i-1]=t;onch();render()}},'↑'),h('button',{type:'button',class:'btn sq','aria-label':'Descendre',disabled:i===L.length-1||null,onclick:function(){var t=L[i];L[i]=L[i+1];L[i+1]=t;onch();render()}},'↓'))));
+  card.appendChild(field(p,'titre',onch,{label:'Titre de la page (aussi le nom dans le menu)'}));
+  if(p.intro===undefined)p.intro='';card.appendChild(field(p,'intro',onch,{label:'Phrase sous le titre (facultatif)'}));
+  card.appendChild(h('div',{style:'display:flex;flex-wrap:wrap;gap:24px;margin:10px 0'},
+   sw(on,'Page visible du public',function(){p.actif=!p.actif;onch();render()}),
+   sw(!!p.menu,'Dans le menu du site',function(){p.menu=!p.menu;onch();render()})));
+  card.appendChild(h('div',{style:'display:flex;flex-wrap:wrap;gap:8px'},
+   h('button',{type:'button',class:'btn green',style:'min-height:46px',onclick:function(){S.vp=key(p.slug);S.view='visuel';render()}},'Modifier la page (éditeur visuel)'),
+   h('a',{class:'btn',style:'display:inline-flex;align-items:center;text-decoration:none;color:#12141c;min-height:46px',href:'/p/'+p.slug+'?apercu=1',target:'_blank'},'Voir comme un visiteur'),
+   h('button',{type:'button',class:'btn',style:'min-height:46px',onclick:function(){var n=uniq(p.slug+'-copie');var c=JSON.parse(JSON.stringify(p));c.slug=n;c.titre=(p.titre||'Page')+' (copie)';c.actif=false;c.menu=false;L.splice(i+1,0,c);copyCfg(p.slug,n);onch();render()}},'Dupliquer'),
+   h('button',{type:'button',class:'btn warn',style:'min-height:46px',onclick:function(){if(confirm('Supprimer cette page et tout ce que tu y as mis ?')){L.splice(i,1);dropCfg(p.slug);onch();render()}}},'Supprimer')));
+  wrap.appendChild(card)});
+ if(!L.length)wrap.appendChild(h('p',{style:'font-size:18px'},'Aucune page pour l’instant. Clique sur « + Nouvelle page ».'));
+ wrap.appendChild(h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px',onclick:function(){var t=(prompt('Titre de la nouvelle page (ex. : Les bonnes adresses)')||'').trim();if(!t)return;L.push({slug:uniq(t),titre:t,intro:'',actif:false,menu:false});onch();render()}},'+ Nouvelle page'));
+ return wrap}
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){refreshBar()};
  if(key==='livres')return livresView(onch);
  if(key==='boutique')return boutiqueView(onch);
+ if(key==='pages_libres')return pagesLibresView(onch);
  if(key==='pages')return pagesView();
  if(key==='mise_en_page')return mpSiteView();
  if(key==='visuel')return visuelView();

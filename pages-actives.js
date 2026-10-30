@@ -16,6 +16,20 @@
       addTab();
       document.addEventListener("DOMContentLoaded", addTab);
     }
+    var pl = ((d && d.pages_libres) || []).filter(function (x) { return x && x.actif && x.menu && x.slug; });
+    if (pl.length) {
+      var addLibres = function () {
+        var nav = document.querySelector(".bar nav"); if (!nav) return;
+        var ref = null; nav.querySelectorAll("details.dd").forEach(function (x) { var s = x.querySelector("summary"); if (s && /compte/i.test(s.textContent)) ref = x; });
+        pl.forEach(function (x) {
+          if (nav.querySelector('a.nav-libre[data-slug="' + x.slug + '"]')) return;
+          var a = document.createElement("a"); a.className = "nav-home nav-libre"; a.setAttribute("data-slug", x.slug); a.href = "/p/" + x.slug; a.textContent = x.titre || x.slug;
+          if (location.pathname.replace(/\.html$/, "").replace(/\/$/, "") === "/p/" + x.slug) a.setAttribute("aria-current", "page");
+          if (ref) nav.insertBefore(a, ref); else nav.appendChild(a);
+        });
+      };
+      addLibres(); document.addEventListener("DOMContentLoaded", addLibres);
+    }
     var off = (d && d.pages_desactivees) || [];
     if (!off.length) return;
     function which(href) {
