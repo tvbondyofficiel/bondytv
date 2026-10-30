@@ -619,6 +619,26 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 .une2 .head>.no1-r{position:static!important;transform:none!important;margin:0}}
 @media(max-width:1240px){.une2 .head>.head-mid{margin:6px auto 0!important;align-items:center;text-align:center}.une2 .head>.head-vid{margin:14px auto 0!important}.une.une2>.head{justify-content:center!important}.une2 .head>.no1-r{position:static!important;transform:none!important;margin:10px auto 0}}
 </style>
+<style id="dia-css">
+.dia{margin:18px 0 8px}
+.dia[hidden]{display:none}
+.dia .dia-apercu{background:#fff7e3;border:1px solid #e3cf9d;color:#5b4713;border-radius:8px;padding:10px 14px;margin:0 0 10px;font-weight:600}
+.dia .dia-kick{font:800 13px/1.3 var(--display,'Barlow Condensed',sans-serif);letter-spacing:.18em;text-transform:uppercase;color:#8a6d33;margin:0 0 8px}
+.dia .dia-box{position:relative;border-radius:16px;overflow:hidden;background:#12141c;aspect-ratio:16/9;max-height:78vh;touch-action:pan-y}
+.dia .dia-s{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;pointer-events:none}
+.dia .dia-s.on{opacity:1;pointer-events:auto}
+.dia .dia-s .bg{position:absolute;inset:-20px;width:calc(100% + 40px);height:calc(100% + 40px);object-fit:cover;filter:blur(22px) brightness(.7)}
+.dia .dia-s .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.dia .dia-cap{position:absolute;left:0;right:0;bottom:0;padding:46px 90px 44px 24px;background:linear-gradient(180deg,rgba(18,20,28,0),rgba(18,20,28,.85));color:#fff;font:800 clamp(22px,3.4vw,40px)/1 var(--display,'Barlow Condensed',sans-serif);text-transform:uppercase;pointer-events:none}
+.dia .dia-nav{position:absolute;top:50%;margin-top:-26px;width:52px;height:52px;border:0;border-radius:50%;background:#f6f1e3;color:#12141c;font:700 28px/1 Arial,sans-serif;cursor:pointer;z-index:3}
+.dia .dia-prev{left:14px}.dia .dia-next{right:14px}
+.dia .dia-dots{position:absolute;left:24px;bottom:12px;display:flex;gap:8px;z-index:3;flex-wrap:wrap;max-width:60%}
+.dia .dia-dots button{width:12px;height:12px;border:0;border-radius:999px;background:#e8dcc0;opacity:.7;padding:0;cursor:pointer}
+.dia .dia-dots button[aria-current=true]{background:#b8975a;opacity:1;width:30px}
+.dia .dia-play{position:absolute;right:14px;bottom:12px;min-height:44px;padding:0 14px;border:1.5px solid #e8dcc0;border-radius:10px;background:rgba(18,20,28,.72);color:#e8dcc0;font:700 14px Arial,sans-serif;cursor:pointer;z-index:3}
+.dia button:focus-visible{outline:3px solid #b8975a;outline-offset:2px}
+@media(max-width:620px){.dia .dia-box{aspect-ratio:4/5}.dia .dia-cap{padding:40px 14px 66px}.dia .dia-nav{width:44px;height:44px;margin-top:-22px}.dia .dia-dots{bottom:14px;left:14px;max-width:46%}}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -658,6 +678,7 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
   </div>
 
   <h1 class="sr-only">Bondy TV Magazine : le magazine gratuit de Bondy</h1>
+  <section class="dia" id="diaporama" aria-label="Diaporama de photos" hidden></section>
   <section class="une une2" id="top"><p class="loading">Chargement du magazine…</p></section>
   <p class="share-site"><a href="https://wa.me/?text=Bondy%20TV%20Magazine%2C%20le%20m%C3%A9dia%20gratuit%20des%20Bondynois%20%3A%20https%3A%2F%2Fwww.bondytv.com" target="_blank" rel="noopener">Partager Bondy TV avec vos proches</a></p>
   <section class="found" id="essentiel" aria-labelledby="foundt">
@@ -1062,5 +1083,34 @@ if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListe
 <script id="act-js">document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a.sum-a");if(a&&!(window.matchMedia&&matchMedia("(hover:hover)").matches)){e.preventDefault();var d=a.closest("details");if(d)d.open=!d.open}});</script>
 <a class="pdf-coin" id="pdf-coin" href="/numeros.html" aria-label="Télécharger le magazine en PDF"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 11l5 5 5-5M5 20h14"/></svg><span>Télécharger<span class="l"> le magazine</span> · PDF</span></a>
 <script>(function(){var a=document.getElementById("pdf-coin");fetch("/content/site.json").then(function(r){return r.json()}).then(function(d){var n=(d.numeros||[])[0];if(n&&n.pdf){a.href=n.pdf;a.setAttribute("download","")}}).catch(function(){})})();</script>
+<script>(function(){
+var box=document.getElementById("diaporama");if(!box)return;
+function esc(x){return String(x==null?"":x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}
+function ok(u){u=String(u||"");return /^(https?:\/\/|\/)/i.test(u)?u:""}
+var apercu=/[?&]apercu=1/.test(location.search);
+fetch("/content/site.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
+ var D=d.diaporama;if(!D)return;var P=(D.photos||[]).filter(function(x){return ok(x.image)});
+ if(!P.length||(!D.actif&&!apercu))return;
+ var i=0,play=D.auto!==false&&!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches),T=null;
+ var h=(!D.actif?'<p class="dia-apercu">Aperçu privé : le diaporama n’est pas encore visible du public. Tu l’actives dans le tableau de bord.</p>':"")+(D.titre?'<p class="dia-kick">'+esc(D.titre)+'</p>':"")+'<div class="dia-box" role="group" aria-roledescription="carrousel" aria-label="'+esc(D.titre||"Photos")+'">';
+ P.forEach(function(x,k){h+='<div class="dia-s'+(k?"":" on")+'" role="group" aria-roledescription="diapositive" aria-label="Photo '+(k+1)+' sur '+P.length+'"><img class="bg" src="'+esc(ok(x.image))+'" alt="" aria-hidden="true"'+(k?' loading="lazy"':"")+'><img class="fg" src="'+esc(ok(x.image))+'" alt="'+esc(x.alt||x.legende||"")+'"'+(k?' loading="lazy"':"")+'>'+(x.legende?'<div class="dia-cap">'+esc(x.legende)+'</div>':"")+'</div>'});
+ h+=(P.length>1?'<button type="button" class="dia-nav dia-prev" aria-label="Photo précédente">‹</button><button type="button" class="dia-nav dia-next" aria-label="Photo suivante">›</button><div class="dia-dots">'+P.map(function(x,k){return '<button type="button" data-k="'+k+'" aria-label="Aller à la photo '+(k+1)+'"'+(k?"":' aria-current="true"')+'></button>'}).join("")+'</div><button type="button" class="dia-play"></button>':"")+'</div>';
+ box.innerHTML=h;box.hidden=false;
+ var S=box.querySelectorAll(".dia-s"),Dt=box.querySelectorAll(".dia-dots button"),Pl=box.querySelector(".dia-play");
+ function show(n){i=(n+P.length)%P.length;S.forEach(function(e,k){e.classList.toggle("on",k===i)});Dt.forEach(function(e,k){if(k===i)e.setAttribute("aria-current","true");else e.removeAttribute("aria-current")})}
+ function lab(){if(Pl)Pl.textContent=play?"❚❚ Arrêter":"▶ Lancer"}
+ function tick(){clearInterval(T);if(play&&P.length>1)T=setInterval(function(){show(i+1)},5000)}
+ if(P.length>1){
+  box.querySelector(".dia-prev").onclick=function(){show(i-1);tick()};
+  box.querySelector(".dia-next").onclick=function(){show(i+1);tick()};
+  Dt.forEach(function(b){b.onclick=function(){show(Number(b.getAttribute("data-k")));tick()}});
+  Pl.onclick=function(){play=!play;lab();tick()};lab();tick();
+  var bx=box.querySelector(".dia-box"),x0=null;
+  bx.addEventListener("touchstart",function(e){x0=e.touches[0].clientX},{passive:true});
+  bx.addEventListener("touchend",function(e){if(x0==null)return;var dx=e.changedTouches[0].clientX-x0;x0=null;if(Math.abs(dx)>40){show(i+(dx<0?1:-1));tick()}},{passive:true});
+  bx.addEventListener("mouseenter",function(){clearInterval(T)});bx.addEventListener("mouseleave",tick);
+ }
+}).catch(function(){});
+})();</script>
 </body>
 </html>

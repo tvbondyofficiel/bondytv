@@ -103,6 +103,7 @@ var AUTH_HOST='bondytv.pages.dev';
 var RUBRIQUES=['À la une','Édito','Actualité','Culture et balades','Histoire et fierté','Commerce','Solidarité et associations','Les bons acteurs de Bondy','Politique','Témoignage'];
 var RUBCOL={'À la une':['#d3141f','#fff'],'Édito':['#b8975a','#12141c'],'Actualité':['#006233','#fff'],'Culture et balades':['#b8975a','#12141c'],'Histoire et fierté':['#12141c','#fff'],'Commerce':['#b9a47f','#12141c'],'Solidarité et associations':['#006233','#fff'],'Les bons acteurs de Bondy':['#b8975a','#12141c'],'Politique':['#12141c','#fff'],'Témoignage':['#12141c','#fff']};
 var SECTIONS=[
+ ['diaporama','Diaporama (accueil)','#b8975a','Les photos qui défilent en haut de l’accueil. Ajouter, changer l’ordre, légendes, cacher.'],
  ['pages_libres','Mes pages','#006233','Créer, dupliquer, cacher ou mettre au menu tes propres pages.'],
  ['boutique','Boutique (t-shirts)','#b8975a','Collections, articles, photos, prix, tailles, PayPal. Cachée du public tant que vous ne l\u2019activez pas.'],
  ['pages','Rubriques et pages','#006233','Activer ou désactiver une rubrique d\u2019articles ou une page du site.'],
@@ -694,11 +695,37 @@ function pagesLibresView(onch){
  if(!L.length)wrap.appendChild(h('p',{style:'font-size:18px'},'Aucune page pour l’instant. Clique sur « + Nouvelle page ».'));
  wrap.appendChild(h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px',onclick:function(){var t=(prompt('Titre de la nouvelle page (ex. : Les bonnes adresses)')||'').trim();if(!t)return;L.push({slug:uniq(t),titre:t,intro:'',actif:false,menu:false});onch();render()}},'+ Nouvelle page'));
  return wrap}
+
+function diaporamaView(onch){
+ var D=S.data.diaporama||(S.data.diaporama={actif:false,titre:'Photos de Bondy',auto:true,photos:[]});D.photos=D.photos||[];var P=D.photos,wrap=h('div'),on=!!D.actif;
+ var fi=h('input',{type:'file',accept:'image/*',multiple:true,style:'display:none',onchange:function(){var fs=Array.prototype.slice.call(fi.files);fi.value='';fs.forEach(function(f){if(!/^image\//.test(f.type))return;uploadFile(f,'images/diaporama',function(path){P.push({image:path,legende:'',alt:''});onch();render()})})}});
+ wrap.appendChild(h('div',{class:'card panel',style:'max-width:none;margin-bottom:14px;background:'+(on?'#e4f1e9':'#fff7e3')},
+  h('div',{style:'display:flex;flex-wrap:wrap;gap:12px;align-items:center;justify-content:space-between'},
+   h('div',{style:'flex:1 1 300px'},h('b',{style:'font-size:20px'},on?'Le diaporama est visible sur l’accueil':'Le diaporama est caché au public'),h('div',{style:'font-size:15px;color:#555a69;margin-top:2px'},on?'Les visiteurs le voient en haut de l’accueil.':'Personne ne le voit. Tu l’actives quand tu veux.')),
+   h('div',{style:'display:flex;flex-wrap:wrap;gap:10px'},
+    h('button',{type:'button',class:'btn '+(on?'':'green'),style:'min-height:46px',onclick:function(){D.actif=!D.actif;onch();render()}},on?'Cacher le diaporama':'Activer le diaporama'),
+    h('a',{class:'btn',style:'display:inline-flex;align-items:center;text-decoration:none;color:#12141c;min-height:46px',href:'/?apercu=1',target:'_blank'},'Voir comme un visiteur')))));
+ wrap.appendChild(h('div',{class:'card panel',style:'max-width:none;margin-bottom:14px'},field(D,'titre',onch,{label:'Petit titre au-dessus (facultatif)'}),h('div',{style:'margin-top:10px'},sw(D.auto!==false,'Les photos défilent toutes seules (5 secondes)',function(){D.auto=D.auto===false;onch();render()}))));
+ P.forEach(function(p,i){
+  var src=(S.pv&&S.pv[p.image])||p.image;
+  wrap.appendChild(h('section',{class:'card panel',style:'max-width:none;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start'},
+   h('div',{style:'flex:0 0 190px'},h('img',{src:src,alt:'',style:'width:190px;height:130px;object-fit:cover;border-radius:10px;background:#e8dcc0;display:block'}),h('div',{style:'font-weight:700;margin-top:6px'},'Photo '+(i+1)+' sur '+P.length)),
+   h('div',{style:'flex:1 1 320px;min-width:0'},field(p,'legende',onch,{label:'Légende (le texte écrit sur la photo)'}),field(p,'alt',onch,{label:'Description pour les malvoyants'})),
+   h('span',{class:'acts',style:'display:flex;gap:8px;flex-wrap:wrap'},
+    h('button',{type:'button',class:'btn sq','aria-label':'Monter',disabled:i===0||null,onclick:function(){var t=P[i];P[i]=P[i-1];P[i-1]=t;onch();render()}},'↑'),
+    h('button',{type:'button',class:'btn sq','aria-label':'Descendre',disabled:i===P.length-1||null,onclick:function(){var t=P[i];P[i]=P[i+1];P[i+1]=t;onch();render()}},'↓'),
+    h('button',{type:'button',class:'btn warn',style:'min-height:44px',onclick:function(){if(confirm('Enlever cette photo du diaporama ?')){P.splice(i,1);onch();render()}}},'Enlever'))))});
+ if(!P.length)wrap.appendChild(h('p',{style:'font-size:18px'},'Aucune photo. Clique sur « + Ajouter des photos ».'));
+ wrap.appendChild(fi);
+ wrap.appendChild(h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px',onclick:function(){fi.click()}},'+ Ajouter des photos'));
+ wrap.appendChild(h('p',{style:'color:#555a69;font-size:15px;margin-top:10px'},'Tu peux choisir plusieurs photos d’un coup. Pense à « Enregistrer » puis « Publier le site ».'));
+ return wrap}
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){refreshBar()};
  if(key==='livres')return livresView(onch);
  if(key==='boutique')return boutiqueView(onch);
  if(key==='pages_libres')return pagesLibresView(onch);
+ if(key==='diaporama')return diaporamaView(onch);
  if(key==='pages')return pagesView();
  if(key==='mise_en_page')return mpSiteView();
  if(key==='visuel')return visuelView();
