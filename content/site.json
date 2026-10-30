@@ -1245,6 +1245,10 @@
           "top>a.head-vid": {
             "dx": -231,
             "dy": 2
+          },
+          "top>div.no1-r": {
+            "dx": -115,
+            "dy": 28
           }
         }
       },
@@ -1254,8 +1258,8 @@
             "dy": 2
           },
           "wrap>div.pg>div.n1b": {
-            "dx": -15,
-            "dy": -4
+            "dx": 1,
+            "dy": -6
           },
           "wrap>div.pg~20>img.bl": {
             "dy": -274,
@@ -1299,7 +1303,7 @@
           "undefined": "#ffffff"
         },
         "wrap>div.pg>div.n1b": {
-          "undefined": "#12141c",
+          "undefined": "none",
           "cache": "N° 1"
         },
         "wrap>div.pg>div.n1b>span": {
@@ -1310,7 +1314,8 @@
     "images": {},
     "textes": {
       "magazine/edition.html": {
-        "wrap>div.pg>div.n1b>span": "N°1"
+        "wrap>div.pg>div.n1b>span": "N°1",
+        "wrap>div.pg>div.n1b": "N°1"
       }
     }
   }
