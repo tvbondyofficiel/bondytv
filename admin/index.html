@@ -709,7 +709,7 @@ function diaporamaView(onch){
  P.forEach(function(p,i){
   var src=(S.pv&&S.pv[p.image])||p.image;
   wrap.appendChild(h('section',{class:'card panel',style:'max-width:none;margin-bottom:12px;display:flex;flex-wrap:wrap;gap:16px;align-items:flex-start'},
-   h('div',{style:'flex:0 0 190px'},h('img',{src:src,alt:'',style:'width:190px;height:130px;object-fit:cover;border-radius:10px;background:#e8dcc0;display:block'}),h('div',{style:'font-weight:700;margin-top:6px'},'Photo '+(i+1)+' sur '+P.length)),
+   h('div',{style:'flex:0 0 240px'},(function(){var m=/^50% (\d+)%$/.exec(p.focus||''),v=m?Number(m[1]):50;var im=h('img',{src:src,alt:'',style:'width:240px;aspect-ratio:16/9;object-fit:cover;object-position:50% '+v+'%;border-radius:10px;background:#e8dcc0;display:block'});var rg=h('input',{type:'range',min:0,max:100,value:v,'aria-label':'Cadrage de la photo : haut ou bas',style:'width:100%;margin-top:8px',oninput:function(e){p.focus='50% '+e.target.value+'%';im.style.objectPosition=p.focus;onch()}});return h('div',{},im,h('div',{style:'font-size:13px;color:#555a69;margin-top:6px'},'Cadrage : ↕ glisse pour monter ou descendre la photo'),rg,h('div',{style:'font-weight:700;margin-top:6px'},'Photo '+(i+1)+' sur '+P.length))})()),
    h('div',{style:'flex:1 1 320px;min-width:0'},field(p,'legende',onch,{label:'Légende (le texte écrit sur la photo)'}),field(p,'alt',onch,{label:'Description pour les malvoyants'})),
    h('span',{class:'acts',style:'display:flex;gap:8px;flex-wrap:wrap'},
     h('button',{type:'button',class:'btn sq','aria-label':'Monter',disabled:i===0||null,onclick:function(){var t=P[i];P[i]=P[i-1];P[i-1]=t;onch();render()}},'↑'),

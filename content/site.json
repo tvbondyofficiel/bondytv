@@ -1468,62 +1468,74 @@
       {
         "image": "/images/diapo-01.jpg",
         "legende": "Route barrée à 100 m",
-        "alt": "Rue avec un panneau « Route barrée à 100 m » devant une barrière verte."
+        "alt": "Rue avec un panneau « Route barrée à 100 m » devant une barrière verte.",
+        "focus": "50% 60%"
       },
       {
         "image": "/images/diapo-02.jpg",
         "legende": "Le parc",
-        "alt": "Allée d’arbres dans un parc, avec un bâtiment en bois marqué « Accueil »."
+        "alt": "Allée d’arbres dans un parc, avec un bâtiment en bois marqué « Accueil ».",
+        "focus": "50% 50%"
       },
       {
         "image": "/images/diapo-03.jpg",
         "legende": "Hôpital Jean Verdier",
-        "alt": "Entrée de l’hôpital Jean Verdier, sous un ciel bleu et un grand soleil."
+        "alt": "Entrée de l’hôpital Jean Verdier, sous un ciel bleu et un grand soleil.",
+        "focus": "50% 50%"
       },
       {
         "image": "/images/diapo-04.jpg",
         "legende": "Le canal",
-        "alt": "Le canal et un pont au loin, avec les reflets des arbres dans l’eau."
+        "alt": "Le canal et un pont au loin, avec les reflets des arbres dans l’eau.",
+        "focus": "50% 50%"
       },
       {
         "image": "/images/diapo-05.jpg",
         "legende": "Le canal",
-        "alt": "Le canal bordé de peupliers, le soleil derrière un nuage."
+        "alt": "Le canal bordé de peupliers, le soleil derrière un nuage.",
+        "focus": "50% 35%"
       },
       {
         "image": "/images/diapo-06.jpg",
         "legende": "Une chaise dans l’herbe",
-        "alt": "Une chaise en rotin à l’assise rose posée dans l’herbe."
+        "alt": "Une chaise en rotin à l’assise rose posée dans l’herbe.",
+        "focus": "50% 62%"
       },
       {
         "image": "/images/diapo-07.jpg",
         "legende": "Le canal",
-        "alt": "Le canal vu d’un pont, bordé d’arbres des deux côtés."
+        "alt": "Le canal vu d’un pont, bordé d’arbres des deux côtés.",
+        "focus": "50% 62%"
       },
       {
         "image": "/images/diapo-08.jpg",
         "legende": "Un immeuble aux balcons rouges",
-        "alt": "Immeuble blanc et gris aux balcons rouges."
+        "alt": "Immeuble blanc et gris aux balcons rouges.",
+        "focus": "50% 55%"
       },
       {
         "image": "/images/diapo-09.jpg",
         "legende": "Le parc en automne",
-        "alt": "Allée d’un parc aux arbres d’automne."
+        "alt": "Allée d’un parc aux arbres d’automne.",
+        "focus": "50% 55%"
       },
       {
         "image": "/images/diapo-10.jpg",
         "legende": "L’hôtel de ville",
-        "alt": "L’hôtel de ville vu de la place, avec son grand mât."
+        "alt": "L’hôtel de ville vu de la place, avec son grand mât.",
+        "focus": "50% 50%"
       },
       {
         "image": "/images/diapo-11.jpg",
         "legende": "L’affiche « Bondy »",
-        "alt": "Grande affiche « B cœur N D Y » sur la façade d’un bâtiment."
+        "alt": "Grande affiche « B cœur N D Y » sur la façade d’un bâtiment.",
+        "focus": "50% 50%"
       },
       {
         "image": "/images/diapo-12.jpg",
         "legende": "L’hôtel de ville",
-        "alt": "L’entrée de l’hôtel de ville, sous l’inscription « Liberté Égalité Fraternité »."
+        "alt": "L’entrée de l’hôtel de ville, sous l’inscription « Liberté Égalité Fraternité ».",
+        "focus": "50% 50%"
       }
     ]
   }

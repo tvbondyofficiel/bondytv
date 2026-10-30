@@ -624,11 +624,10 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 .dia[hidden]{display:none}
 .dia .dia-apercu{background:#fff7e3;border:1px solid #e3cf9d;color:#5b4713;border-radius:8px;padding:10px 14px;margin:0 0 10px;font-weight:600}
 .dia .dia-kick{font:800 13px/1.3 var(--display,'Barlow Condensed',sans-serif);letter-spacing:.18em;text-transform:uppercase;color:#8a6d33;margin:0 0 8px}
-.dia .dia-box{position:relative;border-radius:16px;overflow:hidden;background:#12141c;aspect-ratio:16/9;max-height:78vh;touch-action:pan-y}
+.dia .dia-box{position:relative;border-radius:16px;overflow:hidden;background:#12141c;aspect-ratio:16/9;touch-action:pan-y}
 .dia .dia-s{position:absolute;inset:0;opacity:0;transition:opacity .7s ease;pointer-events:none}
 .dia .dia-s.on{opacity:1;pointer-events:auto}
-.dia .dia-s .bg{position:absolute;inset:-20px;width:calc(100% + 40px);height:calc(100% + 40px);object-fit:cover;filter:blur(22px) brightness(.7)}
-.dia .dia-s .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:contain}
+.dia .dia-s .fg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover}
 .dia .dia-cap{position:absolute;left:0;right:0;bottom:0;padding:46px 90px 44px 24px;background:linear-gradient(180deg,rgba(18,20,28,0),rgba(18,20,28,.85));color:#fff;font:800 clamp(22px,3.4vw,40px)/1 var(--display,'Barlow Condensed',sans-serif);text-transform:uppercase;pointer-events:none}
 .dia .dia-nav{position:absolute;top:50%;margin-top:-26px;width:52px;height:52px;border:0;border-radius:50%;background:#f6f1e3;color:#12141c;font:700 28px/1 Arial,sans-serif;cursor:pointer;z-index:3}
 .dia .dia-prev{left:14px}.dia .dia-next{right:14px}
@@ -637,7 +636,7 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 .dia .dia-dots button[aria-current=true]{background:#b8975a;opacity:1;width:30px}
 .dia .dia-play{position:absolute;right:14px;bottom:12px;min-height:44px;padding:0 14px;border:1.5px solid #e8dcc0;border-radius:10px;background:rgba(18,20,28,.72);color:#e8dcc0;font:700 14px Arial,sans-serif;cursor:pointer;z-index:3}
 .dia button:focus-visible{outline:3px solid #b8975a;outline-offset:2px}
-@media(max-width:620px){.dia .dia-box{aspect-ratio:4/5}.dia .dia-cap{padding:40px 14px 66px}.dia .dia-nav{width:44px;height:44px;margin-top:-22px}.dia .dia-dots{bottom:14px;left:14px;max-width:46%}}
+@media(max-width:620px){.dia .dia-cap{padding:30px 14px 38px;font-size:20px}.dia .dia-nav{width:44px;height:44px;margin-top:-22px}.dia .dia-dots{bottom:10px;left:14px;max-width:48%}.dia .dia-dots button{width:9px;height:9px}.dia .dia-dots button[aria-current=true]{width:22px}.dia .dia-play{min-height:36px;padding:0 10px;right:10px;bottom:6px;font-size:12px}}
 </style>
 </head>
 <body>
@@ -1093,7 +1092,7 @@ fetch("/content/site.json",{cache:"no-store"}).then(function(r){return r.json()}
  if(!P.length||(!D.actif&&!apercu))return;
  var i=0,play=D.auto!==false&&!(window.matchMedia&&matchMedia("(prefers-reduced-motion: reduce)").matches),T=null;
  var h=(!D.actif?'<p class="dia-apercu">Aperçu privé : le diaporama n’est pas encore visible du public. Tu l’actives dans le tableau de bord.</p>':"")+(D.titre?'<p class="dia-kick">'+esc(D.titre)+'</p>':"")+'<div class="dia-box" role="group" aria-roledescription="carrousel" aria-label="'+esc(D.titre||"Photos")+'">';
- P.forEach(function(x,k){h+='<div class="dia-s'+(k?"":" on")+'" role="group" aria-roledescription="diapositive" aria-label="Photo '+(k+1)+' sur '+P.length+'"><img class="bg" src="'+esc(ok(x.image))+'" alt="" aria-hidden="true"'+(k?' loading="lazy"':"")+'><img class="fg" src="'+esc(ok(x.image))+'" alt="'+esc(x.alt||x.legende||"")+'"'+(k?' loading="lazy"':"")+'>'+(x.legende?'<div class="dia-cap">'+esc(x.legende)+'</div>':"")+'</div>'});
+ P.forEach(function(x,k){h+='<div class="dia-s'+(k?"":" on")+'" role="group" aria-roledescription="diapositive" aria-label="Photo '+(k+1)+' sur '+P.length+'"><img class="fg" src="'+esc(ok(x.image))+'" alt="'+esc(x.alt||x.legende||"")+'"'+(k?' loading="lazy"':"")+(/^[0-9]{1,3}% [0-9]{1,3}%$/.test(x.focus||"")?' style="object-position:'+x.focus+'"':"")+'>'+(x.legende?'<div class="dia-cap">'+esc(x.legende)+'</div>':"")+'</div>'});
  h+=(P.length>1?'<button type="button" class="dia-nav dia-prev" aria-label="Photo précédente">‹</button><button type="button" class="dia-nav dia-next" aria-label="Photo suivante">›</button><div class="dia-dots">'+P.map(function(x,k){return '<button type="button" data-k="'+k+'" aria-label="Aller à la photo '+(k+1)+'"'+(k?"":' aria-current="true"')+'></button>'}).join("")+'</div><button type="button" class="dia-play"></button>':"")+'</div>';
  box.innerHTML=h;box.hidden=false;
  var S=box.querySelectorAll(".dia-s"),Dt=box.querySelectorAll(".dia-dots button"),Pl=box.querySelector(".dia-play");
