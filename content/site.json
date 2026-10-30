@@ -1231,5 +1231,8 @@
       "format": "PDF",
       "taille": "0,9 Mo"
     }
+  ],
+  "pages_desactivees": [
+    "logement.html"
   ]
 }
