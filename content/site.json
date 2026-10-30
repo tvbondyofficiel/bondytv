@@ -1218,5 +1218,18 @@
       "taille": "5,0 Mo"
     }
   ],
-  "articles_caches": []
+  "articles_caches": [],
+  "livres": [
+    {
+      "id": "bienvenue-dans-mon-monde",
+      "exemple": false,
+      "titre": "Bienvenue dans mon monde",
+      "auteur": "",
+      "description": "Réflexions sur l'humanité, la liberté et le sens de l'existence.",
+      "couverture": "/images/bienvenue-dans-mon-monde-vevent-mvup716y.jpg",
+      "fichier": "",
+      "format": "PDF",
+      "taille": ""
+    }
+  ]
 }
