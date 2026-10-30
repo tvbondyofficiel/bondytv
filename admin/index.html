@@ -137,7 +137,7 @@ function slug(t){return t.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').
 
 /* ---------- GitHub ---------- */
 function api(path,opt){opt=opt||{};opt.headers=Object.assign({Authorization:'Bearer '+S.token,Accept:'application/vnd.github+json'},opt.headers||{});
- return fetch('https://api.github.com/repos/'+REPO+path,opt).then(function(r){if(r.status===401){logout();throw new Error('Connexion expirée. Reconnectez-vous.')}return r.json().then(function(j){if(!r.ok){var e=new Error(j.message||('Erreur '+r.status));e.status=r.status;throw e}return j})})}
+ opt.cache='no-store';return fetch('https://api.github.com/repos/'+REPO+path,opt).then(function(r){if(r.status===401){logout();throw new Error('Connexion expirée. Reconnectez-vous.')}return r.json().then(function(j){if(!r.ok){var e=new Error(j.message||('Erreur '+r.status));e.status=r.status;throw e}return j})})}
 function b64d(s){var b=atob(s.replace(/\n/g,''));var u=new Uint8Array(b.length);for(var i=0;i<b.length;i++)u[i]=b.charCodeAt(i);return new TextDecoder().decode(u)}
 function b64e(str){var u=new TextEncoder().encode(str),s='';for(var i=0;i<u.length;i+=8192)s+=String.fromCharCode.apply(null,u.subarray(i,i+8192));return btoa(s)}
 function load(){S.loading=true;render();
@@ -270,7 +270,7 @@ function overwrite(path,file,mode,cb){
   else{c.width=1200;c.height=630;var k2=Math.max(1200/img.width,630/img.height),w=img.width*k2,hh=img.height*k2;x.fillStyle='#fff';x.fillRect(0,0,1200,630);x.drawImage(img,(1200-w)/2,(630-hh)/2,w,hh);type='image/jpeg';q=.86}
   URL.revokeObjectURL(u);
   c.toBlob(function(b){var r=new FileReader();r.onload=function(){var data=String(r.result).split(',')[1];S.busy=true;render();
-   api('/contents/'+path+'?ref='+BR).then(function(cur){return cur.sha}).catch(function(){return null}).then(function(sha){
+   api('/contents/'+path+'?ref='+BR+'&t='+Date.now()).then(function(cur){return cur.sha}).catch(function(){return null}).then(function(sha){
     var body={message:'Tableau de bord : remplacement de '+path,content:data,branch:BR};if(sha)body.sha=sha;
     return api('/contents/'+path,{method:'PUT',body:JSON.stringify(body)})}).then(function(){S.busy=false;S.bust=Date.now();cb();say('C\u2019est fait : l\u2019image est remplacée sur le site (visible dans une minute). Pas besoin de cliquer sur Publier pour elle.')}).catch(function(e){S.busy=false;say('Envoi impossible : '+e.message,true)})};r.readAsDataURL(b)},type,q)};
  img.src=u}
