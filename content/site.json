@@ -1247,6 +1247,18 @@
             "dy": 2
           }
         }
+      },
+      "magazine/edition.html": {
+        "pc": {
+          "wrap>div.pg": {
+            "dy": 6,
+            "dx": 34
+          },
+          "wrap>div.pg>div.n1b": {
+            "dx": -29,
+            "dy": -1
+          }
+        }
       }
     },
     "ajouts": {},
@@ -1255,7 +1267,14 @@
         "css:#top>div:nth-child(1)>div:nth-child(4)>b:nth-child(1)": {
           "fond": "#ffffff"
         }
+      },
+      "magazine/edition.html": {
+        "css:body>div:nth-child(2)>div:nth-child(1)>div:nth-child(2)": {
+          "fond": "#ffffff",
+          "texte": "#12141c"
+        }
       }
-    }
+    },
+    "images": {}
   }
 }
