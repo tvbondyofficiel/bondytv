@@ -163,16 +163,16 @@
       "pleine_largeur": false,
       "titre": "Le nouveau visage de Bondy",
       "texte": "Le nouveau visage de Bondy est multiple. Il est aussi divisé : entre le nord et le sud de la ville, les habitants ne vivent pas toujours les mêmes réalités, et une fracture s'est installée.\n\nLes responsables de la ville affirment travailler à réparer cette fracture et à recréer du lien entre les habitants. Reste à voir, ensemble, ce que cela change au quotidien.\n\nEt vous, comment voyez-vous le nouveau visage de Bondy ? Racontez-nous votre histoire en quelques lignes : ce que vous vivez, ce que vous voyez, ce que vous espérez. Utilisez [le formulaire](/temoigner.html#tform), écrivez-nous à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Votre témoignage pourra paraître dans le prochain numéro.\n\n> Les témoignages ne seront publiés qu'avec l'accord de leur auteur.",
-      "image_description": "Hall d’accueil moderne avec un comptoir courbe éclairé en bleu et de grands luminaires en anneaux au plafond.",
+      "image_description": "Immeubles clairs au bord du canal, reflétés dans l’eau, sous un ciel bleu.",
       "credit": "",
       "id": "visage",
-      "image": "/images/nouveau-visage-accueil.jpg",
+      "image": "/images/nouveau-visage-canal.jpg",
       "chapo": "Bondy a plusieurs visages. Entre le nord et le sud, une fracture existe, et la ville cherche à recréer du lien.",
       "visuel": "image",
       "etiquette": "Ville",
       "image_portrait": false,
       "affiche_entiere": true,
-      "image_focus": "50% 70%"
+      "image_focus": "50% 60%"
     },
     {
       "id": "bondy-nord-travaux",
