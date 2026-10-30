@@ -466,7 +466,7 @@ function visuelView(){try{var _p=document.querySelector("[role=dialog][aria-labe
  function cleanCB(){var M=S.data.mise_en_page;if(!M)return;var C=M.couleurs_blocs;if(C){if(C[page]){Object.keys(C[page]).forEach(function(k){Object.keys(C[page][k]).forEach(function(f){if(!C[page][k][f])delete C[page][k][f]});if(!Object.keys(C[page][k]).length)delete C[page][k]});if(!Object.keys(C[page]).length)delete C[page]}if(!Object.keys(C).length)delete M.couleurs_blocs}if(M.couleurs&&!Object.keys(M.couleurs).length)delete M.couleurs}
  function setTx(k,v){var M=MM();M.textes=M.textes||{};var T=M.textes[page]=M.textes[page]||{};if(v==null)delete T[k];else T[k]=v;if(!Object.keys(T).length)delete M.textes[page];if(!Object.keys(M.textes).length)delete M.textes;try{frame.contentWindow.mpTextes(((S.data.mise_en_page||{}).textes||{})[page]||{})}catch(e){}mark()}
  function pushB(){try{frame.contentWindow.mpBlocs(((S.data.mise_en_page||{}).couleurs_blocs||{})[page]||{})}catch(e){}}
- function setCB(k,f,v){var o=cbPage();o[k]=o[k]||{};if(v)o[k][f]=v;else delete o[k][f];cleanCB();pushB();mark()}
+ function setCB(k,f,v){var o=cbPage();if(f==='texte'&&v){Object.keys(o).forEach(function(j){if(j!==k&&j.indexOf(k+'>')===0&&o[j]&&o[j].texte){delete o[j].texte}})}o[k]=o[k]||{};if(v)o[k][f]=v;else delete o[k][f];cleanCB();pushB();mark()}
  function paintB(k,t){var f={fond:'fond',texte:'texte',bord:'bord'}[t];if(!f)return;setCB(k,f,S.vc);paint()}
  var reT=0;function reload(){clearTimeout(reT);reT=setTimeout(function(){frame.src=frame.src},450)}
  function setPal(old,nw){var M=MM();M.couleurs=M.couleurs||{};if(!nw||nw.toLowerCase()===old.toLowerCase())delete M.couleurs[old];else M.couleurs[old]=nw;cleanCB();mark();reload();paint()}
