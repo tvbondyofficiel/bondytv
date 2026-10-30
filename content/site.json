@@ -1251,8 +1251,7 @@
       "magazine/edition.html": {
         "pc": {
           "wrap>div.pg": {
-            "dy": 6,
-            "dx": 34
+            "dy": 2
           },
           "wrap>div.pg>div.n1b": {
             "dx": -29,
