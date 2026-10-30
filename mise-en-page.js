@@ -39,6 +39,7 @@
     Object.keys(DEV).forEach(function (d) {
       var B = (V && V[d]) || {}, r = "";
       Object.keys(B).forEach(function (k) {
+        if (/^ajout-[^>]+>/.test(k)) return;
         var o = B[k], p = "";
         if (o.align) p += "text-align:" + o.align + "!important;justify-content:" + ({ left: "flex-start", center: "center", right: "flex-end" }[o.align] || "flex-start") + "!important;";
         ["mt", "mb", "ml", "mr"].forEach(function (m, i) { if (typeof o[m] === "number") p += "margin-" + ["top", "bottom", "left", "right"][i] + ":" + o[m] + "px!important;"; });
