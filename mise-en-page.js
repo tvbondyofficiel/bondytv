@@ -330,7 +330,17 @@
       if (o.fond === "none") out += q + "{background:none!important;background-color:transparent!important;box-shadow:none!important}"; else if (o.fond) out += q + "{background-color:" + o.fond + "!important;background-image:none!important}";
       if (o.cache) out += /[?&]mpedit=1/.test(location.search) ? q + "{opacity:.18!important;outline:1px dashed #8a8a8a!important}" : q + "{display:none!important}";
       if (typeof o.zoom === "number" && o.zoom > 0) out += q + "{zoom:" + o.zoom + "%!important}";
-      if (o.texte) out += q + "," + q + " *{color:" + o.texte + "!important}";
+      if (o.texte) {
+        out += q + "," + q + " *{color:" + o.texte + "!important}";
+        try {
+          var m = /^#([0-9a-f]{6})$/i.exec(o.texte), tg = document.querySelector(q);
+          if (m && tg) {
+            var rr = parseInt(m[1].slice(0, 2), 16), gg = parseInt(m[1].slice(2, 4), 16), bb = parseInt(m[1].slice(4), 16), lum = (rr * 299 + gg * 587 + bb * 114) / 1000;
+            var im = tg.tagName === "IMG" ? q : (tg.querySelector("img") ? q + " img" : "");
+            if (im) out += im + "{filter:brightness(0)" + (lum > 140 ? " invert(1)" : "") + "!important}";
+          }
+        } catch (e) {}
+      }
       if (o.bord === "none") out += q + "{border:none!important;outline:none}"; else if (o.bord) out += q + "{border:2px solid " + o.bord + "!important}";
     });
     st.textContent = out;
