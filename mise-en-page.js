@@ -59,7 +59,7 @@
     var st = document.createElement("style");
     st.textContent = "html:not(.mp-col) [data-bloc]{cursor:grab}html.mp-col,html.mp-col *{cursor:crosshair!important}html.mp-col body *:hover{outline:2px solid #b8975a!important;outline-offset:-2px}[data-bloc]{}html:not(.mp-col) [data-bloc]:hover{outline:2px dashed #b8975a!important;outline-offset:-2px}[data-bloc].mp-sel{outline:3px solid #d3141f!important;outline-offset:-3px}.mp-guide{position:fixed;top:0;bottom:0;width:0;border-left:1px dashed #d3141f;z-index:99999;pointer-events:none}.pubpop{display:none!important}.bt-fab,.pdf-coin{pointer-events:none!important;opacity:.35}*{animation:none!important}";
     document.head.appendChild(st);
-    var sel = null, drag = null, guide = document.createElement("div"); guide.className = "mp-guide"; guide.style.display = "none"; document.body.appendChild(guide);
+    var sel = null, drag = null, tap = null, guide = document.createElement("div"); guide.className = "mp-guide"; guide.style.display = "none"; document.body.appendChild(guide);
     function cur(k) { return Object.assign({}, API.get(k)); }
     function label(el) { var t = (el.innerText || "").trim().replace(/\s+/g, " ").slice(0, 44); return t || el.dataset.bloc || ("<" + el.tagName.toLowerCase() + ">"); }
     function ckey(el) { var ps = []; while (el && el !== document.body && el !== document.documentElement) { if (el.id) { ps.unshift("#" + (window.CSS && CSS.escape ? CSS.escape(el.id) : el.id)); return "css:" + ps.join(">"); } var i = 1, s2 = el; while ((s2 = s2.previousElementSibling)) i++; ps.unshift(el.tagName.toLowerCase() + ":nth-child(" + i + ")"); el = el.parentElement; } return "css:body>" + ps.join(">"); }
@@ -73,11 +73,11 @@
       if (tl !== "select") {
         var t = e.target; if (!t || !t.tagName || t === document.documentElement || t === document.body || t.classList.contains("mp-guide")) return;
         e.preventDefault(); e.stopPropagation(); var k = ckey(t); select(t, k);
-        if (tl === "pip") API.pick(k, window.mpComputed(k)); else if (tl === "touch") API.touch(k, window.mpComputed(k), e.clientX, e.clientY); else API.paint(k, tl);
+        if (tl === "pip") API.pick(k, window.mpComputed(k)); else if (tl === "touch") API.touch(k, window.mpComputed(k), e.clientX, e.clientY, label(t), t.closest("[data-bloc]") ? t.closest("[data-bloc]").dataset.bloc : null); else API.paint(k, tl);
         return;
       }
       var el = e.target.closest("[data-bloc]"); if (!el) return;
-      e.preventDefault(); select(el); var o = cur(el.dataset.bloc); drag = { el: el, x: e.clientX, y: e.clientY, dx: o.dx || 0, dy: o.dy || 0 };
+      e.preventDefault(); select(el); var o = cur(el.dataset.bloc); drag = { el: el, x: e.clientX, y: e.clientY, dx: o.dx || 0, dy: o.dy || 0 }; tap = { t: e.target, x: e.clientX, y: e.clientY, b: el.dataset.bloc };
     }, true);
     document.addEventListener("mouseover", function (e) { var c = (API.tool ? API.tool() : "select") !== "select"; document.documentElement.classList.toggle("mp-col", c); }, true);
     document.addEventListener("pointermove", function (e) {
@@ -91,7 +91,7 @@
       guide.style.display = g == null ? "none" : "block"; if (g != null) guide.style.left = g + "px";
       o.dx = Math.round(dx); o.dy = Math.round(dy); API.set(k, o);
     }, true);
-    document.addEventListener("pointerup", function () { drag = null; guide.style.display = "none"; }, true);
+    document.addEventListener("pointerup", function (e) { if (tap && Math.abs(e.clientX - tap.x) < 4 && Math.abs(e.clientY - tap.y) < 4 && tap.t && tap.t.tagName && API.touch) { var tk = ckey(tap.t); API.touch(tk, window.mpComputed(tk), tap.x, tap.y, label(tap.t), tap.b); } tap = null; drag = null; guide.style.display = "none"; }, true);
     document.addEventListener("keydown", function (e) {
       if (!sel) return; var d = { ArrowLeft: [-1, 0], ArrowRight: [1, 0], ArrowUp: [0, -1], ArrowDown: [0, 1] }[e.key]; if (!d) return;
       e.preventDefault(); var k = sel.dataset.bloc, o = cur(k), n = e.shiftKey ? 10 : 1; o.dx = (o.dx || 0) + d[0] * n; o.dy = (o.dy || 0) + d[1] * n; API.set(k, o);
