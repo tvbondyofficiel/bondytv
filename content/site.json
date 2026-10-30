@@ -1238,6 +1238,16 @@
   "mise_en_page": {
     "bouton_magazine": "gauche",
     "bouton_question": "centre",
-    "pages": {}
+    "pages": {},
+    "visuel": {
+      "index.html": {
+        "pc": {
+          "top>a.head-vid": {
+            "dx": 223,
+            "dy": -5
+          }
+        }
+      }
+    }
   }
 }
