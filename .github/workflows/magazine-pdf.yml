@@ -1,0 +1,38 @@
+name: Magazine PDF
+# Refait le PDF et la couverture du magazine à chaque publication depuis le tableau de bord.
+on:
+  push:
+    branches: [main]
+    paths:
+      - "content/site.json"
+      - "magazine/edition.html"
+      - "magazine/img/**"
+      - "mise-en-page.js"
+  workflow_dispatch:
+permissions:
+  contents: write
+concurrency:
+  group: magazine-pdf
+  cancel-in-progress: true
+jobs:
+  pdf:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Outils
+        run: |
+          pip install playwright
+          playwright install --with-deps chromium
+      - name: Fabriquer le PDF
+        run: python scripts/build-magazine-pdf.py
+      - name: Enregistrer si changé
+        run: |
+          git config user.name "Bondy TV (automatique)"
+          git config user.email "actions@users.noreply.github.com"
+          git add magazine/bondy-tv-magazine-n1.pdf images/numero-1.jpg
+          if git diff --cached --quiet; then echo "Rien à changer"; exit 0; fi
+          git commit -m "Magazine : PDF et couverture mis à jour automatiquement"
+          for i in 1 2 3; do git pull --rebase origin main && git push origin main && break || sleep 5; done
