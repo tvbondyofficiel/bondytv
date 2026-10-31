@@ -912,7 +912,7 @@ details .more,.more.has-ph .tx{gap:8px}
       document.title = "Article introuvable · Bondy TV Magazine";
       f = '<div class="ar-head"><h1>Article <em>introuvable</em></h1><p>Cet article n’existe pas ou a changé d’adresse. <a href="/articles.html">Voir toute l’actualité</a>.</p></div>';
     } else {
-      var GO = [["À la une"], ["Actualité", "Ville", "Vie de la ville"], ["Culture et balades"], ["Histoire et fierté"], ["Commerce", "À l'honneur", "La bonne adresse"], ["Solidarité et associations", "Les bons acteurs de Bondy"], ["Politique", "Témoignage"]];
+      var GO = [["À la une"], ["Actualité", "Ville", "Vie de la ville"], ["Culture et balades"], ["Histoire et fierté"], ["Commerce", "À l'honneur", "La bonne adresse"], ["Solidarité et associations", "Les bons acteurs de Bondy"], ["Politique", "Tribune citoyenne", "Témoignage"]];
       var ord = []; GO.forEach(function (g) { list.forEach(function (a) { if (g.indexOf(a.rubrique) > -1) ord.push(a); }); }); list.forEach(function (a) { if (ord.indexOf(a) < 0) ord.push(a); });
       var idx = ord.indexOf(cur), nxt = ord[(idx + 1) % ord.length], prv = ord[(idx - 1 + ord.length) % ord.length];
       var pageUrl = "https://www.bondytv.com/article/" + encodeURIComponent(cur.id);

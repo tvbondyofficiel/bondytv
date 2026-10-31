@@ -843,7 +843,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var GR = [
       { t: "C\'est Bondy", r: ["À la une", "Édito", "À l'honneur", "Culture et balades", "Les bons acteurs de Bondy"] },
       { t: "C\'est la ville", r: ["Ville", "Vie de la ville"] },
-      { t: "C\'est à vous", r: ["Témoignage", "Politique", "La bonne adresse"] }
+      { t: "C\'est à vous", r: ["Témoignage", "Politique", "Tribune citoyenne", "La bonne adresse"] }
     ];
     function cut(t, n) { t = String(t || ""); return t.length > n ? t.slice(0, n).replace(/\s+\S*$/, "") + "…" : t; }
     var used = {};
@@ -877,7 +877,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       { t: "Histoire et fierté", r: ["Histoire et fierté"] },
       { t: "Commerce", r: ["Commerce", "À l'honneur", "La bonne adresse"] },
       { t: "Solidarité et bons acteurs", r: ["Solidarité et associations", "Les bons acteurs de Bondy"] },
-      { t: "C’est à vous", r: ["Politique", "Témoignage"] }
+      { t: "C’est à vous", r: ["Politique", "Tribune citoyenne", "Témoignage"] }
     ];
     function sxImg(a, n) {
       if (a.image) return '<div class="sx-i' + (a.affiche_entiere ? " af" : "") + '"><img src="' + esc(a.image) + '" alt="" loading="lazy"></div>';

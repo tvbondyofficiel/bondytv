@@ -506,6 +506,16 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .plibre .apercu{background:#fff7e3;border:1px solid #e3cf9d;color:#5b4713;border-radius:8px;padding:12px 16px;margin:0 0 22px;font-weight:600}
 .plibre h1.pt{font:800 clamp(40px,7vw,72px)/.95 var(--display);text-transform:uppercase;margin:0 0 14px}
 .plibre .lead{font-size:19px;line-height:1.5;color:var(--muted);max-width:680px;margin:0 0 22px}
+.tc{display:grid;text-decoration:none;color:inherit;background:var(--surface);border:1px solid var(--line);border-radius:8px;overflow:hidden}
+.tc .tci{display:block;background:var(--line);aspect-ratio:16/10;overflow:hidden}.tc .tci img{width:100%;height:100%;object-fit:cover;display:block}
+.tc .tct{display:flex;flex-direction:column;gap:8px;padding:16px 18px 20px}.tc .tcg{font:700 12px var(--display);letter-spacing:.14em;text-transform:uppercase;color:var(--green)}
+.tc strong{font:700 clamp(20px,2.4vw,24px)/1.1 var(--display);text-transform:uppercase}.tc em{font-style:normal;color:var(--muted);font-size:15px}
+.tc .tcb{margin-top:6px;align-self:flex-start;background:#b8975a;color:#fff;padding:10px 16px;border-radius:6px;font:700 14px var(--display);text-transform:uppercase;letter-spacing:.1em}
+.tc.big{grid-template-columns:1.3fr 1fr;margin-bottom:24px}.tc.big .tci{aspect-ratio:auto;min-height:280px}.tc.big strong{font-size:clamp(26px,3.4vw,38px)}.tc.big .tct{justify-content:center;padding:24px}
+.tc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
+.tc-ecrire{margin-top:34px;background:#e8dcc0;color:#12141c;text-align:center;padding:26px;border-radius:8px}.tc-ecrire p{margin:0 0 14px;font:600 22px var(--display)}
+@media(max-width:820px){.tc.big{grid-template-columns:1fr}.tc.big .tci{min-height:200px}.tc-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.tc-grid{grid-template-columns:1fr}}
 .plibre .go{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:0 24px;border-radius:8px;background:#b8975a;color:#fff;text-decoration:none;font:700 16px/1 var(--display);text-transform:uppercase;letter-spacing:.1em}
 </style>
 
@@ -604,6 +614,19 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     if (!pg.actif) h += '<p class="apercu">Aperçu privé : cette page n’est pas encore visible du public.</p>';
     h += '<h1 class="pt" data-bloc="plibre-titre">' + esc(pg.titre) + "</h1>";
     if (pg.intro) h += '<p class="lead" data-bloc="plibre-intro">' + esc(pg.intro) + "</p>";
+    if (pg.liste) {
+      var L = (d.articles || []).filter(function (x) { return x.rubrique === pg.liste; }).slice(0, 8);
+      var card = function (x, big) {
+        var img = x.image ? '<img src="' + esc(x.image) + '" alt="' + esc(x.image_description || "") + '" loading="lazy"' + (x.image_focus ? ' style="object-position:' + esc(x.image_focus) + '"' : "") + ">" : "";
+        var ch = String(x.chapo || "").replace(/\*\*/g, ""); if (ch.length > (big ? 240 : 140)) ch = ch.slice(0, big ? 240 : 140).replace(/\s+\S*$/, "") + "…";
+        return '<a class="tc' + (big ? " big" : "") + '" href="/article/' + encodeURIComponent(x.id) + '"><span class="tci">' + img + '</span><span class="tct"><b class="tcg">Tribune</b><strong>' + esc(x.titre) + "</strong><em>" + esc(ch) + '</em><span class="tcb">Lire la tribune</span></span></a>';
+      };
+      if (L.length) {
+        h += '<div class="tc-list">' + card(L[0], true) + "</div>";
+        if (L.length > 1) h += '<div class="tc-grid">' + L.slice(1).map(function (x) { return card(x, false); }).join("") + "</div>";
+      } else h += '<p class="lead">Les premières tribunes arrivent bientôt.</p>';
+      h += '<div class="tc-ecrire"><p>Vous voulez donner votre point de vue ?</p><a class="go" href="/ecrire.html">Écrire une tribune</a></div>';
+    }
     box.innerHTML = h;
   }).catch(function () { box.innerHTML = '<p class="loading">La page n’a pas pu se charger. Rechargez.</p>'; });
 })();
