@@ -528,15 +528,14 @@
       "texte_visible": "",
       "rubrique": "Tribune citoyenne",
       "etiquette": "Tribune",
-      "visuel": "image",
-      "image": "/images/tribune-police-batiment.jpg",
-      "image_description": "Façade en pierre et brique de l’ancienne gendarmerie, avec une banderole « Police municipale » et deux drapeaux.",
+      "visuel": "none",
+      "image": "",
+      "image_description": "",
       "credit": "",
       "lien_video": "",
       "pleine_largeur": false,
       "affiche_entiere": false,
-      "image_focus": "50% 70%",
-      "image_recadree": true
+      "image_focus": ""
     }
   ],
   "banniere": {
