@@ -6,7 +6,9 @@
     "body.mp-mag-centre .pdf-coin{left:50%!important;right:auto!important;transform:translateX(-50%)}" +
     "body.mp-mag-droite .pdf-coin{left:auto!important;right:14px!important}" +
     "body.mp-qst-gauche .bt-fab{right:auto!important;left:max(16px,env(safe-area-inset-left,0px))}" +
-    "body.mp-qst-centre .bt-fab{right:auto!important;left:50%!important;transform:translateX(-50%)}" +
+    "body.mp-qst-centre .bt-fab{left:auto!important;right:max(14px,env(safe-area-inset-right,0px))!important;transform:none!important}" +
+    "@media (max-width:700px){.bt-fab{width:56px;height:56px;padding:0!important;gap:0!important;justify-content:center;border-radius:50%!important;font-size:0!important}.bt-fab svg{width:24px;height:24px}.pdf-coin{bottom:max(14px,env(safe-area-inset-bottom,0px))!important}}" +
+    "body{padding-bottom:88px}" +
     "body.mp-stack .pdf-coin{bottom:76px!important}" +
     "body.mp-al-centre h1,body.mp-al-centre h2,body.mp-al-centre .intro,body.mp-al-centre .lede,body.mp-al-centre .fbtn,body.mp-al-centre .found-all,body.mp-al-centre .share-site{text-align:center}" +
     "body.mp-lg-etroit .wrap{max-width:860px}body.mp-lg-large .wrap{max-width:1360px}" +
