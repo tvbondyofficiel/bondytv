@@ -91,6 +91,7 @@ details.adv{margin-bottom:18px}
 .login p{color:var(--muted);font-size:17px}
 .spin{padding:60px;text-align:center;color:var(--muted);font-size:18px}
 @media (max-width:700px){main{padding:20px 14px 80px}h1{font-size:32px}}
+.ftabs{display:flex;flex-wrap:wrap;gap:8px;margin:0 0 16px}.ftab{border:2px solid #ddd8cf;background:#fff;border-radius:10px;padding:11px 16px;font:700 17px 'Barlow',sans-serif;color:#12141c;cursor:pointer}.ftab.on{background:#12141c;color:#fff;border-color:#12141c}.fbig{margin-bottom:14px}.fbig .bigb{min-height:84px;padding:14px 20px}.fbig .bigb b{font-size:22px}
 .bigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:26px}
 .bigb{text-align:left;border:0;border-radius:12px;padding:20px 22px;color:#fff;display:flex;flex-direction:column;gap:6px;min-height:118px;cursor:pointer;font:inherit}
 .bigb b{font:800 26px 'Barlow Condensed',sans-serif;text-transform:uppercase}.bigb span{font-size:16px;opacity:.92}
@@ -291,7 +292,20 @@ function nav(){
 function groupView(G){
  var tiles=G[3].filter(itemOK).map(function(k){var inf=itemInfo(k);return h('button',{class:'tile',style:'--c:'+inf[1],onclick:function(){go(k)}},h('b',{},inf[0]),h('span',{style:'color:#555a69;font-size:15px'},inf[2]),h('em',{},'Ouvrir →'))});
  return h('section',{},h('div',{class:'tiles'},tiles))}
-function crumb(){var g=groupOf(S.view);if(!g||S.view==='home'||S.view.indexOf('g:')===0)return null;return h('button',{class:'crumb',onclick:function(){go('g:'+g[0])}},'← '+g[1])}
+var FAMACT={
+ articles:[['+ Écrire un article','#12141c','Titre, texte, photo, puis publier.',function(){newArticle()}]],
+ magazine:[['+ Ajouter un magazine','#d3141f','Choisis ton PDF : la couverture se fait toute seule.',function(){go('numeros')}]],
+ photos:[['+ Ajouter des photos','#006233','Bondy en images.',function(){go('en_images')}],['+ Ajouter une vidéo','#12141c','La page des vidéos.',function(){go('videos')}]],
+ pagesite:[['+ Nouvelle page','#006233','Créer ma propre page.',function(){go('pages_libres')}]]};
+function famBar(g){
+ var out=[];var acts=FAMACT[g[0]]||[];
+ if(acts.length)out.push(h('div',{class:'bigs fbig'},acts.map(function(a){return h('button',{class:'bigb',style:'background:'+a[1],onclick:a[3]},h('b',{},a[0]),h('span',{},a[2]))})));
+ var ks=g[3].filter(itemOK);
+ if(ks.length>1)out.push(h('div',{class:'ftabs',role:'tablist'},ks.map(function(k){return h('button',{class:'ftab'+(S.view===k?' on':''),role:'tab','aria-selected':String(S.view===k),onclick:function(){go(k)}},itemInfo(k)[0])})));
+ return out}
+function topAdd(w,label){
+ return h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px;margin-bottom:14px',onclick:function(){var b=w.querySelectorAll(':scope > button.btn.green');if(b.length)b[b.length-1].click()}},label)}
+function crumb(){return null}
 function homeView(){
  var a=articles().length,c=caches().length;
  var stats=h('div',{class:'stats'},
@@ -392,14 +406,17 @@ function mpSiteView(){
  var POSS=[['gauche','À gauche'],['centre','Au milieu'],['droite','À droite']];
  fl.appendChild(seg('« Télécharger le magazine · PDF »',POSS,M.bouton_magazine||'gauche','gauche',set(M,'bouton_magazine')));
  fl.appendChild(seg('« Une question ? » (l’assistant)',POSS,M.bouton_question||'droite','droite',set(M,'bouton_question')));
- box.appendChild(fl);
+ var tb=S.mpTab||'boutons';
+ var TABS=[['boutons','1 · Boutons flottants'],['menu','2 · Menu du haut'],['page','3 · Une page']];
+ box.appendChild(h('div',{class:'ftabs',role:'tablist'},TABS.map(function(t){return h('button',{class:'ftab'+(tb===t[0]?' on':''),role:'tab','aria-selected':String(tb===t[0]),onclick:function(){S.mpTab=t[0];render()}},t[1])})));
+ if(tb==='boutons')box.appendChild(fl);
  var MENU=['Accueil','Lire','Voir','Témoigner','Le magazine','Mon compte','Prendre la parole'];
  var mo=(M.menu_ordre||MENU).filter(function(x){return MENU.indexOf(x)>=0});MENU.forEach(function(x){if(mo.indexOf(x)<0)mo.push(x)});
  var mn=h('section',{class:'card panel mp',style:'max-width:none;margin-bottom:18px'},h('h2',{},'Ordre du menu du haut'),h('p',{class:'sub'},'Montez ou descendez un onglet. Le changement vaut pour toutes les pages.'));
  mo.forEach(function(x,n){mn.appendChild(h('div',{class:'row',style:'border:1px solid #eee7d8;border-radius:8px;margin-bottom:8px;background:#fff'},h('div',{class:'t'},h('b',{},(n+1)+'. '+x)),
   h('button',{type:'button',class:'btn sq','aria-label':'Monter '+x,disabled:n===0||null,onclick:function(){touch();mo.splice(n-1,0,mo.splice(n,1)[0]);M.menu_ordre=mo.slice();render()}},'▲'),
   h('button',{type:'button',class:'btn sq','aria-label':'Descendre '+x,disabled:n===mo.length-1||null,onclick:function(){touch();mo.splice(n+1,0,mo.splice(n,1)[0]);M.menu_ordre=mo.slice();render()}},'▼')))});
- box.appendChild(mn);
+ if(tb==='menu')box.appendChild(mn);
  var pages=[['index.html','Accueil']].concat(PAGES);
  var pg=h('section',{class:'card panel mp',style:'max-width:none'},h('h2',{},'Mise en page d’une page'),h('p',{class:'sub'},'Choisissez la page, puis réglez-la. Pensez à « Publier le site ».'));
  var sel=h('select',{'aria-label':'Page à régler',onchange:function(e){S.mpPage=e.target.value;render()}});pages.forEach(function(x){sel.appendChild(h('option',{value:x[0],selected:x[0]===cur||null},x[1]))});pg.appendChild(h('div',{class:'grp'},h('b',{},'Page'),sel));
@@ -417,7 +434,7 @@ function mpSiteView(){
     h('button',{type:'button',class:'btn sq','aria-label':'Monter '+title(i),disabled:n===0||null,onclick:function(){ord.splice(n-1,0,ord.splice(n,1)[0]);save()}},'▲'),
     h('button',{type:'button',class:'btn sq','aria-label':'Descendre '+title(i),disabled:n===ord.length-1||null,onclick:function(){ord.splice(n+1,0,ord.splice(n,1)[0]);save()}},'▼'),
     sw(!off,'Bloc '+title(i),function(){if(off)hid.splice(hid.indexOf(i),1);else hid.push(i);save()})))})}
- pg.appendChild(grp);box.appendChild(pg);return box}
+ pg.appendChild(grp);if(tb==='page')box.appendChild(pg);return box}
 var DEVS=[['pc','Ordinateur',1300],['tablette','Tablette',820],['mobile','Téléphone',400]];
 function visuelView(){try{var _p=document.querySelector("[role=dialog][aria-label=Couleurs]");if(_p)_p.remove()}catch(e){}
  var page=S.vp||'index.html',dev=S.vd||'pc';var box=h('div');
@@ -800,15 +817,15 @@ function numerosAddCard(onch){
  return card}
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){refreshBar()};
- if(key==='livres')return livresView(onch);
+ if(key==='livres'){var wl=livresView(onch);return h('div',{},topAdd(wl,'+ Ajouter un livre'),wl)}
  if(key==='boutique')return boutiqueView(onch);
- if(key==='pages_libres')return pagesLibresView(onch);
- if(key==='diaporama')return diaporamaView(onch);
+ if(key==='pages_libres'){var wp=pagesLibresView(onch);return h('div',{},topAdd(wp,'+ Nouvelle page'),wp)}
+ if(key==='diaporama'){var wd=diaporamaView(onch);return h('div',{},topAdd(wd,'+ Ajouter des photos'),wd)}
  if(key==='pages')return pagesView();
  if(key==='mise_en_page')return mpSiteView();
  if(key==='visuel')return visuelView();
  if(key==='general'){box.appendChild(h('h2',{style:'font-size:22px'},'Logo et images du site'));box.appendChild(siteImage('Logo de Bondy TV','Le logo en haut à gauche de chaque page. Choisissez de préférence une image PNG à fond transparent.','images/logo.png','logo',110,72));box.appendChild(siteImage('Image de partage','L\u2019image qui s\u2019affiche quand on partage le site sur WhatsApp ou Facebook. Elle est recadrée en 1200 × 630.','images/partage.jpg','share',190,100));box.appendChild(h('h2',{style:'font-size:22px;margin-top:26px'},'Textes généraux'));GENERAL_KEYS.forEach(function(k){if(S.data[k]!==undefined)box.appendChild(field(S.data,k,onch))})}
- else if(Array.isArray(S.data[key])){if(key==='numeros')box.appendChild(numerosAddCard(onch));box.appendChild(listEditor(S.data[key],onch))}
+ else if(Array.isArray(S.data[key])){var lst=listEditor(S.data[key],onch);if(key==='numeros')box.appendChild(numerosAddCard(onch));else if(!{couverture:1}[key])box.appendChild(h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px;margin-bottom:14px',onclick:function(){var b=lst.querySelectorAll(':scope > button.btn');if(b.length)b[b.length-1].click()}},'+ Ajouter'));box.appendChild(lst)}
  else objectEditor(box,S.data[key],onch);
  return box}
 function drawerView(){
@@ -830,17 +847,19 @@ function loginView(){
  return h('div',{class:'card login'},h('div',{class:'brand',style:'justify-content:center;color:#12141c'},h('b',{},'Bond',h('i',{},'y')),h('span',{},'TV · Admin')),h('h1',{style:'font-size:34px;margin:6px 0 10px'},'Tableau de bord'),h('p',{},'Connectez-vous avec le compte GitHub de Bondy TV pour modifier le site.'),
   S.loginErr?h('p',{style:'color:#a30f18;font-weight:600'},S.loginErr):null,
   h('button',{class:'btn gold',onclick:login},'Se connecter'),h('p',{style:'font-size:14px;margin-top:22px'},h('a',{href:'/admin/avance.html'},'Ouvrir l’ancienne version')))}
+function famBar2(){var g=groupOf(S.view);return (g&&S.view!=='home')?famBar(g):null}
 function render(){
  var ae=document.activeElement,keep=ae&&ae.id;
  var y=window.scrollY;root.innerHTML='';
  if(!S.token){root.appendChild(loginView());return}
  if(S.loading||!S.data){root.appendChild(h('div',{class:'spin'},'Chargement du site…'));return}
+ if(S.view.indexOf('g:')===0){var G0=GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0];var f0=G0&&G0[3].filter(itemOK)[0];if(f0){S.view=f0;S.q='';S.filter='Tous'}}
  var titles={home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
  var sec=SECTIONS.filter(function(s){return s[0]===S.view})[0];
  var gg=S.view.indexOf('g:')===0?GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0]:null;
  var t=gg?[gg[1],gg[4]]:(titles[S.view]||(sec?[sec[1],sec[3]]:['','']));
  var main=h('main',{},header(t[0],t[1]),S.toast?h('div',{class:'toast'+(S.toastErr?' err':''),role:'status'},S.toast):null,
-  crumb(),S.view==='home'?homeView():S.view.indexOf('g:')===0?groupView(gg):S.view==='articles'?articlesView():S.view==='tribune_cit'?articlesView('Tribune citoyenne'):sectionView(S.view));
+  famBar2(),S.view==='home'?homeView():S.view==='articles'?articlesView():S.view==='tribune_cit'?articlesView('Tribune citoyenne'):sectionView(S.view));
  root.appendChild(h('div',{class:'app'},nav(),main));
  if(S.drawer)root.appendChild(drawerView());
  window.scrollTo(0,y)}
