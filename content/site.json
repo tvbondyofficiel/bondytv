@@ -1310,28 +1310,15 @@
             "dx": 3
           }
         }
-      }
-    },
-    "ajouts": {
-      "magazine/edition.html": [
-        {
-          "id": "amvvaydy9",
-          "type": "image",
-          "apres": "",
-          "image": "/images/img-5360-mvvaybmn.jpg",
-          "alt": "",
-          "legende": "",
-          "largeur": "moyenne",
-          "ajust": "cover",
-          "libre": true,
-          "pg": 12,
-          "w": 28.6,
-          "h": 26.2,
-          "x": 57.8,
-          "y": 68.3,
-          "z": "devant"
+      },
+      "articles.html": {
+        "pc": {
+          "css:#bondytv>div:nth-child(1)": {
+            "dx": -1,
+            "dy": -1
+          }
         }
-      ]
+      }
     },
     "couleurs_blocs": {
       "index.html": {
@@ -1351,7 +1338,8 @@
           "fond": "#e8dcc0",
           "texte": "#12141c"
         }
-      }
+      },
+      "articles.html": {}
     },
     "images": {},
     "textes": {
@@ -1360,7 +1348,8 @@
         "css:body>div:nth-child(2)>div:nth-child(1)>div:nth-child(2)": "N°1",
         "css:body>div:nth-child(2)>div:nth-child(19)>div:nth-child(2)>div:nth-child(1)>div:nth-child(4)>div:nth-child(2)>b:nth-child(1)": "www.bondytv.com"
       }
-    }
+    },
+    "ajouts": {}
   },
   "boutique": {
     "actif": true,
