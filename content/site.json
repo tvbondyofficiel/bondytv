@@ -1330,6 +1330,42 @@
           "y": 68.3,
           "z": "devant"
         }
+      ],
+      "p/tribune-citoyenne.html": [
+        {
+          "id": "tc1793424428238t",
+          "type": "titre",
+          "texte": "Police municipale à Bondy : à quoi sert-elle vraiment ?",
+          "taille": "moyen",
+          "couleur": "noir",
+          "apres": ""
+        },
+        {
+          "id": "tc1793424450545i1",
+          "type": "image",
+          "apres": "",
+          "image": "/images/tribune-police-batiment.jpg",
+          "alt": "Façade en pierre et brique de l’ancienne gendarmerie, avec une banderole « Police municipale » et deux drapeaux.",
+          "legende": "L’ancienne gendarmerie, aujourd’hui occupée par la police municipale.",
+          "largeur": "moyenne",
+          "ajust": "contain"
+        },
+        {
+          "id": "tc1793424428238x",
+          "type": "texte",
+          "texte": "À Bondy, l'ancienne gendarmerie rappelle que les bâtiments publics ont une histoire, mais surtout une mission : être au service des habitants. Aujourd'hui, ce bâtiment accueille la police municipale. Une question mérite pourtant d'être posée : les habitants voient-ils réellement les résultats de son action au quotidien ?\n\nLa police municipale a pourtant un rôle essentiel dans une ville. Elle contribue au respect des arrêtés municipaux, à la tranquillité publique, à la prévention des incivilités, à la sécurité aux abords des écoles, à la surveillance de l'espace public et à la lutte contre les stationnements gênants. Elle doit être présente sur le terrain, à l'écoute des riverains et capable d'intervenir dans le cadre de ses compétences.\n\nMais entre les missions inscrites sur le papier et la réalité vécue par les habitants, il peut exister un fossé.\n\n**Des uniformes, des moyens… mais pour quels résultats ?**\n\nLorsqu'un habitant constate des incivilités répétées, des problèmes de stationnement, des nuisances ou un manque de présence dans certains quartiers, il est légitime qu'il s'interroge sur l'efficacité du service public chargé de contribuer à la tranquillité de la ville.\n\nLa police municipale ne doit pas être une simple présence en uniforme. Elle doit être une présence utile.\n\nLes habitants n'attendent pas des agents qui se contentent de circuler, de rester entre collègues ou de donner l'impression d'une autorité sans résultats visibles. Ils attendent des professionnels accessibles, actifs, respectueux et capables d'apporter des réponses concrètes aux problèmes du quotidien.\n\nL'image du « cow-boy » en uniforme, qui impressionne davantage qu'il ne résout les problèmes, ne devrait jamais devenir celle d'un service public. L'autorité ne se mesure ni à l'uniforme ni au ton employé, mais à la qualité du travail accompli, au respect des citoyens et à l'efficacité des interventions.\n\nIl ne s'agit pas d'affirmer que tous les agents de Bondy travaillent mal, mais de poser une question de fond : comment la municipalité évalue-t-elle réellement leur travail et leur utilité pour la population ?\n\n**L'argent public exige des comptes**\n\nLes agents municipaux sont rémunérés par l'argent public. Cela signifie que les habitants sont en droit d'attendre un service à la hauteur de leurs besoins.\n\nCombien d'interventions sont réalisées ? Quels problèmes sont effectivement résolus ? Quelle est la présence des agents dans les quartiers ? Les habitants peuvent-ils facilement signaler une difficulté et obtenir une réponse ? Les résultats sont-ils évalués et communiqués ?\n\nCes questions ne sont ni excessives ni injustes. Elles relèvent simplement de l'exigence démocratique.\n\nLa sécurité et la tranquillité publique ne doivent pas se limiter à des discours, à des équipements ou à des uniformes. Elles doivent se traduire par des actions concrètes et perceptibles dans la vie des Bondynois.\n\n**Bondy mérite une police municipale de proximité**\n\nUne police municipale efficace doit connaître les quartiers, dialoguer avec les commerçants, écouter les habitants, prévenir les conflits et agir avec discernement. Elle doit également rendre compte de ses missions et entretenir une relation de confiance avec la population.\n\nCritiquer un service public, ce n'est pas forcément s'opposer à son existence. C'est aussi demander qu'il remplisse pleinement sa mission.\n\nLes habitants de Bondy ont le droit d'attendre mieux lorsqu'ils estiment que leur tranquillité n'est pas suffisamment assurée. Et la municipalité a la responsabilité de vérifier que les moyens engagés produisent des résultats.\n\nLa vraie question n'est donc pas de savoir si Bondy possède une police municipale, mais si les Bondynois en ressentent réellement l'utilité.\n\nParce qu'au bout du compte, un service public ne devrait jamais être jugé uniquement sur son apparence, mais sur ce qu'il apporte concrètement à ceux qu'il est censé servir.\n\nBondy mérite des actes, de la proximité et des résultats. Pas seulement des uniformes.\n\n> Note éditoriale : cet article est rédigé comme une tribune critique. Les remarques sur le manque d'efficacité correspondent à une interrogation citoyenne et ne constituent pas des faits établis sur l'ensemble des agents de Bondy.",
+          "apres": ""
+        },
+        {
+          "id": "tc1793424450545i2",
+          "type": "image",
+          "apres": "",
+          "image": "/images/tribune-police-panneau.jpg",
+          "alt": "Panneau d’information « L’ancienne gendarmerie » posé dans l’herbe, devant le bâtiment.",
+          "legende": "Le panneau d’information devant le bâtiment.",
+          "largeur": "moyenne",
+          "ajust": "contain"
+        }
       ]
     },
     "couleurs_blocs": {
@@ -1506,7 +1542,15 @@
       }
     ]
   },
-  "pages_libres": [],
+  "pages_libres": [
+    {
+      "slug": "tribune-citoyenne",
+      "titre": "Tribune citoyenne",
+      "intro": "La parole aux habitants de Bondy.",
+      "actif": true,
+      "menu": true
+    }
+  ],
   "diaporama": {
     "actif": false,
     "titre": "Photos de Bondy",
