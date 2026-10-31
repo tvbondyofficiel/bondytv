@@ -512,7 +512,9 @@
       "credit": "",
       "lien_video": "",
       "pleine_largeur": false,
-      "image_portrait": false
+      "image_portrait": true,
+      "affiche_entiere": false,
+      "image_focus": "50% 34%"
     }
   ],
   "banniere": {
