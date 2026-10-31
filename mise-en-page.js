@@ -237,6 +237,12 @@
       var n = function (v, d) { v = Number(v); return isFinite(v) ? v : d; };
       el.style.cssText = "left:" + n(a.x, 8) + "%;top:" + n(a.y, 8) + "%;width:" + n(a.w, 84) + "%;" + (a.h ? "height:" + n(a.h, 40) + "%;" : "") + "z-index:" + (a.z === "derriere" ? 0 : 6);
     }
+    try {
+      var rt = Number(a.rot), op = Number(a.op), sh = Number(a.ombre);
+      if (isFinite(rt) && rt) el.style.transform = "rotate(" + rt + "deg)";
+      if (isFinite(op) && op > 0 && op < 100) el.style.opacity = String(op / 100);
+      if (isFinite(sh) && sh > 0) el.style.filter = "drop-shadow(0 " + (sh * 3) + "px " + (sh * 6) + "px rgba(0,0,0," + (0.18 + sh * 0.08) + "))";
+    } catch (e) {}
     return el;
   }
   var addTimer = 0, addForce = false;
