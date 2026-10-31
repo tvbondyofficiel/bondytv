@@ -346,13 +346,14 @@
       "titre": "La Tradition du Pain : le pain, et la conversation",
       "chapo": "Au cœur de Bondy, face à la mairie, une adresse familière s'est refait une beauté sans rien perdre de son âme.",
       "visuel": "image",
-      "image": "/images/tradition-du-pain.jpg",
-      "image_description": "Intérieur de la boulangerie La Tradition du Pain : vitrines de pains, viennoiseries et sandwichs",
+      "image": "/images/tradition-du-pain-facade.jpg",
+      "image_description": "Façade de la boulangerie La Tradition du Pain : Boulanger, Pâtissier, Artisan",
       "credit": "Bondy TV",
       "pleine_largeur": false,
       "texte_visible": "On entre pour une baguette, on ressort avec des nouvelles. À La Tradition du Pain, en face du parking de la mairie, la boulangerie fait ce que les bonnes boulangeries ont toujours fait : nourrir, et relier.\n\nInstallée depuis plusieurs années à deux pas de la mairie, elle vient d'être rénovée. Pains traditionnels, viennoiseries au beurre, pâtisseries : la carte est celle d'un artisan, l'accueil celui d'un voisin. On y prend le temps de se parler, et c'est peut-être cela, aujourd'hui, le vrai luxe d'un commerce de centre-ville.",
       "texte": "",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "image_focus": "50% 40%"
     },
     {
       "id": "marches",
