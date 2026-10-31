@@ -1457,6 +1457,35 @@
         "exemple": true,
         "epuise": false,
         "cache": false
+      },
+      {
+        "id": "article-mvvxu6ru",
+        "collection": "",
+        "nom": "Bondy tv",
+        "prix": 25,
+        "description": "",
+        "infos": [
+          {
+            "titre": "",
+            "texte": "Bondy tv"
+          }
+        ],
+        "tailles": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ],
+        "stock": {},
+        "photos": [],
+        "createur": "",
+        "couleur": "#12141c",
+        "lignes": [],
+        "couleur_texte": "#e8dcc0",
+        "exemple": false,
+        "epuise": false,
+        "cache": false
       }
     ]
   },
