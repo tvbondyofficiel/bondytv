@@ -851,7 +851,7 @@ details .more,.more.has-ph .tx{gap:8px}
     if (a.chapo) h += '<p class="chapo">' + inline(a.chapo) + "</p>";
     if (a.credit) h += '<p class="credit">' + inline(a.credit) + "</p>";
     if (a.lien_video && !ytId(a.lien_video)) h += "<p>" + link("Voir la vidéo", a.lien_video) + "</p>";
-    if (a.texte || a.texte_visible) { var body = (a.texte_visible ? md(a.texte_visible) : "") + (a.texte ? md(a.texte) : ""), ph = body.match(/<div class="phs">[\s\S]*?<\/div>/g) || []; body = body.replace(/<div class="phs">[\s\S]*?<\/div>/g, ""); h += "<details><summary>Lire la suite</summary><div class=\"more" + (ph.length ? " has-ph" : (a.pleine_largeur ? " has-side" + (String(a.texte || "").length < 1300 ? " short" : "") : "")) + "\">" + (ph.length ? "<div class=\"tx\">" + body + "</div>" + ph.join("") : (a.pleine_largeur ? "<div class=\"tx\">" + body + "</div>" + sidebar(a) : body)) + "</div></details>"; }
+    if (a.texte || a.texte_visible) { var body = (a.texte_visible ? md(a.texte_visible) : "") + (a.texte ? md(a.texte) : ""), ph = body.match(/<div class="phs">[\s\S]*?<\/div>/g) || []; body = body.replace(/<div class="phs">[\s\S]*?<\/div>/g, ""); h += "<details><summary>Lire la suite</summary><div class=\"more" + (ph.length && a.photo_cote ? " ph-left" : "") + (ph.length ? " has-ph" : (a.pleine_largeur ? " has-side" + (String(a.texte || "").length < 1300 ? " short" : "") : "")) + "\">" + (ph.length ? "<div class=\"tx\">" + body + "</div>" + ph.join("") : (a.pleine_largeur ? "<div class=\"tx\">" + body + "</div>" + sidebar(a) : body)) + "</div></details>"; }
     return h + "</div></article>";
   }
 
