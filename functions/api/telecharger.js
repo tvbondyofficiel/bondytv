@@ -7,7 +7,11 @@ async function livre(request, env, id) {
   try {
     const r = await env.ASSETS.fetch(new URL("/content/site.json", request.url));
     const d = await r.json();
-    return (d.livres || []).find((x) => x && x.id === id && x.fichier) || null;
+    const l = (d.livres || []).find((x) => x && x.id === id && x.fichier);
+    if (l) return l;
+    // numéros du magazine (PDF) : même compteur, clé « numero:… »
+    const n = (d.numeros || []).find((x) => x && x.id === id && x.pdf);
+    return n ? { fichier: n.pdf, cle: "numero:" + id } : null;
   } catch (e) { return null; }
 }
 
@@ -17,7 +21,7 @@ export async function onRequestGet({ request, env }) {
   if (!/^[a-z0-9-]+$/.test(id)) return json({ error: "id" }, 400);
   const b = await livre(request, env, id);
   if (!b) return json({ error: "introuvable" }, 404);
-  const key = "livre:" + id;
+  const key = b.cle || "livre:" + id;
   const total = async () => (env.VOTES ? Number(await env.VOTES.get(key)) || 0 : 0);
   if (url.searchParams.get("compte")) return json({ total: await total() }, 200);
   // Compte un téléchargement (3 par heure et par personne au maximum), puis envoie le fichier.

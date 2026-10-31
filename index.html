@@ -1081,7 +1081,7 @@ if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListe
 </script>
 <script id="act-js">document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a.sum-a");if(a&&!(window.matchMedia&&matchMedia("(hover:hover)").matches)){e.preventDefault();var d=a.closest("details");if(d)d.open=!d.open}});</script>
 <a class="pdf-coin" id="pdf-coin" href="/numeros.html" aria-label="Télécharger le magazine en PDF"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 11l5 5 5-5M5 20h14"/></svg><span>Télécharger<span class="l"> le magazine</span> · PDF</span></a>
-<script>(function(){var a=document.getElementById("pdf-coin");fetch("/content/site.json").then(function(r){return r.json()}).then(function(d){var n=(d.numeros||[])[0];if(n&&n.pdf){a.href=n.pdf;a.setAttribute("download","")}}).catch(function(){})})();</script>
+<script>(function(){var a=document.getElementById("pdf-coin");fetch("/content/site.json").then(function(r){return r.json()}).then(function(d){var n=(d.numeros||[])[0];if(n&&n.pdf){a.href=n.id?"/api/telecharger?id="+n.id:n.pdf;a.setAttribute("download","")}}).catch(function(){})})();</script>
 <script>(function(){
 var box=document.getElementById("diaporama");if(!box)return;
 function esc(x){return String(x==null?"":x).replace(/&/g,"&amp;").replace(/</g,"&lt;").replace(/>/g,"&gt;").replace(/"/g,"&quot;")}

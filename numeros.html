@@ -817,9 +817,9 @@ if(window.matchMedia&&matchMedia("(hover:hover)").matches){var t;d.addEventListe
 function esc(t){return String(t==null?"":t).replace(/[&<>"]/g,function(c){return{"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]})}
 fetch("/content/site.json",{cache:"no-cache"}).then(function(r){return r.json()}).then(function(d){
 var L=(d.numeros||[]).slice();if(!L.length){box.innerHTML='<p class="num-m">Le premier numéro arrive bientôt.</p>';return}
-var n=L[0],h='<div class="num-top"><img src="'+esc(n.couverture)+'" alt="Couverture de Bondy TV Magazine '+esc(n.numero)+'"><div><p class="num-k">Dernier numéro · '+esc(n.date)+'</p><h2 class="num-t">'+esc(n.numero)+' · '+esc(n.titre)+'</h2><p class="num-m">'+[n.pages,n.taille&&("PDF "+n.taille),"Gratuit"].filter(Boolean).map(esc).join(" · ")+'</p><a class="num-btn" href="'+esc(n.pdf)+'" download>Télécharger le PDF</a></div></div>';
+var n=L[0],h='<div class="num-top"><img src="'+esc(n.couverture)+'" alt="Couverture de Bondy TV Magazine '+esc(n.numero)+'"><div><p class="num-k">Dernier numéro · '+esc(n.date)+'</p><h2 class="num-t">'+esc(n.numero)+' · '+esc(n.titre)+'</h2><p class="num-m">'+[n.pages,n.taille&&("PDF "+n.taille),"Gratuit"].filter(Boolean).map(esc).join(" · ")+'</p><a class="num-btn" href="'+esc(n.id?"/api/telecharger?id="+n.id:n.pdf)+'" download>Télécharger le PDF</a></div></div>';
 h+='<h2 class="num-h">Tous les numéros</h2><div class="num-g">';
-L.forEach(function(x){h+='<div class="num-c"><img src="'+esc(x.couverture)+'" alt="Couverture '+esc(x.numero)+'" loading="lazy"><b>'+esc(x.numero)+'</b><span>'+esc(x.date)+' · '+esc(x.titre)+'</span><a href="'+esc(x.pdf)+'" download>Télécharger</a></div>'});
+L.forEach(function(x){h+='<div class="num-c"><img src="'+esc(x.couverture)+'" alt="Couverture '+esc(x.numero)+'" loading="lazy"><b>'+esc(x.numero)+'</b><span>'+esc(x.date)+' · '+esc(x.titre)+'</span><a href="'+esc(x.id?"/api/telecharger?id="+x.id:x.pdf)+'" download>Télécharger</a></div>'});
 h+='<div class="num-c num-soon"><b>Prochain numéro</b><span>Bientôt</span></div></div>';
 box.innerHTML=h}).catch(function(){box.innerHTML='<p class="num-m">Les numéros n’ont pas pu se charger. Rechargez la page.</p>'})})();</script>
 </body>
