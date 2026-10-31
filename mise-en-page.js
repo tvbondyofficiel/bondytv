@@ -438,6 +438,7 @@
       ".ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster img img{object-fit:contain!important;object-position:50% 50%!important;position:absolute!important;inset:0;width:100%!important;height:100%!important;z-index:1}" +
       ".ar-grid>.art:not(:has(details[open])) .vis.has-img.is-poster{position:relative;overflow:hidden;background:#e9e4d8!important}" +
       ".ar-grid>.art:has(details[open]) .vis.has-img.is-poster{background:#e9e4d8!important}.ar-grid>.art:has(details[open]) .vis.has-img.is-poster img{max-height:78vh!important;width:auto!important;max-width:100%;margin:0 auto;display:block!important}" +
+      "html body .ar-grid>.art:has(details[open]) .vis.has-img.is-crop{aspect-ratio:16/9!important;height:auto!important;max-height:560px}html body .ar-grid>.art:has(details[open]) .vis.has-img.is-crop img{object-fit:cover!important}html body .ar-grid>.art:has(details[open]) .vis.has-img.is-crop::before{display:none!important}" +
       "html body .ar-grid>.art:not(.mp-photo-gauche):not(.mp-photo-droite):has(details[open]) .vis.has-img:not(.yt-box):not(.is-poster){aspect-ratio:var(--r,16/9)!important;height:auto!important}" +
       "html body .ar-grid>.art:not(.mp-photo-gauche):not(.mp-photo-droite):not(:has(details[open])) .vis.has-img:not(.yt-box):not(.mp-x){aspect-ratio:4/3!important;height:auto!important}";
     document.head.appendChild(st);

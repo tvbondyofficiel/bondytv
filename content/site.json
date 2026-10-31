@@ -516,7 +516,9 @@
       "credit": "",
       "lien_video": "",
       "pleine_largeur": false,
-      "affiche_entiere": true
+      "affiche_entiere": false,
+      "image_recadree": true,
+      "image_focus": "50% 62%"
     }
   ],
   "banniere": {

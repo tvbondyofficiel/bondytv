@@ -795,7 +795,7 @@ details .more,.more.has-ph .tx{gap:8px}
       return '<div class="vis has-video"><video controls playsinline preload="none"' + (a.image ? ' poster="' + esc(a.image) + '"' : "") + ' src="' + esc(a.fichier_video) + '"></video></div>';
     }
     if (v === "image" && a.image) {
-      var cls = "vis has-img" + (a.affiche_entiere ? " is-poster" : a.image_portrait ? " is-portrait" : "");
+      var cls = "vis has-img" + (a.affiche_entiere ? " is-poster" : a.image_portrait ? " is-portrait" : "") + (a.image_recadree ? " is-crop" : "");
       var im = '<img src="' + esc(a.image) + '" alt="' + esc(a.image_description) + '" loading="lazy"' + (a.image_focus ? ' style="object-position:' + esc(a.image_focus) + '"' : "") + '>';
       if (a.lien_video) {
         return '<a class="' + cls + '" href="' + esc(safeUrl(a.lien_video)) + '" target="_blank" rel="noopener" aria-label="Voir la vidéo">' + im + "</a>";
