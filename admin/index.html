@@ -258,7 +258,7 @@ function listEditor(arr,onch){
 function articles(){return S.data.articles||(S.data.articles=[])}
 function caches(){return S.data.articles_caches||(S.data.articles_caches=[])}
 function nav(){
- var items=[['home','Tableau de bord',''],['articles','Articles',String(articles().length)]].concat(SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||s[0]==='mise_en_page'||s[0]==='visuel'||S.data[s[0]]!==undefined}).map(function(s){return [s[0],s[1],'']}));
+ var items=[['home','Tableau de bord',''],['articles','Articles',String(articles().length)],['tribune_cit','Tribune citoyenne',String(articles().filter(function(a){return a.rubrique==='Tribune citoyenne'}).length)]].concat(SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||s[0]==='mise_en_page'||s[0]==='visuel'||S.data[s[0]]!==undefined}).map(function(s){return [s[0],s[1],'']}));
  return h('aside',{},h('div',{class:'brand'},h('b',{},'Bond',h('i',{},'y')),h('span',{},'TV · Admin')),
   items.map(function(it){return h('button',{class:'nav'+(S.view===it[0]?' on':''),onclick:function(){S.view=it[0];S.q='';S.filter='Tous';S.confirm=null;S.toast=null;render();window.scrollTo(0,0)}},h('span',{},it[1]),it[2]?h('small',{},it[2]):null)}),
   h('div',{class:'aside-note'},'Une seule page pour tout le site. Vous changez, puis vous cliquez sur « Publier le site ».',h('br'),h('br'),h('a',{href:'/admin/avance.html'},'Ancienne version'),' · ',h('a',{href:'#',onclick:function(e){e.preventDefault();if(!isDirty()||confirm('Des changements ne sont pas publiés. Se déconnecter quand même ?'))logout()}},'Se déconnecter')))}
@@ -270,7 +270,7 @@ function homeView(){
  return h('section',{},h('div',{class:'stats'},
   [[a+c,'articles au total','#12141c'],[a,'visibles sur le site','#006233'],[c,'brouillons (cachés)','#8a6d2e'],[(S.data.numeros||[]).length,'numéros PDF en ligne','#a30f18']].map(function(s){return h('div',{class:'card stat'},h('b',{style:'color:'+s[2]},s[0]),h('span',{},s[1]))})),
   h('h2',{},'Tout le site, en un coup d’œil'),
-  h('div',{class:'tiles'},[h('button',{class:'tile',style:'--c:#006233',onclick:function(){S.view='articles';render()}},h('b',{},'Articles'),h('span',{style:'color:#555a69;font-size:15px'},(a+c)+' articles : ajouter, modifier, ranger, supprimer.'),h('em',{},'Modifier →'))].concat(
+  h('div',{class:'tiles'},[h('button',{class:'tile',style:'--c:#006233',onclick:function(){S.view='articles';render()}},h('b',{},'Articles'),h('span',{style:'color:#555a69;font-size:15px'},(a+c)+' articles : ajouter, modifier, ranger, supprimer.'),h('em',{},'Modifier →')),h('button',{class:'tile',style:'--c:#006233',onclick:function(){S.view='tribune_cit';render()}},h('b',{},'Tribune citoyenne'),h('span',{style:'color:#555a69;font-size:15px'},'La page des tribunes des habitants (8 places) : ajouter, modifier, voir la page.'),h('em',{},'Modifier →'))].concat(
    SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||s[0]==='mise_en_page'||s[0]==='visuel'||S.data[s[0]]!==undefined}).map(function(s){return h('button',{class:'tile',style:'--c:'+s[2],onclick:function(){S.view=s[0];render()}},h('b',{},s[1]),h('span',{style:'color:#555a69;font-size:15px'},s[3]),h('em',{},'Modifier →'))}))))}
 function restore(a){var at=typeof a.ordre==='number'?Math.min(a.ordre,articles().length):articles().length;delete a.ordre;articles().splice(at,0,a)}
 function artRow(a,idx,draft){
@@ -285,14 +285,14 @@ function artRow(a,idx,draft){
   acts.appendChild(h('button',{class:'btn dark',onclick:function(){S.drawer={list:draft?'c':'a',idx:idx,obj:JSON.parse(JSON.stringify(a)),isNew:false};render()}},'Modifier'));
   acts.appendChild(h('button',{class:'btn sq warn',title:'Supprimer','aria-label':'Supprimer',onclick:function(){S.confirm=(draft?'c':'a')+idx;render()}},'✕'))}
  return h('div',{class:'row'+(draft?' draft':'')},pos,h('div',{class:'t'},h('b',{},a.titre||'(sans titre)'),h('div',{class:'meta'},h('span',{class:'pill',style:'background:'+col[0]+';color:'+col[1]},a.rubrique||'—'),h('span',{class:'st'},draft?'Brouillon · caché':'Publié · visible'))),acts)}
-function articlesView(){
+function articlesView(fixed){
  var q=S.q.trim().toLowerCase();
- function ok(a){return (S.filter==='Tous'||a.rubrique===S.filter)&&(!q||(a.titre||'').toLowerCase().indexOf(q)>=0)}
+ function ok(a){return (fixed?a.rubrique===fixed:(S.filter==='Tous'||a.rubrique===S.filter))&&(!q||(a.titre||'').toLowerCase().indexOf(q)>=0)}
  var rows=[];articles().forEach(function(a,i){if(ok(a))rows.push(artRow(a,i,false))});caches().forEach(function(a,i){if(ok(a))rows.push(artRow(a,i,true))});
  var chips=['Tous'].concat(RUBRIQUES).map(function(r){return h('button',{class:'chip'+(S.filter===r?' on':''),'aria-pressed':S.filter===r?'true':'false',onclick:function(){S.filter=r;render()}},r)});
  var si=h('input',{type:'search','aria-label':'Chercher un article',placeholder:'Chercher un article…',value:S.q,oninput:function(e){S.q=e.target.value;var pos=e.target.selectionStart;render();var n=root.querySelector('input[type=search]');if(n){n.focus();n.setSelectionRange(pos,pos)}}});
- return h('section',{},h('div',{class:'tools'},si,h('button',{class:'btn green',style:'min-height:48px;font-size:17px',onclick:function(){S.drawer={list:'c',idx:-1,isNew:true,obj:{id:'',rubrique:'Actualité',etiquette:'',titre:'',chapo:'',texte_visible:'',texte:'',visuel:'none',image:'',image_description:'',credit:'Photo : Bondy TV'}};render()}},'+ Nouvel article')),
-  h('div',{class:'chips'},chips),h('div',{class:'card list'},rows.length?rows:h('div',{class:'empty'},'Aucun article ne correspond. Essayez un autre mot, ou cliquez sur « Tous ».')),
+ return h('section',{},h('div',{class:'tools'},si,h('button',{class:'btn green',style:'min-height:48px;font-size:17px',onclick:function(){S.drawer={list:'c',idx:-1,isNew:true,obj:{id:'',rubrique:fixed||'Actualité',etiquette:fixed?'Tribune':'',titre:'',chapo:'',texte_visible:'',texte:'',visuel:'none',image:'',image_description:'',credit:'Photo : Bondy TV'}};render()}},fixed?'+ Nouvelle tribune':'+ Nouvel article')),
+  fixed?h('div',{class:'card panel',style:'margin:0 0 14px;background:#e4f1e9;font-size:17px'},h('b',{},rows.length+' tribune'+(rows.length>1?'s':'')+' sur 8 places. '),'Les 8 premières tribunes visibles s’affichent sur la page, la première de la liste en grand. Pour en ajouter : « + Nouvelle tribune », écrivez, puis « Publier le site ».',h('p',{style:'margin:10px 0 0'},h('a',{href:'/page.html?p=tribune-citoyenne',target:'_blank',style:'font-weight:700'},'Voir la page Tribune citoyenne →'))):h('div',{class:'chips'},chips),h('div',{class:'card list'},rows.length?rows:h('div',{class:'empty'},'Aucun article ne correspond. Essayez un autre mot, ou cliquez sur « Tous ».')),
   h('p',{class:'hint'},'Les numéros 1, 2, 3… sont l’ordre d’affichage sur le site ; les flèches changent l’ordre. Un « brouillon » n’est pas visible sur le site ; un nouvel article commence en brouillon.'))}
 function livresView(onch){
  var wrap=h('div');var L=S.data.livres||(S.data.livres=[]);
@@ -777,11 +777,11 @@ function render(){
  var y=window.scrollY;root.innerHTML='';
  if(!S.token){root.appendChild(loginView());return}
  if(S.loading||!S.data){root.appendChild(h('div',{class:'spin'},'Chargement du site…'));return}
- var titles={home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
+ var titles={home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
  var sec=SECTIONS.filter(function(s){return s[0]===S.view})[0];
  var t=titles[S.view]||(sec?[sec[1],sec[3]]:['','']);
  var main=h('main',{},header(t[0],t[1]),S.toast?h('div',{class:'toast'+(S.toastErr?' err':''),role:'status'},S.toast):null,
-  S.view==='home'?homeView():S.view==='articles'?articlesView():sectionView(S.view));
+  S.view==='home'?homeView():S.view==='articles'?articlesView():S.view==='tribune_cit'?articlesView('Tribune citoyenne'):sectionView(S.view));
  root.appendChild(h('div',{class:'app'},nav(),main));
  if(S.drawer)root.appendChild(drawerView());
  window.scrollTo(0,y)}
