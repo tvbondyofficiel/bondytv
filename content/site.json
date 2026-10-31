@@ -1345,7 +1345,7 @@
     }
   },
   "boutique": {
-    "actif": false,
+    "actif": true,
     "titre": "Porte Bondy fièrement.",
     "intro": "Des t-shirts imprimés avec les mots de notre ville. Tu choisis, tu paies avec PayPal, on t'envoie le colis.",
     "paypal_email": "",
