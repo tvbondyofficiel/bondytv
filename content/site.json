@@ -422,22 +422,6 @@
       "affiche_entiere": false
     },
     {
-      "id": "mosquee-acmb",
-      "rubrique": "Solidarité et associations",
-      "etiquette": "Ville · Annonce d'association",
-      "titre": "Une nouvelle mosquée à Bondy : l'ACMB lance son projet",
-      "chapo": "L'Association Culturelle des Musulmans de Bondy annonce vouloir construire une nouvelle mosquée dans la commune.",
-      "visuel": "image",
-      "image": "/images/acmb-affiche.jpg",
-      "image_description": "Affiche de l'Association Culturelle des Musulmans de Bondy (ACMB) : « Construire une nouvelle mosquée à Bondy ». Pour suivre le projet : Instagram @acmbondy et groupe WhatsApp Projet Mosquée de Bondy.",
-      "image_portrait": false,
-      "credit": "Affiche : ACMB",
-      "pleine_largeur": false,
-      "texte_visible": "Selon l'association, la population musulmane de Bondy ne cesse de croître et la mosquée existante est saturée. L'ACMB souhaite donc un nouveau lieu de prière, « à la hauteur de ses besoins ». Elle invite les Bondynois à partager l'information.\n\nPour suivre l'évolution du projet : Instagram **@acmbondy** et le groupe WhatsApp **« Projet Mosquée de Bondy »**.",
-      "texte": "",
-      "affiche_entiere": true
-    },
-    {
       "lien_video": "",
       "texte_visible": "",
       "rubrique": "Les bons acteurs de Bondy",
@@ -1219,6 +1203,22 @@
       "image_portrait": false,
       "affiche_entiere": true,
       "vignette": "/images/mon-prof-de-conduite-logo.jpg"
+    },
+    {
+      "id": "mosquee-acmb",
+      "rubrique": "Solidarité et associations",
+      "etiquette": "Ville · Annonce d'association",
+      "titre": "Une nouvelle mosquée à Bondy : l'ACMB lance son projet",
+      "chapo": "L'Association Culturelle des Musulmans de Bondy annonce vouloir construire une nouvelle mosquée dans la commune.",
+      "visuel": "image",
+      "image": "/images/acmb-affiche.jpg",
+      "image_description": "Affiche de l'Association Culturelle des Musulmans de Bondy (ACMB) : « Construire une nouvelle mosquée à Bondy ». Pour suivre le projet : Instagram @acmbondy et groupe WhatsApp Projet Mosquée de Bondy.",
+      "image_portrait": false,
+      "credit": "Affiche : ACMB",
+      "pleine_largeur": false,
+      "texte_visible": "Selon l'association, la population musulmane de Bondy ne cesse de croître et la mosquée existante est saturée. L'ACMB souhaite donc un nouveau lieu de prière, « à la hauteur de ses besoins ». Elle invite les Bondynois à partager l'information.\n\nPour suivre l'évolution du projet : Instagram **@acmbondy** et le groupe WhatsApp **« Projet Mosquée de Bondy »**.",
+      "texte": "",
+      "affiche_entiere": true
     }
   ],
   "livres": [
