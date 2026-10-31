@@ -528,14 +528,13 @@
       "texte_visible": "",
       "rubrique": "Tribune citoyenne",
       "etiquette": "Tribune",
-      "visuel": "none",
-      "image": "",
-      "image_description": "",
+      "visuel": "image",
+      "image": "/images/police-municipale-vehicule.jpg",
+      "image_description": "Portière d’un véhicule blanc de la police municipale, avec l’écusson et l’inscription « Police municipale ».",
       "credit": "",
       "lien_video": "",
       "pleine_largeur": false,
-      "affiche_entiere": false,
-      "image_focus": ""
+      "affiche_entiere": false
     }
   ],
   "banniere": {
