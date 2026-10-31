@@ -297,6 +297,7 @@ function articlesView(){
 function livresView(onch){
  var wrap=h('div');var L=S.data.livres||(S.data.livres=[]);
  wrap.appendChild(h('div',{class:'card panel',style:'margin-bottom:18px;max-width:820px;background:#fff7e3'},h('b',{style:'font-size:18px'},'Pour mettre un livre en téléchargement :'),h('ol',{style:'margin:10px 0 0;padding-left:22px;line-height:1.7;font-size:17px'},h('li',{},'Remplissez le titre et la présentation.'),h('li',{},'Cliquez sur « Choisir le fichier du livre » et prenez votre PDF (moins de 24 Mo).'),h('li',{},'Cliquez sur « Publier le site » en haut. Le bouton se met à jour tout seul sur la page « Le livre ».'))));
+ var bt=!!S.data.livres_bientot;wrap.appendChild(h('div',{class:'card panel',style:'margin-bottom:18px;max-width:820px;background:'+(bt?'#fff7e3':'#e4f1e9')},h('b',{style:'font-size:18px;display:block;margin-bottom:8px'},bt?'Le livre est annoncé « pour le prochain numéro » (le téléchargement est caché)':'Le livre est en téléchargement sur le site'),sw(bt,'Afficher « Disponible avec le prochain numéro » à la place du livre',function(){S.data.livres_bientot=!S.data.livres_bientot;if(!S.data.livres_bientot)delete S.data.livres_bientot;onch();render()})));
  L.forEach(function(b,i){
   var card=h('section',{class:'card panel',style:'margin-bottom:18px'});
   var has=!!b.fichier;
