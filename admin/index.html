@@ -740,6 +740,29 @@ function diaporamaView(onch){
  wrap.appendChild(h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px',onclick:function(){fi.click()}},'+ Ajouter des photos'));
  wrap.appendChild(h('p',{style:'color:#555a69;font-size:15px;margin-top:10px'},'Tu peux choisir plusieurs photos d’un coup. Pense à « Enregistrer » puis « Publier le site ».'));
  return wrap}
+function numerosAddCard(onch){
+ var N=S.data.numeros||(S.data.numeros=[]);var f={numero:'N°'+(N.length+1),titre:'',date:''};var file=null;
+ var card=h('div',{class:'card panel',style:'margin-bottom:18px;max-width:820px;background:#fff7e3'});
+ card.appendChild(h('h2',{style:'margin:0 0 6px;font-size:22px'},'+ Ajouter un magazine'));
+ card.appendChild(h('p',{style:'margin:0 0 12px;font-size:17px'},'1) Écrivez le numéro, le titre et la date. 2) Choisissez votre PDF. 3) Cliquez « Publier ce magazine ». La couverture, le nombre de pages et le poids se font tout seuls.'));
+ var mk=function(k,lab,ph){var i=h('input',{type:'text',value:f[k],placeholder:ph,style:'width:100%;font:inherit;padding:10px;border:1px solid #ddd8cf;border-radius:8px',oninput:function(){f[k]=i.value}});card.appendChild(h('label',{style:'display:block;margin-bottom:10px;font-weight:600'},lab,i))};
+ mk('numero','Numéro','N°2');mk('titre','Titre du magazine','Le titre de la couverture');mk('date','Date','Décembre 2026');
+ var info=h('div',{style:'margin:8px 0;font-weight:600'},'Aucun PDF choisi.');
+ var inp=h('input',{type:'file',accept:'application/pdf',style:'display:none',onchange:function(){var x=inp.files[0];if(!x)return;if(x.size>24*1024*1024){say('Ce PDF fait plus de 24 Mo : trop gros. Allégez-le (export « taille minimale ») puis recommencez.',true);return}file=x;info.textContent='PDF choisi : '+x.name+' ('+(x.size/1e6).toFixed(1).replace('.',',')+' Mo)'}});
+ var go=h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px',onclick:function(){
+  if(S.busy)return;if(!file){say('Choisissez d’abord votre PDF.',true);return}if(!f.numero.trim()||!f.titre.trim()){say('Écrivez le numéro et le titre.',true);return}
+  S.busy=true;render();
+  var ld=function(cb){if(window.pdfjsLib)return cb();var sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js';sc.onload=function(){window.pdfjsLib.GlobalWorkerOptions.workerSrc='https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';cb()};sc.onerror=function(){S.busy=false;say('Impossible de lire le PDF pour faire la couverture. Vérifiez internet.',true)};document.head.appendChild(sc)};
+  ld(function(){var fr=new FileReader();fr.onload=function(){window.pdfjsLib.getDocument({data:new Uint8Array(fr.result)}).promise.then(function(doc){var np=doc.numPages;return doc.getPage(1).then(function(pg){var vp0=pg.getViewport({scale:1}),k=1100/vp0.width,vp=pg.getViewport({scale:k}),c=document.createElement('canvas');c.width=vp.width;c.height=vp.height;return pg.render({canvasContext:c.getContext('2d'),viewport:vp}).promise.then(function(){return new Promise(function(res){c.toBlob(function(b){res({np:np,blob:b})},'image/jpeg',.86)})})})}).then(function(r){
+   S.busy=false;var cov=new File([r.blob],'couverture-'+slug(f.numero)+'.jpg',{type:'image/jpeg'});
+   uploadFile(file,'magazine',function(pp){uploadFile(cov,'images',function(cp){var id='n'+Date.now().toString(36);
+    N.unshift({numero:f.numero.trim(),id:id,titre:f.titre.trim(),date:f.date.trim(),couverture:cp,pdf:pp,pages:r.np+' pages',taille:(file.size/1e6).toFixed(1).replace('.',',')+' Mo'});
+    onch();render();say('Magazine ajouté ✓ Cliquez maintenant sur « Enregistrer » puis « Publier » en haut. Il sera sur l’accueil et sur la page Numéros.')})})
+  }).catch(function(){S.busy=false;say('Ce PDF ne peut pas être lu. Essayez un autre export.',true)})};fr.readAsArrayBuffer(file)})
+ }},'Publier ce magazine');
+ card.appendChild(h('div',{},h('button',{type:'button',class:'btn',onclick:function(){inp.click()}},'Choisir mon PDF'),inp,info));
+ card.appendChild(h('div',{style:'margin-top:10px'},go));
+ return card}
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){refreshBar()};
  if(key==='livres')return livresView(onch);
@@ -750,7 +773,7 @@ function sectionView(key){
  if(key==='mise_en_page')return mpSiteView();
  if(key==='visuel')return visuelView();
  if(key==='general'){box.appendChild(h('h2',{style:'font-size:22px'},'Logo et images du site'));box.appendChild(siteImage('Logo de Bondy TV','Le logo en haut à gauche de chaque page. Choisissez de préférence une image PNG à fond transparent.','images/logo.png','logo',110,72));box.appendChild(siteImage('Image de partage','L\u2019image qui s\u2019affiche quand on partage le site sur WhatsApp ou Facebook. Elle est recadrée en 1200 × 630.','images/partage.jpg','share',190,100));box.appendChild(h('h2',{style:'font-size:22px;margin-top:26px'},'Textes généraux'));GENERAL_KEYS.forEach(function(k){if(S.data[k]!==undefined)box.appendChild(field(S.data,k,onch))})}
- else if(Array.isArray(S.data[key]))box.appendChild(listEditor(S.data[key],onch));
+ else if(Array.isArray(S.data[key])){if(key==='numeros')box.appendChild(numerosAddCard(onch));box.appendChild(listEditor(S.data[key],onch))}
  else objectEditor(box,S.data[key],onch);
  return box}
 function drawerView(){
