@@ -91,6 +91,12 @@ details.adv{margin-bottom:18px}
 .login p{color:var(--muted);font-size:17px}
 .spin{padding:60px;text-align:center;color:var(--muted);font-size:18px}
 @media (max-width:700px){main{padding:20px 14px 80px}h1{font-size:32px}}
+.bigs{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:16px;margin-bottom:26px}
+.bigb{text-align:left;border:0;border-radius:12px;padding:20px 22px;color:#fff;display:flex;flex-direction:column;gap:6px;min-height:118px;cursor:pointer;font:inherit}
+.bigb b{font:800 26px 'Barlow Condensed',sans-serif;text-transform:uppercase}.bigb span{font-size:16px;opacity:.92}
+.gtile ul{margin:6px 0 0;padding:0;list-style:none;font-size:15px;color:#333;display:flex;flex-direction:column;gap:3px}.gtile li:before{content:"›";margin-right:8px;font-weight:800;color:var(--c)}
+.crumb{display:inline-flex;align-items:center;gap:8px;margin:0 0 14px;padding:8px 14px;border:1.5px solid var(--ink);border-radius:8px;background:#fff;font-weight:700;font-size:16px;cursor:pointer}
+.navsm{margin:14px 14px 4px;color:var(--gold);letter-spacing:.14em;font:700 12px 'Barlow',sans-serif}
 </style>
 </head>
 <body>
@@ -257,21 +263,48 @@ function listEditor(arr,onch){
 /* ---------- vues ---------- */
 function articles(){return S.data.articles||(S.data.articles=[])}
 function caches(){return S.data.articles_caches||(S.data.articles_caches=[])}
+var GROUPS=[
+ ['articles','Articles','#12141c',['articles','tribune_cit','couverture','pages'],'Écrire, ranger et publier les articles.'],
+ ['magazine','Magazine PDF','#d3141f',['numeros'],'Ajouter un magazine en PDF, voir les téléchargements.'],
+ ['photos','Photos et vidéos','#006233',['diaporama','en_images','videos','reportages'],'Le diaporama, Bondy en images, les vidéos.'],
+ ['pagesite','Pages du site','#b8975a',['pages_libres','point_de_vue','paroles','bonnes_infos','temoigner','tribune','essentiel','elus'],'Mes pages et les pages des habitants.'],
+ ['boutique','Boutique et livre','#b8975a',['boutique','livres'],'Tout ce qui sert à vendre ou à télécharger.'],
+ ['contact','Contact et publicité','#006233',['proposer','page_pub','assistant'],'Écrivez-nous, encadrés publicitaires, assistant.'],
+ ['apparence','Apparence et réglages','#12141c',['visuel','mise_en_page','general','banniere','pied_de_page'],'Les outils graphiques : éditeur visuel, mise en page, logo, bannière, pied de page.']
+];
+function itemOK(k){if(k==='articles'||k==='tribune_cit')return true;var s=SECTIONS.filter(function(x){return x[0]===k})[0];return !!s&&(k==='general'||k==='pages'||k==='mise_en_page'||k==='visuel'||S.data[k]!==undefined)}
+function itemInfo(k){if(k==='articles')return ['Articles','#12141c',(articles().length+caches().length)+' articles : ajouter, modifier, ranger, supprimer.'];if(k==='tribune_cit')return ['Tribune citoyenne','#006233','Les tribunes des habitants (8 places).'];var s=SECTIONS.filter(function(x){return x[0]===k})[0];return [s[1],s[2],s[3]]}
+function groupOf(v){for(var i=0;i<GROUPS.length;i++){if('g:'+GROUPS[i][0]===v||GROUPS[i][3].indexOf(v)>=0)return GROUPS[i]}return null}
+function newArticle(){S.drawer={list:'c',idx:-1,isNew:true,obj:{id:'',rubrique:'Actualité',etiquette:'',titre:'',chapo:'',texte_visible:'',texte:'',visuel:'none',image:'',image_description:'',credit:'Photo : Bondy TV'}};render()}
+function go(v){S.view=v;S.q='';S.filter='Tous';S.confirm=null;S.toast=null;render();window.scrollTo(0,0)}
 function nav(){
- var items=[['home','Tableau de bord',''],['articles','Articles',String(articles().length)],['tribune_cit','Tribune citoyenne',String(articles().filter(function(a){return a.rubrique==='Tribune citoyenne'}).length)]].concat(SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||s[0]==='mise_en_page'||s[0]==='visuel'||S.data[s[0]]!==undefined}).map(function(s){return [s[0],s[1],'']}));
+ var g=groupOf(S.view);
+ var btn=function(id,label,on,sm){return h('button',{class:'nav'+(on?' on':''),onclick:function(){go(id)}},h('span',{},label),sm?h('small',{},sm):null)};
+ var list=[btn('home','Tableau de bord',S.view==='home')];
+ list.push(h('div',{class:'navsm'},'MES TÂCHES'));
+ GROUPS.slice(0,6).forEach(function(G){list.push(btn('g:'+G[0],G[1],g&&g[0]===G[0]))});
+ list.push(h('div',{class:'navsm'},'AVANCÉ'));
+ var A=GROUPS[6];list.push(btn('g:'+A[0],A[1],g&&g[0]===A[0]));
  return h('aside',{},h('div',{class:'brand'},h('b',{},'Bond',h('i',{},'y')),h('span',{},'TV · Admin')),
-  items.map(function(it){return h('button',{class:'nav'+(S.view===it[0]?' on':''),onclick:function(){S.view=it[0];S.q='';S.filter='Tous';S.confirm=null;S.toast=null;render();window.scrollTo(0,0)}},h('span',{},it[1]),it[2]?h('small',{},it[2]):null)}),
+  list,
   h('div',{class:'aside-note'},'Une seule page pour tout le site. Vous changez, puis vous cliquez sur « Publier le site ».',h('br'),h('br'),h('a',{href:'/admin/avance.html'},'Ancienne version'),' · ',h('a',{href:'#',onclick:function(e){e.preventDefault();if(!isDirty()||confirm('Des changements ne sont pas publiés. Se déconnecter quand même ?'))logout()}},'Se déconnecter')))}
+function groupView(G){
+ var tiles=G[3].filter(itemOK).map(function(k){var inf=itemInfo(k);return h('button',{class:'tile',style:'--c:'+inf[1],onclick:function(){go(k)}},h('b',{},inf[0]),h('span',{style:'color:#555a69;font-size:15px'},inf[2]),h('em',{},'Ouvrir →'))});
+ return h('section',{},h('div',{class:'tiles'},tiles))}
+function crumb(){var g=groupOf(S.view);if(!g||S.view==='home'||S.view.indexOf('g:')===0)return null;return h('button',{class:'crumb',onclick:function(){go('g:'+g[0])}},'← '+g[1])}
+function homeView(){
+ var a=articles().length,c=caches().length;
+ var stats=h('div',{class:'stats'},
+  [[a+c,'articles au total','#12141c'],[a,'visibles sur le site','#006233'],[c,'brouillons (cachés)','#8a6d2e'],[(S.data.numeros||[]).length,'numéros PDF en ligne','#a30f18'],['…','téléchargements du magazine','#006233','dl']].map(function(s){var bb=h('b',{style:'color:'+s[2]},s[0]);if(s[3]==='dl'){var n1=(S.data.numeros||[])[0];if(n1&&n1.id)fetch('/api/telecharger?compte=1&id='+encodeURIComponent(n1.id)).then(function(r){return r.json()}).then(function(j){bb.textContent=Number(j.total||0).toLocaleString('fr-FR')}).catch(function(){bb.textContent='–'});else bb.textContent='0'}return h('div',{class:'card stat'},bb,h('span',{},s[1]))}));
+ var bigs=h('div',{class:'bigs'},
+  h('button',{class:'bigb',style:'background:#12141c',onclick:newArticle},h('b',{},'+ Écrire un article'),h('span',{},'Titre, texte, photo, puis publier.')),
+  h('button',{class:'bigb',style:'background:#d3141f',onclick:function(){go('numeros')}},h('b',{},'+ Ajouter un magazine'),h('span',{},'Choisis ton PDF : la couverture se fait toute seule.')),
+  h('button',{class:'bigb',style:'background:#006233',onclick:function(){go('en_images')}},h('b',{},'+ Ajouter des photos'),h('span',{},'Bondy en images, diaporama, vidéos.')));
+ var tiles=h('div',{class:'tiles'},GROUPS.map(function(G){var items=G[3].filter(itemOK).map(function(k){return h('li',{},itemInfo(k)[0])});return h('button',{class:'tile gtile',style:'--c:'+G[2],onclick:function(){go('g:'+G[0])}},h('b',{},G[1]),h('ul',{},items),h('em',{},'Ouvrir →'))}));
+ return h('section',{},stats,bigs,h('h2',{},'Toutes les familles'),tiles)}
 function header(title,sub){
  var d=isDirty();
  return h('header',{class:'top'},h('div',{},h('h1',{},title),h('p',{class:'sub'},sub)),h('div',{class:'bar'},h('span',{class:'dirty'+(d?'':' ok')},!d?'Tout est publié':(savedNow()?'Brouillon enregistré, pas encore publié':'Changements pas enregistrés')),h('button',{class:'btn save',style:'background:#fff;color:#12141c;border:1.5px solid #12141c',disabled:(!d||savedNow())||null,onclick:saveDraft},'Enregistrer'),h('button',{class:'btn gold',title:'Enregistre d’abord, puis publie',disabled:(!(d&&savedNow())||S.busy)||null,onclick:publish},S.busy?'Un instant…':'Publier le site')))}
-function homeView(){
- var a=articles().length,c=caches().length;
- return h('section',{},h('div',{class:'stats'},
-  [[a+c,'articles au total','#12141c'],[a,'visibles sur le site','#006233'],[c,'brouillons (cachés)','#8a6d2e'],[(S.data.numeros||[]).length,'numéros PDF en ligne','#a30f18'],['…','téléchargements du magazine','#006233','dl']].map(function(s){var bb=h('b',{style:'color:'+s[2]},s[0]);if(s[3]==='dl'){var n1=(S.data.numeros||[])[0];if(n1&&n1.id)fetch('/api/telecharger?compte=1&id='+encodeURIComponent(n1.id)).then(function(r){return r.json()}).then(function(j){bb.textContent=Number(j.total||0).toLocaleString('fr-FR')}).catch(function(){bb.textContent='–'});else bb.textContent='0'}return h('div',{class:'card stat'},bb,h('span',{},s[1]))})),
-  h('h2',{},'Tout le site, en un coup d’œil'),
-  h('div',{class:'tiles'},[h('button',{class:'tile',style:'--c:#006233',onclick:function(){S.view='articles';render()}},h('b',{},'Articles'),h('span',{style:'color:#555a69;font-size:15px'},(a+c)+' articles : ajouter, modifier, ranger, supprimer.'),h('em',{},'Modifier →')),h('button',{class:'tile',style:'--c:#006233',onclick:function(){S.view='tribune_cit';render()}},h('b',{},'Tribune citoyenne'),h('span',{style:'color:#555a69;font-size:15px'},'La page des tribunes des habitants (8 places) : ajouter, modifier, voir la page.'),h('em',{},'Modifier →'))].concat(
-   SECTIONS.filter(function(s){return s[0]==='general'||s[0]==='pages'||s[0]==='mise_en_page'||s[0]==='visuel'||S.data[s[0]]!==undefined}).map(function(s){return h('button',{class:'tile',style:'--c:'+s[2],onclick:function(){S.view=s[0];render()}},h('b',{},s[1]),h('span',{style:'color:#555a69;font-size:15px'},s[3]),h('em',{},'Modifier →'))}))))}
 function restore(a){var at=typeof a.ordre==='number'?Math.min(a.ordre,articles().length):articles().length;delete a.ordre;articles().splice(at,0,a)}
 function artRow(a,idx,draft){
  var col=RUBCOL[a.rubrique]||['#12141c','#fff'];var cf=S.confirm===(draft?'c':'a')+idx;
@@ -802,9 +835,10 @@ function render(){
  if(S.loading||!S.data){root.appendChild(h('div',{class:'spin'},'Chargement du site…'));return}
  var titles={home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
  var sec=SECTIONS.filter(function(s){return s[0]===S.view})[0];
- var t=titles[S.view]||(sec?[sec[1],sec[3]]:['','']);
+ var gg=S.view.indexOf('g:')===0?GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0]:null;
+ var t=gg?[gg[1],gg[4]]:(titles[S.view]||(sec?[sec[1],sec[3]]:['','']));
  var main=h('main',{},header(t[0],t[1]),S.toast?h('div',{class:'toast'+(S.toastErr?' err':''),role:'status'},S.toast):null,
-  S.view==='home'?homeView():S.view==='articles'?articlesView():S.view==='tribune_cit'?articlesView('Tribune citoyenne'):sectionView(S.view));
+  crumb(),S.view==='home'?homeView():S.view.indexOf('g:')===0?groupView(gg):S.view==='articles'?articlesView():S.view==='tribune_cit'?articlesView('Tribune citoyenne'):sectionView(S.view));
  root.appendChild(h('div',{class:'app'},nav(),main));
  if(S.drawer)root.appendChild(drawerView());
  window.scrollTo(0,y)}
