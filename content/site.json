@@ -1510,8 +1510,8 @@
       "slug": "tribune-citoyenne",
       "titre": "Tribune citoyenne",
       "intro": "La parole aux habitants de Bondy.",
-      "actif": true,
-      "menu": true,
+      "actif": false,
+      "menu": false,
       "liste": "Tribune citoyenne"
     }
   ],
