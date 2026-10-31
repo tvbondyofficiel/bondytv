@@ -12,7 +12,7 @@
     "body.mp-lg-etroit .wrap{max-width:860px}body.mp-lg-large .wrap{max-width:1360px}" +
     "body.mp-es-aere .wrap>section,body.mp-es-aere .wrap>h2{margin-top:56px!important}body.mp-es-compact .wrap>section,body.mp-es-compact .wrap>h2{margin-top:18px!important}";
   document.head.appendChild(css);
-  function page() { var p = location.pathname.replace(/^\//, "").replace(/\/$/, ""); p = p || "index.html"; if (p === "page.html") { var q = new URLSearchParams(location.search).get("p"); if (q) p = "p/" + q + ".html"; } return p.indexOf(".") < 0 ? p + ".html" : p; }
+  function page() { var p = location.pathname.replace(/^\//, "").replace(/\/$/, ""); p = p || "index.html"; if (p === "page.html" || p === "page") { var q = new URLSearchParams(location.search).get("p"); if (q) p = "p/" + q + ".html"; } return p.indexOf(".") < 0 ? p + ".html" : p; }
 
   var DEV = { pc: "(min-width:1101px)", tablette: "(min-width:621px) and (max-width:1100px)", mobile: "(max-width:620px)" };
   function tag() {

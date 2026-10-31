@@ -23,8 +23,8 @@
         var ref = null; nav.querySelectorAll("details.dd").forEach(function (x) { var s = x.querySelector("summary"); if (s && /compte/i.test(s.textContent)) ref = x; });
         pl.forEach(function (x) {
           if (nav.querySelector('a.nav-libre[data-slug="' + x.slug + '"]')) return;
-          var a = document.createElement("a"); a.className = "nav-home nav-libre"; a.setAttribute("data-slug", x.slug); a.href = "/p/" + x.slug; a.textContent = x.titre || x.slug;
-          if (location.pathname.replace(/\.html$/, "").replace(/\/$/, "") === "/p/" + x.slug) a.setAttribute("aria-current", "page");
+          var a = document.createElement("a"); a.className = "nav-home nav-libre"; a.setAttribute("data-slug", x.slug); a.href = "/page.html?p=" + encodeURIComponent(x.slug); a.textContent = x.titre || x.slug;
+          if ((new URLSearchParams(location.search).get("p") || location.pathname.replace(/^\/p\//, "").replace(/\.html$/, "").replace(/\/$/, "")) === x.slug) a.setAttribute("aria-current", "page");
           if (ref) nav.insertBefore(a, ref); else nav.appendChild(a);
         });
       };
