@@ -115,7 +115,8 @@
       "chapo": "Bondy TV existe depuis 2018. Aujourd'hui, c'est enfin un média complet, pensé pour être utile aux Bondynois.",
       "visuel": "image",
       "etiquette": "À la une",
-      "image_portrait": false
+      "image_portrait": false,
+      "affiche_entiere": true
     },
     {
       "lien_video": "",
@@ -138,7 +139,8 @@
       "contact_role": "Je suis joignable et à votre service.",
       "contact_texte": "Je suis à votre écoute. Appelez-moi, écrivez-moi. Je suis là pour vous.",
       "contact_qr": "/images/qr-bondytv-www.png",
-      "contact_qr_legende": "Flashez pour ouvrir l'appli Bondy TV"
+      "contact_qr_legende": "Flashez pour ouvrir l'appli Bondy TV",
+      "affiche_entiere": true
     },
     {
       "lien_video": "https://www.youtube.com/watch?v=5tBiSEFapGk",
@@ -218,7 +220,8 @@
       "visuel": "image",
       "etiquette": "Actualité · Propreté",
       "image_portrait": false,
-      "image_focus": "50% 56%"
+      "image_focus": "50% 56%",
+      "affiche_entiere": true
     },
     {
       "id": "pepitheque",
@@ -264,7 +267,8 @@
       "lien_video": "",
       "credit": "Photo : Bondy TV",
       "texte_visible": "",
-      "texte": "« Partageons le goût de la lecture » : c'est écrit sur cette petite boîte rouge, posée à l'entrée du Bois de Bondy. Le principe est simple : on prend un livre, on en dépose un autre. C'est gratuit, ouvert à tous et accessible à toute heure.\n\nBondy TV aimerait en voir partout dans la ville, à chaque coin de rue : un livre à portée de main, c'est un pas de plus vers le savoir pour chacun.\n\nEt vous ? Une idée d'endroit pour la prochaine boîte à livres ? Écrivez-nous."
+      "texte": "« Partageons le goût de la lecture » : c'est écrit sur cette petite boîte rouge, posée à l'entrée du Bois de Bondy. Le principe est simple : on prend un livre, on en dépose un autre. C'est gratuit, ouvert à tous et accessible à toute heure.\n\nBondy TV aimerait en voir partout dans la ville, à chaque coin de rue : un livre à portée de main, c'est un pas de plus vers le savoir pour chacun.\n\nEt vous ? Une idée d'endroit pour la prochaine boîte à livres ? Écrivez-nous.",
+      "affiche_entiere": true
     },
     {
       "id": "histoire",
@@ -512,9 +516,7 @@
       "credit": "",
       "lien_video": "",
       "pleine_largeur": false,
-      "image_portrait": true,
-      "affiche_entiere": false,
-      "image_focus": "50% 34%"
+      "affiche_entiere": true
     }
   ],
   "banniere": {
