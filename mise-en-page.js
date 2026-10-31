@@ -238,6 +238,22 @@
       el.style.cssText = "left:" + n(a.x, 8) + "%;top:" + n(a.y, 8) + "%;width:" + n(a.w, 84) + "%;" + (a.h ? "height:" + n(a.h, 40) + "%;" : "") + "z-index:" + (a.z === "derriere" ? 0 : 6);
     }
     try {
+      if (ty === "titre" || ty === "texte" || ty === "bouton") {
+        var FF = { condensee: "'Barlow Condensed',sans-serif", barlow: "'Barlow',sans-serif", elegante: "Georgia,'Times New Roman',serif", machine: "'Courier New',monospace" };
+        var tg = [el].concat([].slice.call(el.querySelectorAll("*")));
+        tg.forEach(function (t) {
+          if (a.police && FF[a.police]) t.style.fontFamily = FF[a.police];
+          var fs = Number(a.pt); if (isFinite(fs) && fs >= 8 && t !== el) t.style.fontSize = fs + "px";
+          if (a.gras === 1) t.style.fontWeight = "700"; else if (a.gras === 0) t.style.fontWeight = "400";
+          if (a.ital) t.style.fontStyle = "italic";
+          if (a.align) t.style.textAlign = a.align;
+          var lh = Number(a.inter); if (isFinite(lh) && lh >= 0.8) t.style.lineHeight = String(lh);
+          var ls = Number(a.lettres); if (isFinite(ls) && ls) t.style.letterSpacing = ls + "px";
+        });
+        if (a.align) el.style.textAlign = a.align;
+      }
+    } catch (e) {}
+    try {
       var rt = Number(a.rot), op = Number(a.op), sh = Number(a.ombre);
       if (isFinite(rt) && rt) el.style.transform = "rotate(" + rt + "deg)";
       if (isFinite(op) && op > 0 && op < 100) el.style.opacity = String(op / 100);
@@ -245,6 +261,12 @@
     } catch (e) {}
     return el;
   }
+  window.mpGrille = function (on) {
+    var st = document.getElementById("mp-grille-css");
+    if (!on) { if (st) st.remove(); return; }
+    if (!st) { st = document.createElement("style"); st.id = "mp-grille-css"; document.head.appendChild(st); }
+    st.textContent = ".pg{background-image:linear-gradient(to right,rgba(211,20,31,.28) 1px,transparent 1px),linear-gradient(to bottom,rgba(211,20,31,.28) 1px,transparent 1px)!important;background-size:10% 10%!important}";
+  };
   var addTimer = 0, addForce = false;
   function renderAdds(list, edit) {
     [].forEach.call(document.querySelectorAll(".mp-add"), function (e) { e.remove(); });
