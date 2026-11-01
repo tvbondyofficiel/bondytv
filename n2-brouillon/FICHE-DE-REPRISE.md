@@ -28,6 +28,8 @@
 - N°1 : novembre 2026. N°2 « Noël à Bondy » : **samedi 5 décembre 2026**. Prévoir : textes et photos reçus vers le 25 novembre, PDF final prêt le 3 décembre, publication le 5.
 - Règle de stratégie graphique : le squelette ne bouge pas (logo, couleurs doré/vert/rouge/noir, polices Barlow, place du titre, du numéro et de la date) ; seule l'ambiance de la couverture change à chaque numéro ; une seule nouveauté à la fois ; pas de refonte avant 6 à 12 mois.
 
+- La charte graphique d'une page est dans `n2-brouillon/CHARTE-GRAPHIQUE.md` (à respecter).
+
 ## En pause (ne pas lancer sans demande)
 - Recadrage de la photo du rassemblement ; revue de sa page TikTok (il faut son @ ou une capture) ; redirection du domaine nu `bondytv.com` (Netlify) seulement si ça échoue sur son téléphone ; transfert de domaine pas avant le 18 déc. 2026 ; boutique ; réactivation de la Tribune citoyenne ; indexation Google (home, numéros, articles) = action de sa part.
 - Articles cachés à laisser cachés : `mon-prof-de-conduite`, `mosquee-acmb`. Page désactivée : `logement.html`.
