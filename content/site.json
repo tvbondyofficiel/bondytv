@@ -1471,18 +1471,6 @@
         "focus": "50% 50%"
       },
       {
-        "image": "/images/diapo-03.jpg",
-        "legende": "Hôpital Jean Verdier",
-        "alt": "Entrée de l’hôpital Jean Verdier, sous un ciel bleu et un grand soleil.",
-        "focus": "50% 50%"
-      },
-      {
-        "image": "/images/diapo-04.jpg",
-        "legende": "Le canal",
-        "alt": "Le canal et un pont au loin, avec les reflets des arbres dans l’eau.",
-        "focus": "50% 50%"
-      },
-      {
         "image": "/images/diapo-05.jpg",
         "legende": "Le canal",
         "alt": "Le canal bordé de peupliers, le soleil derrière un nuage.",
@@ -1511,24 +1499,6 @@
         "legende": "Le parc en automne",
         "alt": "Allée d’un parc aux arbres d’automne.",
         "focus": "50% 55%"
-      },
-      {
-        "image": "/images/diapo-10.jpg",
-        "legende": "L’hôtel de ville",
-        "alt": "L’hôtel de ville vu de la place, avec son grand mât.",
-        "focus": "50% 50%"
-      },
-      {
-        "image": "/images/diapo-11.jpg",
-        "legende": "L’affiche « Bondy »",
-        "alt": "Grande affiche « B cœur N D Y » sur la façade d’un bâtiment.",
-        "focus": "50% 50%"
-      },
-      {
-        "image": "/images/diapo-12.jpg",
-        "legende": "L’hôtel de ville",
-        "alt": "L’entrée de l’hôtel de ville, sous l’inscription « Liberté Égalité Fraternité ».",
-        "focus": "50% 50%"
       }
     ]
   },
