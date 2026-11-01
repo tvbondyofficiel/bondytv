@@ -1126,6 +1126,13 @@
         "type": "Réflexion",
         "legende": "Bondy TV",
         "lien": "/videos/point-de-vue-3.mp4"
+      },
+      {
+        "image": "/images/point-de-vue-4.jpg",
+        "titre": "Mon point de vue",
+        "type": "Réflexion",
+        "legende": "Bondy TV",
+        "lien": "/videos/point-de-vue-4.mp4"
       }
     ],
     "themes": [
