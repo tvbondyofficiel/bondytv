@@ -1,4 +1,4 @@
-const VERSION = "bondy-tv-v580";
+const VERSION = "bondy-tv-v581";
 const SHELL = ["/", "/manifest.webmanifest", "/icons/icon-192.png", "/icons/icon-512.png", "/icons/apple-touch-icon.png"];
 
 self.addEventListener("install", (e) => {

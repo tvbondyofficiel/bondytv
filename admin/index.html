@@ -109,7 +109,7 @@ details.adv{margin-bottom:18px}
 .dpCard .fld{margin:0}.dpCard textarea{min-height:0;height:54px;resize:vertical}.dpCard input[type=text]{min-height:0}
 .rdot{display:inline-block;margin-left:8px;background:#d3141f;color:#fff;border-radius:999px;padding:1px 9px;font:700 14px Barlow,sans-serif;vertical-align:middle}header.top{position:sticky;top:0;z-index:30;background:#f4f2ee;padding:12px 0;margin-top:-12px}
 .ftabs{gap:8px}.ftabs .ftab{padding-left:14px!important;padding-right:14px!important;font-size:16px!important}.psGrid textarea{min-height:0;height:96px;resize:vertical}.psLeft .psGrid textarea{height:130px}.psCols{display:grid;grid-template-columns:minmax(300px,430px) 1fr;gap:16px;align-items:start}@media(max-width:1000px){.psCols{grid-template-columns:1fr}}.psCols .psLeft{position:sticky;top:96px}.psCols .psCard{margin-bottom:16px}.psCols .psLeft .psGrid{grid-template-columns:1fr}.psItems{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}.psItems .psRow,.psItems .psEmpty{grid-column:1/-1}.psItems .psItem{margin:0}.psDet{background:#fff;border:1px solid #e3ddcf;border-radius:12px;padding:12px 18px;margin-bottom:16px}.psDet>summary{cursor:pointer;font:800 19px 'Barlow Condensed',sans-serif;text-transform:uppercase}.psDet[open]>summary{margin-bottom:12px}.ftabs .ftab{padding-left:11px!important;padding-right:11px!important;font-size:15px!important}
-.psTop{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}.psTop .btn{min-height:46px}
+.psSlots{align-items:start;display:grid;grid-template-columns:repeat(auto-fit,minmax(460px,1fr));gap:12px}.slotRow{display:flex;gap:14px;flex-wrap:wrap;align-items:flex-start}.slotL{flex:0 0 170px}.slotR{flex:1 1 220px;min-width:0}.slotL .img{flex-direction:column;align-items:flex-start!important;padding:8px}.slotL .img video,.slotL .img .ph0{width:150px!important}.slotL .fld,.slotR .fld{margin:0 0 10px}.slotR textarea{height:56px!important;min-height:0}.slotL .img>div>div:last-child{display:none}.psSlots .slot{margin:0}.psSlots .slot .ih b{margin-right:auto}.psSlots .slot.empty{text-align:left}.psSlots .slot.empty .hint{text-align:left}.psSlots .slot.empty{border-left-color:#bdb7aa;border-style:dashed;background:#faf8f3}.psTop{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}.psTop .btn{min-height:46px}
 .psCard{background:#fff;border:1px solid #e3ddcf;border-radius:12px;padding:16px 18px;margin-bottom:16px}.psCard>h3{margin:0 0 4px;font:800 21px 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#12141c}.psCard>.hint{margin:0 0 12px;color:#555a69;font-size:15px}
 .psGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 16px}.psGrid .fld{margin:0 0 12px}.psGrid .fld.wide{grid-column:1/-1}
 .psHead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}.psHead h3{margin:0}
@@ -246,11 +246,23 @@ function pdfWidget(obj,k,onch){
   if(f.size>24*1024*1024){say('Ce fichier fait plus de 24 Mo : il est trop gros pour le site. Réduisez-le (PDF allégé) puis recommencez.',true);return}
   uploadFile(f,isBook?'livres':'magazine',function(p){obj[k]=p;obj.taille=(f.size/1e6).toFixed(1).replace('.',',')+' Mo';if(isBook&&'format' in obj)obj.format=/\.epub$/i.test(f.name)?'ePub':'PDF';onch();render()})}});
  return h('div',{class:'img'},h('div',{style:'flex:1 1 200px;word-break:break-all'},v||'Aucun fichier'),h('button',{type:'button',class:'btn',onclick:function(){inp.click()}},v?'Remplacer le fichier':'Choisir le fichier'),inp)}
+function posterFrom(file,cb){
+ try{var u=URL.createObjectURL(file),v=document.createElement('video');v.muted=true;v.playsInline=true;v.preload='auto';v.src=u;var done=false;
+  var fin=function(f){if(done)return;done=true;try{URL.revokeObjectURL(u)}catch(e){}cb(f)};
+  v.onerror=function(){fin(null)};setTimeout(function(){fin(null)},15000);
+  v.onloadeddata=function(){v.currentTime=Math.min(1.5,(v.duration||2)/2)};
+  v.onseeked=function(){try{var w=v.videoWidth,hh=v.videoHeight,k=Math.min(1,1000/Math.max(w,hh));var c=document.createElement('canvas');c.width=Math.round(w*k);c.height=Math.round(hh*k);c.getContext('2d').drawImage(v,0,0,c.width,c.height);c.toBlob(function(b){fin(b?new File([b],'couverture.jpg',{type:'image/jpeg'}):null)},'image/jpeg',.85)}catch(e){fin(null)}}}catch(e){cb(null)}}
+function uploadVideoWithPoster(file,item,onch){
+ posterFrom(file,function(pf){
+  var vid=function(){uploadFile(file,'videos',function(p){item.lien=p;onch();render()})};
+  if(pf)uploadFile(pf,'images',function(p){item.image=p;onch();vid()});else vid()})}
+
 function videoWidget(obj,k,onch){
  var v=obj[k]||'';var MAXV=40*1024*1024;
  var inp=h('input',{type:'file',accept:'video/mp4,video/webm,video/quicktime,.mp4,.mov,.webm',style:'display:none',onchange:function(){var f=inp.files[0];if(!f)return;
   if(f.size>MAXV){say('Cette vidéo fait '+Math.round(f.size/1048576)+' Mo : c’est trop lourd (40 Mo au maximum). Envoyez-la-moi dans la conversation, je la compresse.',true);return}
   if(/\.(mov)$/i.test(f.name)||f.type==='video/quicktime')say('Les vidéos .mov d’iPhone passent, mais le format .mp4 est plus sûr sur tous les téléphones.',false);
+  if('image' in obj&&window.PS_CUR==='point_de_vue'){uploadVideoWithPoster(f,obj,onch);return}
   uploadFile(f,'videos',function(p){obj[k]=p;onch();render()})}});
  var prev=v?h('video',{src:(S.pv&&S.pv[v])||v,controls:true,preload:'metadata',playsinline:true,style:'width:120px;aspect-ratio:9/16;object-fit:cover;border-radius:8px;background:#000;flex:none'}):h('div',{class:'ph0',style:'width:120px;aspect-ratio:9/16;border-radius:8px;background:#e9e5dc;display:grid;place-items:center;font-size:13px;color:#666;flex:none'},'Pas de vidéo');
  return h('div',{class:'img',style:'align-items:flex-start;gap:14px'},prev,h('div',{style:'flex:1 1 200px;display:flex;flex-direction:column;gap:8px'},h('div',{style:'word-break:break-all;font-size:14px;color:#555a69'},v||'Aucune vidéo choisie'),h('div',{style:'display:flex;gap:8px;flex-wrap:wrap'},h('button',{type:'button',class:'btn green',style:'min-height:48px',onclick:function(){inp.click()}},v?'Changer la vidéo':'Choisir une vidéo'),v?h('button',{type:'button',class:'btn',onclick:function(){obj[k]='';onch();render()}},'Retirer'):null),h('div',{style:'font-size:13px;color:#777'},'Vidéo en vertical, 1 minute au maximum, 40 Mo au maximum (idéalement .mp4).')),inp)}
@@ -1031,6 +1043,28 @@ function psList(arr,onch,label){
   if(!arr.length)body.appendChild(h('p',{class:'hint psEmpty'},'Rien pour l’instant.'))}
  card.appendChild(h('div',{class:'psHead'},h('h3',{},(label==='Items'?'Éléments':label)+' ('+arr.length+')'),h('button',{type:'button',class:'btn green',onclick:add},'+ Ajouter')));
  card.appendChild(body);draw();return card}
+function psSlots(arr,onch){
+ var N=6;var box=h('div',{class:'psCard'});
+ box.appendChild(h('div',{class:'psHead'},h('h3',{},'Les 6 stories ('+Math.min(arr.length,N)+' sur '+N+')'),h('span',{class:'hint',style:'margin:0'},'Chaque case : une vidéo en vertical. Change la vidéo, la photo de couverture ou le titre.')));
+ var g=h('div',{class:'psSlots'});
+ function mv(i,d){var t=arr[i];arr[i]=arr[i+d];arr[i+d]=t;onch();render()}
+ for(var i=0;i<N;i++)(function(i){
+  var it=arr[i];
+  if(it&&typeof it==='object'){
+   var c=h('div',{class:'psItem slot'},h('div',{class:'ih'},h('b',{},'Story '+(i+1)),h('button',{type:'button',class:'btn sq',title:'Avant',disabled:i===0||null,onclick:function(){mv(i,-1)}},'←'),h('button',{type:'button',class:'btn sq',title:'Après',disabled:i===arr.length-1||null,onclick:function(){mv(i,1)}},'→'),h('button',{type:'button',class:'btn sq warn',title:'Supprimer',onclick:function(){if(confirm('Supprimer cette story ?')){arr.splice(i,1);onch();render()}}},'✕')));
+   var R=h('div',{class:'slotR'});
+   ['titre','type','image','legende'].forEach(function(k){if(it[k]===undefined)it[k]='';R.appendChild(field(it,k,onch))});
+   c.appendChild(h('div',{class:'slotRow'},h('div',{class:'slotL'},videoField(it,onch)),R));
+   g.appendChild(c)}
+  else{
+   var inp=h('input',{type:'file',accept:'video/mp4,video/webm,video/quicktime,.mp4,.mov,.webm',style:'display:none',onchange:function(){var f=inp.files[0];if(!f)return;
+    if(f.size>40*1024*1024){say('Cette vidéo fait '+Math.round(f.size/1048576)+' Mo : trop lourd (40 Mo au maximum). Envoyez-la-moi dans la conversation, je la compresse.',true);return}
+    var item={image:'',titre:'Mon point de vue',type:'Story',legende:'Bondy TV',lien:''};arr.push(item);onch();uploadVideoWithPoster(f,item,onch)}});
+   g.appendChild(h('div',{class:'psItem slot empty'},h('div',{class:'ih'},h('b',{},'Story '+(i+1))),h('p',{class:'hint',style:'margin:0 0 10px'},'Case libre : « Story à venir » sur le site.'),h('button',{type:'button',class:'btn green',style:'min-height:52px;font-weight:800',onclick:function(){inp.click()}},'+ Choisir une vidéo'),inp))}
+ })(i);
+ box.appendChild(g);return box}
+function videoField(it,onch){var w=h('div',{class:'fld'});w.appendChild(h('span',{class:'lb'},'Vidéo'));if(it.lien===undefined)it.lien='';w.appendChild(videoWidget(it,'lien',onch));return w}
+
 var PS_FINE={source:1,avertissement:1,avertissement_court:1,droit_de_reponse:1,phrases_actives:1};
 function pageSecView(key,onch){
  window.PS_CUR=key;var o=S.data[key];var box=h('section',{});
@@ -1038,17 +1072,18 @@ function pageSecView(key,onch){
  if(PS_URL[key])top.appendChild(h('a',{class:'btn',href:PS_URL[key],target:'_blank',rel:'noopener',style:'display:inline-flex;align-items:center;text-decoration:none;color:#12141c'},'Voir la page ↗'));
  box.appendChild(top);
  if(Array.isArray(o)){box.appendChild(psList(o,onch,itemInfo(key)[0]));return box}
- var left=h('div',{class:'psLeft'}),right=h('div',{});
+ var slotsNode=null;var left=h('div',{class:'psLeft'}),right=h('div',{});
  var lc=h('div',{class:'psCard'},h('h3',{},'Texte de la page'),h('p',{class:'hint'},itemInfo(key)[2]||''));
  var lg=h('div',{class:'psGrid'});var fine=h('details',{class:'psDet'},h('summary',{},'Mentions et précautions'));var fg=h('div',{class:'psGrid'});var nf=0;
  Object.keys(o).forEach(function(k){
   if(PS_HIDE[k])return;var v=o[k];
   if(v&&typeof v==='object'){
-   if(Array.isArray(v)){if(v.length||true)right.appendChild(psList(v,onch,lab(k)))}
+   if(Array.isArray(v)){if(key==='point_de_vue'&&k==='items')slotsNode=psSlots(v,onch);else right.appendChild(psList(v,onch,lab(k)))}
    else{var c=h('div',{class:'psCard'},h('h3',{},lab(k)));psFields(c,v,onch);right.appendChild(c)}}
   else{var f=field(o,k,onch);if(PS_FINE[k]){nf++;fg.appendChild(f)}else lg.appendChild(f)}});
  lc.appendChild(lg);left.appendChild(lc);
  if(nf){fine.appendChild(fg);right.appendChild(fine)}
+ if(slotsNode){box.appendChild(slotsNode);box.appendChild(h('div',{class:'psCols'},left,right));return box}
  if(!right.childNodes.length){box.appendChild(h('div',{class:'psCard'},h('h3',{},'Texte de la page')));box.removeChild(box.lastChild);var one=h('div',{style:'max-width:760px'},lc);box.appendChild(one)}
  else box.appendChild(h('div',{class:'psCols'},left,right));
  return box}
