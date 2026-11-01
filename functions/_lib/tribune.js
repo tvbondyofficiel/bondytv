@@ -135,3 +135,16 @@ export function validLink(u) {
   if (!u) return "";
   return /^https:\/\/[^\s]{4,300}$/i.test(u) ? u : null;
 }
+
+// Nombre de demandes d'accès en attente, gardé dans UNE seule clé (« hn ») :
+// le tableau de bord la lit sans parcourir toute la liste (les opérations « list » sont limitées chaque jour).
+export async function recountPending(env) {
+  const n = (await listPrefix(env, "hd:")).filter((d) => d.statut === "attente").length;
+  await env.VOTES.put("hn", String(n));
+  return n;
+}
+export async function pendingCount(env) {
+  const v = await env.VOTES.get("hn");
+  if (v === null) return recountPending(env);
+  return parseInt(v, 10) || 0;
+}

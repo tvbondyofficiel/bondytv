@@ -1,7 +1,7 @@
 // Page privée de Mohammed : créer les comptes des élus, relire et valider les tribunes.
 // Protégée par MOD_TOKEN (le même mot de passe que la modération).
 import { sendMail, mailOK } from "../_lib/mail.js";
-import { json, clean, cleanLine, normTel, slug, newCode, codeHash, modAllowed, listPrefix, rebuildPub, sameOrigin } from "../_lib/tribune.js";
+import { json, clean, cleanLine, normTel, slug, newCode, codeHash, modAllowed, listPrefix, rebuildPub, sameOrigin, recountPending, pendingCount } from "../_lib/tribune.js";
 
 const MSG_RUBRIQUES = { "Logement": "logement", "L'essentiel": "essentiel", "Un témoignage": "temoignage" };
 
@@ -9,7 +9,7 @@ export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
   const url = new URL(request.url);
   // Compteur public : seulement un nombre (aucune donnée personnelle), pour la pastille rouge du tableau de bord.
-  if (url.searchParams.get("n") === "1") return json({ n: (await listPrefix(env, "hd:")).filter((d) => d.statut === "attente").length }, 200, { "Cache-Control": "no-store" });
+  if (url.searchParams.get("n") === "1") return json({ n: await pendingCount(env) }, 200, { "Cache-Control": "public, max-age=120" });
   if (!modAllowed(request, env)) return json({ error: "refuse" }, 401);
   const pc = url.searchParams.get("piece"), im = url.searchParams.get("img");
   if (im) {
@@ -76,6 +76,7 @@ export async function onRequestPost({ request, env }) {
     const message = "Bonjour " + nom + ", voici votre accès à " + esp + " de Bondy TV Magazine.\nAdresse : " + origin + page + "\nIdentifiant : " + id + "\nCode : " + code + "\nGardez ce code pour vous. Vous écrivez votre texte, nous le relisons, puis il est publié.";
     let mail = false;
     if (d.email && mailOK(env)) mail = await sendMail(env, { to: d.email, name: nom, subject: "Votre accès Bondy TV Magazine", text: message });
+    await recountPending(env);
     return json({ ok: true, id, code, nom, tel: d.tel, email: d.email || "", role, structure, message, mail });
   }
   if (a === "refuser_demande" || a === "supprimer_demande") {
@@ -85,6 +86,7 @@ export async function onRequestPost({ request, env }) {
     await env.VOTES.delete("hg:" + cle.slice(3));
     if (a === "supprimer_demande") await env.VOTES.delete(cle);
     else { const d = await env.VOTES.get(cle, "json"); if (!d) return json({ error: "introuvable" }, 404); d.statut = "refuse"; delete d.piece; delete d.justif; await env.VOTES.put(cle, JSON.stringify(d)); }
+    await recountPending(env);
     return json({ ok: true });
   }
   if (a === "supprimer_message") {

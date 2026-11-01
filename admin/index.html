@@ -987,7 +987,7 @@ function validerView(){
     h('button',{class:'btn red',onclick:function(){if(confirm('Refuser cette demande ?'))vApi({body:{action:'refuser_demande',cle:d.cle}}).then(function(j){if(j.ok)vLoad();else alert('Erreur : '+(j.error||j.status))})}},'✖ Refuser'))))});
  return box}
 function vCount(){fetch('/api/tribune-admin?n=1').then(function(r){return r.json()}).then(function(j){if(typeof j.n==='number'&&j.n!==S.vn&&!(S.vdem&&S.vdem.length===j.n)){S.vn=j.n;document.title=(j.n?'('+j.n+') ':'')+'Tableau de bord · Bondy TV';if(!S.drawer)render()}}).catch(function(){})}
-setTimeout(vCount,800);setInterval(vCount,60000);
+setTimeout(vCount,800);setInterval(function(){if(document.visibilityState==='visible')vCount()},300000);
 if(vTok())setTimeout(vLoad,0);
 
 /* ---------- Pages du site : une mise en page commune, boutons toujours en haut à gauche ---------- */

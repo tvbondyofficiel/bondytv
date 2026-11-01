@@ -2,7 +2,7 @@
 // (nom, téléphone, adresse et copie de pièce d'identité obligatoires).
 // La pièce d'identité n'est jamais publique : elle est lue seulement par Mohammed (modération)
 // et supprimée dès que la demande est acceptée, refusée ou supprimée.
-import { json, cleanLine, normTel, sameOrigin, limit, typeFichier } from "../_lib/tribune.js";
+import { recountPending, json, cleanLine, normTel, sameOrigin, limit, typeFichier } from "../_lib/tribune.js";
 
 const MAX_PIECE = 5 * 1024 * 1024;
 
@@ -13,13 +13,18 @@ function typeReel(u8) {
   return "";
 }
 
-export async function onRequestGet({ env }) {
+export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ textes: [], annonces: [], assos: [], commerces: [] }, 200, { "Cache-Control": "public, max-age=60" });
+  const cache = typeof caches !== "undefined" ? caches.default : null;
+  const ckey = new Request(new URL("/api/habitants?c=1", request.url).toString());
+  if (cache) { const hit = await cache.match(ckey); if (hit) return hit; }
   const list = (await env.VOTES.get("hpub", "json")) || [];
   const annonces = (await env.VOTES.get("apub", "json")) || [];
   const assos = (await env.VOTES.get("xpub", "json")) || [];
   const commerces = (await env.VOTES.get("cpub", "json")) || [];
-  return json({ textes: list.slice(0, 50), annonces: annonces.slice(0, 50), assos: assos.slice(0, 50), commerces: commerces.slice(0, 50) }, 200, { "Cache-Control": "public, max-age=60" });
+  const res = json({ textes: list.slice(0, 50), annonces: annonces.slice(0, 50), assos: assos.slice(0, 50), commerces: commerces.slice(0, 50) }, 200, { "Cache-Control": "public, max-age=60" });
+  if (cache) { try { await cache.put(ckey, res.clone()); } catch (e) {} }
+  return res;
 }
 
 export async function onRequestPost({ request, env }) {
@@ -64,5 +69,6 @@ export async function onRequestPost({ request, env }) {
   if (buf) await env.VOTES.put("hf:" + id, buf);
   if (jbuf) await env.VOTES.put("hg:" + id, jbuf);
   await env.VOTES.put("hd:" + id, JSON.stringify(Object.assign({ nom, tel, adresse, email, statut: "attente", ts }, buf ? { piece: { type, taille: psize } } : {}, pro ? { profil, structure, justif: { type: jtype, taille: jsize } } : vg ? { profil } : {})));
+  try { await recountPending(env); } catch (e) {}
   return json({ ok: true });
 }
