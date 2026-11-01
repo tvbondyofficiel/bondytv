@@ -1185,42 +1185,7 @@
       "id": "n1"
     }
   ],
-  "articles_caches": [
-    {
-      "lien_video": "",
-      "texte_visible": "",
-      "rubrique": "Les bons acteurs de Bondy",
-      "pleine_largeur": true,
-      "titre": "Mon Prof de Conduite : l'auto-école qui vient à vous",
-      "texte": "Passer son permis, c'est souvent une course d'obstacles : le budget, les horaires, le trajet pour aller à l'auto-école. À Bondy, un Bondynois a décidé d'en enlever un maximum. Il s'appelle Hassni, et sa société s'appelle **Mon Prof de Conduite**.\n\nSon slogan tient en une ligne : « L'auto-école pas chère et qui se déplace ». Le moniteur vient vous chercher près de chez vous, sept jours sur sept, tôt le matin comme tard le soir. Pour celles et ceux qui travaillent, qui étudient ou qui n'ont pas le temps de traverser la ville, cela change tout.\n\nSur son site, la promesse tient en quelques mots : « Notre objectif, votre réussite. » Une pédagogie adaptée, un suivi personnalisé qui commence par une évaluation d'une heure, des moniteurs diplômés d'État, et plus de 90 % de réussite annoncés. Sur Google, la note est de 4,9 sur plus de 550 avis. L'un des élèves résume : « Je recommande vivement, ils expliquent vraiment bien. »\n\nÀ Bondy TV, on le dit simplement : Hassni est quelqu'un d'adorable, un entrepreneur d'ici qui fait avancer les gens de sa ville, un par un, jusqu'à l'examen. Il mérite qu'on parle de lui.\n\nÀ retrouver sur [monprofdeconduite.fr](https://monprofdeconduite.fr/), sur [Instagram](https://www.instagram.com/mon_prof_de_conduite) et sur [Facebook](https://www.facebook.com/monprofdeconduite).\n",
-      "image_description": "Logo de Mon Prof de Conduite, l'auto-école de Hassni à Bondy",
-      "credit": "Photo : Bondy TV",
-      "id": "mon-prof-de-conduite",
-      "image": "/images/mon-prof-de-conduite-logo.jpg",
-      "chapo": "À Bondy, un moniteur ne vous attend pas devant une porte : il vient vous chercher. Portrait de Hassni, un Bondynois qui a fait de la réussite des autres sa promesse.",
-      "visuel": "image",
-      "etiquette": "Les bons acteurs de la ville de Bondy",
-      "image_portrait": false,
-      "affiche_entiere": true,
-      "vignette": "/images/mon-prof-de-conduite-logo.jpg"
-    },
-    {
-      "id": "mosquee-acmb",
-      "rubrique": "Solidarité et associations",
-      "etiquette": "Ville · Annonce d'association",
-      "titre": "Une nouvelle mosquée à Bondy : l'ACMB lance son projet",
-      "chapo": "L'Association Culturelle des Musulmans de Bondy annonce vouloir construire une nouvelle mosquée dans la commune.",
-      "visuel": "image",
-      "image": "/images/acmb-affiche.jpg",
-      "image_description": "Affiche de l'Association Culturelle des Musulmans de Bondy (ACMB) : « Construire une nouvelle mosquée à Bondy ». Pour suivre le projet : Instagram @acmbondy et groupe WhatsApp Projet Mosquée de Bondy.",
-      "image_portrait": false,
-      "credit": "Affiche : ACMB",
-      "pleine_largeur": false,
-      "texte_visible": "Selon l'association, la population musulmane de Bondy ne cesse de croître et la mosquée existante est saturée. L'ACMB souhaite donc un nouveau lieu de prière, « à la hauteur de ses besoins ». Elle invite les Bondynois à partager l'information.\n\nPour suivre l'évolution du projet : Instagram **@acmbondy** et le groupe WhatsApp **« Projet Mosquée de Bondy »**.",
-      "texte": "",
-      "affiche_entiere": true
-    }
-  ],
+  "articles_caches": [],
   "livres": [
     {
       "id": "bienvenue-dans-mon-monde",
