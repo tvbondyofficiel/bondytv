@@ -533,6 +533,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       <div class="row2">
         <div class="fld"><label for="e-nom">Prénom et nom</label><input autocomplete="name" id="e-nom" required type="text"/></div>
         <div class="fld"><label for="e-tel">Numéro de téléphone (obligatoire)</label><input autocomplete="tel" id="e-tel" inputmode="tel" placeholder="06 12 34 56 78" required type="tel"/></div>
+        <div class="fld"><label for="e-email">Adresse e-mail (pour recevoir votre code)</label><input autocomplete="email" id="e-email" inputmode="email" placeholder="prenom@exemple.fr" required type="email"/></div>
       </div>
       <div class="fld"><label for="e-fonction">Votre fonction et votre liste ou groupe</label><input id="e-fonction" placeholder="Ex. : Conseiller municipal, groupe d'opposition" required type="text"/></div>
       <div class="fld"><label for="e-adresse">Votre adresse</label><input autocomplete="street-address" id="e-adresse" placeholder="Numéro, rue, ville" required type="text"/></div>
@@ -708,7 +709,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
         if (pf.size > 5 * 1024 * 1024 || jf.size > 5 * 1024 * 1024) { say("Un fichier est trop lourd (5 Mo au maximum).", true); return; }
         bt.disabled = true; say("Envoi en cours...", false);
         var fd = new FormData();
-        fd.append("profil", "elu"); fd.append("structure", $("e-fonction").value); fd.append("nom", $("e-nom").value); fd.append("tel", $("e-tel").value); fd.append("adresse", $("e-adresse").value); fd.append("piece", pf); fd.append("justif", jf);
+        fd.append("profil", "elu"); fd.append("structure", $("e-fonction").value); fd.append("nom", $("e-nom").value); fd.append("tel", $("e-tel").value); fd.append("email", $("e-email").value.trim()); fd.append("adresse", $("e-adresse").value); fd.append("piece", pf); fd.append("justif", jf);
         if ($("e-bot").checked) fd.append("botcheck", "1");
         fetch("/api/habitants", { method: "POST", body: fd })
           .then(function (r) { return r.json(); })

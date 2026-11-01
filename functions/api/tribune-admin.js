@@ -1,5 +1,6 @@
 // Page privée de Mohammed : créer les comptes des élus, relire et valider les tribunes.
 // Protégée par MOD_TOKEN (le même mot de passe que la modération).
+import { sendMail, mailOK } from "../_lib/mail.js";
 import { json, clean, cleanLine, normTel, slug, newCode, codeHash, modAllowed, listPrefix, rebuildPub, sameOrigin } from "../_lib/tribune.js";
 
 const MSG_RUBRIQUES = { "Logement": "logement", "L'essentiel": "essentiel", "Un témoignage": "temoignage" };
@@ -66,7 +67,13 @@ export async function onRequestPost({ request, env }) {
     await env.VOTES.delete("hf:" + cle.slice(3)); delete d.piece;
     await env.VOTES.delete("hg:" + cle.slice(3)); delete d.justif;
     await env.VOTES.put(cle, JSON.stringify(d));
-    return json({ ok: true, id, code, nom, tel: d.tel, email: d.email || "", role, structure });
+    const esp = role === "association" ? "l'espace associations" : role === "commerce" ? "l'espace commerçants" : role === "videgrenier" ? "Mon vide-grenier" : role === "elu" ? "l'espace des élus" : "l'espace habitants";
+    const page = role === "elu" ? "/elu.html" : "/habitant.html";
+    const origin = new URL(request.url).origin;
+    const message = "Bonjour " + nom + ", voici votre accès à " + esp + " de Bondy TV Magazine.\nAdresse : " + origin + page + "\nIdentifiant : " + id + "\nCode : " + code + "\nGardez ce code pour vous. Vous écrivez votre texte, nous le relisons, puis il est publié.";
+    let mail = false;
+    if (d.email && mailOK(env)) mail = await sendMail(env, { to: d.email, name: nom, subject: "Votre accès Bondy TV Magazine", text: message });
+    return json({ ok: true, id, code, nom, tel: d.tel, email: d.email || "", role, structure, message, mail });
   }
   if (a === "refuser_demande" || a === "supprimer_demande") {
     const cle = String(b.cle || "");

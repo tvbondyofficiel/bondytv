@@ -36,8 +36,8 @@ export async function onRequestPost({ request, env }) {
   const vg = profil === "videgrenier"; // vide-grenier : téléphone + e-mail suffisent, ni adresse ni pièce d'identité
   const pro = profil !== "habitant" && !vg;
   if (!vg && adresse.length < 5) return json({ error: "adresse" }, 400);
-  const email = vg ? cleanLine(f.get("email"), 120).toLowerCase() : "";
-  if (vg && !/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return json({ error: "email" }, 400);
+  const email = cleanLine(f.get("email"), 120).toLowerCase(); // sert à envoyer le code d'accès automatiquement
+  if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return json({ error: "email" }, 400);
   const structure = pro ? cleanLine(f.get("structure"), 100) : ""; // pour un élu : fonction (et groupe)
   if (pro && structure.length < 2) return json({ error: "structure" }, 400);
   let buf = null, type = "", psize = 0;
@@ -63,6 +63,6 @@ export async function onRequestPost({ request, env }) {
   const id = ts + "-" + suf;
   if (buf) await env.VOTES.put("hf:" + id, buf);
   if (jbuf) await env.VOTES.put("hg:" + id, jbuf);
-  await env.VOTES.put("hd:" + id, JSON.stringify(Object.assign({ nom, tel, adresse, statut: "attente", ts }, buf ? { piece: { type, taille: psize } } : {}, pro ? { profil, structure, justif: { type: jtype, taille: jsize } } : vg ? { profil, email } : {})));
+  await env.VOTES.put("hd:" + id, JSON.stringify(Object.assign({ nom, tel, adresse, email, statut: "attente", ts }, buf ? { piece: { type, taille: psize } } : {}, pro ? { profil, structure, justif: { type: jtype, taille: jsize } } : vg ? { profil } : {})));
   return json({ ok: true });
 }

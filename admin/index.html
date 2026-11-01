@@ -107,6 +107,7 @@ details.adv{margin-bottom:18px}
 .dpBt{position:absolute;right:6px;top:6px;display:flex;gap:4px}.dpBt .btn.sq{min-width:32px;min-height:32px;padding:0;background:rgba(255,255,255,.95)}
 .dpRg{display:flex;align-items:center;gap:8px}.dpRg small{color:#555a69;white-space:nowrap}.dpRg input{flex:1;min-width:0}
 .dpCard .fld{margin:0}.dpCard textarea{min-height:0;height:54px;resize:vertical}.dpCard input[type=text]{min-height:0}
+.vdCard{background:#fff;border:1px solid #e3ddcf;border-left:6px solid #d3141f;border-radius:12px;padding:14px 16px;margin-bottom:14px}.vdCard h3{margin:0 0 4px;font:800 21px 'Barlow Condensed',sans-serif;text-transform:uppercase}.vdTag{display:inline-block;background:#12141c;color:#fff;border-radius:99px;padding:2px 10px;font-size:13px;font-weight:700;margin-right:8px}.vdCard p{margin:4px 0;font-size:16px}.vdRes{background:#eef6f0;border:1px solid #006233;border-radius:12px;padding:14px 16px;margin-bottom:14px}.vdRes pre{white-space:pre-wrap;background:#fff;border:1px solid #cfe3d5;border-radius:8px;padding:10px;font:15px/1.5 Barlow,sans-serif}.vdRes.warn{background:#fff6e5;border-color:#b8975a}
 .ctGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(340px,1fr));gap:14px;align-items:start;margin-bottom:14px}
 .ctCard{background:#fff;border:1px solid #e3ddcf;border-radius:12px;padding:14px 16px;margin-bottom:14px}.ctCard h3{margin:0 0 8px;font:800 20px 'Barlow Condensed',sans-serif;text-transform:uppercase}.ctGrid .ctCard{margin:0}
 .ctCard>summary{cursor:pointer;font-weight:700}
@@ -285,6 +286,7 @@ function listEditor(arr,onch){
 function articles(){return S.data.articles||(S.data.articles=[])}
 function caches(){return S.data.articles_caches||(S.data.articles_caches=[])}
 var GROUPS=[
+ ['valider','À valider','#d3141f',['valider'],'Les inscriptions à accepter, avec le code envoyé en un clic.'],
  ['articles','Articles','#12141c',['articles','tribune_cit','couverture','pages'],'Écrire, ranger et publier les articles.'],
  ['magazine','Magazine PDF','#d3141f',['numeros'],'Ajouter un magazine en PDF, voir les téléchargements.'],
  ['photos','Photos et vidéos','#006233',['diaporama','en_images','videos','reportages'],'Le diaporama, Bondy en images, les vidéos.'],
@@ -293,8 +295,8 @@ var GROUPS=[
  ['contact','Contact et publicité','#006233',['proposer','page_pub','assistant'],'Écrivez-nous, encadrés publicitaires, assistant.'],
  ['apparence','Apparence et réglages','#12141c',['visuel','mise_en_page','general','banniere','pied_de_page'],'Les outils graphiques : éditeur visuel, mise en page, logo, bannière, pied de page.']
 ];
-function itemOK(k){if(k==='articles'||k==='tribune_cit')return true;var s=SECTIONS.filter(function(x){return x[0]===k})[0];return !!s&&(k==='general'||k==='pages'||k==='mise_en_page'||k==='visuel'||S.data[k]!==undefined)}
-function itemInfo(k){if(k==='articles')return ['Articles','#12141c',(articles().length+caches().length)+' articles : ajouter, modifier, ranger, supprimer.'];if(k==='tribune_cit')return ['Tribune citoyenne','#006233','Les tribunes des habitants (8 places).'];var s=SECTIONS.filter(function(x){return x[0]===k})[0];return [s[1],s[2],s[3]]}
+function itemOK(k){if(k==='articles'||k==='tribune_cit'||k==='valider')return true;var s=SECTIONS.filter(function(x){return x[0]===k})[0];return !!s&&(k==='general'||k==='pages'||k==='mise_en_page'||k==='visuel'||S.data[k]!==undefined)}
+function itemInfo(k){if(k==='valider')return ['À valider'+(S.vn?' ('+S.vn+')':''),'#d3141f','Accepter les inscriptions et envoyer le code.'];if(k==='articles')return ['Articles','#12141c',(articles().length+caches().length)+' articles : ajouter, modifier, ranger, supprimer.'];if(k==='tribune_cit')return ['Tribune citoyenne','#006233','Les tribunes des habitants (8 places).'];var s=SECTIONS.filter(function(x){return x[0]===k})[0];return [s[1],s[2],s[3]]}
 function groupOf(v){for(var i=0;i<GROUPS.length;i++){if('g:'+GROUPS[i][0]===v||GROUPS[i][3].indexOf(v)>=0)return GROUPS[i]}return null}
 function newArticle(){S.drawer={list:'c',idx:-1,isNew:true,obj:{id:'',rubrique:'Actualité',etiquette:'',titre:'',chapo:'',texte_visible:'',texte:'',visuel:'none',image:'',image_description:'',credit:'Photo : Bondy TV'}};render()}
 function go(v){S.view=v;S.q='';S.filter='Tous';S.confirm=null;S.toast=null;render();window.scrollTo(0,0)}
@@ -931,6 +933,52 @@ function numerosView(onch){
    card.appendChild(ed)}
   right.appendChild(card)});
  return h('div',{class:'numgrid'},left,right)}
+/* ---------- À valider : inscriptions + envoi du code ---------- */
+function vTok(){try{return sessionStorage.getItem('mod')||''}catch(e){return ''}}
+function vApi(opt){opt=opt||{};var o={headers:{'Authorization':'Bearer '+vTok()}};if(opt.body){o.method='POST';o.headers['Content-Type']='application/json';o.body=JSON.stringify(opt.body)}
+ return fetch('/api/tribune-admin'+(opt.qs||''),o).then(function(r){if(opt.blob)return r.ok?r.blob():Promise.reject();return r.json().then(function(j){j.status=r.status;return j})})}
+function vLoad(){if(!vTok())return Promise.resolve();return vApi().then(function(j){if(j.error){S.verr=j.error==='refuse'?'Mot de passe refusé.':'Service indisponible.';if(j.error==='refuse'){try{sessionStorage.removeItem('mod')}catch(e){}}S.vdem=null;S.vn=0}else{S.verr='';S.vdem=(j.demandes||[]).filter(function(d){return d.statut==='attente'}).sort(function(a,b){return a.ts-b.ts});S.vn=S.vdem.length}render()}).catch(function(){S.verr='Pas de connexion.';render()})}
+function vPiece(k,f){vApi({qs:'?piece='+encodeURIComponent(k)+(f?'&f=justif':''),blob:1}).then(function(b){window.open(URL.createObjectURL(b),'_blank')}).catch(function(){alert('Impossible d’ouvrir ce fichier.')})}
+var V_ROLE={habitant:'Habitant',association:'Association',commerce:'Commerçant',elu:'Élu',videgrenier:'Vide-grenier'};
+function validerView(){
+ var box=h('section',{});
+ if(!vTok()){
+  var pw=h('input',{type:'password',placeholder:'Mot de passe de modération',autocomplete:'current-password',style:'min-height:48px;border:1px solid #bdb7aa;border-radius:8px;padding:0 14px;font-size:17px;flex:1;min-width:200px'});
+  var go1=function(){if(!pw.value)return;try{sessionStorage.setItem('mod',pw.value)}catch(e){}vLoad()};
+  pw.addEventListener('keydown',function(e){if(e.key==='Enter')go1()});
+  box.appendChild(h('div',{class:'vdCard'},h('h3',{},'Une seule fois par visite'),h('p',{},'Écris ton mot de passe de modération. Il reste seulement le temps de cette visite.'),S.verr?h('p',{style:'color:#a30f18;font-weight:700'},S.verr):null,h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:8px'},pw,h('button',{class:'btn green',style:'min-height:48px',onclick:go1},'Ouvrir'))));
+  return box}
+ if(S.vdem===undefined){vLoad();box.appendChild(h('p',{},'Chargement…'));return box}
+ if(S.vdem===null){box.appendChild(h('p',{style:'color:#a30f18;font-weight:700'},S.verr||'Erreur.'));box.appendChild(h('button',{class:'btn',onclick:function(){S.vdem=undefined;render()}},'Réessayer'));return box}
+ var r=S.vres;
+ if(r){var num=String(r.tel||'').replace(/\D/g,'');var wa=num?'https://wa.me/'+(num.length===10&&num[0]==='0'?'33'+num.slice(1):num)+'?text='+encodeURIComponent(r.message):'';
+  box.appendChild(h('div',{class:'vdRes'+(r.mail?'':' warn')},
+   h('h3',{style:'margin:0 0 6px;font:800 21px Barlow Condensed,sans-serif;text-transform:uppercase'},r.mail?'✔ Code envoyé par e-mail':'Compte créé : envoie le code toi-même'),
+   h('p',{},r.mail?('Le message est parti à '+r.email+'. Rien d’autre à faire.'):(r.email?'L’e-mail n’a pas pu partir. Copie le message ci-dessous.':'Cette personne n’a pas laissé d’e-mail. Copie le message ci-dessous.')),
+   h('p',{},h('b',{},r.nom+' · identifiant : '+r.id+' · code : '+r.code)),
+   r.mail?null:h('pre',{},r.message),
+   h('div',{style:'display:flex;gap:8px;flex-wrap:wrap'},
+    r.mail?null:h('button',{class:'btn green',onclick:function(e){var b=e.target;navigator.clipboard.writeText(r.message).then(function(){b.textContent='Copié'})}},'Copier le message'),
+    (!r.mail&&wa)?h('a',{class:'btn',href:wa,target:'_blank',rel:'noopener',style:'text-decoration:none;color:#12141c;display:inline-flex;align-items:center'},'Envoyer sur WhatsApp'):null,
+    h('button',{class:'btn',onclick:function(){S.vres=null;render()}},'Fermer')))) }
+ var L=S.vdem;
+ if(!L.length)box.appendChild(h('div',{class:'vdCard'},h('h3',{},'Rien à valider'),h('p',{},'Toutes les demandes sont traitées. 👍')));
+ L.forEach(function(d){
+  var pro=d.profil&&d.profil!=='habitant';
+  box.appendChild(h('div',{class:'vdCard'},
+   h('h3',{},d.nom),
+   h('p',{},h('span',{class:'vdTag'},V_ROLE[d.profil]||'Habitant'),new Date(d.ts).toLocaleDateString('fr-FR',{day:'numeric',month:'long'})),
+   d.structure?h('p',{},h('b',{},d.structure)):null,
+   h('p',{},'Tél : '+d.tel+(d.email?'  ·  E-mail : '+d.email:'  ·  pas d’e-mail')),
+   d.adresse?h('p',{},'Adresse : '+d.adresse):null,
+   h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},
+    d.piece?h('button',{class:'btn',onclick:function(){vPiece(d.cle)}},'Voir la pièce d’identité'):null,
+    d.justif?h('button',{class:'btn',onclick:function(){vPiece(d.cle,1)}},'Voir le justificatif'):null,
+    h('button',{class:'btn green',style:'font-weight:800',onclick:function(e){e.target.disabled=true;vApi({body:{action:'accepter',cle:d.cle}}).then(function(j){if(!j.ok){e.target.disabled=false;alert('Erreur : '+(j.error||j.status));return}S.vres=j;vLoad()})}},'✔ Valider et envoyer le code'),
+    h('button',{class:'btn red',onclick:function(){if(confirm('Refuser cette demande ?'))vApi({body:{action:'refuser_demande',cle:d.cle}}).then(function(j){if(j.ok)vLoad();else alert('Erreur : '+(j.error||j.status))})}},'✖ Refuser'))))});
+ return box}
+if(vTok())setTimeout(vLoad,0);
+
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){refreshBar()};
  if(key==='numeros')return numerosView(onch);
@@ -938,6 +986,7 @@ function sectionView(key){
  if(key==='boutique')return boutiqueView(onch);
  if(key==='pages_libres'){return pagesLibresView(onch)}
  if(key==='diaporama')return diaporamaView(onch);
+ if(key==='valider')return validerView();
  if(key==='proposer'&&S.data.proposer&&!Array.isArray(S.data.proposer))return contactView(onch);
  if(key==='pages')return pagesView();
  if(key==='mise_en_page')return mpSiteView();
@@ -972,7 +1021,7 @@ function render(){
  if(!S.token){root.appendChild(loginView());return}
  if(S.loading||!S.data){root.appendChild(h('div',{class:'spin'},'Chargement du site…'));return}
  if(S.view.indexOf('g:')===0){var G0=GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0];var f0=G0&&G0[3].filter(itemOK)[0];if(f0){S.view=f0;S.q='';S.filter='Tous'}}
- var titles={home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
+ var titles={valider:['À valider','Les personnes qui demandent un accès : tu acceptes, le code part.'],home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
  var sec=SECTIONS.filter(function(s){return s[0]===S.view})[0];
  var gg=S.view.indexOf('g:')===0?GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0]:null;
  var t=gg?[gg[1],gg[4]]:(titles[S.view]||(sec?[sec[1],sec[3]]:['','']));

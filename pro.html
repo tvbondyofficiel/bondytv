@@ -540,6 +540,7 @@ select { font: inherit; width: 100%; padding: 14px 16px; border: 2px solid var(-
         <div class="fld"><label for="p-nom">Prénom et nom du responsable</label><input autocomplete="name" id="p-nom" required type="text"/></div>
         <div class="fld"><label for="p-tel">Numéro de téléphone (obligatoire)</label><input autocomplete="tel" id="p-tel" inputmode="tel" placeholder="06 12 34 56 78" required type="tel"/></div>
       </div>
+      <div class="fld"><label for="p-email">Adresse e-mail (pour recevoir votre code)</label><input autocomplete="email" id="p-email" inputmode="email" placeholder="contact@exemple.fr" required type="email"/></div>
       <div class="fld"><label for="p-adresse" id="p-adresse-l">Adresse de l'association</label><input autocomplete="street-address" id="p-adresse" placeholder="Numéro, rue, ville" required type="text"/></div>
       <div class="fld"><label for="p-piece">Copie de la pièce d'identité du responsable</label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="p-piece" required type="file"/></div>
       <div class="fld"><label for="p-justif" id="p-justif-l">Statuts ou récépissé de déclaration de l'association</label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="p-justif" required type="file"/></div>
@@ -717,12 +718,13 @@ select { font: inherit; width: 100%; padding: 14px 16px; border: 2px solid var(-
         e.preventDefault();
         if (!$("p-ok").checked) { say("Cochez la case pour continuer.", true); return; }
         var pf = $("p-piece").files[0], jf = $("p-justif").files[0];
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test($("p-email").value.trim())) { say("Écrivez une adresse e-mail valide.", true); return; }
         if (!pf) { say(ER.piece, true); return; }
         if (!jf) { say(ER.justif, true); return; }
         if (pf.size > 5 * 1024 * 1024 || jf.size > 5 * 1024 * 1024) { say("Un fichier est trop lourd (5 Mo au maximum).", true); return; }
         bt.disabled = true; say("Envoi en cours...", false);
         var fd = new FormData();
-        fd.append("profil", sel.value); fd.append("structure", $("p-structure").value); fd.append("nom", $("p-nom").value); fd.append("tel", $("p-tel").value); fd.append("adresse", $("p-adresse").value); fd.append("piece", pf); fd.append("justif", jf);
+        fd.append("profil", sel.value); fd.append("structure", $("p-structure").value); fd.append("nom", $("p-nom").value); fd.append("tel", $("p-tel").value); fd.append("adresse", $("p-adresse").value); fd.append("email", $("p-email").value.trim()); fd.append("piece", pf); fd.append("justif", jf);
         if ($("p-bot").checked) fd.append("botcheck", "1");
         var body = { nom: $("p-nom").value, structure: $("p-structure").value, profil: sel.value, tel: $("p-tel").value };
         fetch("/api/habitants", { method: "POST", body: fd })
