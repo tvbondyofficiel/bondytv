@@ -1,10 +1,10 @@
 <!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
 @page{size:210mm 297mm;margin:0}*{box-sizing:border-box}body{margin:0;background:#000}
 .c{position:relative;width:210mm;height:297mm;overflow:hidden;background:linear-gradient(180deg,#2a0a0e 0%,#4a1218 35%,#1d0a0c 100%);font-family:'Barlow',sans-serif;color:#fff}
-.ph{position:absolute;left:0;right:0;bottom:0;height:66%;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 38%);mask-image:linear-gradient(180deg,transparent 0%,#000 38%);background:url(/images/coeur-canal.jpg) 42% 50%/cover;filter:sepia(.55) saturate(1.25) brightness(.82) contrast(1.05)}
+.ph{position:absolute;left:0;right:0;bottom:0;height:66%;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 38%);mask-image:linear-gradient(180deg,transparent 0%,#000 38%);background:url(/images/img-5359-mvw04i4t.jpg) 50% 60%/cover;filter:sepia(.25) saturate(1.2) brightness(.78) contrast(1.08)}
 .ph::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,10,14,.35) 0%,rgba(42,10,14,0) 45%,rgba(20,6,8,.7) 100%)}
-.grain{position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(255,170,60,.25),transparent 60%)}
-.bk{position:absolute;inset:0}
+.warm{position:absolute;left:0;right:0;bottom:0;height:66%;background:linear-gradient(180deg,rgba(255,150,60,.0) 0%,rgba(255,140,50,.55) 30%,rgba(255,120,40,.3) 100%);mix-blend-mode:multiply;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 38%);mask-image:linear-gradient(180deg,transparent 0%,#000 38%)}.grain{position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(255,170,60,.25),transparent 60%)}
+.bk{position:absolute;inset:0}.fg{position:absolute;inset:0;width:100%;height:100%}
 .bk i{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,214,120,.95),rgba(255,170,60,.0) 70%);filter:blur(1px)}
 .gar{position:absolute;left:0;top:0;width:100%;height:60mm}
 .logo{position:absolute;top:13mm;left:0;right:0;text-align:center}.logo img{width:62mm;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
@@ -16,11 +16,28 @@
 .bar{position:absolute;left:0;right:0;bottom:0;padding:9mm 12mm;display:flex;justify-content:space-between;align-items:flex-end;font:700 10pt 'Barlow Condensed',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#f2d49a}
 .bar b{font-size:20pt;color:#fff;letter-spacing:.06em}
 </style></head><body><div class="c">
-<div class="ph"></div><div class="grain"></div>
+<div class="ph"></div><div class="warm"></div><div class="grain"></div>
 <svg class="gar" viewBox="0 0 210 60" preserveAspectRatio="none"><path d="M-5 6 Q 52 30 105 12 T 215 8" fill="none" stroke="#1d3a22" stroke-width="1.1"/><path d="M-5 14 Q 55 40 108 22 T 215 18" fill="none" stroke="#1d3a22" stroke-width=".8" opacity=".8"/>
 <g id="b"></g></svg>
 <div class="bk" id="bk"></div>
-<div class="logo"><img src="/magazine/img/logo-blanc.png" alt=""></div>
+<svg class="fg" viewBox="0 0 210 297" preserveAspectRatio="xMidYMid slice">
+<defs><linearGradient id="gt" x1="0" x2="1"><stop offset="0" stop-color="#0f3a22"/><stop offset=".5" stop-color="#1c5a34"/><stop offset="1" stop-color="#0c2e1b"/></linearGradient>
+<radialGradient id="fl"><stop offset="0" stop-color="#fff6c8"/><stop offset=".35" stop-color="#ffb43a"/><stop offset="1" stop-color="rgba(255,120,20,0)"/></radialGradient>
+<radialGradient id="gl"><stop offset="0" stop-color="rgba(255,190,80,.55)"/><stop offset="1" stop-color="rgba(255,150,40,0)"/></radialGradient></defs>
+<g id="tree" transform="translate(152 150) scale(.92)">
+<polygon points="0,0 -20,38 20,38" fill="url(#gt)"/><polygon points="0,22 -30,70 30,70" fill="url(#gt)"/><polygon points="0,52 -40,108 40,108" fill="url(#gt)"/><polygon points="0,86 -50,150 50,150" fill="url(#gt)"/>
+<rect x="-6" y="150" width="12" height="14" fill="#4a2a14"/>
+<polygon points="0,-9 2.6,-2.6 9,-2 4,2.3 5.6,8.6 0,5 -5.6,8.6 -4,2.3 -9,-2 -2.6,-2.6" fill="#ffd84d" style="filter:drop-shadow(0 0 4px #ffcf4d)"/>
+<g id="tb"></g></g>
+<g transform="translate(36 250) scale(.9)"><ellipse cx="0" cy="22" rx="30" ry="5" fill="rgba(0,0,0,.35)"/>
+<circle cx="-14" cy="-24" r="7" fill="#9a6a3c"/><circle cx="14" cy="-24" r="7" fill="#9a6a3c"/><circle cx="-14" cy="-24" r="3.6" fill="#d8a977"/><circle cx="14" cy="-24" r="3.6" fill="#d8a977"/>
+<ellipse cx="0" cy="12" rx="19" ry="21" fill="#b07a47"/><ellipse cx="0" cy="14" rx="11" ry="14" fill="#d8a977"/>
+<ellipse cx="-20" cy="6" rx="6" ry="12" fill="#b07a47" transform="rotate(25 -20 6)"/><ellipse cx="20" cy="6" rx="6" ry="12" fill="#b07a47" transform="rotate(-25 20 6)"/>
+<circle cx="-11" cy="20" r="8" fill="#b07a47"/><circle cx="11" cy="20" r="8" fill="#b07a47"/>
+<circle cx="0" cy="-17" r="17" fill="#b07a47"/><ellipse cx="0" cy="-11" rx="8" ry="6.5" fill="#d8a977"/><ellipse cx="0" cy="-14" rx="3" ry="2.2" fill="#3a2010"/>
+<circle cx="-6.5" cy="-21" r="1.8" fill="#2a160a"/><circle cx="6.5" cy="-21" r="1.8" fill="#2a160a"/>
+<path d="M-12 -2 Q0 4 12 -2 L11 2 Q0 8 -11 2 Z" fill="#c4262e"/></g>
+<g id="cd"></g></svg><div class="logo"><img src="/magazine/img/logo-blanc.png" alt=""></div>
 <div class="t"><small>Le magazine de Bondy · Décembre 2026</small><h1>Noël<em>à Bondy</em></h1><p>Lumières, souvenirs d’enfance et gens d’ici</p></div>
 <div class="bar"><span>Le magazine gratuit des Bondynois</span><b>N°2</b></div>
 </div>
@@ -31,4 +48,8 @@ var seg=[[[-5,6],[52,30],[105,12]],[[105,12],[158,-6],[215,8]]];
 for(var s=0;s<2;s++)for(var i=0;i<=10;i++){var p=pt(i/10,seg[s]);if(s==1&&i==0)continue;var c=document.createElementNS(NS,'circle');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]+1.6);c.setAttribute('r',1.5);c.setAttribute('fill',cols[(i+s*3)%5]);c.setAttribute('style','filter:drop-shadow(0 0 2.2px '+cols[(i+s*3)%5]+')');g.appendChild(c)}
 var bk=document.getElementById('bk'),r=7;function R(){r=(r*9301+49297)%233280;return r/233280}
 for(var k=0;k<60;k++){var d=document.createElement('i'),z=4+R()*14;d.style.cssText='left:'+(R()*100)+'%;top:'+(18+R()*70)+'%;width:'+z+'mm;height:'+z+'mm;opacity:'+(.15+R()*.45);bk.appendChild(d)}
+
+(function(){var tb=document.getElementById('tb'),cs=['#ff5a3c','#ffc94d','#fff0b0','#ff8fa3','#7fd36b'],NS='http://www.w3.org/2000/svg',rr=11;function R(){rr=(rr*9301+49297)%233280;return rr/233280}
+var tiers=[[0,38,20],[22,70,30],[52,108,40],[86,150,50]];tiers.forEach(function(t){var n=7;for(var i=0;i<n;i++){var y=t[0]+(t[1]-t[0])*(0.25+0.7*R()),w=t[2]*((y-t[0])/(t[1]-t[0])),x=(R()*2-1)*w*.8;var c=document.createElementNS(NS,'circle');c.setAttribute('cx',x);c.setAttribute('cy',y);c.setAttribute('r',1.7);c.setAttribute('fill',cs[i%5]);c.setAttribute('style','filter:drop-shadow(0 0 2.5px '+cs[i%5]+')');tb.appendChild(c)}});
+var cd=document.getElementById('cd');[[78,262,16],[88,266,12],[68,267,10]].forEach(function(c){var g=document.createElementNS(NS,'g');g.innerHTML='<circle cx="'+c[0]+'" cy="'+(c[1]-c[2]-4)+'" r="14" fill="url(#gl)"/><rect x="'+(c[0]-2.4)+'" y="'+(c[1]-c[2])+'" width="4.8" height="'+c[2]+'" rx="1" fill="#f3e6c8"/><ellipse cx="'+c[0]+'" cy="'+(c[1]-c[2]-3.5)+'" rx="1.9" ry="3.8" fill="url(#fl)"/>';cd.appendChild(g)})})();
 </script></body></html>
