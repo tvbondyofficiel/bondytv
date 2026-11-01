@@ -14,7 +14,7 @@
 - Admin réorganisé : tableau de bord, familles avec boutons + onglets, bouton **Dupliquer** sur les articles, page Articles en **vignettes** par défaut, « Mes pages » en cartes, pages Contact et Diaporama réorganisées.
 - Site public : page **Articles** en 4 colonnes continues séparées par des traits, recherche + filtres avec nombre ; accueil sans la vignette vidéo, « Ici, la parole est à vous » agrandi et centré.
 - Magazine **N°1** (« Vivre ensemble, mieux », novembre 2026) : 22 pages, 7,7 Mo ; dernière page noire avec le texte « Pas pour la gloire, mais pour être utiles… », logo, QR code, réseaux. Source : `magazine/edition.html`, PDF refait automatiquement par GitHub (`scripts/build-magazine-pdf.py` ; le bot commit → toujours `git pull --rebase`).
-- Question en attente : ce texte « Pas pour la gloire… » devait-il aller sur le N°1 ou le N°2 ? (il est publié sur le N°1 ; Mohammed n'a pas encore répondu).
+- Décision de Mohammed : le texte « Pas pour la gloire… » va dans le **N°2** (dernière page), pas le N°1. Le N°1 est terminé : ne plus y toucher. Retrait du N°1 préparé sur la branche `brouillon-n1-retrait`, en attente de son « publie ». Texte rangé dans `n2-brouillon/derniere-page-texte.md`.
 
 ## N°2 « Noël à Bondy » (décembre 2026) — BROUILLON, NON PUBLIÉ
 - Thème : Noël des années 1970, féerique, avec des photos de Bondy. Branche : `brouillon-n2-couverture` (ne pas fusionner sans accord).
