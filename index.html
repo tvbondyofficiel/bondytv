@@ -638,6 +638,13 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 .dia button:focus-visible{outline:3px solid #b8975a;outline-offset:2px}
 @media(max-width:620px){.dia .dia-cap{padding:30px 14px 38px;font-size:20px}.dia .dia-nav{width:44px;height:44px;margin-top:-22px}.dia .dia-dots{bottom:10px;left:14px;max-width:48%}.dia .dia-dots button{width:9px;height:9px}.dia .dia-dots button[aria-current=true]{width:22px}.dia .dia-play{min-height:36px;padding:0 10px;right:10px;bottom:6px;font-size:12px}}
 </style>
+<style id="head-parole-css">@media(min-width:1241px){
+.une.une2>.head,.une2 .head{align-items:center}
+.une2 .head>.head-mid{flex:1 1 auto!important;align-self:center;align-items:center;text-align:center;margin:0 clamp(20px,3vw,60px)!important;gap:16px}
+.une2 .head>.head-mid .hm-k{font-size:15px}
+.une2 .head>.head-mid b{font-size:clamp(40px,4.3vw,60px);line-height:.98;text-wrap:balance}
+.une2 .head>.head-mid .hs-btn{padding:18px 30px;font-size:17px}}
+@media(min-width:700px) and (max-width:1240px){.head-mid b{font-size:clamp(30px,5vw,44px)}}</style>
 </head>
 <body>
 <div class="wrap">
@@ -834,7 +841,7 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
     var c = d.couverture || {};
     var pvi = ((d.point_de_vue || {}).items || [])[0];
     var pvi = ((d.point_de_vue || {}).items || [])[0];
-    var vcar = pvi && pvi.image ? '<a class="head-vid" href="/point-de-vue.html" aria-label="Vidéo du mois"><img src="' + esc(pvi.image) + '" alt=""><i></i></a>' : "";
+    var vcar = "";
     var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="head-mid"><span class="hm-k">Vivre ensemble, mieux</span><b>Ici, la parole est à vous.</b><a class="hs-btn" href="/temoigner.html">Prendre la parole</a></div>' + vcar + '<div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
     une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {
       return '<a href="/article/' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
