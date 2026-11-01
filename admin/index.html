@@ -341,7 +341,7 @@ function articlesView(fixed){
  var q=S.q.trim().toLowerCase();
  function ok(a){return (fixed?a.rubrique===fixed:(S.filter==='Tous'||a.rubrique===S.filter))&&(!q||(a.titre||'').toLowerCase().indexOf(q)>=0)}
  var stt=S.stat||'tous';
- var vue=S.avue||'liste',mk=vue==='liste'?artRow:artCard;
+ var vue=S.avue||'vignettes',mk=vue==='liste'?artRow:artCard;
  var rows=[];if(stt!=='caches')articles().forEach(function(a,i){if(ok(a))rows.push(mk(a,i,false))});if(stt!=='visibles')caches().forEach(function(a,i){if(ok(a))rows.push(mk(a,i,true))});
  var rubSel=fixed?null:h('select',{'aria-label':'Rubrique',onchange:function(e){S.filter=e.target.value;render()}},['Tous'].concat(RUBRIQUES).map(function(r){return h('option',{value:r,selected:S.filter===r||null},r==='Tous'?'Toutes les rubriques':r)}));
  var statChips=fixed?null:[['tous','Tous ('+(articles().length+caches().length)+')'],['visibles','Visibles ('+articles().length+')'],['caches','Cachés ('+caches().length+')']].map(function(c){return h('button',{class:'chip'+(stt===c[0]?' on':''),'aria-pressed':String(stt===c[0]),onclick:function(){S.stat=c[0];render()}},c[1])});
