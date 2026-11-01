@@ -1089,9 +1089,9 @@
     "bouton": "Voir la chaîne YouTube",
     "items": [
       {
-        "image": "/images/coeur-canal.jpg",
-        "titre": "Au cœur de la ville",
-        "legende": "Une journée sur le terrain, au plus près des lieux où Bondy se retrouve.",
+        "image": "https://i.ytimg.com/vi/v8rVRPtVaYA/hqdefault.jpg",
+        "titre": "",
+        "legende": "",
         "lien": "https://www.youtube.com/watch?v=v8rVRPtVaYA&t=442s"
       }
     ]
