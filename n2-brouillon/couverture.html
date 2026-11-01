@@ -1,0 +1,34 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><style>
+@page{size:210mm 297mm;margin:0}*{box-sizing:border-box}body{margin:0;background:#000}
+.c{position:relative;width:210mm;height:297mm;overflow:hidden;background:linear-gradient(180deg,#2a0a0e 0%,#4a1218 35%,#1d0a0c 100%);font-family:'Barlow',sans-serif;color:#fff}
+.ph{position:absolute;left:0;right:0;bottom:0;height:66%;-webkit-mask-image:linear-gradient(180deg,transparent 0%,#000 38%);mask-image:linear-gradient(180deg,transparent 0%,#000 38%);background:url(/images/coeur-canal.jpg) 42% 50%/cover;filter:sepia(.55) saturate(1.25) brightness(.82) contrast(1.05)}
+.ph::before{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(42,10,14,.35) 0%,rgba(42,10,14,0) 45%,rgba(20,6,8,.7) 100%)}
+.grain{position:absolute;inset:0;background:radial-gradient(circle at 50% 100%,rgba(255,170,60,.25),transparent 60%)}
+.bk{position:absolute;inset:0}
+.bk i{position:absolute;border-radius:50%;background:radial-gradient(circle,rgba(255,214,120,.95),rgba(255,170,60,.0) 70%);filter:blur(1px)}
+.gar{position:absolute;left:0;top:0;width:100%;height:60mm}
+.logo{position:absolute;top:13mm;left:0;right:0;text-align:center}.logo img{width:62mm;filter:drop-shadow(0 2px 6px rgba(0,0,0,.5))}
+.t{position:absolute;left:0;right:0;top:78mm;text-align:center}
+.t small{display:block;font:600 11pt 'Barlow Condensed',sans-serif;letter-spacing:.42em;text-transform:uppercase;color:#f2d49a}
+.t h1{margin:3mm 0 0;font:700 78pt/.86 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#f6e3b4;text-shadow:0 0 22px rgba(255,190,90,.65),0 3px 0 #8a5a1d}
+.t h1 em{display:block;font-style:normal;color:#fff;font-size:92pt}
+.t p{margin:5mm 0 0;font:italic 500 14pt 'Barlow',sans-serif;color:#f3dcc0}
+.bar{position:absolute;left:0;right:0;bottom:0;padding:9mm 12mm;display:flex;justify-content:space-between;align-items:flex-end;font:700 10pt 'Barlow Condensed',sans-serif;letter-spacing:.18em;text-transform:uppercase;color:#f2d49a}
+.bar b{font-size:20pt;color:#fff;letter-spacing:.06em}
+</style></head><body><div class="c">
+<div class="ph"></div><div class="grain"></div>
+<svg class="gar" viewBox="0 0 210 60" preserveAspectRatio="none"><path d="M-5 6 Q 52 30 105 12 T 215 8" fill="none" stroke="#1d3a22" stroke-width="1.1"/><path d="M-5 14 Q 55 40 108 22 T 215 18" fill="none" stroke="#1d3a22" stroke-width=".8" opacity=".8"/>
+<g id="b"></g></svg>
+<div class="bk" id="bk"></div>
+<div class="logo"><img src="/magazine/img/logo-blanc.png" alt=""></div>
+<div class="t"><small>Le magazine de Bondy · Décembre 2026</small><h1>Noël<em>à Bondy</em></h1><p>Lumières, souvenirs d’enfance et gens d’ici</p></div>
+<div class="bar"><span>Le magazine gratuit des Bondynois</span><b>N°2</b></div>
+</div>
+<script>
+var cols=['#ff5a3c','#ffc94d','#7fd36b','#ff8fa3','#ffe08a'],g=document.getElementById('b'),NS='http://www.w3.org/2000/svg';
+function pt(t,P){var a=(1-t)*(1-t),b=2*(1-t)*t,c=t*t;return [a*P[0][0]+b*P[1][0]+c*P[2][0],a*P[0][1]+b*P[1][1]+c*P[2][1]]}
+var seg=[[[-5,6],[52,30],[105,12]],[[105,12],[158,-6],[215,8]]];
+for(var s=0;s<2;s++)for(var i=0;i<=10;i++){var p=pt(i/10,seg[s]);if(s==1&&i==0)continue;var c=document.createElementNS(NS,'circle');c.setAttribute('cx',p[0]);c.setAttribute('cy',p[1]+1.6);c.setAttribute('r',1.5);c.setAttribute('fill',cols[(i+s*3)%5]);c.setAttribute('style','filter:drop-shadow(0 0 2.2px '+cols[(i+s*3)%5]+')');g.appendChild(c)}
+var bk=document.getElementById('bk'),r=7;function R(){r=(r*9301+49297)%233280;return r/233280}
+for(var k=0;k<60;k++){var d=document.createElement('i'),z=4+R()*14;d.style.cssText='left:'+(R()*100)+'%;top:'+(18+R()*70)+'%;width:'+z+'mm;height:'+z+'mm;opacity:'+(.15+R()*.45);bk.appendChild(d)}
+</script></body></html>
