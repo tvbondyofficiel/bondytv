@@ -108,7 +108,8 @@ details.adv{margin-bottom:18px}
 .dpRg{display:flex;align-items:center;gap:8px}.dpRg small{color:#555a69;white-space:nowrap}.dpRg input{flex:1;min-width:0}
 .dpCard .fld{margin:0}.dpCard textarea{min-height:0;height:54px;resize:vertical}.dpCard input[type=text]{min-height:0}
 .rdot{display:inline-block;margin-left:8px;background:#d3141f;color:#fff;border-radius:999px;padding:1px 9px;font:700 14px Barlow,sans-serif;vertical-align:middle}header.top{position:sticky;top:0;z-index:30;background:#f4f2ee;padding:12px 0;margin-top:-12px}
-.ftabs{gap:8px}.ftabs .ftab{padding-left:14px!important;padding-right:14px!important;font-size:16px!important}.psGrid textarea{min-height:0;height:80px;resize:vertical}.psTop{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}.psTop .btn{min-height:46px}
+.ftabs{gap:8px}.ftabs .ftab{padding-left:14px!important;padding-right:14px!important;font-size:16px!important}.psGrid textarea{min-height:0;height:96px;resize:vertical}.psLeft .psGrid textarea{height:130px}.psCols{display:grid;grid-template-columns:minmax(300px,430px) 1fr;gap:16px;align-items:start}@media(max-width:1000px){.psCols{grid-template-columns:1fr}}.psCols .psLeft{position:sticky;top:96px}.psCols .psCard{margin-bottom:16px}.psCols .psLeft .psGrid{grid-template-columns:1fr}.psItems{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:12px}.psItems .psRow,.psItems .psEmpty{grid-column:1/-1}.psItems .psItem{margin:0}.psDet{background:#fff;border:1px solid #e3ddcf;border-radius:12px;padding:12px 18px;margin-bottom:16px}.psDet>summary{cursor:pointer;font:800 19px 'Barlow Condensed',sans-serif;text-transform:uppercase}.psDet[open]>summary{margin-bottom:12px}.ftabs .ftab{padding-left:11px!important;padding-right:11px!important;font-size:15px!important}
+.psTop{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin-bottom:14px}.psTop .btn{min-height:46px}
 .psCard{background:#fff;border:1px solid #e3ddcf;border-radius:12px;padding:16px 18px;margin-bottom:16px}.psCard>h3{margin:0 0 4px;font:800 21px 'Barlow Condensed',sans-serif;text-transform:uppercase;color:#12141c}.psCard>.hint{margin:0 0 12px;color:#555a69;font-size:15px}
 .psGrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 16px}.psGrid .fld{margin:0 0 12px}.psGrid .fld.wide{grid-column:1/-1}
 .psHead{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-bottom:12px}.psHead h3{margin:0}
@@ -166,7 +167,7 @@ var SECTIONS=[
  ['pied_de_page','Pied de page','#12141c','Le bas de chaque page : liens et mentions.']
 ];
 var GENERAL_KEYS=['titre_site','numero','sommaire_titre','articles_titre'];
-var LABELS={titre:'Titre',chapo:'Chapô (la phrase d’accroche)',texte:'Texte',texte_visible:'Début du texte (toujours visible)',image:'Photo',image_description:'Description de la photo (pour les malvoyants)',credit:'Crédit photo',etiquette:'Petit titre au-dessus',rubrique:'Rubrique',lien_video:'Lien de la vidéo',visuel:'Illustration',pleine_largeur:'Photo sur toute la largeur',image_portrait:'Photo en hauteur',affiche_entiere:'Affiche entière (sans recadrage)',image_focus:'Cadrage de la photo',citation:'Citation',vignette:'Petite image',introduction:'Introduction',email:'E-mail',telephone:'Téléphone',telephone_lien:'Téléphone (lien)',whatsapp:'WhatsApp',date:'Date',numero:'Numéro',pdf:'Fichier PDF',fichier:'Fichier du livre (PDF ou ePub)',exemple:'Ceci est un exemple (affiche le mot « Exemple » sur la page)',format:'Format',pages:'Nombre de pages',taille:'Taille',couverture:'Image de couverture',lignes:'Lignes à la une',sous_titre:'Sous-titre',cible:'Lien',en_rouge:'En rouge',legende:'Légende',description:'Description',titre_site:'Titre du site',sommaire_titre:'Titre du sommaire',articles_titre:'Titre de la liste des articles',contact_actif:'Afficher un contact',contact_nom:'Nom du contact',contact_role:'Rôle du contact',contact_texte:'Texte du contact',contact_qr:'QR code du contact',contact_qr_legende:'Légende du QR code',fichier_video:'Fichier vidéo',id:'Identifiant (ne pas changer)',photos:'Photos',galerie:'Galerie',etiquette_pub:'Étiquette',tarif:'Tarif',nombre_cases:'Nombre de cases',emplacements:'Emplacements',auteur:'Auteur',nom:'Nom',texte_lien:'Texte du lien',lien:'Lien',url:'Adresse (lien)'};
+var LABELS={reseaux_titre:'Titre des réseaux sociaux',utiles:'Infos utiles',encart:'Encart (citation)',items:'Éléments',cartes:'Cartes',avertissement_court:'Avertissement court',avertissement:'Avertissement complet',droit_de_reponse:'Droit de réponse',phrases_actives:'Afficher les phrases d’avis',source:'Source des noms',liste:'Liste des élus',auteur:'Auteur',note:'Note',legende:'Légende',bouton:'Texte du bouton',lien:'Lien',titre:'Titre',chapo:'Chapô (la phrase d’accroche)',texte:'Texte',texte_visible:'Début du texte (toujours visible)',image:'Photo',image_description:'Description de la photo (pour les malvoyants)',credit:'Crédit photo',etiquette:'Petit titre au-dessus',rubrique:'Rubrique',lien_video:'Lien de la vidéo',visuel:'Illustration',pleine_largeur:'Photo sur toute la largeur',image_portrait:'Photo en hauteur',affiche_entiere:'Affiche entière (sans recadrage)',image_focus:'Cadrage de la photo',citation:'Citation',vignette:'Petite image',introduction:'Introduction',email:'E-mail',telephone:'Téléphone',telephone_lien:'Téléphone (lien)',whatsapp:'WhatsApp',date:'Date',numero:'Numéro',pdf:'Fichier PDF',fichier:'Fichier du livre (PDF ou ePub)',exemple:'Ceci est un exemple (affiche le mot « Exemple » sur la page)',format:'Format',pages:'Nombre de pages',taille:'Taille',couverture:'Image de couverture',lignes:'Lignes à la une',sous_titre:'Sous-titre',cible:'Lien',en_rouge:'En rouge',legende:'Légende',description:'Description',titre_site:'Titre du site',sommaire_titre:'Titre du sommaire',articles_titre:'Titre de la liste des articles',contact_actif:'Afficher un contact',contact_nom:'Nom du contact',contact_role:'Rôle du contact',contact_texte:'Texte du contact',contact_qr:'QR code du contact',contact_qr_legende:'Légende du QR code',fichier_video:'Fichier vidéo',id:'Identifiant (ne pas changer)',photos:'Photos',galerie:'Galerie',etiquette_pub:'Étiquette',tarif:'Tarif',nombre_cases:'Nombre de cases',emplacements:'Emplacements',auteur:'Auteur',nom:'Nom',texte_lien:'Texte du lien',lien:'Lien',url:'Adresse (lien)'};
 var VISUELS=[['none','Aucune image pour l’instant'],['image','Une image (photo)'],['icone-sac','Pictogramme sac'],['icone-camion','Pictogramme camion'],['icone-micro','Pictogramme micro'],['icone-ampoule','Pictogramme ampoule'],['icone-mairie','Pictogramme mairie'],['logo','Logo Bondy TV'],['pont','Illustration du pont'],['play','Bouton lecture (vidéo)']];
 var BIGTEXT={texte:1,texte_visible:1,chapo:1,introduction:1,citation:1,description:1,legende:1,contact_texte:1};
 
@@ -329,7 +330,7 @@ function famBar(g){
  var out=[];var acts=FAMACT[g[0]]||[];
  if(acts.length&&g[0]!=='pagesite')out.push(h('div',{class:'bigs fbig'},acts.map(function(a){return h('button',{class:'bigb',style:'background:'+a[1],onclick:a[3]},h('b',{},a[0]),h('span',{},a[2]))})));
  var ks=g[3].filter(itemOK);
- if(ks.length>1)out.push(h('div',{class:'ftabs',role:'tablist'},(g[0]==='pagesite'?[h('button',{class:'ftab',style:'background:#006233;color:#fff;border-color:#006233',onclick:function(){go('pages_libres')}},'+ Nouvelle page')]:[]).concat(ks.map(function(k){return h('button',{class:'ftab'+(S.view===k?' on':''),role:'tab','aria-selected':String(S.view===k),onclick:function(){go(k)}},itemInfo(k)[0])}))));
+ if(ks.length>1)out.push(h('div',{class:'ftabs',role:'tablist'},([]).concat(ks.map(function(k){return h('button',{class:'ftab'+(S.view===k?' on':''),role:'tab','aria-selected':String(S.view===k),onclick:function(){go(k)}},itemInfo(k)[0])}))));
  return out}
 function topAdd(w,label){
  return h('button',{type:'button',class:'btn green',style:'min-height:50px;font-size:17px;margin-bottom:14px',onclick:function(){var b=w.querySelectorAll(':scope > button.btn.green');if(b.length)b[b.length-1].click()}},label)}
@@ -1004,7 +1005,7 @@ function psFields(parent,obj,onch){
   else{var c=h('div',{class:'psCard'},h('h3',{},lab(k)));psFields(c,v,onch);parent.appendChild(c)}})}
 function psShort(it){return Object.keys(it).filter(function(k){return !PS_HIDE[k]}).every(function(k){return typeof it[k]==='string'&&it[k].length<=200&&it[k].indexOf('\n')<0&&!isImgKey(k,it[k])})}
 function psList(arr,onch,label){
- var card=h('div',{class:'psCard'});var body=h('div');
+ var card=h('div',{class:'psCard'});var body=h('div',{class:'psItems'});
  function add(){var tpl=arr.length?arr[arr.length-1]:'';var nb=(tpl&&typeof tpl==='object')?blankLike(tpl):'';if(nb&&typeof nb==='object'&&'id' in nb)nb.id='x'+Date.now().toString(36);arr.push(nb);onch();draw()}
  function mv(i,d){var t=arr[i];arr[i]=arr[i+d];arr[i+d]=t;onch();draw()}
  function rm(i){if(confirm('Supprimer cet élément ?')){arr.splice(i,1);onch();draw()}}
@@ -1017,18 +1018,30 @@ function psList(arr,onch,label){
      keys.forEach(function(k){row.appendChild(h('input',{type:'text',value:it[k]||'',placeholder:lab(k),'aria-label':lab(k),oninput:function(e){it[k]=e.target.value;onch()}}))});body.appendChild(row)}
     else{var c=h('div',{class:'psItem'},h('div',{class:'ih'},btns(i),h('b',{},itemName(it,i))));psFields(c,it,onch);body.appendChild(c)}}
    else body.appendChild(h('div',{class:'psRow',style:'grid-template-columns:auto 1fr'},btns(i),h('input',{type:'text',value:it==null?'':String(it),oninput:function(e){arr[i]=e.target.value;onch()}})))});
-  if(!arr.length)body.appendChild(h('p',{class:'hint'},'Rien pour l’instant.'))}
+  if(!arr.length)body.appendChild(h('p',{class:'hint psEmpty'},'Rien pour l’instant.'))}
  card.appendChild(h('div',{class:'psHead'},h('h3',{},(label==='Items'?'Éléments':label)+' ('+arr.length+')'),h('button',{type:'button',class:'btn green',onclick:add},'+ Ajouter')));
  card.appendChild(body);draw();return card}
+var PS_FINE={source:1,avertissement:1,avertissement_court:1,droit_de_reponse:1,phrases_actives:1};
 function pageSecView(key,onch){
  var o=S.data[key];var box=h('section',{});
- var top=h('div',{class:'psTop'});
+ var top=h('div',{class:'psTop'},h('button',{type:'button',class:'btn green',style:'font-weight:800',onclick:function(){go('pages_libres')}},'+ Nouvelle page'));
  if(PS_URL[key])top.appendChild(h('a',{class:'btn',href:PS_URL[key],target:'_blank',rel:'noopener',style:'display:inline-flex;align-items:center;text-decoration:none;color:#12141c'},'Voir la page ↗'));
- if(top.childNodes.length)box.appendChild(top);
+ box.appendChild(top);
  if(Array.isArray(o)){box.appendChild(psList(o,onch,itemInfo(key)[0]));return box}
- var c=h('div',{class:'psCard'},h('h3',{},'La page'),h('p',{class:'hint'},itemInfo(key)[2]||''));
- var scal={};Object.keys(o).forEach(function(k){if(o[k]===null||typeof o[k]!=='object')scal[k]=1});
- psFields(c,o,onch);box.appendChild(c);return box}
+ var left=h('div',{class:'psLeft'}),right=h('div',{});
+ var lc=h('div',{class:'psCard'},h('h3',{},'Texte de la page'),h('p',{class:'hint'},itemInfo(key)[2]||''));
+ var lg=h('div',{class:'psGrid'});var fine=h('details',{class:'psDet'},h('summary',{},'Mentions et précautions'));var fg=h('div',{class:'psGrid'});var nf=0;
+ Object.keys(o).forEach(function(k){
+  if(PS_HIDE[k])return;var v=o[k];
+  if(v&&typeof v==='object'){
+   if(Array.isArray(v)){if(v.length||true)right.appendChild(psList(v,onch,lab(k)))}
+   else{var c=h('div',{class:'psCard'},h('h3',{},lab(k)));psFields(c,v,onch);right.appendChild(c)}}
+  else{var f=field(o,k,onch);if(PS_FINE[k]){nf++;fg.appendChild(f)}else lg.appendChild(f)}});
+ lc.appendChild(lg);left.appendChild(lc);
+ if(nf){fine.appendChild(fg);right.appendChild(fine)}
+ if(!right.childNodes.length){box.appendChild(h('div',{class:'psCard'},h('h3',{},'Texte de la page')));box.removeChild(box.lastChild);var one=h('div',{style:'max-width:760px'},lc);box.appendChild(one)}
+ else box.appendChild(h('div',{class:'psCols'},left,right));
+ return box}
 
 function sectionView(key){
  var box=h('section',{class:'card panel'});var onch=function(){refreshBar()};
