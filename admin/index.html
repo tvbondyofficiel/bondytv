@@ -151,7 +151,7 @@ var SECTIONS=[
  ['numeros','Les numéros (PDF)','#006233','Ajouter le numéro 2, 3… et son PDF. Pour modifier les pages du magazine : Éditeur visuel, page « Magazine N°1 (PDF) ».'],
  ['livres','Le livre (télécharger)','#b8975a','Ajouter un livre à télécharger gratuitement, avec compteur.'],
  ['en_images','Images et vidéos','#12141c','Les photos de « Bondy en images ».'],
- ['videos','Vidéos','#12141c','La page des vidéos.'],
+ ['videos','Bondy en vidéos','#12141c','La page des vidéos : colle les liens YouTube.'],
  ['reportages','Reportages','#12141c','Les reportages.'],
  ['point_de_vue','Mon point de vue','#b8975a','La page où les habitants donnent leur point de vue.'],
  ['paroles','Paroles d’habitants','#b8975a','Les paroles affichées sur le site.'],
@@ -320,8 +320,8 @@ var GROUPS=[
  ['valider','À valider','#d3141f',['valider'],'Les inscriptions à accepter, avec le code envoyé en un clic.'],
  ['articles','Articles','#12141c',['articles','tribune_cit','couverture','pages'],'Écrire, ranger et publier les articles.'],
  ['magazine','Magazine PDF','#d3141f',['numeros'],'Ajouter un magazine en PDF, voir les téléchargements.'],
- ['photos','Photos et vidéos','#006233',['diaporama','en_images','videos','reportages'],'Le diaporama, Bondy en images, les vidéos.'],
- ['pagesite','Pages du site','#b8975a',['pages_libres','point_de_vue','paroles','bonnes_infos','temoigner','tribune','essentiel','elus'],'Mes pages et les pages des habitants.'],
+ ['photos','Photos et vidéos','#006233',['diaporama','en_images','reportages'],'Le diaporama, Bondy en images, les vidéos.'],
+ ['pagesite','Pages du site','#b8975a',['pages_libres','point_de_vue','videos','paroles','bonnes_infos','temoigner','tribune','essentiel','elus'],'Mes pages et les pages des habitants.'],
  ['boutique','Boutique et livre','#b8975a',['boutique','livres'],'Tout ce qui sert à vendre ou à télécharger.'],
  ['contact','Contact et publicité','#006233',['proposer','page_pub','assistant'],'Écrivez-nous, encadrés publicitaires, assistant.'],
  ['apparence','Apparence et réglages','#12141c',['visuel','mise_en_page','general','banniere','pied_de_page'],'Les outils graphiques : éditeur visuel, mise en page, logo, bannière, pied de page.']
@@ -346,7 +346,7 @@ function groupView(G){
  var tiles=G[3].filter(itemOK).map(function(k){var inf=itemInfo(k);return h('button',{class:'tile',style:'--c:'+inf[1],onclick:function(){go(k)}},h('b',{},inf[0]),h('span',{style:'color:#555a69;font-size:15px'},inf[2]),h('em',{},'Ouvrir →'))});
  return h('section',{},h('div',{class:'tiles'},tiles))}
 var FAMACT={
- photos:[['+ Ajouter des photos','#006233','Bondy en images.',function(){go('en_images')}],['+ Ajouter une vidéo','#12141c','La page des vidéos.',function(){go('videos')}]],
+ photos:[['+ Ajouter des photos','#006233','Bondy en images.',function(){go('en_images')}],['+ Ajouter une vidéo','#12141c','Bondy en vidéos : liens YouTube.',function(){go('videos')}]],
  pagesite:[['+ Nouvelle page','#006233','Créer ma propre page.',function(){go('pages_libres')}]]};
 function famBar(g){
  var out=[];var acts=FAMACT[g[0]]||[];
@@ -1013,7 +1013,7 @@ setTimeout(vCount,800);setInterval(function(){if(document.visibilityState==='vis
 if(vTok())setTimeout(vLoad,0);
 
 /* ---------- Pages du site : une mise en page commune, boutons toujours en haut à gauche ---------- */
-var PS_URL={point_de_vue:'/point-de-vue.html',temoigner:'/temoigner.html',tribune:'/tribune.html',essentiel:'/essentiel.html',elus:'/elu.html'};
+var PS_URL={videos:'/videos.html',point_de_vue:'/point-de-vue.html',temoigner:'/temoigner.html',tribune:'/tribune.html',essentiel:'/essentiel.html',elus:'/elu.html'};
 var PS_HIDE={ts:1,id:1};
 function psWide(k,v){return !!BIGTEXT[k]||isImgKey(k,v)||(typeof v==='string'&&(v.length>70||v.indexOf('\n')>=0))||(v&&typeof v==='object')}
 function psFields(parent,obj,onch,isItem){
@@ -1065,6 +1065,35 @@ function psSlots(arr,onch){
  box.appendChild(g);return box}
 function videoField(it,onch){var w=h('div',{class:'fld'});w.appendChild(h('span',{class:'lb'},'Vidéo'));if(it.lien===undefined)it.lien='';w.appendChild(videoWidget(it,'lien',onch));return w}
 
+function ytId(u){u=String(u||'').trim();var m=u.match(/(?:youtu\.be\/|youtube\.com\/(?:watch\?(?:.*&)?v=|embed\/|shorts\/|live\/))([A-Za-z0-9_-]{11})/);return m?m[1]:''}
+function ytThumb(id){return 'https://i.ytimg.com/vi/'+id+'/hqdefault.jpg'}
+function psYt(arr,onch){
+ var box=h('div',{class:'psCard'});var N=Math.max(6,arr.length+1);
+ box.appendChild(h('div',{class:'psHead'},h('h3',{},'Les vidéos ('+arr.length+')'),h('span',{class:'hint',style:'margin:0'},'Colle le lien de la vidéo YouTube : l’image de couverture arrive toute seule.')));
+ var g=h('div',{class:'psSlots'});
+ function mv(i,d){var t=arr[i];arr[i]=arr[i+d];arr[i+d]=t;onch();render()}
+ function setLink(it,val){it.lien=val.trim();var id=ytId(it.lien);if(id&&(!it.image||/ytimg\.com/.test(it.image)))it.image=ytThumb(id);onch()}
+ for(var i=0;i<N;i++)(function(i){
+  var it=arr[i];
+  if(it&&typeof it==='object'){
+   ['titre','legende','lien','image'].forEach(function(k){if(it[k]===undefined)it[k]=''});
+   var id=ytId(it.lien);
+   var lk=h('input',{type:'text',value:it.lien,placeholder:'https://www.youtube.com/watch?v=…',style:'min-height:46px;border:1px solid #bdb7aa;border-radius:8px;padding:0 12px;font-size:16px;width:100%',oninput:function(e){setLink(it,e.target.value)},onchange:function(){render()}});
+   var th=it.image?h('img',{src:(S.pv&&S.pv[it.image])||it.image,alt:'',style:'width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:8px;background:#e9e5dc;display:block'}):h('div',{style:'width:100%;aspect-ratio:16/9;border-radius:8px;background:#e9e5dc;display:grid;place-items:center;color:#666;font-size:14px'},'Pas encore d’image');
+   var c=h('div',{class:'psItem slot'},h('div',{class:'ih'},h('b',{},'Vidéo '+(i+1)),h('button',{type:'button',class:'btn sq',title:'Avant',disabled:i===0||null,onclick:function(){mv(i,-1)}},'←'),h('button',{type:'button',class:'btn sq',title:'Après',disabled:i===arr.length-1||null,onclick:function(){mv(i,1)}},'→'),h('button',{type:'button',class:'btn sq warn',title:'Supprimer',onclick:function(){if(confirm('Supprimer cette vidéo de la page ?')){arr.splice(i,1);onch();render()}}},'✕')),
+    th,h('div',{class:'fld',style:'margin:10px 0 8px'},h('label',{},'Lien YouTube'),lk,id?h('small',{style:'color:#006233'},'✓ Lien reconnu'):(it.lien?h('small',{style:'color:#a30f18'},'Ce lien ne ressemble pas à une vidéo YouTube.'):null)));
+   c.appendChild(field(it,'titre',onch));c.appendChild(field(it,'legende',onch));
+   var det=h('details',{class:'adv'},h('summary',{},'Changer l’image de couverture'));det.appendChild(field(it,'image',onch));c.appendChild(det);
+   g.appendChild(c)}
+  else{
+   var inp=h('input',{type:'text',placeholder:'Colle ici le lien YouTube',style:'min-height:48px;border:1px solid #bdb7aa;border-radius:8px;padding:0 12px;font-size:16px;width:100%;margin-bottom:10px'});
+   var add=function(){var v=inp.value.trim();if(!v)return;if(!ytId(v)){say('Ce lien ne ressemble pas à une vidéo YouTube. Copie-le depuis YouTube (bouton Partager).',true);return}
+    var item={image:ytThumb(ytId(v)),titre:'',legende:'',lien:v};arr.push(item);onch();render()};
+   inp.addEventListener('keydown',function(e){if(e.key==='Enter')add()});inp.addEventListener('paste',function(){setTimeout(function(){if(ytId(inp.value))add()},50)});
+   g.appendChild(h('div',{class:'psItem slot empty'},h('div',{class:'ih'},h('b',{},'Vidéo '+(i+1))),h('p',{class:'hint',style:'margin:0 0 10px'},'Case libre : « Vidéo à venir » sur le site.'),inp,h('button',{type:'button',class:'btn green',style:'min-height:48px;font-weight:800',onclick:add},'+ Ajouter cette vidéo')))}
+ })(i);
+ box.appendChild(g);return box}
+
 var PS_FINE={source:1,avertissement:1,avertissement_court:1,droit_de_reponse:1,phrases_actives:1};
 function pageSecView(key,onch){
  window.PS_CUR=key;var o=S.data[key];var box=h('section',{});
@@ -1078,7 +1107,7 @@ function pageSecView(key,onch){
  Object.keys(o).forEach(function(k){
   if(PS_HIDE[k])return;var v=o[k];
   if(v&&typeof v==='object'){
-   if(Array.isArray(v)){if(key==='point_de_vue'&&k==='items')slotsNode=psSlots(v,onch);else right.appendChild(psList(v,onch,lab(k)))}
+   if(Array.isArray(v)){if(key==='point_de_vue'&&k==='items')slotsNode=psSlots(v,onch);else if(key==='videos'&&k==='items')slotsNode=psYt(v,onch);else right.appendChild(psList(v,onch,lab(k)))}
    else{var c=h('div',{class:'psCard'},h('h3',{},lab(k)));psFields(c,v,onch);right.appendChild(c)}}
   else{var f=field(o,k,onch);if(PS_FINE[k]){nf++;fg.appendChild(f)}else lg.appendChild(f)}});
  lc.appendChild(lg);left.appendChild(lc);
@@ -1096,7 +1125,7 @@ function sectionView(key){
  if(key==='pages_libres'){return pagesLibresView(onch)}
  if(key==='diaporama')return diaporamaView(onch);
  if(key==='valider')return validerView();
- if(['point_de_vue','paroles','bonnes_infos','temoigner','tribune','essentiel','elus'].indexOf(key)>=0&&S.data[key]&&typeof S.data[key]==='object')return pageSecView(key,onch);
+ if(['point_de_vue','videos','paroles','bonnes_infos','temoigner','tribune','essentiel','elus'].indexOf(key)>=0&&S.data[key]&&typeof S.data[key]==='object')return pageSecView(key,onch);
  if(key==='proposer'&&S.data.proposer&&!Array.isArray(S.data.proposer))return contactView(onch);
  if(key==='pages')return pagesView();
  if(key==='mise_en_page')return mpSiteView();
