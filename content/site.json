@@ -1114,11 +1114,11 @@
     "bouton": "Voir la chaîne YouTube",
     "items": [
       {
-        "image": "/images/point-de-vue-1.jpg",
+        "image": "/images/point-de-vue-2.jpg",
         "titre": "Mon point de vue",
         "type": "Réflexion",
         "legende": "Bondy TV",
-        "lien": "/videos/point-de-vue-1.mp4"
+        "lien": "/videos/point-de-vue-2.mp4"
       }
     ],
     "themes": [
