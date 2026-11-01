@@ -7,8 +7,11 @@ const MSG_RUBRIQUES = { "Logement": "logement", "L'essentiel": "essentiel", "Un 
 
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
+  const url = new URL(request.url);
+  // Compteur public : seulement un nombre (aucune donnée personnelle), pour la pastille rouge du tableau de bord.
+  if (url.searchParams.get("n") === "1") return json({ n: (await listPrefix(env, "hd:")).filter((d) => d.statut === "attente").length }, 200, { "Cache-Control": "no-store" });
   if (!modAllowed(request, env)) return json({ error: "refuse" }, 401);
-  const url = new URL(request.url), pc = url.searchParams.get("piece"), im = url.searchParams.get("img");
+  const pc = url.searchParams.get("piece"), im = url.searchParams.get("img");
   if (im) {
     if (!/^tt:[a-z0-9-]+:\d+-[a-f0-9]{6}$/.test(im)) return json({ error: "cle" }, 400);
     const t = await env.VOTES.get(im, "json");
