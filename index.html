@@ -638,6 +638,10 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
 .dia button:focus-visible{outline:3px solid #b8975a;outline-offset:2px}
 @media(max-width:620px){.dia .dia-cap{padding:30px 14px 38px;font-size:20px}.dia .dia-nav{width:44px;height:44px;margin-top:-22px}.dia .dia-dots{bottom:10px;left:14px;max-width:48%}.dia .dia-dots button{width:9px;height:9px}.dia .dia-dots button[aria-current=true]{width:22px}.dia .dia-play{min-height:36px;padding:0 10px;right:10px;bottom:6px;font-size:12px}}
 </style>
+<style id="head-cov-css">.head-vid.head-cov{width:112px;height:auto;border:0;border-radius:0;overflow:visible;box-shadow:none;display:flex;flex-direction:column;align-items:center;gap:8px;text-decoration:none}
+.head-cov img{width:112px;height:auto;aspect-ratio:210/297;object-fit:cover;border-radius:4px;box-shadow:0 8px 20px rgba(18,20,28,.3);border:1px solid rgba(18,20,28,.15)}
+.head-cov span{font:700 12px/1 var(--display);letter-spacing:.1em;text-transform:uppercase;background:#b8975a;color:#12141c;padding:7px 10px;border-radius:6px;white-space:nowrap}
+.head-cov:hover span{background:#12141c;color:#fff}</style>
 </head>
 <body>
 <div class="wrap">
@@ -834,7 +838,7 @@ p.fbtn a.btn-acc,p.fbtn a.btn-all{flex:1 1 220px;max-width:250px;min-width:0}
     var c = d.couverture || {};
     var pvi = ((d.point_de_vue || {}).items || [])[0];
     var pvi = ((d.point_de_vue || {}).items || [])[0];
-    var vcar = pvi && pvi.image ? '<a class="head-vid" href="/point-de-vue.html" aria-label="Vidéo du mois"><img src="' + esc(pvi.image) + '" alt=""><i></i></a>' : "";
+    var nm = (d.numeros || [])[0], vcar = nm && nm.couverture && nm.pdf ? '<a class="head-vid head-cov" href="' + esc(nm.pdf) + '" target="_blank" rel="noopener" aria-label="Lire le magazine ' + esc(nm.numero || "") + ' en PDF"><img src="' + esc(nm.couverture) + '" alt="Couverture du magazine ' + esc(nm.numero || "") + '"><span>Lire le magazine</span></a>' : "";
     var une = '<div class="head"><div class="logo"><div class="name">Bond<b>y</b></div><div class="side"><div class="tv">TV</div><div class="mag">Magazine</div></div></div><div class="head-mid"><span class="hm-k">Vivre ensemble, mieux</span><b>Ici, la parole est à vous.</b><a class="hs-btn" href="/temoigner.html">Prendre la parole</a></div>' + vcar + '<div class="no1-r"><b>' + esc(d.numero) + '</b><span>Gratuit</span></div></div>';
     une += '<div class="cov">' + (c.image ? '<img src="' + esc(c.image) + '" alt="' + esc(c.image_description) + '" fetchpriority="high">' : "") + '<div class="cov-lines">' + (c.lignes || []).map(function (l) {
       return '<a href="/article/' + esc(l.cible) + '"' + (l.en_rouge ? ' class="last"' : "") + ">" + esc(l.titre) + (l.sous_titre ? "<small>" + esc(l.sous_titre) + "</small>" : "") + "</a>";
