@@ -1,0 +1,51 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Barlow+Condensed:wght@500;600;700;800&family=Barlow:ital,wght@0,400;0,500;0,600;0,700;1,500&display=swap">
+<style>
+/* A6 (105 x 148 mm) + 3 mm de fond perdu = 111 x 154 mm. Zone sûre : 8 mm à l'intérieur du format fini. */
+@page{size:111mm 154mm;margin:0}*{box-sizing:border-box}body{margin:0;background:#777;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+.p{position:relative;width:111mm;height:154mm;overflow:hidden;background:#f6f4f1;font-family:'Barlow',sans-serif;color:#12141c;page-break-after:always}
+.p:last-child{page-break-after:auto}
+/* RECTO */
+.ph{position:absolute;left:0;right:0;top:0;height:66mm;background:url(../images/bondy-rue-automne.jpg) 35% 40%/cover}
+.ph:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.05),rgba(0,0,0,.35))}
+.lg{position:absolute;left:11mm;top:11mm;width:40mm;background:#fff;border-radius:1.6mm;padding:2.2mm 3mm;box-shadow:0 1px 6px rgba(0,0,0,.3)}.lg img{width:100%;display:block}
+.cv{position:absolute;right:11mm;top:34mm;width:36mm;border:.6mm solid #fff;box-shadow:0 2mm 5mm rgba(0,0,0,.45);transform:rotate(3deg)}
+.cv img{display:block;width:100%}
+.no{position:absolute;right:11mm;top:12mm;font:700 8pt 'Barlow Condensed';letter-spacing:.22em;text-transform:uppercase;color:#fff;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.t{position:absolute;left:11mm;top:73mm;width:58mm}
+.t .k{font:600 7.5pt 'Barlow Condensed';letter-spacing:.3em;text-transform:uppercase;color:#d3141f}
+.t h1{margin:1.5mm 0 0;font:800 29pt/.9 'Barlow Condensed';text-transform:uppercase}.t h1 em{font-style:normal;color:#b8975a}
+.t p{margin:3mm 0 0;font:italic 500 9.5pt/1.3 Barlow;color:#333}
+.bd{position:absolute;left:11mm;right:11mm;bottom:20mm;background:#006233;color:#fff;border-radius:1.5mm;padding:3.5mm 4mm;text-align:center;font:800 15pt/1 'Barlow Condensed';text-transform:uppercase;letter-spacing:.04em}
+.bd small{display:block;margin-top:1.2mm;font:600 7.5pt 'Barlow';letter-spacing:.04em;text-transform:none;color:#d9efe2}
+.ft{position:absolute;left:11mm;right:11mm;bottom:11mm;display:flex;justify-content:space-between;font:700 9pt 'Barlow Condensed';letter-spacing:.18em;text-transform:uppercase;color:#b8975a}
+/* VERSO */
+.v h2{position:absolute;left:11mm;right:11mm;top:12mm;margin:0;font:800 23pt/.92 'Barlow Condensed';text-transform:uppercase}.v h2 em{font-style:normal;color:#b8975a}
+.v .bar{position:absolute;left:11mm;top:9mm;width:14mm;height:1.1mm;background:#d3141f}
+.ls{position:absolute;left:11mm;right:11mm;top:43mm}.ls div{display:grid;grid-template-columns:8mm 1fr;align-items:center;border-top:.35mm solid #12141c;padding:2.1mm 0}.ls div:last-child{border-bottom:.35mm solid #12141c}
+.ls i{grid-row:1/3;font:800 18pt/1 'Barlow Condensed';color:#b8975a;font-style:normal}.ls b{font:800 10.5pt 'Barlow Condensed';text-transform:uppercase;letter-spacing:.02em}.ls span{font:400 7.8pt/1.25 Barlow;color:#333}
+.qr{position:absolute;left:11mm;bottom:25mm;display:flex;gap:4mm;align-items:center;width:83mm}
+.qr img{width:27mm;height:27mm;flex:none;background:#fff;padding:1mm;border:.35mm solid #12141c}
+.qr p{margin:0;font:600 8.5pt/1.3 Barlow}.qr p b{display:block;font:800 12pt/1 'Barlow Condensed';text-transform:uppercase;color:#006233;margin-bottom:1mm}
+.web{position:absolute;left:0;right:0;bottom:0;height:19mm;background:#12141c;color:#fff;padding:3.2mm 11mm 0;text-align:center}
+.web b{display:block;font:800 14pt/1 'Barlow Condensed';letter-spacing:.06em;color:#b8975a}.web span{display:block;margin-top:1mm;font:500 7pt/1.3 Barlow;color:#e8dcc0}
+</style></head><body>
+<div class="p">
+<div class="ph"></div><div class="lg"><img src="../images/logo.png" alt=""></div><div class="no">N°1 · Novembre 2026</div>
+<div class="cv"><img src="../images/numero-1.jpg" alt=""></div>
+<div class="t"><div class="k">Le magazine des Bondynois</div><h1>Ici, la parole<br>est <em>à vous</em></h1><p>Le magazine de Bondy, fait par des Bondynois.</p></div>
+<div class="bd">100 % gratuit<small>Magazine N°1 en ligne sur www.bondytv.com</small></div>
+<div class="ft"><span>Vivre ensemble, mieux.</span></div>
+</div>
+<div class="p v">
+<div class="bar"></div><h2>Bondy TV,<br>c’est <em>quoi ?</em></h2>
+<div class="ls">
+<div><i>1</i><b>Un magazine gratuit</b><span>Le numéro 1 se lit et se télécharge sur le site.</span></div>
+<div><i>2</i><b>Des vidéos et un podcast</b><span>Portraits, vie de la ville, point de vue.</span></div>
+<div><i>3</i><b>Votre parole</b><span>Témoignages, idées, bonnes infos : racontez votre Bondy.</span></div>
+<div><i>4</i><b>Pour tous</b><span>Habitants, commerçants, associations.</span></div>
+</div>
+<div class="qr"><img src="../images/qr-bondytv-www.png" alt=""><p><b>Scannez-moi</b>Pour ouvrir le site et lire le magazine.</p></div>
+<div class="web"><b>www.bondytv.com</b><span>Facebook · TikTok · Instagram · YouTube : Bondy TV</span></div>
+</div>
+</body></html>
