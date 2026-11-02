@@ -135,6 +135,7 @@ details.adv{margin-bottom:18px}
 <script>
 (function(){
 'use strict';
+try{localStorage.setItem('btv_owner','1')}catch(e){}
 var REPO='tvbondyofficiel/bondytv', BR='main', FILE='content/site.json';
 var AUTH_HOST='bondytv.pages.dev';
 var RUBRIQUES=['À la une','Édito','Actualité','Culture et balades','Histoire et fierté','Commerce','Solidarité et associations','Les bons acteurs de Bondy','Politique','Tribune citoyenne','Témoignage'];
@@ -361,12 +362,17 @@ function homeView(){
  var a=articles().length,c=caches().length;
  var stats=h('div',{class:'stats'},
   [[a+c,'articles au total','#12141c'],[a,'visibles sur le site','#006233'],[c,'brouillons (cachés)','#8a6d2e'],[(S.data.numeros||[]).length,'numéros PDF en ligne','#a30f18'],['…','téléchargements du magazine','#006233','dl']].map(function(s){var bb=h('b',{style:'color:'+s[2]},s[0]);if(s[3]==='dl'){var n1=(S.data.numeros||[])[0];if(n1&&n1.id)fetch('/api/telecharger?compte=1&id='+encodeURIComponent(n1.id)).then(function(r){return r.json()}).then(function(j){bb.textContent=Number(j.total||0).toLocaleString('fr-FR')}).catch(function(){bb.textContent='–'});else bb.textContent='0'}return h('div',{class:'card stat'},bb,h('span',{},s[1]))}));
- var bigs=h('div',{class:'bigs'},
+var vcard=h('section',{class:'card panel',style:'margin:0 0 22px;max-width:none'},h('h2',{style:'margin:0 0 8px;font:800 24px/1 Barlow Condensed,sans-serif;text-transform:uppercase'},'Visiteurs du site'),h('div',{class:'vzone'},'Chargement…'));
+ fetch('/api/visite').then(function(r){return r.json()}).then(function(j){var L=j.jours||[],z=vcard.querySelector('.vzone');if(!L.length){z.textContent='Pas encore de chiffres.';return}var sum=function(k){return L.slice(-k).reduce(function(t,x){return t+x.n},0)},mx=Math.max.apply(null,L.map(function(x){return x.n}).concat([1]));
+  var big=function(v,l,c){return h('div',{style:'flex:1 1 150px'},h('b',{style:'display:block;font:800 40px/1 Barlow Condensed,sans-serif;color:'+c},String(v)),h('span',{style:'color:#555a69;font-size:15px'},l))};
+  var bars=h('div',{style:'display:flex;align-items:flex-end;gap:3px;height:70px;margin-top:12px'},L.map(function(x){return h('div',{title:x.d.split('-').reverse().join('/')+' : '+x.n+' visiteur'+(x.n>1?'s':''),style:'flex:1;min-height:3px;background:'+(x===L[L.length-1]?'#006233':'#b8975a')+';border-radius:3px 3px 0 0;height:'+Math.max(4,Math.round(x.n/mx*70))+'px'})}));
+  z.textContent='';z.appendChild(h('div',{style:'display:flex;gap:18px;flex-wrap:wrap'},big(L[L.length-1].n,'aujourd’hui','#006233'),big(sum(7),'7 derniers jours','#12141c'),big(sum(30),'30 derniers jours','#d3141f')));z.appendChild(bars);z.appendChild(h('div',{style:'color:#777;font-size:13px;margin-top:6px'},'Un visiteur compté une fois par jour. Anonyme : aucun cookie. Tes propres visites ne sont pas comptées.'))}).catch(function(){vcard.querySelector('.vzone').textContent='Compteur indisponible pour le moment.'});
+  var bigs=h('div',{class:'bigs'},
   h('button',{class:'bigb',style:'background:#12141c',onclick:newArticle},h('b',{},'+ Écrire un article'),h('span',{},'Titre, texte, photo, puis publier.')),
   h('button',{class:'bigb',style:'background:#d3141f',onclick:function(){go('numeros')}},h('b',{},'+ Ajouter un magazine'),h('span',{},'Choisis ton PDF : la couverture se fait toute seule.')),
   h('button',{class:'bigb',style:'background:#006233',onclick:function(){go('en_images')}},h('b',{},'+ Ajouter des photos'),h('span',{},'Bondy en images, diaporama, vidéos.')));
  var tiles=h('div',{class:'tiles'},GROUPS.map(function(G){var items=G[3].filter(itemOK).map(function(k){return h('li',{},itemInfo(k)[0])});return h('button',{class:'tile gtile',style:'--c:'+G[2],onclick:function(){go('g:'+G[0])}},h('b',{},G[1],(G[0]==='valider'&&S.vn)?h('small',{class:'rdot'},S.vn+' à valider'):null),h('ul',{},items),h('em',{},'Ouvrir →'))}));
- return h('section',{},stats,bigs,h('h2',{},'Toutes les familles'),tiles)}
+ return h('section',{},stats,vcard,bigs,h('h2',{},'Toutes les familles'),tiles)}
 function header(title,sub){
  var d=isDirty();
  return h('header',{class:'top'},h('div',{},h('h1',{},title),h('p',{class:'sub'},sub)),h('div',{class:'bar'},h('span',{class:'dirty'+(d?'':' ok')},!d?'Tout est publié':(savedNow()?'Brouillon enregistré, pas encore publié':'Changements pas enregistrés')),h('button',{class:'btn save',style:'background:#fff;color:#12141c;border:1.5px solid #12141c',disabled:(!d||savedNow())||null,onclick:saveDraft},'Enregistrer'),h('button',{class:'btn gold',title:'Enregistre d’abord, puis publie',disabled:(!(d&&savedNow())||S.busy)||null,onclick:publish},S.busy?'Un instant…':'Publier le site')))}

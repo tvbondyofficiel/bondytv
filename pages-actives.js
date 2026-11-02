@@ -1,3 +1,14 @@
+/* Compteur de visiteurs anonyme : un seul signal par jour et par navigateur, sans cookie ni identifiant. Ignoré pour le propriétaire connecté au tableau de bord. */
+(function () {
+  try {
+    if (!/^(www\.)?bondytv\.com$/.test(location.hostname) || navigator.webdriver) return;
+    if (localStorage.getItem("btv_owner")) return;
+    var d = new Date().toISOString().slice(0, 10);
+    if (localStorage.getItem("btv_vu") === d) return;
+    localStorage.setItem("btv_vu", d);
+    fetch("/api/visite", { method: "POST", keepalive: true }).catch(function () {});
+  } catch (e) {}
+})();
 /* Pages désactivées depuis le tableau de bord : on les retire du menu et des liens, et la page elle-même s'efface. */
 (function () {
   fetch("/content/site.json", { cache: "no-cache" }).then(function (r) { return r.json(); }).then(function (d) {
