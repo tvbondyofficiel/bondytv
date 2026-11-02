@@ -11,7 +11,7 @@ async function livre(request, env, id) {
     if (l) return l;
     // numéros du magazine (PDF) : même compteur, clé « numero:… »
     const n = (d.numeros || []).find((x) => x && x.id === id && x.pdf);
-    return n ? { fichier: n.pdf, cle: "numero:" + id } : null;
+    return n ? { fichier: n.pdf, cle: "numero:" + id, cache: !!n.cache } : null;
   } catch (e) { return null; }
 }
 
@@ -24,6 +24,7 @@ export async function onRequestGet({ request, env }) {
   const key = b.cle || "livre:" + id;
   const total = async () => (env.VOTES ? Number(await env.VOTES.get(key)) || 0 : 0);
   if (url.searchParams.get("compte")) return json({ total: await total() }, 200);
+  if (b.cache) return json({ error: "introuvable" }, 404);
   // Compte un téléchargement (3 par heure et par personne au maximum), puis envoie le fichier.
   try {
     if (env.VOTES && (await limit(env, request, "livre-" + id, 3, 3600))) {
