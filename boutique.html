@@ -773,12 +773,12 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var FONTS = [["condense", "Condensée", '"Barlow Condensed","Arial Narrow",Impact,sans-serif', 800], ["ronde", "Ronde", 'Barlow,"Segoe UI",Arial,sans-serif', 800], ["classique", "Classique", 'Georgia,"Times New Roman",serif', 700], ["machine", "Machine", '"Courier New",monospace', 700]];
     var TEES = [["Noir", "#12141c"], ["Blanc", "#fbf8f1"], ["Vert", "#006233"], ["Rouge", "#d3141f"], ["Gris", "#8a8f9c"], ["Crème", "#e8dcc0"]];
     var INKS = [["Crème", "#e8dcc0"], ["Blanc", "#ffffff"], ["Or", "#b8975a"], ["Noir", "#12141c"], ["Rouge", "#d3141f"], ["Vert", "#006233"]];
-    var st = { l: ["", "", ""], f: 0, c: a.couleur || TEES[0][1], k: a.couleur_texte || INKS[0][1], t: null, q: 1 };
+    var st = { x: 0, y: 0, z: 1, l: ["", "", ""], f: 0, c: a.couleur || TEES[0][1], k: a.couleur_texte || INKS[0][1], t: null, q: 1 };
     (a.lignes || []).slice(0, 3).forEach(function (x, i) { st.l[i] = x; });
     var back = '<a class="back" href="/boutique.html' + (col ? "?collection=" + encodeURIComponent(col.id) + (apercu ? "&apercu=1" : "") : (apercu ? "?apercu=1" : "")) + '">← ' + (col ? esc(col.nom) : "Retour à la boutique") + "</a>";
     document.title = a.nom + " · Boutique · Bondy TV Magazine";
     var css = document.createElement("style");
-    css.textContent = ".pz .cv{width:100%;max-width:440px;height:auto;display:block;margin:0 auto;border-radius:12px;background:#ece6d8}.pz .ti{width:100%;font:700 20px var(--body);padding:12px 14px;border:2px solid var(--line);border-radius:10px;margin-top:8px;background:#fff;color:#12141c;box-sizing:border-box}.pz .sw,.pz .fo{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.pz .sw button{width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer}.pz .sw button[aria-pressed=true]{box-shadow:0 0 0 4px #12141c}.pz .fo button{min-height:48px;padding:0 16px;border:2px solid var(--line);border-radius:10px;background:#fff;font-size:20px;color:#12141c;cursor:pointer}.pz .fo button[aria-pressed=true]{background:#12141c;color:#fff;border-color:#12141c}.pz .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.pz .row2{grid-template-columns:1fr}}.pz .tot2{font-size:18px}.pz .msg{margin:8px 0 0;font-weight:700}.pz .msg.err{color:var(--red)}";
+    css.textContent = ".pz .cv{width:100%;max-width:440px;height:auto;display:block;margin:0 auto;border-radius:12px;background:#ece6d8}.pz .ti{width:100%;font:700 20px var(--body);padding:12px 14px;border:2px solid var(--line);border-radius:10px;margin-top:8px;background:#fff;color:#12141c;box-sizing:border-box}.pz .sw,.pz .fo{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.pz .sw button{width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer}.pz .sw button[aria-pressed=true]{box-shadow:0 0 0 4px #12141c}.pz .fo button{min-height:48px;padding:0 16px;border:2px solid var(--line);border-radius:10px;background:#fff;font-size:20px;color:#12141c;cursor:pointer}.pz .fo button[aria-pressed=true]{background:#12141c;color:#fff;border-color:#12141c}.pz .pl .cen{background:#006233;color:#fff;border-color:#006233}.pz .pl button{min-width:52px}.pz .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.pz .row2{grid-template-columns:1fr}}.pz .tot2{font-size:18px}.pz .msg{margin:8px 0 0;font-weight:700}.pz .msg.err{color:var(--red)}";
     document.head.appendChild(css);
     var h0 = head + back + '<div class="prod pz"><div><div class="ph" style="background:none;border:0;padding:0"><canvas class="cv" id="pcv" width="800" height="880" role="img" aria-label="Ton t-shirt, aperçu en direct"></canvas></div></div><div class="box">';
     h0 += '<p class="kick" style="margin:0">Personnalise ton t-shirt</p><h1>' + esc(a.nom) + '</h1><div class="big">' + eur(a.prix) + "</div>";
@@ -786,6 +786,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     h0 += '<div><span class="lb">1 · Ton texte (3 lignes maximum)</span>';
     for (var i = 0; i < 3; i++) h0 += '<input class="ti" data-l="' + i + '" maxlength="24" placeholder="Ligne ' + (i + 1) + '" value="' + esc(st.l[i]) + '" autocomplete="off">';
     h0 += '</div><div><span class="lb">2 · Écriture</span><div class="fo" id="pfo"></div></div>';
+    h0 += '<div><span class="lb">Placer le texte sur le t-shirt</span><div class="fo pl"><button type="button" data-m="c" class="cen">⌖ Centrer</button><button type="button" data-m="l" aria-label="À gauche">←</button><button type="button" data-m="r" aria-label="À droite">→</button><button type="button" data-m="u" aria-label="Plus haut">↑</button><button type="button" data-m="d" aria-label="Plus bas">↓</button><button type="button" data-m="-">A−</button><button type="button" data-m="+">A+</button></div><p class="note" style="margin:6px 0 0">Les pointillés montrent le milieu et la zone d’impression. Sur ordinateur, tu peux aussi faire glisser le texte avec la souris.</p></div>';
     h0 += '<div><span class="lb">3 · Couleur du t-shirt</span><div class="sw" id="psc"></div></div><div><span class="lb">4 · Couleur du texte</span><div class="sw" id="psk"></div></div>';
     if (tailles.length) h0 += '<div><span class="lb">5 · Taille</span><div class="sz" role="group" aria-label="Taille" id="psz"></div></div>';
     h0 += '<div><span class="lb">Quantité</span><div class="qty"><button type="button" id="pqm" aria-label="Moins">−</button><span id="pqn" aria-live="polite">1</span><button type="button" id="pqp" aria-label="Plus">+</button></div></div>';
@@ -796,15 +797,20 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     var cv = document.getElementById("pcv"), ctx = cv.getContext("2d");
     var PATH = "M60 10 L20 35 L5 80 L35 90 L45 75 L45 205 L155 205 L155 75 L165 90 L195 80 L180 35 L140 10 C130 28 70 28 60 10 Z";
     function lines() { return st.l.map(function (x) { return x.trim().replace(/\s+/g, " "); }).filter(Boolean); }
-    function draw() {
+    function draw(clean) {
       ctx.clearRect(0, 0, 800, 880); ctx.fillStyle = "#ece6d8"; ctx.fillRect(0, 0, 800, 880);
       ctx.save(); ctx.scale(4, 4); var p = new Path2D(PATH); ctx.fillStyle = st.c; ctx.fill(p); ctx.strokeStyle = "rgba(0,0,0,.18)"; ctx.lineWidth = 1; ctx.stroke(p); ctx.restore();
-      var L = lines(), F = FONTS[st.f]; if (!L.length) { ctx.fillStyle = st.k; ctx.globalAlpha = .35; ctx.font = F[3] + " 44px " + F[2]; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("Ton texte ici", 400, 520); ctx.globalAlpha = 1; return; }
+      var L = lines(), F = FONTS[st.f]; var cx = 400 + st.x, cy = 520 + st.y; if (!clean) guides(); if (!L.length) { ctx.fillStyle = st.k; ctx.globalAlpha = .35; ctx.font = F[3] + " 44px " + F[2]; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("Ton texte ici", cx, cy); ctx.globalAlpha = 1; return; }
       var start = L.length > 2 ? 64 : L.length > 1 ? 84 : 104, sizes = L.map(function (t) { var s = start; ctx.font = F[3] + " " + s + "px " + F[2]; while (ctx.measureText(t).width > 400 && s > 16) { s -= 2; ctx.font = F[3] + " " + s + "px " + F[2]; } return s; });
-      var gap = 8, tot = sizes.reduce(function (x, y) { return x + y; }, 0) + gap * (L.length - 1), y = 520 - tot / 2;
+      sizes = sizes.map(function (v) { return Math.round(v * st.z); });
+      var gap = 8 * st.z, tot = sizes.reduce(function (x, y) { return x + y; }, 0) + gap * (L.length - 1), y = cy - tot / 2;
       ctx.fillStyle = st.k; ctx.textAlign = "center"; ctx.textBaseline = "middle";
-      L.forEach(function (t, i) { ctx.font = F[3] + " " + sizes[i] + "px " + F[2]; ctx.fillText(t, 400, y + sizes[i] / 2); y += sizes[i] + gap; });
+      L.forEach(function (t, i) { ctx.font = F[3] + " " + sizes[i] + "px " + F[2]; ctx.fillText(t, cx, y + sizes[i] / 2); y += sizes[i] + gap; });
     }
+    function guides() {
+      ctx.save(); ctx.setLineDash([10, 8]); ctx.lineWidth = 2; ctx.strokeStyle = "rgba(128,128,128,.7)"; ctx.beginPath(); ctx.moveTo(400, 150); ctx.lineTo(400, 830); ctx.stroke(); ctx.strokeRect(180, 250, 440, 520); ctx.restore();
+    }
+    function mv(dx, dy, dz) { st.x = Math.max(-200, Math.min(200, st.x + dx)); st.y = Math.max(-260, Math.min(240, st.y + dy)); st.z = Math.max(.5, Math.min(1.6, Math.round((st.z + dz) * 100) / 100)); draw(); }
     function sw(id, list, key) {
       var el = document.getElementById(id); el.innerHTML = "";
       list.forEach(function (x) { var bt = document.createElement("button"); bt.type = "button"; bt.style.background = x[1]; bt.title = x[0]; bt.setAttribute("aria-label", x[0]); bt.setAttribute("aria-pressed", String(st[key].toLowerCase() === x[1].toLowerCase())); bt.addEventListener("click", function () { st[key] = x[1]; sw(id, list, key); draw(); sum(); }); el.appendChild(bt); });
@@ -825,6 +831,12 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       pb.setAttribute("aria-disabled", String(out || !b.paypal_email || (tailles.length && !st.t)));
     }
     function say(t, err) { var m = document.getElementById("pmsg"); m.textContent = t; m.className = "msg" + (err ? " err" : ""); }
+    box.querySelectorAll("[data-m]").forEach(function (x) { x.addEventListener("click", function () { var m = x.getAttribute("data-m"); if (m === "c") { st.x = 0; st.y = 0; draw(); } else if (m === "l") mv(-16, 0, 0); else if (m === "r") mv(16, 0, 0); else if (m === "u") mv(0, -16, 0); else if (m === "d") mv(0, 16, 0); else if (m === "-") mv(0, 0, -.1); else mv(0, 0, .1); }); });
+    var drag = null;
+    cv.addEventListener("pointerdown", function (e) { if (e.pointerType !== "mouse") return; var r = cv.getBoundingClientRect(); drag = { px: e.clientX, py: e.clientY, x: st.x, y: st.y, k: 800 / r.width }; cv.setPointerCapture(e.pointerId); cv.style.cursor = "grabbing"; });
+    cv.addEventListener("pointermove", function (e) { if (!drag) return; st.x = Math.max(-200, Math.min(200, drag.x + (e.clientX - drag.px) * drag.k)); st.y = Math.max(-260, Math.min(240, drag.y + (e.clientY - drag.py) * drag.k)); draw(); });
+    cv.addEventListener("pointerup", function () { drag = null; cv.style.cursor = "grab"; });
+    cv.style.cursor = "grab";
     box.querySelectorAll("[data-l]").forEach(function (x) { x.addEventListener("input", function () { st.l[Number(x.getAttribute("data-l"))] = x.value; draw(); }); });
     document.getElementById("pqm").addEventListener("click", function () { st.q = Math.max(1, st.q - 1); document.getElementById("pqn").textContent = st.q; sum(); });
     document.getElementById("pqp").addEventListener("click", function () { st.q = Math.min(10, st.q + 1); document.getElementById("pqn").textContent = st.q; sum(); });
@@ -837,8 +849,10 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { say("Écris une adresse e-mail valide.", true); return; }
       if (apercu) { say("Mode aperçu : rien n’est envoyé.", false); return; }
       pb.setAttribute("aria-disabled", "true"); say("Envoi de ton aperçu…", false);
+      draw(true);
       cv.toBlob(function (blob) {
-        var fd = new FormData(); fd.append("image", blob, "tshirt.png"); fd.append("article", a.id); fd.append("taille", st.t || ""); fd.append("quantite", st.q); fd.append("lignes", JSON.stringify(L)); fd.append("police", FONTS[st.f][0]); fd.append("couleur_tshirt", st.c); fd.append("couleur_texte", st.k); fd.append("nom", nom); fd.append("email", mail); fd.append("telephone", tel); fd.append("botcheck", "");
+        draw();
+        var fd = new FormData(); fd.append("image", blob, "tshirt.png"); fd.append("article", a.id); fd.append("taille", st.t || ""); fd.append("quantite", st.q); fd.append("lignes", JSON.stringify(L)); fd.append("police", FONTS[st.f][0]); fd.append("couleur_tshirt", st.c); fd.append("couleur_texte", st.k); fd.append("nom", nom); fd.append("email", mail); fd.append("telephone", tel); fd.append("pos_x", Math.round(st.x)); fd.append("pos_y", Math.round(st.y)); fd.append("zoom", st.z); fd.append("botcheck", "");
         fetch("/api/perso", { method: "POST", body: fd }).then(function (r) { return r.json().catch(function () { return {}; }); }).then(function (j) {
           if (!j.ok) { var E = { mail: "La commande personnalisée n’est pas encore ouverte. Reviens bientôt.", trop_de_tentatives: "Trop d’essais. Réessaie plus tard.", image: "L’image n’a pas pu être créée. Réessaie." }; say(E[j.error] || "L’envoi n’a pas marché. Réessaie.", true); sum(); return; }
           var u = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=" + encodeURIComponent(b.paypal_email) +

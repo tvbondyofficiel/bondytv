@@ -35,6 +35,8 @@ export async function onRequestPost({ request, env }) {
   const police = POLICES[String(f.get("police"))] ? String(f.get("police")) : "condense";
   const ct = String(f.get("couleur_tshirt")), cx = String(f.get("couleur_texte"));
   if (!COUL.test(ct) || !COUL.test(cx)) return json({ error: "couleur" }, 400);
+  const px = Math.max(-200, Math.min(200, parseInt(f.get("pos_x") || "0", 10) || 0)), py = Math.max(-260, Math.min(240, parseInt(f.get("pos_y") || "0", 10) || 0)), zoom = Math.max(0.5, Math.min(1.6, parseFloat(f.get("zoom") || "1") || 1));
+  const place = (px === 0 && py === 0 ? "centré sur la poitrine" : "décalé de " + Math.abs(px) + " vers la " + (px < 0 ? "gauche" : "droite") + " et de " + Math.abs(py) + " vers le " + (py < 0 ? "haut" : "bas") + " (sur une image de 800 de large)") + ", taille du texte ×" + zoom;
   const nom = cleanLine(f.get("nom"), 80), email = cleanLine(f.get("email"), 120), tel = cleanLine(f.get("telephone"), 30);
   if (nom.length < 3) return json({ error: "nom" }, 400);
   if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email)) return json({ error: "email" }, 400);
@@ -57,6 +59,7 @@ export async function onRequestPost({ request, env }) {
     lignes.join("\n"),
     "",
     "Police : " + POLICES[police],
+    "Place du texte : " + place,
     "Couleur du t-shirt : " + ct,
     "Couleur du texte : " + cx,
     "",
