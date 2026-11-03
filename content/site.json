@@ -1211,6 +1211,23 @@
       "contact_qr": "/images/qr-bondytv-www.png",
       "contact_qr_legende": "Flashez pour ouvrir l'appli Bondy TV",
       "affiche_entiere": false
+    },
+    {
+      "id": "valeurs-humaines",
+      "rubrique": "Tribune citoyenne",
+      "etiquette": "Tribune",
+      "pleine_largeur": false,
+      "titre": "Les valeurs humaines : ce qui nous tient ensemble",
+      "chapo": "Respect, écoute, solidarité, fraternité : les valeurs humaines coûtent peu et changent tout. Une tribune pour rappeler l'essentiel.",
+      "visuel": "none",
+      "image": "",
+      "image_description": "",
+      "credit": "",
+      "texte_visible": "",
+      "texte": "Dans une ville, on parle souvent de routes, de bâtiments, de budgets. On parle moins de ce qui fait qu'on a envie d'y vivre : les valeurs humaines.\n\n**Le respect.** Respecter l'autre, ce n'est pas penser comme lui. C'est le regarder comme un égal, avec ses différences, son histoire et sa dignité.\n\n**L'écoute.** Beaucoup de colères naissent du sentiment de ne pas être entendu. Écouter, c'est déjà commencer à réparer.\n\n**La solidarité.** Un voisin qui aide un voisin, une association qui tend la main, un commerçant qui rend service : ces gestes simples tiennent une ville debout.\n\n**La fraternité.** Nous n'avons pas choisi notre lieu de naissance. Nous pouvons choisir la manière dont nous regardons les autres.\n\n**La parole.** Chacun mérite d'être vu et entendu. Une ville où chacun peut dire ce qu'il pense, avec douceur et respect, est une ville plus forte.\n\nCes valeurs ne coûtent rien. Elles demandent seulement un peu de courage, un peu de temps, et l'envie de vivre ensemble, vraiment, et non simplement côte à côte.\n\n**Et vous, quelles valeurs humaines vous semblent les plus importantes à Bondy ?** Dites-le-nous avec le formulaire [Témoigner](/temoigner.html) : votre réponse pourra paraître dans le prochain numéro.",
+      "affiche_entiere": false,
+      "lien_video": "",
+      "ordre": 26
     }
   ],
   "livres": [
