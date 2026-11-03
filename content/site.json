@@ -1187,6 +1187,30 @@
       "etiquette": "Ville · Commerce",
       "image_portrait": false,
       "affiche_entiere": false
+    },
+    {
+      "lien_video": "",
+      "texte_visible": "",
+      "rubrique": "Édito",
+      "pleine_largeur": true,
+      "titre": "Copie – Bienvenue : ce magazine est le vôtre",
+      "texte": "Chères Bondynoises, chers Bondynois,\n\nC'est avec beaucoup de plaisir que je vous présente ce deuxième numéro de notre magazine.\n\nSi nous avons choisi de poursuivre cette aventure, c'est parce que nous croyons profondément au potentiel de notre ville, à la richesse de ses habitants et à la force des initiatives positives.\n\nBondy regorge de talents, d'idées, d'énergies et de personnes qui souhaitent faire avancer les choses. Des habitants qui entreprennent, qui s'engagent, qui accompagnent les autres, qui transmettent leur savoir et qui souhaitent contribuer, à leur manière, à améliorer notre quotidien.\n\nC'est précisément cette dynamique que nous souhaitons encourager et mettre en lumière.\n\nNotre ambition est simple : valoriser les bonnes initiatives, favoriser les rencontres, encourager les projets utiles et donner à chacun la possibilité de participer à une dynamique positive pour notre ville.\n\nDans cette continuité, j'ai également créé une plateforme qui a vocation à se développer et à devenir un véritable espace de rencontres, de partage et d'initiatives. Elle s'adresse à toutes celles et ceux qui souhaitent entreprendre, partager une idée, soutenir une action solidaire, développer un projet ou simplement apporter leur contribution à la vie locale.\n\nJe suis convaincu qu'il n'est pas nécessaire d'avoir de grands moyens pour faire de grandes choses. Une idée, une rencontre, une volonté d'agir ou un engagement sincère peuvent parfois être à l'origine de très belles réalisations.\n\nC'est pourquoi cette plateforme est ouverte à toutes les bonnes volontés. Habitants, associations, commerçants, entrepreneurs, professionnels et acteurs locaux : vous êtes les bienvenus pour proposer, participer, partager et construire ensemble.\n\nNous ne prétendons pas avoir toutes les réponses. Notre volonté est avant tout de créer des passerelles, de donner de la visibilité aux initiatives et de permettre aux personnes qui partagent les mêmes valeurs de se rencontrer et d'agir ensemble.\n\nNotre démarche n'est pas celle de la division, mais celle du rassemblement. Nous voulons valoriser ce qui fonctionne, encourager ce qui mérite de grandir et donner une place à celles et ceux qui souhaitent laisser une empreinte positive dans notre ville.\n\nParce qu'une ville ne se construit pas uniquement avec des projets, mais aussi avec des femmes et des hommes qui ont envie de faire quelque chose de bien pour les autres.\n\nJe vous invite donc à découvrir ce nouveau numéro, à partager vos idées et à rejoindre cette belle dynamique.\n\nL'aventure continue, et elle ne demande qu'à grandir avec vous.\n\nMerci à toutes celles et ceux qui nous font confiance et qui souhaitent contribuer à cette démarche.\n\nEnsemble, faisons grandir les initiatives positives et construisons quelque chose dont nous pourrons être fiers demain.\n\nBien à vous,\n\nMohamed",
+      "image_description": "Mohammed, fondateur de Bondy TV, souriant, assis la main sous le menton",
+      "credit": "Mohammed, fondateur de Bondy TV",
+      "id": "copie-bienvenue-ce-magazine-est-le-votre",
+      "image": "/images/promenade-ensoleillee-sur-passerelle-bois-mw0duu5c.jpg",
+      "chapo": "Ensemble, faisons grandir les belles initiatives et laissons une empreinte positive à Bondy !",
+      "visuel": "image",
+      "etiquette": "L'édito de Mohammed",
+      "image_portrait": false,
+      "citation": "Chacun mérite d'être vu et entendu.",
+      "contact_actif": false,
+      "contact_nom": "Mohammed",
+      "contact_role": "Je suis joignable et à votre service.",
+      "contact_texte": "Je suis à votre écoute. Appelez-moi, écrivez-moi. Je suis là pour vous.",
+      "contact_qr": "/images/qr-bondytv-www.png",
+      "contact_qr_legende": "Flashez pour ouvrir l'appli Bondy TV",
+      "affiche_entiere": false
     }
   ],
   "livres": [
