@@ -519,7 +519,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 .ph-head{margin-top:36px}
 .ed2{max-width:960px;margin:30px auto 0;background:#fff;border:1px solid rgba(18,20,28,.12);border-top:6px solid #b8975a;border-radius:6px;box-shadow:0 8px 22px rgba(18,20,28,.07);padding:clamp(20px,3.4vw,38px);display:grid;grid-template-columns:260px minmax(0,1fr);gap:clamp(22px,3.4vw,40px);align-items:start}
 .ed2-ph{margin:0;position:sticky;top:20px}
-.ed2-ph img{display:block;width:100%;aspect-ratio:4/5;object-fit:cover;border-radius:4px}
+.ed2-ph img{display:block;width:100%;height:auto;max-height:85vh;object-fit:contain;border-radius:4px}
 .ed2-ph figcaption{margin-top:12px}
 .ed2-ph .pill{display:inline-block;padding:6px 12px;border-radius:999px;background:#12141c;color:#b8975a;font:700 12px/1 var(--display);text-transform:uppercase;letter-spacing:.12em}
 .ed2-q{margin:0 0 22px;border-left:4px solid #b8975a;padding-left:14px;font:700 clamp(22px,2.6vw,30px)/1.1 var(--display);text-transform:uppercase}
@@ -736,6 +736,11 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 
     var arts = d.articles || [];
     var ed = (d.articles || []).filter(function (x) { return x.id === "edito"; })[0];
+    var apQ = new URLSearchParams(location.search), apercuEd = false;
+    if (apQ.get("apercu") === "1" && apQ.get("id")) {
+      var pv = (d.articles_caches || []).concat(d.articles || []).filter(function (x) { return x.id === apQ.get("id"); })[0];
+      if (pv) { ed = pv; apercuEd = true; var nr = document.createElement("meta"); nr.name = "robots"; nr.content = "noindex"; document.head.appendChild(nr); }
+    }
     if (ed && document.getElementById("edito")) {
 
       function contactCard(ed, d) {
@@ -751,6 +756,7 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
       var ph = ed.image ? '<figure class="ed-photo"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '" fetchpriority="high"><figcaption>' + esc(cr[0]) + '</figcaption></figure>' : "";
       var ht = String(ed.titre || "").split(" "), hl = ht.splice(-2).join(" ");
       document.getElementById("edito").innerHTML = '<div class="ph-head"><h1>' + esc(ht.join(" ")) + ' <em>' + esc(hl) + '</em></h1>' + (ed.chapo ? '<p>' + inline(ed.chapo) + '</p>' : "") + '</div><div class="ed2">' + (ed.image ? '<figure class="ed2-ph"><img src="' + esc(ed.image) + '" alt="' + esc(ed.image_description) + '" fetchpriority="high"><figcaption><span class="pill">' + esc(cr[0]) + '</span></figcaption></figure>' : "") + '<div>' + (ed.citation ? '<blockquote class="ed2-q">' + esc(ed.citation) + '</blockquote>' : "") + contactCard(ed, d) + '<div class="corps">' + md(ed.texte) + '<p class="fbtn"><a class="btn-all" href="/sommaire.html">Voir le sommaire</a></p></div></div></div>';
+      if (apercuEd) document.getElementById("edito").insertAdjacentHTML("afterbegin", '<p style="background:#fff3c4;border:2px solid #b8975a;padding:12px 16px;margin:0 0 14px;font-weight:700;color:#12141c">Aperçu : cet édito est caché. Quand tu le mets sur « Visible », il remplace l’édito actuel.</p>');
     }
     var list = arts.filter(function (x) { return x.id !== "edito"; });
     var toc = arts.map(function (a) { return '<li><a href="' + (a.id === "edito" ? "/edito.html" : "/article/" + esc(a.id)) + '">' + esc(a.titre) + (a.rubrique ? " <em>" + esc(a.rubrique) + "</em>" : "") + "</a></li>"; }).join("");
