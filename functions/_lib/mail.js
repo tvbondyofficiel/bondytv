@@ -3,13 +3,13 @@
 //   EMAIL_FROM_NAME (facultatif) = nom affiché, par défaut « Bondy TV »
 export function mailOK(env) { return !!(env.BREVO_API_KEY && env.EMAIL_FROM); }
 
-export async function sendMail(env, { to, name, subject, text, html }) {
+export async function sendMail(env, { to, name, subject, text, html, attachments, replyTo }) {
   if (!mailOK(env)) { console.error("Mail non envoyé : BREVO_API_KEY ou EMAIL_FROM manquant dans Cloudflare"); return false; }
   try {
     const r = await fetch("https://api.brevo.com/v3/smtp/email", {
       method: "POST",
       headers: { "api-key": env.BREVO_API_KEY, "content-type": "application/json", accept: "application/json" },
-      body: JSON.stringify({ sender: { email: env.EMAIL_FROM, name: env.EMAIL_FROM_NAME || "Bondy TV" }, to: [{ email: to, name: name || to }], subject, textContent: text, ...(html ? { htmlContent: html } : {}) }),
+      body: JSON.stringify({ sender: { email: env.EMAIL_FROM, name: env.EMAIL_FROM_NAME || "Bondy TV" }, to: [{ email: to, name: name || to }], subject, textContent: text, ...(html ? { htmlContent: html } : {}), ...(attachments && attachments.length ? { attachment: attachments } : {}), ...(replyTo && replyTo.email ? { replyTo } : {}) }),
     });
     if (!r.ok) {
       let d = ""; try { d = (await r.text()).slice(0, 300); } catch (e) {}
