@@ -907,6 +907,8 @@ details .more,.more.has-ph .tx{gap:8px}
 
     var path = decodeURIComponent((location.pathname.match(/\/article\/([^\/?#]+)/) || [])[1] || new URLSearchParams(location.search).get("id") || "");
     var cur = list.filter(function (x) { return x.id === path; })[0];
+    var APER = /[?&]apercu=1/.test(location.search), brouillon = false;
+    if (!cur && APER) { cur = (d.articles_caches || []).filter(function (x) { return x.id === path; })[0]; brouillon = !!cur; if (brouillon) { var nr = document.createElement("meta"); nr.name = "robots"; nr.content = "noindex"; document.head.appendChild(nr); } }
     var f;
     if (!cur) {
       document.title = "Article introuvable · Bondy TV Magazine";
@@ -926,7 +928,7 @@ details .more,.more.has-ph .tx{gap:8px}
       setMeta('link[rel="canonical"]', "href", pageUrl);
       if (cur.image) setMeta('meta[property="og:image"]', "content", "https://www.bondytv.com" + cur.image);
       var html = article(cur).replace("<details>", "<details open>");
-      f = '<p class="ar-back"><a href="/articles.html">← Toute l’actualité</a></p><div class="grid ar-grid ar-one">' + html + '</div>' +
+      f = (brouillon ? '<p style="background:#fff3c4;border:2px solid #b8975a;padding:12px 16px;margin:0 0 14px;font-weight:700;color:#12141c">Aperçu : cet article est caché. Personne ne le voit sur le site tant que tu ne le mets pas sur « Visible ».</p>' : "") + '<p class="ar-back"><a href="/articles.html">← Toute l’actualité</a></p><div class="grid ar-grid ar-one">' + html + '</div>' +
         '<nav class="ar-nav" aria-label="Autres articles"><a class="ar-prev" href="/article/' + esc(prv.id) + '"><small>Article précédent</small><b>' + esc(prv.titre) + '</b></a><a class="ar-next" href="/article/' + esc(nxt.id) + '"><small>Article suivant</small><b>' + esc(nxt.titre) + '</b></a></nav>';
     }
     $("articles").innerHTML = f;
