@@ -834,7 +834,7 @@ function boutiqueView(onch){
   right.appendChild(h('div',{},h('span',{style:LB},'Tailles et stock (touche une taille pour l’ajouter ou la retirer, écris le nombre en stock, vide = illimité)'),tr));
   if(a.createur===undefined)a.createur='';
   right.appendChild(h('div',{},h('span',{style:LB},'Créateur (si c’est la création d’un habitant)'),inp(a,'createur',{label:'Créateur',font:'500 17px Barlow,sans-serif',ph:'Laisser vide si c’est Bondy TV'})));
-  right.appendChild(h('div',{style:'display:flex;flex-wrap:wrap;gap:26px'},tog(!a.cache,'Visible dans la boutique',function(){a.cache=!a.cache;onch();render()}),tog(!!a.epuise,'Épuisé',function(){a.epuise=!a.epuise;onch();render()}),tog(!!a.exemple,'Exemple (étiquette « Exemple »)',function(){a.exemple=!a.exemple;onch();render()})));
+  right.appendChild(h('div',{style:'display:flex;flex-wrap:wrap;gap:26px'},tog(!a.cache,'Visible dans la boutique',function(){a.cache=!a.cache;onch();render()}),tog(!!a.epuise,'Épuisé',function(){a.epuise=!a.epuise;onch();render()}),tog(!!a.perso,'À personnaliser par le client (il écrit son texte)',function(){a.perso=!a.perso;onch();render()}),tog(!!a.exemple,'Exemple (étiquette « Exemple »)',function(){a.exemple=!a.exemple;onch();render()})));
   var adv=h('details',{class:'adv'},h('summary',{},'Dessin du t-shirt (s’il n’y a pas de photo)'));
   if(a.couleur===undefined)a.couleur='#12141c';if(a.couleur_texte===undefined)a.couleur_texte='#e8dcc0';if(!a.lignes)a.lignes=[];
   adv.appendChild(h('div',{class:'fld'},h('label',{},'Couleur du t-shirt'),h('input',{type:'color',value:a.couleur,style:'width:80px;height:44px',onchange:function(e){a.couleur=e.target.value;onch();render()}})));

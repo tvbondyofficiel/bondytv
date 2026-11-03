@@ -1373,6 +1373,13 @@
         "texte": "La fierté de Bondy.",
         "photo": "",
         "exemple": true
+      },
+      {
+        "id": "a-ton-texte",
+        "nom": "À ton texte",
+        "texte": "Écris tes mots, on les imprime pour toi.",
+        "photo": "",
+        "exemple": true
       }
     ],
     "articles": [
@@ -1484,6 +1491,34 @@
         "exemple": false,
         "epuise": false,
         "cache": false
+      },
+      {
+        "id": "tshirt-perso",
+        "collection": "a-ton-texte",
+        "nom": "Ton t-shirt, tes mots",
+        "prix": 25,
+        "description": "Écris ton texte (3 lignes), choisis l’écriture et les couleurs. Tu vois ton t-shirt tout de suite.",
+        "tailles": [
+          "S",
+          "M",
+          "L",
+          "XL",
+          "XXL"
+        ],
+        "stock": {},
+        "photos": [],
+        "createur": "",
+        "couleur": "#12141c",
+        "lignes": [
+          "BONDY",
+          "C'EST MOI"
+        ],
+        "couleur_texte": "#e8dcc0",
+        "exemple": true,
+        "epuise": false,
+        "cache": false,
+        "perso": true,
+        "infos": []
       }
     ]
   },

@@ -767,7 +767,95 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
     });
   }
 
+  function persoProduct(b, a, cols, head) {
+    var col = cols.filter(function (c) { return c.id === a.collection; })[0];
+    var tailles = a.tailles || [];
+    var FONTS = [["condense", "Condensée", '"Barlow Condensed","Arial Narrow",Impact,sans-serif', 800], ["ronde", "Ronde", 'Barlow,"Segoe UI",Arial,sans-serif', 800], ["classique", "Classique", 'Georgia,"Times New Roman",serif', 700], ["machine", "Machine", '"Courier New",monospace', 700]];
+    var TEES = [["Noir", "#12141c"], ["Blanc", "#fbf8f1"], ["Vert", "#006233"], ["Rouge", "#d3141f"], ["Gris", "#8a8f9c"], ["Crème", "#e8dcc0"]];
+    var INKS = [["Crème", "#e8dcc0"], ["Blanc", "#ffffff"], ["Or", "#b8975a"], ["Noir", "#12141c"], ["Rouge", "#d3141f"], ["Vert", "#006233"]];
+    var st = { l: ["", "", ""], f: 0, c: a.couleur || TEES[0][1], k: a.couleur_texte || INKS[0][1], t: null, q: 1 };
+    (a.lignes || []).slice(0, 3).forEach(function (x, i) { st.l[i] = x; });
+    var back = '<a class="back" href="/boutique.html' + (col ? "?collection=" + encodeURIComponent(col.id) + (apercu ? "&apercu=1" : "") : (apercu ? "?apercu=1" : "")) + '">← ' + (col ? esc(col.nom) : "Retour à la boutique") + "</a>";
+    document.title = a.nom + " · Boutique · Bondy TV Magazine";
+    var css = document.createElement("style");
+    css.textContent = ".pz .cv{width:100%;max-width:440px;height:auto;display:block;margin:0 auto;border-radius:12px;background:#ece6d8}.pz .ti{width:100%;font:700 20px var(--body);padding:12px 14px;border:2px solid var(--line);border-radius:10px;margin-top:8px;background:#fff;color:#12141c;box-sizing:border-box}.pz .sw,.pz .fo{display:flex;flex-wrap:wrap;gap:8px;margin-top:8px}.pz .sw button{width:48px;height:48px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 2px var(--line);cursor:pointer}.pz .sw button[aria-pressed=true]{box-shadow:0 0 0 4px #12141c}.pz .fo button{min-height:48px;padding:0 16px;border:2px solid var(--line);border-radius:10px;background:#fff;font-size:20px;color:#12141c;cursor:pointer}.pz .fo button[aria-pressed=true]{background:#12141c;color:#fff;border-color:#12141c}.pz .row2{display:grid;grid-template-columns:1fr 1fr;gap:10px}@media(max-width:560px){.pz .row2{grid-template-columns:1fr}}.pz .tot2{font-size:18px}.pz .msg{margin:8px 0 0;font-weight:700}.pz .msg.err{color:var(--red)}";
+    document.head.appendChild(css);
+    var h0 = head + back + '<div class="prod pz"><div><div class="ph" style="background:none;border:0;padding:0"><canvas class="cv" id="pcv" width="800" height="880" role="img" aria-label="Ton t-shirt, aperçu en direct"></canvas></div></div><div class="box">';
+    h0 += '<p class="kick" style="margin:0">Personnalise ton t-shirt</p><h1>' + esc(a.nom) + '</h1><div class="big">' + eur(a.prix) + "</div>";
+    h0 += '<p class="lead" style="margin:0;font-size:17px">' + esc(a.description || "Écris ton texte, choisis les couleurs : tu vois ton t-shirt tout de suite.") + "</p>";
+    h0 += '<div><span class="lb">1 · Ton texte (3 lignes maximum)</span>';
+    for (var i = 0; i < 3; i++) h0 += '<input class="ti" data-l="' + i + '" maxlength="24" placeholder="Ligne ' + (i + 1) + '" value="' + esc(st.l[i]) + '" autocomplete="off">';
+    h0 += '</div><div><span class="lb">2 · Écriture</span><div class="fo" id="pfo"></div></div>';
+    h0 += '<div><span class="lb">3 · Couleur du t-shirt</span><div class="sw" id="psc"></div></div><div><span class="lb">4 · Couleur du texte</span><div class="sw" id="psk"></div></div>';
+    if (tailles.length) h0 += '<div><span class="lb">5 · Taille</span><div class="sz" role="group" aria-label="Taille" id="psz"></div></div>';
+    h0 += '<div><span class="lb">Quantité</span><div class="qty"><button type="button" id="pqm" aria-label="Moins">−</button><span id="pqn" aria-live="polite">1</span><button type="button" id="pqp" aria-label="Plus">+</button></div></div>';
+    h0 += '<div><span class="lb">6 · Pour t’envoyer ton aperçu et te prévenir</span><div class="row2"><input class="ti" id="pnom" placeholder="Prénom et nom" autocomplete="name"><input class="ti" id="pmail" type="email" placeholder="Ton e-mail" autocomplete="email"></div><input class="ti" id="ptel" type="tel" placeholder="Téléphone (facultatif)" autocomplete="tel"></div>';
+    h0 += '<div class="sum" id="psum"></div><button type="button" class="pp" id="ppay"></button><p class="msg" id="pmsg" role="status"></p><p class="note">Tu paies avec PayPal. Ton texte et l’image de ton t-shirt sont envoyés à Bondy TV avant le paiement, pour qu’on imprime exactement ce que tu as vu. Ton adresse de livraison est demandée sur PayPal.' + (b.delai_livraison ? " Délai : " + esc(b.delai_livraison) + "." : "") + "</p>";
+    h0 += "</div></div>" + shopInfo(b);
+    box.innerHTML = h0;
+    var cv = document.getElementById("pcv"), ctx = cv.getContext("2d");
+    var PATH = "M60 10 L20 35 L5 80 L35 90 L45 75 L45 205 L155 205 L155 75 L165 90 L195 80 L180 35 L140 10 C130 28 70 28 60 10 Z";
+    function lines() { return st.l.map(function (x) { return x.trim().replace(/\s+/g, " "); }).filter(Boolean); }
+    function draw() {
+      ctx.clearRect(0, 0, 800, 880); ctx.fillStyle = "#ece6d8"; ctx.fillRect(0, 0, 800, 880);
+      ctx.save(); ctx.scale(4, 4); var p = new Path2D(PATH); ctx.fillStyle = st.c; ctx.fill(p); ctx.strokeStyle = "rgba(0,0,0,.18)"; ctx.lineWidth = 1; ctx.stroke(p); ctx.restore();
+      var L = lines(), F = FONTS[st.f]; if (!L.length) { ctx.fillStyle = st.k; ctx.globalAlpha = .35; ctx.font = F[3] + " 44px " + F[2]; ctx.textAlign = "center"; ctx.textBaseline = "middle"; ctx.fillText("Ton texte ici", 400, 520); ctx.globalAlpha = 1; return; }
+      var start = L.length > 2 ? 64 : L.length > 1 ? 84 : 104, sizes = L.map(function (t) { var s = start; ctx.font = F[3] + " " + s + "px " + F[2]; while (ctx.measureText(t).width > 400 && s > 16) { s -= 2; ctx.font = F[3] + " " + s + "px " + F[2]; } return s; });
+      var gap = 8, tot = sizes.reduce(function (x, y) { return x + y; }, 0) + gap * (L.length - 1), y = 520 - tot / 2;
+      ctx.fillStyle = st.k; ctx.textAlign = "center"; ctx.textBaseline = "middle";
+      L.forEach(function (t, i) { ctx.font = F[3] + " " + sizes[i] + "px " + F[2]; ctx.fillText(t, 400, y + sizes[i] / 2); y += sizes[i] + gap; });
+    }
+    function sw(id, list, key) {
+      var el = document.getElementById(id); el.innerHTML = "";
+      list.forEach(function (x) { var bt = document.createElement("button"); bt.type = "button"; bt.style.background = x[1]; bt.title = x[0]; bt.setAttribute("aria-label", x[0]); bt.setAttribute("aria-pressed", String(st[key].toLowerCase() === x[1].toLowerCase())); bt.addEventListener("click", function () { st[key] = x[1]; sw(id, list, key); draw(); sum(); }); el.appendChild(bt); });
+    }
+    function fonts() {
+      var el = document.getElementById("pfo"); el.innerHTML = "";
+      FONTS.forEach(function (x, i) { var bt = document.createElement("button"); bt.type = "button"; bt.textContent = x[1]; bt.style.fontFamily = x[2]; bt.style.fontWeight = x[3]; bt.setAttribute("aria-pressed", String(st.f === i)); bt.addEventListener("click", function () { st.f = i; fonts(); draw(); }); el.appendChild(bt); });
+    }
+    function sizes() {
+      var el = document.getElementById("psz"); if (!el) return; el.innerHTML = "";
+      tailles.forEach(function (t) { var bt = document.createElement("button"); bt.type = "button"; bt.textContent = t; bt.setAttribute("aria-pressed", String(st.t === t)); if (!(stockOf(a, t) > 0)) bt.disabled = true; bt.addEventListener("click", function () { st.t = t; sizes(); sum(); }); el.appendChild(bt); });
+    }
+    function sum() {
+      var tot = Number(a.prix || 0) * st.q + Number(b.frais_livraison || 0);
+      document.getElementById("psum").innerHTML = "<div><span>" + esc(a.nom) + " × " + st.q + "</span><span>" + eur(Number(a.prix || 0) * st.q) + "</span></div><div><span>Livraison</span><span>" + eur(b.frais_livraison || 0) + '</span></div><div class="tot"><span>Total</span><span>' + eur(tot) + "</span></div>";
+      var pb = document.getElementById("ppay"), out = !dispo(a);
+      pb.innerHTML = "<i>Pay<u>Pal</u></i> " + (out ? "Épuisé" : !b.paypal_email ? "Paiement bientôt disponible" : tailles.length && !st.t ? "Choisis une taille" : "Commander et payer");
+      pb.setAttribute("aria-disabled", String(out || !b.paypal_email || (tailles.length && !st.t)));
+    }
+    function say(t, err) { var m = document.getElementById("pmsg"); m.textContent = t; m.className = "msg" + (err ? " err" : ""); }
+    box.querySelectorAll("[data-l]").forEach(function (x) { x.addEventListener("input", function () { st.l[Number(x.getAttribute("data-l"))] = x.value; draw(); }); });
+    document.getElementById("pqm").addEventListener("click", function () { st.q = Math.max(1, st.q - 1); document.getElementById("pqn").textContent = st.q; sum(); });
+    document.getElementById("pqp").addEventListener("click", function () { st.q = Math.min(10, st.q + 1); document.getElementById("pqn").textContent = st.q; sum(); });
+    document.getElementById("ppay").addEventListener("click", function () {
+      var pb = this;
+      if (pb.getAttribute("aria-disabled") === "true") { if (tailles.length && !st.t) say("Choisis ta taille.", true); return; }
+      var L = lines(), nom = document.getElementById("pnom").value.trim(), mail = document.getElementById("pmail").value.trim(), tel = document.getElementById("ptel").value.trim();
+      if (!L.length) { say("Écris au moins une ligne de texte.", true); return; }
+      if (nom.length < 3) { say("Écris ton prénom et ton nom.", true); return; }
+      if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(mail)) { say("Écris une adresse e-mail valide.", true); return; }
+      if (apercu) { say("Mode aperçu : rien n’est envoyé.", false); return; }
+      pb.setAttribute("aria-disabled", "true"); say("Envoi de ton aperçu…", false);
+      cv.toBlob(function (blob) {
+        var fd = new FormData(); fd.append("image", blob, "tshirt.png"); fd.append("article", a.id); fd.append("taille", st.t || ""); fd.append("quantite", st.q); fd.append("lignes", JSON.stringify(L)); fd.append("police", FONTS[st.f][0]); fd.append("couleur_tshirt", st.c); fd.append("couleur_texte", st.k); fd.append("nom", nom); fd.append("email", mail); fd.append("telephone", tel); fd.append("botcheck", "");
+        fetch("/api/perso", { method: "POST", body: fd }).then(function (r) { return r.json().catch(function () { return {}; }); }).then(function (j) {
+          if (!j.ok) { var E = { mail: "La commande personnalisée n’est pas encore ouverte. Reviens bientôt.", trop_de_tentatives: "Trop d’essais. Réessaie plus tard.", image: "L’image n’a pas pu être créée. Réessaie." }; say(E[j.error] || "L’envoi n’a pas marché. Réessaie.", true); sum(); return; }
+          var u = "https://www.paypal.com/cgi-bin/webscr?cmd=_xclick&business=" + encodeURIComponent(b.paypal_email) +
+            "&item_name=" + encodeURIComponent(a.nom + " perso " + j.ref + (st.t ? " - taille " + st.t : "") + " (Bondy TV)") + "&item_number=" + encodeURIComponent(j.ref) +
+            "&amount=" + Number(a.prix || 0).toFixed(2) + "&quantity=" + st.q + "&shipping=" + Number(b.frais_livraison || 0).toFixed(2) + "&shipping2=0.00" +
+            "&currency_code=" + encodeURIComponent(b.devise || "EUR") + "&no_shipping=2&no_note=1&lc=FR&charset=utf-8&rm=1" +
+            "&return=" + encodeURIComponent(location.origin + "/boutique.html?merci=1") + "&cancel_return=" + encodeURIComponent(location.href);
+          location.href = u;
+        }).catch(function () { say("L’envoi n’a pas marché. Réessaie.", true); sum(); });
+      }, "image/png");
+    });
+    fonts(); sw("psc", TEES, "c"); sw("psk", INKS, "k"); sizes(); sum(); draw();
+    if (document.fonts && document.fonts.load) Promise.all(FONTS.map(function (x) { return document.fonts.load(x[3] + " 40px " + x[2].split(",")[0]); })).then(draw).catch(function () {});
+  }
+
   function product(b, a, cols, head) {
+    if (a.perso) return persoProduct(b, a, cols, head);
     var col = cols.filter(function (c) { return c.id === a.collection; })[0];
     var tailles = a.tailles || [];
     var st = { t: null, q: 1, i: 0 };
