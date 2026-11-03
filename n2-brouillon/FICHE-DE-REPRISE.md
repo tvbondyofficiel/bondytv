@@ -20,6 +20,10 @@
 - Thème : Noël des années 1970, féerique, avec des photos de Bondy. Branche : `brouillon-n2-couverture` (ne pas fusionner sans accord).
 - `n2-brouillon/couverture.html` + `n2-brouillon/noel-couverture.jpg` : couverture v3 (image fournie par Mohammed : sapin, peluche, bougies ; logo blanc ; titre doré). Format A4 portrait ; une version 16/9 pour le site reste possible.
 - `n2-brouillon/edito.md` : édito « Votre magazine, votre voix » (texte de Mohammed, retravaillé).
+- **Pages déjà prêtes pour le N°2 (brouillons)** :
+  - **La Tribune** (page fixe de chaque numéro, valeurs et réflexions) : `n2-brouillon/page-la-tribune.html`. Tribune « Les valeurs humaines » (texte aussi dans les articles cachés du site, id `valeurs-humaines`) ; encadré « Ils ont dit » en **Exemple** (à remplacer par de vraies phrases d'habitants) ; signature de l'auteur à compléter ; invitation à écrire.
+  - « Votre identité et votre site, offerts » (logo, identité, com, site gratuits pour les Bondynois ; hébergement et nom de domaine à leur charge ; 5 propositions de logo et d'identité) : version avec ordinateur mise **de côté** (branche `n2-page-site-gratuit`, `page-site-gratuit-ordi.html`), non intégrée tant que Mohammed ne le demande pas.
+  - **Règle de contact pour les pages du N°2 : e-mail + site + QR code. Jamais le numéro de téléphone de Mohammed.**
 - Plan de 24 pages : couverture ; sommaire/édito ; À la une ; commerçants ; solidarité ; enfants ; sorties ; « Ils font Bondy » (portraits, podcast, tribune) ; Bondy en images ; dessins ; entraide ; appel à contributions ; publicité ; pages de réserve ; dernière page (logo, QR, réseaux). Un tableur du plan a été envoyé (`Bondy-TV-N2-Noel-a-Bondy.xlsx`).
 - À obtenir de Mohammed : ses photos de Noël à Bondy, les textes et portraits. Ne pas inventer de personnes ni de faits.
 
