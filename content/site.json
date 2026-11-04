@@ -1297,7 +1297,8 @@
       "etiquette": "Ville",
       "image_portrait": false,
       "affiche_entiere": false,
-      "image_focus": "50% 60%"
+      "image_focus": "50% 60%",
+      "style_presse": true
     },
     {
       "id": "copie-bondy-nord-en-travaux-la-route-bloquee",

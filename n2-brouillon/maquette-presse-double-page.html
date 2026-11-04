@@ -1,0 +1,37 @@
+<!doctype html><html lang="fr"><head><meta charset="utf-8"><title>Maquette style presse : double page</title>
+<style>
+@page{size:420mm 297mm;margin:0}
+*{box-sizing:border-box;margin:0;padding:0}
+html,body{width:420mm;height:297mm;background:#f6f4f1;font-family:'Barlow',sans-serif;color:#12141c}
+.spread{display:grid;grid-template-columns:210mm 210mm;width:420mm;height:297mm}
+.p{position:relative;width:210mm;height:297mm;overflow:hidden}
+/* page gauche : photo pleine page, titre immense */
+.l{background:#12141c}
+.l img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:62% 50%}
+.l::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(18,20,28,0) 40%,rgba(18,20,28,.86) 100%)}
+.l .cap{position:absolute;left:16mm;right:16mm;bottom:20mm;z-index:2;color:#fff}
+.l .k{font:700 4.2mm 'Barlow Condensed';letter-spacing:.42em;text-transform:uppercase;color:#b8975a;margin-bottom:6mm}
+.l h1{font:800 29mm/.9 'Barlow Condensed';text-transform:uppercase;letter-spacing:-.003em}
+.l .bar{width:26mm;height:1.1mm;background:#b8975a;margin:9mm 0 0}
+.l .num{position:absolute;right:14mm;top:12mm;z-index:2;font:700 4mm 'Barlow Condensed';letter-spacing:.3em;color:#fff;text-transform:uppercase}
+/* page droite : texte, beaucoup d'air */
+.r{padding:24mm 22mm 20mm 22mm;display:flex;flex-direction:column}
+.r .top{display:flex;justify-content:space-between;font:700 3.2mm 'Barlow Condensed';letter-spacing:.3em;text-transform:uppercase;color:#7a7f8c;border-bottom:.3mm solid #b8975a;padding-bottom:4mm}
+.r .chapo{font:italic 400 6.6mm/1.4 Georgia,'Times New Roman',serif;color:#3b3f4c;margin:15mm 0 12mm;max-width:150mm}
+.r .cols{columns:2;column-gap:10mm;font:400 3.9mm/1.7 Georgia,'Times New Roman',serif;color:#1c1f2a;text-align:justify;hyphens:auto}
+.r .cols p{margin-bottom:3.6mm}
+.r .cols p:first-child::first-letter{font:800 21mm/.78 'Barlow Condensed';float:left;padding:1.4mm 3mm 0 0;color:#b8975a}
+.r .quote{margin:auto 0 0;border-top:.35mm solid #b8975a;border-bottom:.35mm solid #b8975a;padding:9mm 0;text-align:center;font:800 11mm/1.02 'Barlow Condensed';text-transform:uppercase}
+.r .foot{display:flex;justify-content:space-between;margin-top:8mm;font:700 3mm 'Barlow Condensed';letter-spacing:.3em;text-transform:uppercase;color:#7a7f8c}
+</style></head><body>
+<div class="spread">
+ <section class="p l"><img src="../images/nouveau-visage-canal.jpg" alt=""><div class="num">Bondy TV Magazine · N°2</div>
+  <div class="cap"><div class="k">Ville</div><h1>Le nouveau visage de Bondy</h1><div class="bar"></div></div></section>
+ <section class="p r"><div class="top"><span>Actualité</span><span>Bondy TV Magazine · N°2</span></div>
+  <p class="chapo">Bondy a plusieurs visages. Entre le nord et le sud, une fracture existe, et la ville cherche à recréer du lien.</p>
+  <div class="cols"><p>Le nouveau visage de Bondy est multiple. Il est aussi divisé : entre le nord et le sud de la ville, les habitants ne vivent pas toujours les mêmes réalités, et une fracture s'est installée.</p>
+  <p>Les responsables de la ville affirment travailler à réparer cette fracture et à recréer du lien entre les habitants. Reste à voir, ensemble, ce que cela change au quotidien.</p>
+  <p>Et vous, comment voyez-vous le nouveau visage de Bondy ? Racontez-nous votre histoire en quelques lignes : ce que vous vivez, ce que vous voyez, ce que vous espérez. Écrivez-nous à tvbondy@gmail.com ou sur www.bondytv.com. Votre témoignage pourra paraître dans le prochain numéro.</p></div>
+  <div class="quote">Les témoignages ne seront publiés qu'avec l'accord de leur auteur.</div>
+  <div class="foot"><span>www.bondytv.com</span><span>12</span></div></section>
+</div></body></html>

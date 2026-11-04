@@ -665,6 +665,30 @@ details .more,.more.has-ph .tx{gap:8px}
 <link rel="stylesheet" href="/mise-en-page.css">
 <style>.bar nav a.nav-home{color:var(--muted);font-weight:700;border-bottom:2px solid transparent}.bar nav a.nav-home:hover{color:var(--fg)}</style>
 <style id="photo-entiere">.art .vis.has-img,.art .vis.has-img.is-portrait{aspect-ratio:auto!important;background:var(--surface,#ece6d8)}.art .vis.has-img img{position:static!important;width:100%;height:auto!important;max-height:85vh;object-fit:contain!important;display:block}</style>
+<style id="style-presse">
+/* Style « magazine de presse » : photo pleine largeur, très gros titre, filets dorés, beaucoup d'air */
+body:has(.art.presse){overflow-x:hidden!important}
+.ar-one:has(.art.presse){max-width:none!important}
+html body .ar-grid > .art.presse:has(details[open]){background:none!important;border:0!important;box-shadow:none!important;border-radius:0!important;max-width:none!important;display:block!important}
+html body .ar-grid > .art.presse:has(details[open]) .vis.has-img:not(.yt-box){width:100vw!important;max-width:100vw!important;margin-left:calc(50% - 50vw)!important;margin-right:0!important;aspect-ratio:auto!important;background:none!important;border:0!important;display:block!important}
+html body .ar-grid > .art.presse:has(details[open]) .vis.has-img:not(.yt-box) img{position:static!important;display:block!important;margin:0 auto!important;width:auto!important;max-width:100%!important;height:auto!important;max-height:74vh!important;object-fit:contain!important}
+html body .ar-grid > .art.presse:has(details[open]) .txt{max-width:760px!important;margin:0 auto!important;padding:clamp(34px,6vw,72px) 0 0!important;display:block!important}
+html body .ar-grid > .art.presse:has(details[open]) .tag{display:block!important;text-align:center!important;background:none!important;color:#b8975a!important;font:700 15px/1 var(--display)!important;letter-spacing:.34em!important;text-transform:uppercase!important;padding:0!important;border:0!important;margin:0 0 22px!important}
+html body .ar-grid > .art.presse:has(details[open]) h3{border:0!important;padding:0!important;text-align:center!important;font-family:var(--display)!important;font-weight:800!important;font-size:clamp(46px,8.4vw,112px)!important;line-height:.92!important;text-transform:uppercase!important;letter-spacing:-.005em!important;color:#12141c!important;margin:0 0 30px!important;text-wrap:balance!important}
+html body .ar-grid > .art.presse:has(details[open]) h3::after{content:""!important;display:block!important;width:84px!important;height:3px!important;background:#b8975a!important;margin:34px auto 0!important}
+html body .ar-grid > .art.presse:has(details[open]) .chapo{font:italic 400 clamp(21px,2.6vw,30px)/1.4 Georgia,"Times New Roman",serif!important;text-align:center!important;color:#3b3f4c!important;max-width:680px!important;margin:0 auto 44px!important}
+html body .ar-grid > .art.presse:has(details[open]) .credit{text-align:center!important;font:700 12px/1 var(--display)!important;letter-spacing:.2em!important;text-transform:uppercase!important;color:#7a7f8c!important;margin:-20px 0 40px!important}
+html body .ar-grid > .art.presse:has(details[open]) details>summary{display:none!important}
+html body .ar-grid > .art.presse:has(details[open]) .more{max-width:680px!important;margin:0 auto!important;border-top:1px solid #b8975a!important;padding-top:44px!important;font:400 clamp(18px,1.9vw,21px)/1.85 Georgia,"Times New Roman",serif!important;color:#1c1f2a!important;columns:1!important}
+html body .ar-grid > .art.presse:has(details[open]) .more p{margin:0 0 1.5em!important}
+html body .ar-grid > .art.presse:has(details[open]) .more>p:first-child::first-letter{font:800 4.6em/.8 var(--display)!important;float:left!important;padding:8px 14px 0 0!important;color:#b8975a!important}
+html body .ar-grid > .art.presse:has(details[open]) .more .note{border-left:0!important;font:700 clamp(28px,4.4vw,50px)/1.05 var(--display)!important;text-transform:uppercase!important;text-align:center!important;color:#12141c!important;border-top:1px solid #b8975a!important;border-bottom:1px solid #b8975a!important;padding:34px 8px!important;margin:56px -40px!important;max-width:none!important;background:none!important}
+html body .ar-grid > .art.presse:has(details[open]) .more h3,html body .ar-grid > .art.presse:has(details[open]) .more .ed-sh{font:800 28px/1.1 var(--display)!important;text-transform:uppercase!important;letter-spacing:.06em!important;text-align:left!important;color:#b8975a!important;margin:2em 0 .6em!important}
+html body .ar-grid > .art.presse:has(details[open]) .more h3::after{display:none!important}
+@media(max-width:700px){html body .ar-grid > .art.presse:has(details[open]) .more .note{margin-left:0;margin-right:0}html body .ar-grid > .art.presse:has(details[open]) .txt{padding-left:16px!important;padding-right:16px!important}}
+ html body .ar-grid > .art.presse:has(details[open]) .chapo{border:0!important;padding-bottom:0!important}
+ html body .ar-grid > .art.presse:has(details[open]) .more .note{border-left:0!important}
+</style>
 </head>
 <body>
 <div class="wrap">
@@ -845,7 +869,7 @@ details .more,.more.has-ph .tx{gap:8px}
 
   function article(a) {
     var MPK = [["mp_photo", "photo"], ["mp_taille_photo", "taille"], ["mp_texte", "texte"], ["mp_largeur", "largeur"]], mpc = ""; MPK.forEach(function (p) { if (/^[a-z]+$/.test(String(a[p[0]] || ""))) mpc += " mp-" + p[1] + "-" + a[p[0]]; });
-    var h = '<article class="art' + (a.pleine_largeur ? " wide" : "") + mpc + '" id="' + esc(a.id) + '"' + (a.rubrique ? ' data-cat="' + esc(a.rubrique) + '"' : "") + ">";
+    var h = '<article class="art' + (a.pleine_largeur ? " wide" : "") + (a.style_presse ? " presse" : "") + mpc + '" id="' + esc(a.id) + '"' + (a.rubrique ? ' data-cat="' + esc(a.rubrique) + '"' : "") + ">";
     h += vis(a) + '<div class="txt">';
     h += '<div class="tag t' + (((DATA.articles || []).map(function (x) { return x.id; }).indexOf(a.id) + 4) % 4) + '">' + esc(a.etiquette) + "</div>";
     h += "<h3>" + esc(a.titre) + "</h3>";
