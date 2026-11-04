@@ -1130,5 +1130,21 @@ fetch("/content/site.json",{cache:"no-store"}).then(function(r){return r.json()}
  }
 }).catch(function(){});
 })();</script>
+<script>(function(){
+fetch("/content/site.json",{cache:"no-store"}).then(function(r){return r.json()}).then(function(d){
+ var a=d&&d.audio_demarche;if(!a||!a.fichier||a.actif===false)return;
+ var host=document.getElementById("diaporama");if(!host||!host.parentNode)return;
+ var st=document.createElement("style");
+ st.textContent=".vd{max-width:760px;margin:14px auto 6px;padding:0 16px}.vd-b{display:flex;align-items:center;gap:14px;width:100%;min-height:64px;padding:10px 18px;border:0;cursor:pointer;background:#f3ead6;border-left:6px solid #006233;text-align:left;font:700 18px/1.2 var(--display,inherit);color:#12141c;text-transform:uppercase;letter-spacing:.04em}.vd-i{flex:none;display:grid;place-items:center;width:44px;height:44px;border-radius:50%;background:#006233;color:#fff;font-size:18px}.vd-s{display:block;font:500 13px/1.3 var(--body,inherit);text-transform:none;letter-spacing:0;color:#555a69;margin-top:2px}";
+ document.head.appendChild(st);
+ var w=document.createElement("section");w.className="vd";w.setAttribute("aria-label","Audio de présentation");
+ w.innerHTML='<button type="button" class="vd-b"><span class="vd-i">\u25b6</span><span><span class="vd-t"></span><span class="vd-s">Appuyez pour \u00e9couter. Appuyez encore pour arr\u00eater.</span></span></button>';
+ w.querySelector(".vd-t").textContent=a.titre||"Écouter la démarche de Bondy TV";
+ host.parentNode.insertBefore(w,host);
+ var au=new Audio(a.fichier),ic=w.querySelector(".vd-i"),b=w.querySelector(".vd-b");au.preload="none";
+ function set(p){ic.textContent=p?"\u275a\u275a":"\u25b6";b.setAttribute("aria-pressed",p?"true":"false")}
+ b.onclick=function(){if(au.paused){au.play().catch(function(){});}else{au.pause();}};
+ au.onplay=function(){set(true)};au.onpause=function(){set(false)};au.onended=function(){set(false);au.currentTime=0};
+}).catch(function(){});})();</script>
 </body>
 </html>

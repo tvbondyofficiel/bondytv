@@ -323,6 +323,7 @@ function caches(){return S.data.articles_caches||(S.data.articles_caches=[])}
 var GROUPS=[
  ['valider','À valider','#d3141f',['valider'],'Les inscriptions à accepter, avec le code envoyé en un clic.'],
  ['tribunes','Tribunes et comptes','#006233',['tribune_admin'],'Créer les comptes rédacteurs et élus, relire les textes, voir les messages.'],
+ ['voix','Ma voix (audio)','#d3141f',['voix'],'Enregistrer ta voix et la mettre sur la page d’accueil.'],
  ['articles','Articles','#12141c',['articles','tribune_cit','couverture','pages'],'Écrire, ranger et publier les articles.'],
  ['magazine','Magazine PDF','#d3141f',['numeros'],'Ajouter un magazine en PDF, voir les téléchargements.'],
  ['photos','Photos et vidéos','#006233',['diaporama','en_images','reportages'],'Le diaporama, Bondy en images, les vidéos.'],
@@ -331,8 +332,8 @@ var GROUPS=[
  ['contact','Contact et publicité','#006233',['proposer','page_pub','assistant'],'Écrivez-nous, encadrés publicitaires, assistant.'],
  ['apparence','Apparence et réglages','#12141c',['visuel','mise_en_page','general','banniere','pied_de_page'],'Les outils graphiques : éditeur visuel, mise en page, logo, bannière, pied de page.']
 ];
-function itemOK(k){if(k==='articles'||k==='tribune_cit'||k==='valider'||k==='tribune_admin'||k==='toutes_pages')return true;var s=SECTIONS.filter(function(x){return x[0]===k})[0];return !!s&&(k==='general'||k==='pages'||k==='mise_en_page'||k==='visuel'||S.data[k]!==undefined)}
-function itemInfo(k){if(k==='tribune_admin')return ['Tribunes et comptes','#006233','Comptes rédacteurs et élus, textes à relire, messages.'];if(k==='valider')return ['À valider'+(S.vn?' ('+S.vn+')':''),'#d3141f','Accepter les inscriptions et envoyer le code.'];if(k==='articles')return ['Articles','#12141c',(articles().length+caches().length)+' articles : ajouter, modifier, ranger, supprimer.'];if(k==='tribune_cit')return ['Tribune citoyenne','#006233','Les tribunes des habitants (8 places).'];var s=SECTIONS.filter(function(x){return x[0]===k})[0];return [s[1],s[2],s[3]]}
+function itemOK(k){if(k==='articles'||k==='tribune_cit'||k==='valider'||k==='tribune_admin'||k==='voix'||k==='toutes_pages')return true;var s=SECTIONS.filter(function(x){return x[0]===k})[0];return !!s&&(k==='general'||k==='pages'||k==='mise_en_page'||k==='visuel'||S.data[k]!==undefined)}
+function itemInfo(k){if(k==='voix')return ['Ma voix (audio)','#d3141f','Enregistrer ta voix et la mettre sur l’accueil.'];if(k==='tribune_admin')return ['Tribunes et comptes','#006233','Comptes rédacteurs et élus, textes à relire, messages.'];if(k==='valider')return ['À valider'+(S.vn?' ('+S.vn+')':''),'#d3141f','Accepter les inscriptions et envoyer le code.'];if(k==='articles')return ['Articles','#12141c',(articles().length+caches().length)+' articles : ajouter, modifier, ranger, supprimer.'];if(k==='tribune_cit')return ['Tribune citoyenne','#006233','Les tribunes des habitants (8 places).'];var s=SECTIONS.filter(function(x){return x[0]===k})[0];return [s[1],s[2],s[3]]}
 function groupOf(v){for(var i=0;i<GROUPS.length;i++){if('g:'+GROUPS[i][0]===v||GROUPS[i][3].indexOf(v)>=0)return GROUPS[i]}return null}
 function newArticle(r){S.drawer={list:'c',idx:-1,isNew:true,obj:{id:'',rubrique:(typeof r==='string'&&r)?r:'Actualité',etiquette:'',titre:'',chapo:'',texte_visible:'',texte:'',visuel:'none',image:'',image_description:'',credit:'Photo : Bondy TV'}};render()}
 function go(v){S.view=v;S.q='';S.filter='Tous';S.confirm=null;S.toast=null;render();window.scrollTo(0,0)}
@@ -341,9 +342,9 @@ function nav(){
  var btn=function(id,label,on,sm){return h('button',{class:'nav'+(on?' on':''),onclick:function(){go(id)}},h('span',{},label),sm?h('small',{class:id==='g:valider'?'rd':''},sm):null)};
  var list=[btn('home','Tableau de bord',S.view==='home')];
  list.push(h('div',{class:'navsm'},'MES TÂCHES'));
- GROUPS.slice(0,8).forEach(function(G){list.push(btn('g:'+G[0],G[1],g&&g[0]===G[0],G[0]==='valider'&&S.vn?S.vn:null))});
+ GROUPS.slice(0,9).forEach(function(G){list.push(btn('g:'+G[0],G[1],g&&g[0]===G[0],G[0]==='valider'&&S.vn?S.vn:null))});
  list.push(h('div',{class:'navsm'},'AVANCÉ'));
- var A=GROUPS[8];list.push(btn('g:'+A[0],A[1],g&&g[0]===A[0]));
+ var A=GROUPS[9];list.push(btn('g:'+A[0],A[1],g&&g[0]===A[0]));
  return h('aside',{},h('div',{class:'brand'},h('b',{},'Bond',h('i',{},'y')),h('span',{},'TV · Admin')),
   list,
   h('div',{class:'aside-note'},'Une seule page pour tout le site. Vous changez, puis vous cliquez sur « Publier le site ».',h('br'),h('br'),h('a',{href:'/admin/avance.html'},'Ancienne version'),' · ',h('a',{href:'#',onclick:function(e){e.preventDefault();if(!isDirty()||confirm('Des changements ne sont pas publiés. Se déconnecter quand même ?'))logout()}},'Se déconnecter')))}
@@ -1060,6 +1061,47 @@ function vImport(a,btn){
   vApi({body:{action:'importer_article',cle:a.cle}}).then(function(j){if(!j.ok){alert('Erreur : '+(j.error||j.status));if(btn)btn.disabled=false;return}try{say('Article ajouté à tes articles cachés ✓ Clique sur « Enregistrer » en haut, puis ouvre-le dans « Articles » pour le relire et le mettre en Visible.')}catch(e){}vLoad()})};
  if(a.image){vApi({qs:'?img='+encodeURIComponent(a.cle),blob:1}).then(function(bl){var ext=/png/.test(a.image)?'png':/webp/.test(a.image)?'webp':'jpg';uploadFile(new File([bl],'redacteur.'+ext,{type:bl.type||a.image}),'images',function(p){done(p)})}).catch(function(){alert('Impossible de récupérer la photo.');if(btn)btn.disabled=false})}
  else done('')}
+
+/* ---------- ma voix (audio de la démarche) ---------- */
+var VX={mr:null,chunks:[],stream:null,blob:null,url:null,tm:null,t0:0};
+function voixView(){
+ var d=S.data.audio_demarche||{};
+ var titre=h('input',{type:'text',value:d.titre||'Écouter la démarche de Bondy TV',style:'width:100%;padding:12px;font:inherit;border:2px solid rgba(18,20,28,.18)'});
+ var info=h('p',{style:'font-weight:700;margin:10px 0 0'});
+ var tmr=h('span',{style:'font-weight:800;font-size:20px'});
+ var prev=h('audio',{controls:true,style:'width:100%;margin-top:12px',hidden:true});
+ var big='min-height:56px;padding:0 22px;border:0;font:700 18px/1 inherit;cursor:pointer;color:#fff;';
+ var bRec=h('button',{class:'btn',style:big+'background:#d3141f'},'● Enregistrer ma voix');
+ var bStop=h('button',{class:'btn',style:big+'background:#12141c',hidden:true},'■ Arrêter');
+ var bAgain=h('button',{class:'btn',style:'min-height:56px;padding:0 22px;font-size:17px',hidden:true},'Recommencer');
+ var bPut=h('button',{class:'btn green',style:big+'background:#006233',hidden:true},'✔ Mettre sur le site');
+ function sync(){var has=!!VX.blob;bRec.hidden=has||!!VX.rec;bStop.hidden=!VX.rec;bAgain.hidden=!has;bPut.hidden=!has;prev.hidden=!has;if(has&&prev.getAttribute('src')!==VX.url)prev.src=VX.url}
+ function stopTracks(){clearInterval(VX.tm);try{VX.stream&&VX.stream.getTracks().forEach(function(x){x.stop()})}catch(e){}}
+ bRec.onclick=function(){info.textContent='';
+  if(!window.MediaRecorder||!navigator.mediaDevices){info.textContent='Ce navigateur ne peut pas enregistrer. Utilise « Choisir un fichier » plus bas.';return}
+  navigator.mediaDevices.getUserMedia({audio:true}).then(function(st){VX.stream=st;VX.chunks=[];var mr=new MediaRecorder(st);VX.rec=mr;
+   mr.ondataavailable=function(e){if(e.data&&e.data.size)VX.chunks.push(e.data)};
+   mr.onstop=function(){stopTracks();var type=mr.mimeType||'audio/webm';VX.blob=new Blob(VX.chunks,{type:type});VX.url=URL.createObjectURL(VX.blob);VX.rec=null;tmr.textContent='';info.textContent='Écoute-toi. Si c’est bon, clique « Mettre sur le site ».';sync()};
+   mr.start();VX.t0=Date.now();VX.tm=setInterval(function(){var sec=Math.floor((Date.now()-VX.t0)/1000);tmr.textContent='● '+Math.floor(sec/60)+':'+('0'+sec%60).slice(-2);if(sec>=600)bStop.onclick()},250);sync()
+  }).catch(function(){info.textContent='Le micro n’est pas autorisé. Autorise-le en haut du navigateur (icône à gauche de l’adresse), puis recommence.'})};
+ bStop.onclick=function(){try{VX.rec&&VX.rec.state!=='inactive'&&VX.rec.stop()}catch(e){}};
+ bAgain.onclick=function(){VX.blob=null;VX.url=null;prev.removeAttribute('src');info.textContent='';sync()};
+ function mettre(file){uploadFile(file,'audio',function(p){S.data.audio_demarche={fichier:p,titre:(titre.value||'Écouter la démarche de Bondy TV').trim(),actif:true};VX.blob=null;VX.url=null;render();say('Ta voix est ajoutée ✓ Clique maintenant sur « Enregistrer », puis « Publier le site ».')})}
+ bPut.onclick=function(){var t=VX.blob.type||'';var ext=/mp4|aac/.test(t)?'m4a':/ogg/.test(t)?'ogg':'webm';mettre(new File([VX.blob],'demarche.'+ext,{type:t}))};
+ var pick=h('input',{type:'file',accept:'audio/*,.mp3,.m4a,.wav,.webm,.ogg',style:'margin-top:6px'});
+ pick.onchange=function(){if(pick.files[0])mettre(pick.files[0])};
+ var cur=null;
+ if(d.fichier){var src=(S.pv&&S.pv[d.fichier])||d.fichier;
+  cur=h('div',{style:'margin-top:18px;padding:14px;background:#f3ead6;border-left:6px solid #b8975a'},h('b',{},d.actif===false?'Audio actuel (caché sur le site)':'Audio actuel (sur la page d’accueil)'),h('audio',{controls:true,src:src,style:'width:100%;margin-top:8px'}),
+   h('div',{style:'display:flex;gap:10px;flex-wrap:wrap;margin-top:10px'},
+    h('button',{class:'btn',style:'min-height:48px',onclick:function(){S.data.audio_demarche.actif=d.actif===false;render()}},d.actif===false?'Montrer sur l’accueil':'Cacher de l’accueil'),
+    h('button',{class:'btn red',style:'min-height:48px',onclick:function(){if(confirm('Retirer cet audio ?')){delete S.data.audio_demarche;render()}}},'Retirer')))}
+ sync();
+ return h('section',{class:'card panel'},
+  h('p',{style:'font-size:17px;margin:0 0 12px'},'1. Appuie sur le bouton rouge et parle. ',h('br'),'2. Appuie sur « Arrêter » et écoute-toi. ',h('br'),'3. Clique « Mettre sur le site », puis « Enregistrer » et « Publier le site » en haut.'),
+  h('label',{style:'font-weight:700'},'Texte du bouton sur l’accueil',titre),
+  h('div',{style:'display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:14px'},bRec,bStop,tmr,bAgain,bPut),prev,info,cur,
+  h('div',{style:'margin-top:22px;padding-top:14px;border-top:1px solid rgba(18,20,28,.15)'},h('b',{},'Ou choisir un fichier déjà enregistré (mp3, m4a, wav)'),h('br'),pick))}
 var V_ROLE={habitant:'Habitant',association:'Association',commerce:'Commerçant',elu:'Élu',videgrenier:'Vide-grenier'};
 function validerView(){
  var box=h('section',{});
@@ -1227,6 +1269,7 @@ function sectionView(key){
  if(key==='pages_libres'){return pagesLibresView(onch)}
  if(key==='diaporama')return diaporamaView(onch);
  if(key==='valider')return validerView();
+ if(key==='voix')return voixView();
  if(key==='tribune_admin')return h('iframe',{src:'/tribune-admin.html?integre=1',title:'Tribunes et comptes',style:'width:100%;height:calc(100vh - 150px);min-height:600px;border:0;background:#f6f4f1;display:block'});
  if(['point_de_vue','videos','paroles','bonnes_infos','temoigner','tribune','essentiel','elus'].indexOf(key)>=0&&S.data[key]&&typeof S.data[key]==='object')return pageSecView(key,onch);
  if(key==='proposer'&&S.data.proposer&&!Array.isArray(S.data.proposer))return contactView(onch);
@@ -1263,7 +1306,7 @@ function render(){
  if(!S.token){root.appendChild(loginView());return}
  if(S.loading||!S.data){root.appendChild(h('div',{class:'spin'},'Chargement du site…'));return}
  if(S.view.indexOf('g:')===0){var G0=GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0];var f0=G0&&G0[3].filter(itemOK)[0];if(f0){S.view=f0;S.q='';S.filter='Tous'}}
- var titles={tribune_admin:['Tribunes et comptes','Créer un compte rédacteur, relire les textes, voir les messages.'],valider:['À valider','Les personnes qui demandent un accès : tu acceptes, le code part.'],home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
+ var titles={voix:['Ma voix (audio)','Enregistre ta voix : elle sera sur la page d’accueil, avec lecture et pause.'],tribune_admin:['Tribunes et comptes','Créer un compte rédacteur, relire les textes, voir les messages.'],valider:['À valider','Les personnes qui demandent un accès : tu acceptes, le code part.'],home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
  var sec=SECTIONS.filter(function(s){return s[0]===S.view})[0];
  var gg=S.view.indexOf('g:')===0?GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0]:null;
  var t=gg?[gg[1],gg[4]]:(titles[S.view]||(sec?[sec[1],sec[3]]:['','']));
