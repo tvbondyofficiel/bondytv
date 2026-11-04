@@ -6,7 +6,7 @@ export async function onRequestGet({ request, env }) {
   const id = new URL(request.url).searchParams.get("id") || "";
   if (!/^\d+-[a-f0-9]{6}$/.test(id)) return json({ error: "cle" }, 400);
   const m = await env.VOTES.get("tm:" + id, "json");
-  if (!m || m.statut !== "publie" || !m.piece || !/^audio\//.test(m.piece.type || "")) return json({ error: "introuvable" }, 404);
+  if (!m || m.statut !== "publie" || !m.piece || !/^(audio|video)\//.test(m.piece.type || "")) return json({ error: "introuvable" }, 404);
   const buf = await env.VOTES.get("tf:" + id, "arrayBuffer");
   if (!buf) return json({ error: "introuvable" }, 404);
   const h = { "Content-Type": m.piece.type, "Accept-Ranges": "bytes", "X-Content-Type-Options": "nosniff", "Cache-Control": "public, max-age=3600" };

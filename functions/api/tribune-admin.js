@@ -106,7 +106,7 @@ export async function onRequestPost({ request, env }) {
     if (!m) return json({ error: "introuvable" }, 404);
     if (a === "publier_message") {
       if (!MSG_RUBRIQUES[m.type]) return json({ error: "type" }, 400);
-      const estAudio = !!(m.piece && /^audio\//.test(m.piece.type || ""));
+      const estAudio = !!(m.piece && /^(audio|video)\//.test(m.piece.type || ""));
       const texte = clean(b.texte, 3000), nom = cleanLine(b.nom, 80);
       if (texte.length < 5 && !estAudio) return json({ error: "texte" }, 400);
       m.statut = "publie"; m.texte_pub = texte; m.nom_pub = nom; m.pub_ts = Date.now();
@@ -115,8 +115,9 @@ export async function onRequestPost({ request, env }) {
     const pub = (await listPrefix(env, "tm:")).filter((x) => x.statut === "publie" && MSG_RUBRIQUES[x.type])
       .sort((x, y) => (y.pub_ts || y.ts) - (x.pub_ts || x.ts))
       .map((x) => ({ rubrique: MSG_RUBRIQUES[x.type], nom: x.nom_pub || "", texte: x.texte_pub || "", ts: x.pub_ts || x.ts, audio: (x.piece && /^audio\//.test(x.piece.type || "")) ? String(x.cle || "").slice(3) : undefined,
+        vfile: (x.piece && /^video\//.test(x.piece.type || "")) ? String(x.cle || "").slice(3) : undefined,
         video: (x.type === "Une vidéo" && /^https:\/\//i.test(x.lien || "")) ? x.lien : undefined,
-        ecoute: ((x.piece && /^audio\//.test(x.piece.type || "")) || (x.type === "Une vidéo" && /^https:\/\//i.test(x.lien || ""))) ? true : undefined }));
+        ecoute: ((x.piece && /^(audio|video)\//.test(x.piece.type || "")) || (x.type === "Une vidéo" && /^https:\/\//i.test(x.lien || ""))) ? true : undefined }));
     await env.VOTES.put("mpub", JSON.stringify(pub));
     return json({ ok: true });
   }

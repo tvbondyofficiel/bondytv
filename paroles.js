@@ -14,7 +14,7 @@
     + ".pp-t p{margin:0 0 8px;max-width:none}"
     + ".pp-more{display:none;margin-top:8px;background:none;border:0;padding:0;font:700 12px/1 var(--display,inherit);text-transform:uppercase;letter-spacing:.12em;color:#12141c;border-bottom:2px solid #d4202a;cursor:pointer}"
     + ".pp-c.canopen .pp-more{display:inline-block}"
-    + ".pp-au{display:block;width:100%;margin:4px 0 6px}.pp-v{position:relative;aspect-ratio:16/9;margin:4px 0 8px;background:#12141c}.pp-v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.pp-lk{display:inline-block;margin:4px 0 8px;padding:12px 16px;background:#006233;color:#fff;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:.06em}"
+    + ".pp-au{display:block;width:100%;margin:4px 0 6px}.pp-vf{display:block;width:100%;max-height:420px;margin:4px 0 8px;background:#12141c}.pp-v{position:relative;aspect-ratio:16/9;margin:4px 0 8px;background:#12141c}.pp-v iframe{position:absolute;inset:0;width:100%;height:100%;border:0}.pp-lk{display:inline-block;margin:4px 0 8px;padding:12px 16px;background:#006233;color:#fff;font-weight:700;text-decoration:none;text-transform:uppercase;letter-spacing:.06em}"
     + ".pp-by{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:12px;padding-top:10px;border-top:1px solid rgba(18,20,28,.16)}"
     + ".pp-by b{font:700 13px/1.2 var(--display,inherit);text-transform:uppercase;letter-spacing:.12em;color:#1f5a3a}"
     + ".pp-by time{font-size:12.5px;opacity:.7}"
@@ -33,7 +33,7 @@
     box.innerHTML = '<div class="pp-list">' + L.map(function (x) {
       var dt = new Date(x.ts).toLocaleDateString("fr-FR", { day: "numeric", month: "long", year: "numeric" });
       var paras = String(x.texte || "").split(/\n\s*\n/).map(function (t) { return '<p>' + esc(t.trim()).replace(/\n/g, "<br>") + '</p>'; }).join("");
-      return '<article class="pp-c">' + (x.titre ? '<h3>' + esc(x.titre) + '</h3>' : '') + vid(x.video) + (x.audio ? '<audio class="pp-au" controls preload="none" src="/api/audio?id=' + encodeURIComponent(x.audio) + '"></audio>' : '') + (x.texte && x.texte !== 'Témoignage audio' ? '<div class="pp-t">' + paras + '</div>' : '') + '<button type="button" class="pp-more">Lire la suite</button><div class="pp-by">' + (x.nom ? '<b>' + esc(x.nom) + '</b>' : '') + '</div></article>';
+      return '<article class="pp-c">' + (x.titre ? '<h3>' + esc(x.titre) + '</h3>' : '') + vid(x.video) + (x.vfile ? '<video class="pp-vf" controls preload="none" playsinline src="/api/audio?id=' + encodeURIComponent(x.vfile) + '"></video>' : '') + (x.audio ? '<audio class="pp-au" controls preload="none" src="/api/audio?id=' + encodeURIComponent(x.audio) + '"></audio>' : '') + (x.texte && x.texte !== 'Témoignage audio' && x.texte !== 'Témoignage vidéo' ? '<div class="pp-t">' + paras + '</div>' : '') + '<button type="button" class="pp-more">Lire la suite</button><div class="pp-by">' + (x.nom ? '<b>' + esc(x.nom) + '</b>' : '') + '</div></article>';
     }).join("") + '</div>';
     box.querySelectorAll(".pp-c").forEach(function (c) {
       var t = c.querySelector(".pp-t"); if (!t) return;
