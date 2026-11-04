@@ -30,9 +30,11 @@ export async function onRequestGet({ request, env }) {
   }
   const comptes = (await listPrefix(env, "ta:")).map((a) => ({ id: a.id, nom: a.nom, fonction: a.fonction, groupe: a.groupe, actif: a.actif, created: a.created, role: a.role || "elu", tel: a.tel || "", structure: a.structure || "" }));
   const demandes = (await listPrefix(env, "hd:")).sort((a, b) => b.ts - a.ts);
-  const tribunes = (await listPrefix(env, "tt:")).sort((a, b) => b.ts - a.ts);
+  const tt = (await listPrefix(env, "tt:")).sort((a, b) => b.ts - a.ts);
+  const tribunes = tt.filter((t) => t.type !== "article");
+  const articles = tt.filter((t) => t.type === "article");
   const messages = (await listPrefix(env, "tm:")).sort((a, b) => b.ts - a.ts);
-  return json({ comptes, tribunes, demandes, messages });
+  return json({ comptes, tribunes, articles, demandes, messages });
 }
 
 export async function onRequestPost({ request, env }) {
@@ -50,8 +52,9 @@ export async function onRequestPost({ request, env }) {
     if (!id) return json({ error: "nom" }, 400);
     if (await env.VOTES.get("ta:" + id)) return json({ error: "existe" }, 409);
     const code = newCode();
-    await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction, groupe, actif: true, created: Date.now(), ch: await codeHash(env, id, code) }));
-    return json({ ok: true, id, code });
+    const red = b.role === "redacteur"; // rédacteur : il écrit des articles, seul Mohammed publie
+    await env.VOTES.put("ta:" + id, JSON.stringify({ id, nom, fonction: red ? (fonction || "Rédacteur Bondy TV") : fonction, groupe, actif: true, created: Date.now(), ch: await codeHash(env, id, code), ...(red ? { role: "redacteur" } : {}) }));
+    return json({ ok: true, id, code, role: red ? "redacteur" : "elu" });
   }
   if (a === "accepter") {
     const cle = String(b.cle || "");
@@ -144,11 +147,21 @@ export async function onRequestPost({ request, env }) {
     await rebuildPub(env);
     return json({ ok: true });
   }
+  if (a === "importer_article") {
+    const cle = String(b.cle || "");
+    if (!/^tt:[a-z0-9-]+:\d+-[a-f0-9]{6}$/.test(cle)) return json({ error: "cle" }, 400);
+    const t = await env.VOTES.get(cle, "json");
+    if (!t || t.type !== "article") return json({ error: "introuvable" }, 404);
+    t.statut = "importe"; t.import_ts = Date.now();
+    await env.VOTES.put(cle, JSON.stringify(t));
+    return json({ ok: true });
+  }
   if (a === "publier" || a === "refuser" || a === "retirer") {
     const cle = String(b.cle || "");
     if (!cle.startsWith("tt:")) return json({ error: "cle" }, 400);
     const t = await env.VOTES.get(cle, "json");
     if (!t) return json({ error: "introuvable" }, 404);
+    if (t.type === "article" && a !== "refuser") return json({ error: "article" }, 400); // un article de rédacteur ne se publie pas ici : on l'importe dans le tableau de bord
     if (a === "publier") {
       t.statut = "publie"; t.pub_ts = Date.now(); delete t.motif;
       if (typeof b.texte === "string" && b.texte.trim()) t.texte = clean(b.texte, 5000);
