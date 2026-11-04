@@ -3,7 +3,7 @@
 import { sendMail, mailOK } from "../_lib/mail.js";
 import { json, clean, cleanLine, normTel, slug, newCode, codeHash, modAllowed, listPrefix, rebuildPub, sameOrigin, recountPending, pendingCount } from "../_lib/tribune.js";
 
-const MSG_RUBRIQUES = { "Logement": "logement", "L'essentiel": "essentiel", "Un témoignage": "temoignage" };
+const MSG_RUBRIQUES = { "Logement": "logement", "L'essentiel": "essentiel", "Un témoignage": "temoignage", "Une vidéo": "video" };
 
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
@@ -114,7 +114,9 @@ export async function onRequestPost({ request, env }) {
     await env.VOTES.put(cle, JSON.stringify(m));
     const pub = (await listPrefix(env, "tm:")).filter((x) => x.statut === "publie" && MSG_RUBRIQUES[x.type])
       .sort((x, y) => (y.pub_ts || y.ts) - (x.pub_ts || x.ts))
-      .map((x) => ({ rubrique: MSG_RUBRIQUES[x.type], nom: x.nom_pub || "", texte: x.texte_pub || "", ts: x.pub_ts || x.ts, audio: (x.piece && /^audio\//.test(x.piece.type || "")) ? String(x.cle || "").slice(3) : undefined }));
+      .map((x) => ({ rubrique: MSG_RUBRIQUES[x.type], nom: x.nom_pub || "", texte: x.texte_pub || "", ts: x.pub_ts || x.ts, audio: (x.piece && /^audio\//.test(x.piece.type || "")) ? String(x.cle || "").slice(3) : undefined,
+        video: (x.type === "Une vidéo" && /^https:\/\//i.test(x.lien || "")) ? x.lien : undefined,
+        ecoute: ((x.piece && /^audio\//.test(x.piece.type || "")) || (x.type === "Une vidéo" && /^https:\/\//i.test(x.lien || ""))) ? true : undefined }));
     await env.VOTES.put("mpub", JSON.stringify(pub));
     return json({ ok: true });
   }
