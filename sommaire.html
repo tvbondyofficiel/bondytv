@@ -629,6 +629,17 @@ h1 em, .ed-head h1 em, .pubpage .ici h1 em, .bi-head h1 em, .ph-head h1 em { col
 <script src="/pages-actives.js" defer></script><script src="/mise-en-page.js" defer></script>
 <style>.bar nav a.nav-home{color:var(--muted);font-weight:700;border-bottom:2px solid transparent}.bar nav a.nav-home:hover{color:var(--fg)}.bar nav a.nav-home[aria-current]{color:var(--fg);border-bottom-color:#d3141f}</style>
 <style id="photo-entiere">.art .vis.has-img{background:var(--surface,#ece6d8)}.art .vis.has-img img{object-fit:contain!important;object-position:50% 50%!important}</style>
+<style id="menu-lisible">
+@media (max-width:699px){
+html body .bar nav{display:flex!important;flex-wrap:wrap!important;gap:6px 8px!important;align-items:center}
+html body .bar nav>a:not(.nav-ecrire),html body .bar nav .dd>summary{font-size:16px!important;letter-spacing:.03em!important;min-height:44px!important;display:inline-flex!important;align-items:center;padding:0 10px!important}
+html body .bar nav a.nav-ecrire{min-height:46px!important;display:inline-flex!important;align-items:center;font-size:16px!important;padding:0 18px!important}
+html body .bar nav .dd-m a{font-size:16px!important;min-height:44px;display:flex!important;align-items:center}
+}
+@media (max-width:699px){html body .cov-lines{margin-top:-10px!important;max-width:100%!important}html body .cov-lines a{font-size:17px!important;line-height:1.15!important;white-space:normal!important;min-height:50px;display:flex!important;align-items:center}html body .cov-lines a:first-child{font-size:24px!important}}
+html body .bt-fab{opacity:.92}
+@media (max-width:699px){html body .bt-fab{width:46px!important;height:46px!important;padding:0!important;right:10px!important;bottom:calc(10px + env(safe-area-inset-bottom,0px))!important;justify-content:center}html body .bt-fab>*:not(svg):not(img){display:none!important}}
+</style>
 </head>
 <body>
 <div class="wrap">
