@@ -1262,7 +1262,8 @@
       "visuel": "image",
       "etiquette": "À la une",
       "image_portrait": false,
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "lien_video": "https://www.youtube.com/watch?v=5tBiSEFapGk",
@@ -1279,7 +1280,8 @@
       "visuel": "image",
       "etiquette": "Balade",
       "image_portrait": false,
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "lien_video": "",
@@ -1287,7 +1289,7 @@
       "rubrique": "Actualité",
       "pleine_largeur": false,
       "titre": "Copie – Le nouveau visage de Bondy",
-      "texte": "Le nouveau visage de Bondy est multiple. Il est aussi divisé : entre le nord et le sud de la ville, les habitants ne vivent pas toujours les mêmes réalités, et une fracture s'est installée.\n\nLes responsables de la ville affirment travailler à réparer cette fracture et à recréer du lien entre les habitants. Reste à voir, ensemble, ce que cela change au quotidien.\n\nEt vous, comment voyez-vous le nouveau visage de Bondy ? Racontez-nous votre histoire en quelques lignes : ce que vous vivez, ce que vous voyez, ce que vous espérez. Utilisez [le formulaire](/temoigner.html#tform), écrivez-nous à tvbondy@gmail.com ou appelez le 07 49 55 43 91. Votre témoignage pourra paraître dans le prochain numéro.\n\n> Les témoignages ne seront publiés qu'avec l'accord de leur auteur.",
+      "texte": "Le nouveau visage de Bondy est multiple. Il est aussi divisé : entre le nord et le sud de la ville, les habitants ne vivent pas toujours les mêmes réalités, et une fracture s'est installée.\n\nLes responsables de la ville affirment travailler à réparer cette fracture et à recréer du lien entre les habitants. Reste à voir, ensemble, ce que cela change au quotidien.\n\nEt vous, comment voyez-vous le nouveau visage de Bondy ? Racontez-nous votre histoire en quelques lignes : ce que vous vivez, ce que vous voyez, ce que vous espérez. Utilisez [le formulaire](/temoigner.html#tform), écrivez-nous à tvbondy@gmail.com ou sur www.bondytv.com. Votre témoignage pourra paraître dans le prochain numéro.\n\n> Les témoignages ne seront publiés qu'avec l'accord de leur auteur.",
       "image_description": "Immeubles clairs au bord du canal, reflétés dans l’eau, sous un ciel bleu.",
       "credit": "",
       "id": "copie-le-nouveau-visage-de-bondy",
@@ -1314,7 +1316,8 @@
       "lien_video": "",
       "texte_visible": "À Bondy Nord, les travaux durent. Une route est bloquée depuis un moment, juste à côté de l'école. Sur place, des barrières entourent le chantier, une pelleteuse, un rouleau compresseur et des ouvriers travaillent, et des panneaux « Piétons » guident les passants. Devant l'entrée de l'école maternelle, il faut contourner.",
       "texte": "Pour les parents, les enfants et les riverains, le quotidien est devenu compliqué : le secteur est bouché, et la patience s'use.\n\n![Un rouleau compresseur et une pelleteuse sur le chantier, derrière les barrières, à Bondy Nord](/images/bondy-nord-travaux-2.jpg)\n\n**Pourquoi ces travaux ?**\n\nSelon la Ville de Bondy, la route est impraticable à cause de la rupture d'une canalisation d'eau potable. Cet été, elle a explosé et créé d'importantes cavités sous la chaussée et les trottoirs.\n\n**Où ?**\n\nLes travaux concernent le carrefour route d'Aulnay / avenue Henri Varagnat, et le carrefour avenue Jean Moulin / avenue Max Dormoy.\n\n**Jusqu'à quand ?**\n\nLe Département de la Seine-Saint-Denis annonce une réouverture à la circulation le **30 octobre 2026** pour le carrefour avenue Jean Moulin / route d'Aulnay. Des complications techniques et des manifestations ont retardé le chantier. Aucune date n'est donnée pour l'autre carrefour.\n\n**Sur place**\n\nDes panneaux de déviation sont installés aux extrémités des rues voisines. La circulation et le stationnement sont interdits au cœur de la zone. Les piétons peuvent continuer à passer sur les trottoirs.\n\nSource : [Site officiel de la ville de Bondy](https://www.ville-bondy.fr/actualite/travaux-dans-le-nord-de-bondy-suite-a-une-rupture-de-canalisation/).\n\n**Vous habitez le quartier ?** Racontez-nous comment vous vivez ces travaux, avec le formulaire [Témoigner](/temoigner.html).",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-stationnement-payant-a-quoi-sert-l-argent",
@@ -1329,7 +1332,8 @@
       "pleine_largeur": false,
       "texte_visible": "Ces témoignages, nous les entendons chaque jour. Ils sont oraux, spontanés, et ils se ressemblent : dans plusieurs quartiers, y compris devant des pavillons dans le sud de la ville, le stationnement est devenu payant. Pour beaucoup de familles, c'est une dépense de plus, dans un budget déjà serré.\n\nCette colère s'est exprimée sur les réseaux, puis le silence est revenu. Mais la question, elle, reste entière.\n\nSelon le groupe d'opposition EELV, le stationnement payant a été étendu en 2024 à toutes les zones, avec des tarifs en hausse et des recettes de voirie passées d'environ 20 000 € à 243 000 €. Ces chiffres sont à confirmer par la mairie.\n\nAlors, à quoi sert cet argent ? Nous posons à la mairie quatre questions :\n\n- Combien rapporte le stationnement payant chaque année ?\n- Qu'a-t-il déjà permis de financer ?\n- Pourquoi l'étendre aux quartiers de pavillons ?\n- Quels tarifs pour ceux qui ont le plus de mal à finir le mois ?\n\nBondy TV offre à la mairie un droit de réponse dans son prochain numéro.",
       "texte": "",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "lien_video": "",
@@ -1347,7 +1351,8 @@
       "etiquette": "Actualité · Propreté",
       "image_portrait": false,
       "image_focus": "50% 62%",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-la-pepitheque-mariama-ba-une-bibliotheque-qu",
@@ -1364,7 +1369,8 @@
       "credit": "28 avenue Henri Varagnat, Bondy · quartier de la Noue Caillet",
       "texte_visible": "",
       "texte": "Une bibliothèque est déjà un trésor. Quand elle s'associe à une pépinière d'entreprises, elle devient un tremplin. C'est le pari de la **Pépithèque Mariama Bâ**, ouverte à Bondy, dans le quartier de la Noue Caillet.\n\n**Un lieu pensé pour tous les âges**\n\nLe rez-de-chaussée accueille une bibliothèque tournée vers la formation, l'emploi et la création d'activité, mais ouverte à tous : enfants, familles, jeunes, demandeurs d'emploi, habitants qui apprennent le français. Elle travaille avec les structures de la petite enfance, les écoles, la maison de quartier et la Maison France Services.\n\n**Un tremplin pour les entrepreneurs**\n\nÀ côté des livres, la pépinière propose 17 bureaux, 6 postes de coworking et plusieurs salles de réunion. Les jeunes entreprises y bénéficient de locaux à coût modéré et d'un accompagnement renforcé, jusqu'à quatre ans. Des partenaires de l'emploi et de la création d'entreprise y tiennent aussi des permanences : Mission locale, PLIE, Agence locale d'insertion, ADIE, BGE Parif ou encore le Carrefour de l'entrepreneuriat.\n\n**Lire, se former, entreprendre au même endroit**\n\nRencontres pour l'emploi, mini-forums, ateliers CV, découverte des métiers : le lieu rassemble la lecture, la formation, la recherche d'emploi et le développement de projets. De quoi passer, en quelques mètres, d'une idée à sa réalisation.\n\n**Un bâtiment qui regarde l'avenir**\n\nL'ancien site de la MGEN, racheté en 2019 par Est Ensemble, a été réhabilité plutôt que démoli, pour limiter l'empreinte carbone. Conception bioclimatique, récupération des eaux de pluie, panneaux photovoltaïques, structure en bois, isolation en fibres de bois, arbres existants préservés : le chantier a fait le choix du durable. L'investissement total s'élève à 11,7 millions d'euros hors taxes.\n\n**Le jour de l'inauguration**\n\nLe samedi 24 janvier 2026, de 10 h à 18 h, la Ville de Bondy et Est Ensemble ont ouvert grand les portes : concerts, spectacles, ateliers, lectures, jeux vidéo, goûter et visites guidées, le tout gratuit et ouvert à tous.\n\n**Qui était Mariama Bâ ?**\n\nLe nom rend hommage à une grande voix de la littérature africaine. Née à Dakar le 17 avril 1929 et disparue le 17 août 1981, **Mariama Bâ** était une écrivaine sénégalaise, institutrice puis inspectrice de l'enseignement, mère de neuf enfants. Son premier roman, *Une si longue lettre* (1979), est une lettre d'une veuve à son amie : un texte devenu un classique, traduit en plus de 30 langues, qui dénonce avec finesse les injustices faites aux femmes dans la société sénégalaise de son époque et aborde le thème de l'émancipation féminine. Il lui vaut en 1980 le prix Noma de l'édition africaine. Elle s'est battue pour l'accès au savoir et l'émancipation, deux idées qui résonnent dans une bibliothèque de quartier.\n\n**Pratique**\n\nAdresse : 28 avenue Henri Varagnat, 93140 Bondy.\n\n**Horaires de la bibliothèque**\n- Lundi : fermée au public\n- Mardi : 14 h – 18 h\n- Mercredi : 10 h – 13 h et 14 h 30 – 19 h\n- Jeudi : fermée au public\n- Vendredi : 14 h – 18 h\n- Samedi : 10 h – 13 h et 14 h 30 – 18 h\n- Dimanche : fermée\n\nBibliothèque : 01 79 64 52 66 · [bondy.bibliotheques-estensemble.fr](https://bondy.bibliotheques-estensemble.fr)\nPépinière d'entreprises : 01 41 72 91 00 · [pepinieres-entreprises.est-ensemble.fr](https://pepinieres-entreprises.est-ensemble.fr)\n\n> Vous avez fréquenté la Pépithèque ? Racontez-nous votre expérience avec le [formulaire](/temoigner.html#tform).\n\nSources : Est Ensemble, affichage de la Pépithèque, [Ville de Bondy](https://www.ville-bondy.fr/evenement/inauguration-pepitheque-mariama-ba/).",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-le-canal-de-l-ourcq-notre-balade-au-bord-de-",
@@ -1379,7 +1385,8 @@
       "pleine_largeur": false,
       "texte_visible": "",
       "texte": "Le canal de l'Ourcq traverse Bondy. Beaucoup d'entre nous le longent sans connaître son histoire.\n\nTout commence en 1802. Une loi décide d'amener les eaux de l'Ourcq jusqu'à Paris, et les travaux démarrent le 23 septembre de cette année-là. Le but : fournir de l'eau à la capitale. Les bateaux commencent à y naviguer en 1822.\n\nAujourd'hui, le canal mesure 108 kilomètres : c'est le plus long canal parisien. Il n'a plus le même rôle : on y vient pour se promener. Ses berges sont devenues un chemin de promenade, et un itinéraire à vélo, la Scandibérique, passe par Bondy.\n\n**Un conseil simple**\n\nPrenez un après-midi, marchez le long de l'eau, et dites-nous ce que vous y avez vu.",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-une-boite-a-livres-au-bois-de-bondy",
@@ -1396,7 +1403,8 @@
       "credit": "Photo : Bondy TV",
       "texte_visible": "",
       "texte": "« Partageons le goût de la lecture » : c'est écrit sur cette petite boîte rouge, posée à l'entrée du Bois de Bondy. Le principe est simple : on prend un livre, on en dépose un autre. C'est gratuit, ouvert à tous et accessible à toute heure.\n\nBondy TV aimerait en voir partout dans la ville, à chaque coin de rue : un livre à portée de main, c'est un pas de plus vers le savoir pour chacun.\n\nEt vous ? Une idée d'endroit pour la prochaine boîte à livres ? Écrivez-nous.",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-bondy-une-histoire-bien-plus-ancienne-qu-on-",
@@ -1411,7 +1419,8 @@
       "pleine_largeur": false,
       "texte_visible": "",
       "texte": "Bondy est l'une des plus anciennes localités de Seine-Saint-Denis. Son nom apparaît dans des textes dès le VIIe siècle.\n\n- **L'église Saint-Pierre** remonte au XIe siècle. Elle a été modifiée au fil du temps, mais elle reste l'un des plus anciens édifices religieux du département.\n- **La forêt de Bondy** était célèbre. Elle avait la réputation d'abriter des voleurs, ce qui décourageait les voyageurs de la traverser. Il n'en reste presque plus rien aujourd'hui.\n- **En 2005**, des archéologues ont découvert une nécropole d'environ 1 000 tombes, de la fin de l'Antiquité au Moyen Âge.\n- **L'ancienne mairie**, un bâtiment du XIXe siècle, abrite aujourd'hui le conservatoire de musique.\n- **Avant la ville, la campagne.** Bondy était surtout agricole. La ferme Caillard, ancienne ferme, est devenue un lieu culturel et pédagogique, avec jardins et événements.\n- **En 1905**, un tiers du territoire est devenu la commune des Pavillons-sous-Bois.\n\nAujourd'hui, Bondy compte environ 50 600 habitants.",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-ils-ont-grandi-a-bondy",
@@ -1426,7 +1435,8 @@
       "pleine_largeur": false,
       "texte_visible": "",
       "texte": "Bondy a vu passer des personnes qui sont devenues connues partout. Voici quatre noms qui font notre fierté.\n\n**Kylian Mbappé.** Il a commencé le football en 2004, dans l'équipe de jeunes de l'AS Bondy. C'est là que son parcours démarre.\n\n**William Saliba.** Il est né à Bondy en 2001. À six ans, il joue déjà à l'AS Bondy, où il est entraîné par le père de Kylian Mbappé. Il joue aujourd'hui à Arsenal et en équipe de France.\n\n**Tiakola.** Le chanteur et rappeur est né à Bondy en 1999. Il a ensuite grandi à La Courneuve. En 2022, son premier album *Mélo* est arrivé n°1 en France.\n\n**André Malraux.** L'écrivain, devenu ministre de la Culture, est né à Paris en 1901. Enfant, il a été élevé par sa mère, sa grand-mère et une tante qui tenait une épicerie rue de la Gare, à Bondy.\n\n**Et vous ?**\n\nVous connaissez quelqu'un de Bondy qui mérite d'être raconté ? Écrivez-nous : le prochain portrait sera peut-être le sien.",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "lien_video": "",
@@ -1443,7 +1453,8 @@
       "visuel": "image",
       "etiquette": "Ville · Commerce",
       "image_portrait": false,
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-la-tradition-du-pain-le-pain-et-la-conversat",
@@ -1460,7 +1471,8 @@
       "texte": "",
       "affiche_entiere": false,
       "image_focus": "50% 40%",
-      "photo_cote": true
+      "photo_cote": true,
+      "style_presse": true
     },
     {
       "id": "copie-les-marches-de-bondy-ou-faire-son-marche-et-",
@@ -1476,7 +1488,8 @@
       "texte_visible": "Faire son marché, c'est une habitude de bon vivant. À Bondy, la ville en recense trois, à des endroits et des jours différents, tous de 8h à 13h.",
       "texte": "**Marché Suzanne Buisson** : dans le nord de la ville, les mardis, jeudis et samedis, de 8h à 13h.\n\n**Marché du centre-ville** : place du 11 novembre, les dimanches, de 8h à 13h. Le parking souterrain de l'Hôtel de Ville est ouvert aux véhicules.\n\n**Marché de la Gare** : place de la République, les mercredis et samedis, de 8h à 13h.\n\n**Et aussi, des rendez-vous spéciaux.** En décembre 2024, la ville a organisé la première édition d'un marché des producteurs place du 11 Novembre 1918, à l'initiative de la SEMACO, avec des producteurs et artisans locaux et régionaux, des animations et des dégustations.\n\n> Jours et horaires indiqués par la ville de Bondy. Ils peuvent changer : vérifiez sur ville-bondy.fr.\n\n**Vous avez votre étal préféré ?** Dites-nous lequel, et pourquoi : [Écrivez-nous](/ecrire.html). Il pourrait avoir son portrait dans le prochain numéro.",
       "image_focus": "50% 55%",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-maison-atlas-le-gout-le-c-ur-et-le-quartier",
@@ -1494,7 +1507,8 @@
       "texte_visible": "",
       "texte": "Il y a des adresses qui font du bruit avant même d'avoir ouvert. Maison Atlas a fait l'inverse : elle est arrivée à Bondy discrètement, et ce sont les assiettes qui ont parlé.\n\nLe nom dit déjà beaucoup. L'Atlas, c'est la montagne qui veille sur le Maroc, et c'est aussi, pour des milliers de familles d'ici, le goût de la maison, celui des matins de week-end et des tables où l'on s'assoit toujours à plus qu'il n'y a de chaises. C'est cette mémoire-là que **Toufik** a voulu mettre en cuisine.\n\nBeaucoup de Bondynois le connaissent. C'est un homme du quartier, de ceux qui répondent présent quand on a besoin d'un coup de main, sans qu'on ait à le demander deux fois. Il avait l'envie, têtue et sincère, de s'en sortir par le travail. Maison Atlas est sa réponse : un lieu à lui, ouvert à tous, où l'on est reçu comme chez soi.\n\n**Le matin, la générosité**\n\nLe petit déjeuner oriental est le plat de résistance de la maison. Thé à la menthe ou café au lait, jus d'orange, tartines de miel ou de Nutella, œufs, olives noires, huile d'olive, pain oriental, toast avocat-saumon : quatre formules, de 6,50 € à 9,50 €, pensées pour que personne ne reparte sur sa faim. À la carte, les classiques du fournil, msemen, harcha, mhajeb, côtoient le jus d'avocat aux amandes et aux dattes, et les soupes à 4 €, lentilles ou bissara, servies tous les jours.\n\n**Le vendredi, la fête**\n\nLe vendredi, la maison change de rythme. C'est le jour de la Couscous Party, de 11h30 à 15h : couscous à l'agneau ou au poulet, copieux, parfumé, comme on l'espère et comme on le trouve rarement. Un goût unique, singulier, qui rassasie vraiment.\n\n**Les Bondynois ont goûté, et ils le disent**\n\nSur TikTok, les avis s'accumulent, et ils sont très, très bons. Des Bondynois qui sont venus, ont goûté et ont tenu à le dire : la cuisine, l'accueil, la générosité des assiettes. Le bouche-à-oreille a fait le reste, et c'est le meilleur des signes.\n\n**Une adresse propre, et ça compte**\n\nOn n'en parle pas assez, mais c'est ce qu'on remarque en premier : ici, tout est net, soigné, accueillant. Dans une ville qui se raconte trop souvent par ses difficultés, voir un commerce de quartier monté avec autant de sérieux est une bonne nouvelle. Mettre en valeur ceux qui le méritent : c'est le but de Bondy TV. Et Maison Atlas en fait partie.\n\n\nAlors, un matin ou un vendredi, passez la porte. Goûtez. Et dites-nous ce que vous en avez pensé.\n\n**Maison Atlas**, 9 rond-point du Verger, 93140 Bondy. Tous les jours de 5h à 13h en service continu, et le vendredi jusqu'à 15h. Réservations et groupes : 06 52 83 52 45 (WhatsApp).",
       "vignette": "/images/atlas-logo.jpg",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-quand-le-mois-est-long-deux-portes-a-connait",
@@ -1509,7 +1523,8 @@
       "pleine_largeur": false,
       "texte_visible": "Finir le mois n'est facile pour personne, et cela ne dit rien de la valeur de ceux qui y peinent. Voici deux adresses utiles.\n\n**Les Restos du Cœur.** Le centre d'activités de Bondy, au 2, rue du Potager, assure l'aide alimentaire le jeudi, le vendredi et le samedi, de 8 h 30 à 11 h 30. Renseignements : 07 52 90 27 57.\n\n**Le CCAS** (centre communal d'action sociale). C'est la porte d'entrée pour faire le point sur sa situation et être orienté vers les aides existantes. Maison Marianne, 47-51, rue Louis-Auguste Blanqui. Ouvert du lundi au vendredi, de 9 h à 17 h 15 (le mardi, de 10 h 30 à 19 h 15). Tél. 01 48 50 53 40.\n\nFranchir cette porte est un premier pas. Pensez à vérifier les horaires avant de vous déplacer.",
       "texte": "",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-exclusion-a-bondy-personne-ne-doit-rester-su",
@@ -1525,7 +1540,8 @@
       "texte_visible": "On ne parle jamais assez de ceux qui n'osent pas demander. Un chômage qui s'éternise, un loyer en retard, un jeune qui n'y croit plus : l'exclusion se vit souvent en silence, à deux pas de chez nous.",
       "texte": "Un père de famille qui envoie des CV depuis des mois et n'a plus de réponse. Un jeune sans diplôme qui se dit que « de toute façon, ça ne sert à rien ». Une mère qui cache ses factures dans un tiroir en espérant que ça passe. Une personne que l'on n'appelle jamais pour un entretien, sans qu'elle sache pourquoi.\n\nCe ne sont pas des cas à part. Ce sont des voisins. Et le plus dur, souvent, n'est pas le manque d'argent : c'est le silence, la honte, le sentiment d'être de trop.\n\n**L'emploi : une vraie chance, pas une promesse**\n\nRetrouver du travail, c'est retrouver sa place à table, son regard dans le miroir, sa fierté devant ses enfants. Il y a des pistes simples, qui n'attendent que d'être poussées plus loin :\n\n- plus de rencontres entre entreprises de Bondy et personnes qui cherchent un emploi ;\n- des stages, des contrats en alternance, des journées d'immersion pour les jeunes ;\n- un accompagnement pour ceux qui se perdent dans les démarches ;\n- des employeurs qui recrutent sur ce que l'on sait faire, pas sur le nom, l'adresse ou l'apparence.\n\nPour les 16-25 ans, les missions locales sont faites pour ça : elles accompagnent les jeunes dans leurs démarches et leurs projets. Encore faut-il qu'ils sachent qu'elles existent, et qu'ils osent pousser la porte.\n\n**Le logement : agir avant que tout bascule**\n\nUn loyer en retard, puis deux. Une lettre que l'on n'ose plus ouvrir. On ne tombe pas du jour au lendemain : on glisse, souvent seul. C'est là qu'il faut tendre la main, pas quand la situation est devenue urgente.\n\nLe CCAS, le centre communal d'action sociale, est la porte d'entrée pour faire le point et être orienté vers les aides existantes. Ses horaires et son adresse sont ici : [Quand le mois est long](/article/entraide).\n\nCe que l'on peut demander : mieux faire connaître les aides, accompagner les familles en impayés, prévenir les expulsions, aider ceux qui n'arrivent plus à remplir seuls leurs papiers.\n\n**Les jeunes : on les voit, mais les écoute-t-on ?**\n\nUn jeune a besoin d'un travail, bien sûr. Mais aussi d'un adulte qui croit en lui, d'un endroit où s'exprimer, d'une activité qui lui donne envie de se lever le matin. Parrainage, découverte des métiers, soutien scolaire, sport, culture : les idées existent. La question est de savoir si ceux qui en ont besoin les connaissent.\n\n**Les discriminations : dire non, et dire où aller**\n\nÊtre écarté d'un emploi, d'un logement ou d'une activité à cause de son origine, de son nom ou de son adresse, ça laisse des traces. Chacun doit connaître ses droits, savoir où signaler, et ne pas rester seul. Les points d'accès aux droits et les permanences juridiques sont là pour ça : renseignez-vous auprès de la mairie.\n\n> Bondy TV ne désigne aucun coupable sans preuve. Nous voulons comprendre les besoins, regarder ce qui existe, et dire ce qui manque.\n\n**Nos questions**\n\n**Aux élus :** quelles sont vos priorités contre l'exclusion ? Quels moyens pour les habitants les plus fragiles ? Comment mesurez-vous les résultats ?\n\n**Aux associations :** quels sont les besoins les plus urgents que vous voyez sur le terrain ? Avez-vous assez de moyens pour aider ?\n\n**Aux habitants :** les personnes en difficulté sont-elles assez accompagnées à Bondy ? Que voyez-vous dans votre quartier ? Quelle solution aimeriez-vous voir demain ?\n\n**À vous la parole.** Votre histoire, votre idée, votre coup de gueule : [Écrivez-nous](/ecrire.html). Anonymement si vous préférez. Nous publions vos réponses, et nous transmettrons vos questions.\n\n> Parce qu'une ville ne se mesure pas à ses projets, mais à l'attention qu'elle porte à celles et ceux qui y vivent.",
       "image_focus": "60% 45%",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "lien_video": "",
@@ -1543,7 +1559,8 @@
       "etiquette": "Les bons acteurs de la ville de Bondy",
       "image_portrait": false,
       "vignette": "/images/action14-logo.jpg",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-l-ourcq-a-bondy-une-brasserie-qui-donne-envi",
@@ -1559,7 +1576,8 @@
       "texte_visible": "",
       "texte": "**Une adresse qui ne passe pas inaperçue**\n\nSur la route d’Aulnay, à Bondy, la brasserie L’OURCQ se distingue par une devanture soignée et une terrasse aménagée avec goût. Mobilier élégant, plantes décoratives, grandes baies vitrées et espace extérieur : tout contribue à donner à l’établissement une identité visuelle moderne et accueillante.\n\nDès le premier regard, le lieu invite à faire une pause, à se retrouver autour d’un verre ou à partager un moment convivial.\n\n![Intérieur de la brasserie L’OURCQ : tables, fauteuils et grandes baies vitrées](/images/lourcq-salle.jpg)\n![Le comptoir de la brasserie L’OURCQ, en marbre noir veiné d’or](/images/lourcq-bar.jpg)\n![Un café servi en terrasse de la brasserie L’OURCQ](/images/lourcq-cafe.jpg)\n\n**Un lieu de rencontre et de convivialité**\n\nLa brasserie occupe une place particulière dans la vie d’un quartier. On y vient pour déjeuner, prendre un café, retrouver des amis ou simplement profiter d’un moment de détente.\n\nAvec son cadre contemporain et sa terrasse ouverte sur la rue, L’OURCQ possède les atouts d’une adresse qui peut devenir un véritable point de rendez-vous pour les habitants et les personnes de passage.\n\nAu-delà de son activité commerciale, ce type d’établissement participe à l’animation des rues et contribue à faire vivre les commerces de proximité.\n\n**Bondy, ses commerces et ses belles adresses**\n\nÀ travers ses commerces, ses cafés et ses brasseries, Bondy révèle aussi le dynamisme de son territoire. Mettre en lumière ces établissements, c’est valoriser les initiatives locales, les lieux de vie et les espaces où se croisent les habitants.\n\nAvec ce reportage photo, Bondy TV met à l’honneur L’OURCQ, une brasserie dont la présentation soignée mérite un coup de projecteur.\n\n**Une adresse à découvrir**\n\nSituée au 32, route d’Aulnay, 93140 Bondy, L’OURCQ s’inscrit dans le paysage commercial de la ville.\n\nBondy TV poursuivra la découverte des commerces et des lieux qui contribuent à l’identité et à la vitalité de Bondy.\n\n**Bondy TV — Au cœur de la vie bondynoise.**",
       "affiche_entiere": false,
-      "image_focus": "50% 55%"
+      "image_focus": "50% 55%",
+      "style_presse": true
     },
     {
       "id": "copie-et-si-faire-le-bien-coutait-quelque-chose",
@@ -1574,7 +1592,8 @@
       "pleine_largeur": false,
       "texte_visible": "On dit « les gens bien », comme si c'était facile. Ça ne l'est pas.\n\nFaire le bien, c'est donner du temps quand on en manque. C'est dire oui quand tout le monde dit non. C'est aider sans qu'on vous voie, et parfois sans qu'on vous remercie.\n\nÀ Bondy, ces gens-là existent. Vous les croisez tous les jours : au marché, dans l'escalier, devant l'école. Ils ne font pas de bruit. Mais regardez ce qui change autour d'eux.\n\nAlors une question. Chaque choix que vous faites, petit ou grand, laisse une trace. Sur qui ? Pour combien de temps ?\n\nPersonne ne vous demande d'être parfait. On vous demande d'y penser avant d'agir. Un geste réfléchi peut changer la vie de quelqu'un.\n\n**Et vous, quel bien allez-vous faire cette semaine ?** Racontez-le-nous : Bondy TV vous donne la parole.",
       "texte": "",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "lien_video": "",
@@ -1591,7 +1610,8 @@
       "visuel": "image",
       "etiquette": "Politique",
       "image_portrait": false,
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-une-idee-pour-bondy",
@@ -1608,7 +1628,8 @@
       "texte_visible": "",
       "pleine_largeur": false,
       "texte": "Une ville, ce sont ses habitants qui la connaissent le mieux. Vous y vivez, vous y passez chaque jour, vous voyez ce qui marche et ce qui pourrait être encore mieux. Et si votre idée pouvait inspirer toute une ville ?\n\n**Chaque idée compte**\n\nUne animation pour le quartier, un coin à embellir, un service utile, une initiative pour les jeunes ou pour les aînés. Petite ou grande, une bonne idée mérite d'être entendue.\n\n**Venez nous la dire**\n\nÉcrivez-nous, ou envoyez-nous une courte vidéo. Racontez votre idée avec vos mots : ce que vous imaginez, et pourquoi cela ferait du bien à Bondy.\n\n**Nous la publions**\n\nLes meilleures idées sont publiées dans le magazine, avec votre nom si vous le souhaitez. Une idée partagée, c'est une ville qui avance.\n\n**Ensemble pour Bondy**\n\nBondy TV est là pour donner de la visibilité à celles et ceux qui ont quelque chose à dire. Prenez la parole : votre idée est peut-être la prochaine.\n\n[Je partage mon idée](/temoigner.html)",
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-police-municipale-a-bondy-a-quoi-sert-elle-v",
@@ -1624,7 +1645,8 @@
       "credit": "",
       "lien_video": "",
       "pleine_largeur": false,
-      "affiche_entiere": false
+      "affiche_entiere": false,
+      "style_presse": true
     },
     {
       "id": "copie-bondy-au-dela-de-nos-differences-nous-sommes",
@@ -1641,7 +1663,8 @@
       "affiche_entiere": false,
       "texte_visible": "",
       "texte": "Il y a des moments dans la vie d'une ville où les mots prennent tout leur sens. Des moments où les différences doivent s'effacer devant l'essentiel : notre humanité.\n\nCe samedi 31 octobre, à Bondy, des citoyens se sont rassemblés à l'initiative de la ville de Bondy, pour exprimer leur solidarité à la suite de l'attentat de Trappes et faire entendre un message fort contre le racisme, la haine et toutes les formes de discrimination.\n\n![Un élu descend les marches de l'Hôtel de Ville pendant le rassemblement](/images/rassemblement-paix-escalier.jpg)\n![Affiche de la ville de Bondy : Rassemblement citoyen pour la paix, samedi 31 octobre 2026 à 11h](/images/rassemblement-paix-affiche.jpg)\n\nJe tiens à souligner cette initiative, car elle porte un message qui dépasse largement le cadre d'un rassemblement municipal.\n\nJ'ai été particulièrement sensible aux paroles de Monsieur le Maire. Leur profondeur, leur portée humaine et le sens de son intervention m'ont véritablement marqué. Au-delà de sa fonction, c'est un message de fraternité, de respect et de rassemblement qui a été exprimé.\n\nEt c'est précisément cela que j'attends de la vie publique : des paroles qui rassemblent, des actes qui donnent du sens et des initiatives qui rapprochent les citoyens.\n\nCar il faut le dire clairement : nous n'avons pas choisi nos origines, notre couleur de peau ou notre lieu de naissance. En revanche, nous avons tous la responsabilité de choisir la manière dont nous regardons les autres et dont nous construisons notre avenir commun.\n\nLe racisme n'est pas une opinion anodine. C'est une blessure infligée à l'humanité. La haine ne construit rien. Elle divise, détruit et éloigne les êtres humains les uns des autres.\n\n**Bondy, c'est nous. Tous ensemble.**\n\nNotre ville est faite de visages différents, de parcours différents, de cultures différentes et d'histoires qui se croisent chaque jour. C'est cette richesse humaine qui fait aussi l'identité de Bondy.\n\nMais le vivre-ensemble ne doit pas rester une belle formule prononcée lors des cérémonies ou inscrite dans les discours officiels.\n\nIl doit exister dans nos quartiers, dans nos rues, dans nos écoles, dans nos commerces et dans nos relations quotidiennes.\n\nIl doit se voir dans le respect que nous nous accordons, dans notre capacité à écouter celui qui ne pense pas comme nous et dans notre volonté de ne jamais réduire une personne à ses origines ou à ses différences.\n\nNous devons apprendre à nous regarder autrement. Non pas comme des communautés opposées, mais comme des femmes et des hommes qui partagent le même territoire, les mêmes rues et, finalement, le même avenir.\n\n**Une ville ne se construit pas dans la division**\n\nJe crois profondément que les responsables d'une ville ont aussi cette responsabilité : créer des occasions de rencontre, faire entendre les voix, rapprocher les générations et donner à chacun le sentiment qu'il a sa place dans la société.\n\nC'est pourquoi je considère que l'initiative de la ville de Bondy mérite d'être soulignée.\n\nJe ne retiens pas simplement le fait qu'un rassemblement ait eu lieu. Je retiens le message, la démarche et cette volonté de rappeler que nous devons rester unis face à ce qui cherche à nous diviser.\n\nIl ne suffit pas de condamner le racisme après chaque drame. Il faut aussi le combattre au quotidien, par l'éducation, par le dialogue, par le respect et par l'exemplarité.\n\nNous devons être capables de transmettre à nos enfants une autre vision du monde : celle dans laquelle la différence n'est pas une menace, mais une richesse.\n\n**Ma conviction**\n\nJe terminerai par une conviction qui m'est chère.\n\nNous passons trop de temps à chercher ce qui nous sépare et pas suffisamment à regarder ce qui nous rassemble.\n\nLa vie est trop courte pour la consacrer à la haine, aux préjugés et au mépris. Nous avons bien mieux à construire ensemble.\n\nJe souhaite que Bondy soit une ville où personne n'ait besoin de baisser les yeux pour être accepté, où chacun puisse avancer librement, sans avoir à justifier son identité, ses origines ou sa différence.\n\nJe souhaite une ville où le respect ne soit pas une faveur, mais une évidence.\n\nAlors oui, saluons les initiatives qui vont dans ce sens. Saluons les paroles qui rapprochent plutôt que celles qui opposent. Et surtout, faisons en sorte que ces moments ne soient pas sans lendemain.\n\nMerci à la ville de Bondy pour cette initiative et pour les paroles prononcées aujourd'hui.\n\nCar au fond, la véritable grandeur d'une ville ne se mesure pas seulement à ses bâtiments, à ses équipements ou à ses projets. Elle se mesure aussi à la manière dont ses habitants se respectent, se soutiennent et avancent ensemble.\n\nBondy n'appartient pas à une origine, à une couleur ou à une communauté. Bondy appartient à tous ceux qui y vivent, qui la font vivre et qui croient en son avenir.\n\nEt si nous voulons réellement changer les choses, commençons par nous rappeler une vérité toute simple :\n\n**Nous sommes différents, mais nous sommes égaux en humanité.**\n\nVive Bondy. Vive la fraternité. Et surtout, vivons ensemble, vraiment, et non simplement côte à côte.",
-      "image_focus": "50% 35%"
+      "image_focus": "50% 35%",
+      "style_presse": true
     },
     {
       "id": "copie-bondy-l-incivilite-defigure-nos-espaces-publ",
@@ -1657,7 +1680,8 @@
       "texte_visible": "",
       "texte": "Cette photo en est une triste illustration : des cartons, des emballages et des déchets abandonnés au pied d’un local, au milieu d’un espace qui mérite pourtant d’être respecté.\n\nLa propreté de notre ville ne repose pas uniquement sur le travail des agents municipaux. Elle dépend aussi du comportement de chacun d’entre nous. Jeter ses déchets n’importe où, c’est manquer de respect aux habitants, à l’environnement et à celles et ceux qui s’investissent chaque jour pour rendre notre cadre de vie plus agréable.\n\nLe respect de la ville commence par le respect de tous. Ce n’est pas seulement une question de propreté, c’est aussi une question d’éducation, de civisme et de responsabilité collective.\n\nBondy appartient à tous ses habitants. Alors, préservons ses espaces, utilisons les lieux de collecte adaptés et apprenons à nos enfants l’importance de respecter les espaces communs.\n\nUne ville propre est l’affaire de tous. Ne laissons pas l’incivilité gâcher ce que nous avons la chance de partager.\n\n**Bondy TV — Pour une ville plus propre, plus respectueuse et plus citoyenne.**",
       "affiche_entiere": true,
-      "image_focus": "50% 55%"
+      "image_focus": "50% 55%",
+      "style_presse": true
     }
   ],
   "livres": [
