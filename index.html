@@ -1142,10 +1142,12 @@ fetch("/content/site.json",{cache:"no-store"}).then(function(r){return r.json()}
  w.innerHTML='<button type="button" class="vd-b"><span class="vd-i">\u25b6</span><span><span class="vd-t"></span><span class="vd-s">Appuyez pour \u00e9couter. Appuyez encore pour arr\u00eater.</span></span></button>';
  w.querySelector(".vd-t").textContent=a.titre||"Écouter la démarche de Bondy TV";
  host.parentNode.insertBefore(w,host);
- var au=new Audio(a.fichier),ic=w.querySelector(".vd-i"),b=w.querySelector(".vd-b");au.preload="none";
+ var ic=w.querySelector(".vd-i"),b=w.querySelector(".vd-b"),au;
+ if(a.type==="video"){au=document.createElement("video");au.controls=true;au.playsInline=true;au.preload="none";au.src=a.fichier;au.style.cssText="display:none;width:100%;max-height:70vh;margin-top:10px;background:#12141c";w.appendChild(au);}
+ else{au=new Audio(a.fichier);au.preload="none";}
  function set(p){ic.textContent=p?"\u275a\u275a":"\u25b6";b.setAttribute("aria-pressed",p?"true":"false")}
- b.onclick=function(){if(au.paused){au.play().catch(function(){});}else{au.pause();}};
- au.onplay=function(){set(true)};au.onpause=function(){set(false)};au.onended=function(){set(false);au.currentTime=0};
+ b.onclick=function(){if(au.paused){if(a.type==="video")au.style.display="block";au.play().catch(function(){});}else{au.pause();}};
+ au.onplay=function(){set(true)};au.onpause=function(){set(false)};au.onended=function(){set(false);au.currentTime=0;if(a.type==="video")au.style.display="none"};
 }).catch(function(){});})();</script>
 </body>
 </html>
