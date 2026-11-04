@@ -16,6 +16,13 @@ button.g{background:var(--green)}button.r{background:var(--red)}button.l{backgro
 .tag{display:inline-block;background:var(--beige);padding:2px 8px;font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.06em}
 .code{background:#f3ead6;border-left:6px solid #b8975a;padding:16px;margin:14px 0;font-size:18px}.code b{font:700 30px/1.2 "Barlow Condensed",Arial Narrow,sans-serif;letter-spacing:.12em}
 pre{white-space:pre-wrap;background:#fff;border:2px solid var(--line);padding:12px;margin:10px 0}
+.tabs{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;margin:6px 0 18px}@media(max-width:800px){.tabs{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.tab{display:flex;flex-direction:column;align-items:flex-start;gap:4px;text-align:left;background:#fff;color:var(--fg);border:2px solid var(--line);border-top:6px solid var(--beige);padding:14px 14px;font:700 17px/1.1 "Barlow Condensed",Arial Narrow,sans-serif;letter-spacing:.04em;min-height:78px}
+.tab small{font:600 14px/1.2 Barlow,Arial,sans-serif;text-transform:none;letter-spacing:0;color:var(--muted)}
+.tab.on{background:var(--fg);color:#fff;border-color:var(--fg);border-top-color:#b8975a}.tab.on small{color:#e8dcc0}
+.tab.new{border-top-color:var(--red)}.tab .n{display:inline-block;background:var(--red);color:#fff;border-radius:99px;padding:2px 9px;font-size:15px;margin-left:6px}
+.pane{display:none}.pane.on{display:block}.pane h2:first-child{margin-top:6px}
+.c button,#mk{min-height:48px;font-size:17px}
 </style><style id="tab-css">@media (min-width:700px) and (max-width:1280px){.bar{gap:8px!important}.bar nav{gap:4px 8px!important;min-width:0}.bar nav a,.bar nav summary{font-size:12px!important;letter-spacing:.01em!important}.bar nav a.nav-ecrire{padding:6px 9px!important}#install{padding:8px 10px!important;font-size:12px!important;letter-spacing:.04em!important}}</style>
 <script src="/pages-actives.js" defer></script><script src="/mise-en-page.js" defer></script>
 <style id="menu-lisible">
@@ -34,22 +41,23 @@ html body .bt-fab{opacity:.92}
 <div class="bar"><input type="password" id="pw" placeholder="Mot de passe de modération" autocomplete="current-password"><button class="g" id="go">Entrer</button></div>
 <p id="err" class="m" style="color:var(--red)"></p>
 <div id="app" hidden>
-<h2>Demandes d'accès des habitants</h2>
+<div class="tabs" id="tabs"></div>
+<section class="pane" data-p="dem"><h2>Demandes d'accès</h2><p class="m">Les personnes qui veulent un compte. Vous acceptez, le code part.</p>
 <div id="dm"></div>
-<div id="newh"></div>
-<h2>Messages reçus</h2>
-<div id="ms"></div>
-<div id="elu-bloc"><h2>Créer un compte rédacteur</h2>
+<div id="newh"></div></section>
+<section class="pane" data-p="msg"><h2>Messages reçus</h2>
+<div id="ms"></div></section>
+<section class="pane" data-p="red"><div id="elu-bloc"><h2>Créer un compte rédacteur</h2>
 <p class="m">Il pourra écrire des articles, rien d'autre. Vous relisez et vous publiez.</p>
 <div class="grid"><div><label>Prénom et nom<input id="n" placeholder="Prénom Nom"></label></div><div><label>Fonction<input id="f" placeholder="Rédacteur Bondy TV"></label></div><div style="display:none"><label>Groupe (facultatif)<input id="g" placeholder="Majorité, opposition…"></label></div></div>
 <label class="chk" style="display:none;gap:8px;align-items:center;margin:10px 0"><input type="checkbox" id="red" checked> Compte rédacteur (il écrit des articles, seul Mohammed publie)</label>
 <div class="bar"><button class="g" id="mk">Créer le compte</button></div>
-<div id="new"></div></div>
-<h2>Textes et annonces</h2>
+<div id="new"></div></div></section>
+<section class="pane" data-p="txt"><h2>Textes et annonces</h2>
 <div class="bar"><select id="flt" style="max-width:240px"><option value="all" selected>Toutes</option><option value="att">À relire</option><option value="pub">Publiées</option></select></div>
-<div id="tl"></div>
-<h2>Comptes</h2>
-<div id="cl"></div>
+<div id="tl"></div></section>
+<section class="pane" data-p="cpt"><h2>Comptes</h2>
+<div id="cl"></div></section>
 </div>
 <script>
 (function(){
@@ -59,13 +67,19 @@ function tok(){try{return sessionStorage.getItem("mod")||""}catch(x){return ""}}
 function api(body){var o={headers:{"Authorization":"Bearer "+tok(),"Content-Type":"application/json"}};if(body){o.method="POST";o.body=JSON.stringify(body)}return fetch("/api/tribune-admin",o).then(function(r){return r.json().then(function(j){j.status=r.status;return j})})}
 var data={comptes:[],tribunes:[],demandes:[],messages:[]};
 function load(){api().then(function(j){if(j.status===401){$("err").textContent="Mot de passe incorrect.";$("app").hidden=true;return}if(j.status===503){$("err").textContent="Le service n'est pas encore branché (KV VOTES) ou le mot de passe n'est pas créé.";return}$("err").textContent="";$("app").hidden=false;data=j;draw()})}
+var TAB="";var TABS=[["dem","Demandes d'accès","personnes à accepter"],["txt","Textes à relire","tribunes et annonces"],["msg","Messages reçus","écrits par les visiteurs"],["red","Créer un compte","rédacteur"],["cpt","Comptes","déjà créés"]];
+function cnt(k){var d=data;return k==="dem"?(d.demandes||[]).filter(function(x){return x.statut==="attente"}).length:k==="txt"?(d.tribunes||[]).filter(function(x){return x.statut==="attente"}).length:k==="msg"?(d.messages||[]).filter(function(x){return x.statut!=="publie"}).length:k==="cpt"?(d.comptes||[]).length:0}
+function tabs(){if(!TAB){var f=["dem","txt","msg"].filter(function(k){return cnt(k)>0})[0];TAB=f||"dem"}
+ $("tabs").innerHTML=TABS.map(function(t){var n=cnt(t[0]);var nw=(t[0]==="dem"||t[0]==="txt"||t[0]==="msg")&&n>0;return '<button type="button" class="tab'+(TAB===t[0]?' on':'')+(nw?' new':'')+'" data-t="'+t[0]+'"><span>'+t[1]+(nw?'<span class="n">'+n+'</span>':'')+'</span><small>'+(t[0]==="cpt"?n+' ':'')+t[2]+'</small></button>'}).join("");
+ Array.prototype.forEach.call(document.querySelectorAll(".pane"),function(p){p.classList.toggle("on",p.dataset.p===TAB)})}
+$("tabs").addEventListener("click",function(ev){var b=ev.target.closest(".tab");if(!b)return;TAB=b.dataset.t;tabs();window.scrollTo(0,0)});
 function st(t){return t.statut==="publie"?"pub":t.statut==="attente"?"att":"x"}
 var LBL={attente:"À relire",publie:"Publiée",refuse:"Refusée",retire:"Retirée"};
 function draw(){var f=$("flt").value;
  $("tl").innerHTML=data.tribunes.filter(function(t){return f==="all"||st(t)===f}).map(function(t,i){
   return '<div class="c '+st(t)+'"><div class="top"><span>'+(t.role==="association"?'[Association] '+e(t.structure)+' · '+e(t.nom):t.role==="commerce"?'[Commerçant] '+e(t.structure)+' · '+e(t.nom):(t.type==="annonce"?'[Annonce] ':t.role==="habitant"?'[Habitant] ':t.role==="redacteur"?'[Rédacteur] ':'[Élu] ')+e(t.nom)+(t.role==="habitant"?'':' · '+e(t.fonction)+(t.groupe?' · '+e(t.groupe):'')))+'</span><span class="tag">'+e(LBL[t.statut]||t.statut)+'</span></div><p class="m">'+new Date(t.ts).toLocaleString("fr-FR")+'</p><h3 style="margin:6px 0">'+e(t.titre)+'</h3>'+(t.categorie?'<p class="m"><b>'+e({donner:"À donner",vendre:"À vendre",cherche:"Je cherche",service:"Service"}[t.categorie]||t.categorie)+'</b>'+(t.rubrique?' · '+e(t.rubrique):'')+(t.prix?' · '+e(t.prix):'')+' · '+e(t.quartier||'')+' · '+e(t.tel||'')+'</p>':'')+'<textarea rows="7" data-t="'+e(t.cle)+'">'+e(t.texte)+'</textarea>'+(t.lien?'<p><a href="'+e(t.lien)+'" target="_blank" rel="noopener">'+e(t.lien)+'</a></p>':'')+
   '<div class="act">'+(t.image?'<button class="l" data-a="img" data-k="'+e(t.cle)+'">Voir l\'image jointe</button>':'')+'<button class="g" data-a="publier" data-k="'+e(t.cle)+'">Publier</button><button class="r" data-a="refuser" data-k="'+e(t.cle)+'">Refuser</button>'+(t.statut==="publie"?'<button class="l" data-a="retirer" data-k="'+e(t.cle)+'">Retirer du site</button>':'')+'<button class="l" data-a="supprimer_tribune" data-k="'+e(t.cle)+'">Supprimer</button></div></div>'}).join("")||'<p class="m">Rien à afficher.</p>';
- drawDem();drawMsg();
+ drawDem();drawMsg();tabs();
  $("cl").innerHTML=data.comptes.map(function(a){return '<div class="c"><div class="top"><span>'+(a.role==="habitant"||a.role==="videgrenier"||a.role==="association"||a.role==="commerce"?(a.role==="videgrenier"?'[Vide-grenier] ':a.role==="association"?'[Association] '+e(a.structure)+' · ':a.role==="commerce"?'[Commerçant] '+e(a.structure)+' · ':'[Habitant] ')+e(a.nom)+(a.tel?' · '+e(a.tel):''):(a.role==="redacteur"?'[Rédacteur] ':'[Élu] ')+e(a.nom)+' · '+e(a.fonction)+(a.groupe?' · '+e(a.groupe):''))+'</span><span class="tag">'+(a.actif?"Actif":"Désactivé")+'</span></div><p class="m">Identifiant : <b>'+e(a.id)+'</b></p><div class="act"><button class="l" data-c="nouveau_code" data-i="'+e(a.id)+'">Nouveau code</button><button class="l" data-c="'+(a.actif?"desactiver":"activer")+'" data-i="'+e(a.id)+'">'+(a.actif?"Désactiver":"Réactiver")+'</button><button class="r" data-c="supprimer_compte" data-i="'+e(a.id)+'">Supprimer</button></div></div>'}).join("")||'<p class="m">Aucun compte pour l\'instant.</p>';
 }
 var DEST={"Logement":["logement","/logement.html","Parlons de votre logement"],"L'essentiel":["essentiel","/essentiel.html","Le fil de la ville"],"Un témoignage":["temoignage","/temoigner.html","Bondy raconte"]};
