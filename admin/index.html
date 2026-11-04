@@ -132,13 +132,14 @@ details.adv{margin-bottom:18px}
 </head>
 <body>
 <div id="root"></div>
+<script src="/rubriques.js"></script>
 <script>
 (function(){
 'use strict';
 try{localStorage.setItem('btv_owner','1')}catch(e){}
 var REPO='tvbondyofficiel/bondytv', BR='main', FILE='content/site.json';
 var AUTH_HOST='bondytv.pages.dev';
-var RUBRIQUES=['À la une','Édito','Actualité','Culture et balades','Histoire et fierté','Commerce','Solidarité et associations','Les bons acteurs de Bondy','Politique','Tribune citoyenne','Témoignage'];
+var RUBRIQUES=['À la une','Édito','Balades et culture','Vie locale','Dossier','Commerce','Portrait','Actu','Sport','Pratique','Bondy en image','Moment fort','Publicité','Vie politique'];function secR(r){return (window.btvSec?window.btvSec(r):r)}
 var RUBCOL={'À la une':['#d3141f','#fff'],'Édito':['#b8975a','#12141c'],'Actualité':['#006233','#fff'],'Culture et balades':['#b8975a','#12141c'],'Histoire et fierté':['#12141c','#fff'],'Commerce':['#b9a47f','#12141c'],'Solidarité et associations':['#006233','#fff'],'Les bons acteurs de Bondy':['#b8975a','#12141c'],'Politique':['#12141c','#fff'],'Tribune citoyenne':['#006233','#fff'],'Témoignage':['#12141c','#fff']};
 var SECTIONS=[
  ['diaporama','Diaporama (accueil)','#b8975a','Les photos qui défilent en haut de l’accueil. Ajouter, changer l’ordre, légendes, cacher.'],
@@ -399,7 +400,7 @@ function artCard(a,idx,draft){
  return h('div',{class:'acard'+(draft?' draft':'')},h('div',{class:'apt',style:u?'background-image:url("'+u+'")':'background:'+col[0]},u?null:(a.rubrique||'?').charAt(0),h('span',{class:'an'},draft?'caché':String(idx+1))),h('div',{class:'abd'},h('span',{class:'pill',style:'background:'+col[0]+';color:'+col[1]},a.rubrique||'—'),h('b',{title:a.titre||''},a.titre||'(sans titre)')),artAct(a,idx,draft))}
 function articlesView(fixed){
  var q=S.q.trim().toLowerCase();
- function ok(a){return (fixed?a.rubrique===fixed:(S.filter==='Tous'||a.rubrique===S.filter))&&(!q||(a.titre||'').toLowerCase().indexOf(q)>=0)}
+ function ok(a){return (fixed?(a.rubrique===fixed||secR(a.rubrique)===fixed):(S.filter==='Tous'||a.rubrique===S.filter||secR(a.rubrique)===S.filter))&&(!q||(a.titre||'').toLowerCase().indexOf(q)>=0)}
  var stt=S.stat||'tous';
  var vue=S.avue||'vignettes',mk=vue==='liste'?artRow:artCard;
  var rows=[];if(stt!=='caches')articles().forEach(function(a,i){if(ok(a))rows.push(mk(a,i,false))});if(stt!=='visibles')caches().forEach(function(a,i){if(ok(a))rows.push(mk(a,i,true))});
