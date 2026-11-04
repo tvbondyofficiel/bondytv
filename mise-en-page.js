@@ -249,6 +249,7 @@
           if (a.gras === 1) t.style.fontWeight = "700"; else if (a.gras === 0) t.style.fontWeight = "400";
           if (a.ital) t.style.fontStyle = "italic";
           if (a.align) t.style.textAlign = a.align;
+          if (/^#[0-9a-f]{6}$/i.test(a.coul || "")) t.style.color = a.coul;
           var lh = Number(a.inter); if (isFinite(lh) && lh >= 0.8) t.style.lineHeight = String(lh);
           var ls = Number(a.lettres); if (isFinite(ls) && ls) t.style.letterSpacing = ls + "px";
         });
