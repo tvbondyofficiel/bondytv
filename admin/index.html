@@ -321,6 +321,7 @@ function articles(){return S.data.articles||(S.data.articles=[])}
 function caches(){return S.data.articles_caches||(S.data.articles_caches=[])}
 var GROUPS=[
  ['valider','À valider','#d3141f',['valider'],'Les inscriptions à accepter, avec le code envoyé en un clic.'],
+ ['tribunes','Tribunes et comptes','#006233',['tribune_admin'],'Créer les comptes rédacteurs et élus, relire les textes, voir les messages.'],
  ['articles','Articles','#12141c',['articles','tribune_cit','couverture','pages'],'Écrire, ranger et publier les articles.'],
  ['magazine','Magazine PDF','#d3141f',['numeros'],'Ajouter un magazine en PDF, voir les téléchargements.'],
  ['photos','Photos et vidéos','#006233',['diaporama','en_images','reportages'],'Le diaporama, Bondy en images, les vidéos.'],
@@ -329,8 +330,8 @@ var GROUPS=[
  ['contact','Contact et publicité','#006233',['proposer','page_pub','assistant'],'Écrivez-nous, encadrés publicitaires, assistant.'],
  ['apparence','Apparence et réglages','#12141c',['visuel','mise_en_page','general','banniere','pied_de_page'],'Les outils graphiques : éditeur visuel, mise en page, logo, bannière, pied de page.']
 ];
-function itemOK(k){if(k==='articles'||k==='tribune_cit'||k==='valider'||k==='toutes_pages')return true;var s=SECTIONS.filter(function(x){return x[0]===k})[0];return !!s&&(k==='general'||k==='pages'||k==='mise_en_page'||k==='visuel'||S.data[k]!==undefined)}
-function itemInfo(k){if(k==='valider')return ['À valider'+(S.vn?' ('+S.vn+')':''),'#d3141f','Accepter les inscriptions et envoyer le code.'];if(k==='articles')return ['Articles','#12141c',(articles().length+caches().length)+' articles : ajouter, modifier, ranger, supprimer.'];if(k==='tribune_cit')return ['Tribune citoyenne','#006233','Les tribunes des habitants (8 places).'];var s=SECTIONS.filter(function(x){return x[0]===k})[0];return [s[1],s[2],s[3]]}
+function itemOK(k){if(k==='articles'||k==='tribune_cit'||k==='valider'||k==='tribune_admin'||k==='toutes_pages')return true;var s=SECTIONS.filter(function(x){return x[0]===k})[0];return !!s&&(k==='general'||k==='pages'||k==='mise_en_page'||k==='visuel'||S.data[k]!==undefined)}
+function itemInfo(k){if(k==='tribune_admin')return ['Tribunes et comptes','#006233','Comptes rédacteurs et élus, textes à relire, messages.'];if(k==='valider')return ['À valider'+(S.vn?' ('+S.vn+')':''),'#d3141f','Accepter les inscriptions et envoyer le code.'];if(k==='articles')return ['Articles','#12141c',(articles().length+caches().length)+' articles : ajouter, modifier, ranger, supprimer.'];if(k==='tribune_cit')return ['Tribune citoyenne','#006233','Les tribunes des habitants (8 places).'];var s=SECTIONS.filter(function(x){return x[0]===k})[0];return [s[1],s[2],s[3]]}
 function groupOf(v){for(var i=0;i<GROUPS.length;i++){if('g:'+GROUPS[i][0]===v||GROUPS[i][3].indexOf(v)>=0)return GROUPS[i]}return null}
 function newArticle(r){S.drawer={list:'c',idx:-1,isNew:true,obj:{id:'',rubrique:(typeof r==='string'&&r)?r:'Actualité',etiquette:'',titre:'',chapo:'',texte_visible:'',texte:'',visuel:'none',image:'',image_description:'',credit:'Photo : Bondy TV'}};render()}
 function go(v){S.view=v;S.q='';S.filter='Tous';S.confirm=null;S.toast=null;render();window.scrollTo(0,0)}
@@ -339,9 +340,9 @@ function nav(){
  var btn=function(id,label,on,sm){return h('button',{class:'nav'+(on?' on':''),onclick:function(){go(id)}},h('span',{},label),sm?h('small',{class:id==='g:valider'?'rd':''},sm):null)};
  var list=[btn('home','Tableau de bord',S.view==='home')];
  list.push(h('div',{class:'navsm'},'MES TÂCHES'));
- GROUPS.slice(0,7).forEach(function(G){list.push(btn('g:'+G[0],G[1],g&&g[0]===G[0],G[0]==='valider'&&S.vn?S.vn:null))});
+ GROUPS.slice(0,8).forEach(function(G){list.push(btn('g:'+G[0],G[1],g&&g[0]===G[0],G[0]==='valider'&&S.vn?S.vn:null))});
  list.push(h('div',{class:'navsm'},'AVANCÉ'));
- var A=GROUPS[7];list.push(btn('g:'+A[0],A[1],g&&g[0]===A[0]));
+ var A=GROUPS[8];list.push(btn('g:'+A[0],A[1],g&&g[0]===A[0]));
  return h('aside',{},h('div',{class:'brand'},h('b',{},'Bond',h('i',{},'y')),h('span',{},'TV · Admin')),
   list,
   h('div',{class:'aside-note'},'Une seule page pour tout le site. Vous changez, puis vous cliquez sur « Publier le site ».',h('br'),h('br'),h('a',{href:'/admin/avance.html'},'Ancienne version'),' · ',h('a',{href:'#',onclick:function(e){e.preventDefault();if(!isDirty()||confirm('Des changements ne sont pas publiés. Se déconnecter quand même ?'))logout()}},'Se déconnecter')))}
@@ -1225,6 +1226,7 @@ function sectionView(key){
  if(key==='pages_libres'){return pagesLibresView(onch)}
  if(key==='diaporama')return diaporamaView(onch);
  if(key==='valider')return validerView();
+ if(key==='tribune_admin')return h('iframe',{src:'/tribune-admin.html?integre=1',title:'Tribunes et comptes',style:'width:100%;height:calc(100vh - 150px);min-height:600px;border:0;background:#f6f4f1;display:block'});
  if(['point_de_vue','videos','paroles','bonnes_infos','temoigner','tribune','essentiel','elus'].indexOf(key)>=0&&S.data[key]&&typeof S.data[key]==='object')return pageSecView(key,onch);
  if(key==='proposer'&&S.data.proposer&&!Array.isArray(S.data.proposer))return contactView(onch);
  if(key==='pages')return pagesView();
@@ -1260,7 +1262,7 @@ function render(){
  if(!S.token){root.appendChild(loginView());return}
  if(S.loading||!S.data){root.appendChild(h('div',{class:'spin'},'Chargement du site…'));return}
  if(S.view.indexOf('g:')===0){var G0=GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0];var f0=G0&&G0[3].filter(itemOK)[0];if(f0){S.view=f0;S.q='';S.filter='Tous'}}
- var titles={valider:['À valider','Les personnes qui demandent un accès : tu acceptes, le code part.'],home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
+ var titles={tribune_admin:['Tribunes et comptes','Créer un compte rédacteur, relire les textes, voir les messages.'],valider:['À valider','Les personnes qui demandent un accès : tu acceptes, le code part.'],home:['Tableau de bord','Tout le site au même endroit : vous changez, vous publiez.'],tribune_cit:['Tribune citoyenne','Les tribunes des habitants : jusqu’à 8 sur la page.'],articles:['Articles',(articles().length+caches().length)+' articles. Ajoutez, modifiez, rangez, supprimez.']};
  var sec=SECTIONS.filter(function(s){return s[0]===S.view})[0];
  var gg=S.view.indexOf('g:')===0?GROUPS.filter(function(G){return 'g:'+G[0]===S.view})[0]:null;
  var t=gg?[gg[1],gg[4]]:(titles[S.view]||(sec?[sec[1],sec[3]]:['','']));
