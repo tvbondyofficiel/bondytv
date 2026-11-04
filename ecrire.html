@@ -582,7 +582,7 @@ html body .bt-fab{opacity:.92}
 </div>
 <p class="hint">Votre nom, votre téléphone et votre adresse nous servent à vérifier que vous habitez Bondy. Ils ne sont jamais publiés.</p>
 <div class="fld"><label for="f-msg">Votre message</label><textarea id="f-msg" name="message" required=""></textarea></div>
-<div class="fld"><label for="f-piece">Votre fichier <span class="opt">(facultatif : photo ou PDF, 8 Mo au maximum)</span></label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="f-piece" name="piece" type="file"/></div>
+<div class="fld"><label for="f-piece">Votre fichier <span class="opt">(facultatif : photo, PDF ou audio, 8 Mo au maximum)</span></label><input accept=".pdf,.jpg,.jpeg,.png,image/jpeg,image/png,application/pdf" id="f-piece" name="piece" type="file"/></div>
 <details class="moreinfo"><summary>Vidéo, podcast, autre demande : plus d'informations</summary>
 <p class="hint">Pour « Mon point de vue » : une vidéo verticale d'1 min 10 maximum, filmée avec votre téléphone. Collez ici le lien (YouTube, Instagram…) dans votre message, ou envoyez la vidéo à tvbondy@gmail.com. Si des personnes apparaissent dans la vidéo, vous confirmez avoir leur accord (pour un enfant, celui de ses parents).</p>
 <p class="hint">Vous voulez être invité(e) au podcast <b>Zoom sous les étoiles</b> ? Ce n'est pas ici : <a href="/podcast.html">rendez-vous sur la page du podcast</a>.</p>
@@ -819,7 +819,7 @@ function _r(){_h.hidden=!(_s.value==="Logement"||_s.value==="Ce qui doit changer
     if (pf && pf.size > 8 * 1024 * 1024) { say("Le fichier est trop lourd (8 Mo au maximum).", true); return; }
     send.disabled = true; say("Envoi en cours...", false);
     var fd = new FormData(form);
-    var ER = { piece_taille: "Le fichier est trop lourd (8 Mo au maximum).", piece_type: "La pièce jointe doit être un PDF, un JPG ou un PNG.", trop_de_tentatives: "Trop d\u2019envois. Réessayez plus tard.", non_branche: "Le service n\u2019est pas encore activé. Écrivez-nous à tvbondy@gmail.com.", lien: "Le lien doit commencer par https://." };
+    var ER = { injure: "Votre message contient une injure ou une menace. Il ne peut pas \u00eatre envoy\u00e9. Dites les choses calmement.", piece_taille: "Le fichier est trop lourd (8 Mo au maximum).", piece_type: "La pièce jointe doit être un PDF, un JPG, un PNG ou un audio.", trop_de_tentatives: "Trop d\u2019envois. Réessayez plus tard.", non_branche: "Le service n\u2019est pas encore activé. Écrivez-nous à tvbondy@gmail.com.", lien: "Le lien doit commencer par https://." };
     fetch("/api/temoigner", { method: "POST", body: fd })
       .then(function (r) { return r.json(); })
       .then(function (r) {
@@ -963,5 +963,6 @@ window.addEventListener("hashchange",function(){if(location.hash==="#tform")ouvr
 })();
 </script>
 <script id="act-js">document.addEventListener("click",function(e){var a=e.target.closest&&e.target.closest("a.sum-a");if(a&&!(window.matchMedia&&matchMedia("(hover:hover)").matches)){e.preventDefault();var d=a.closest("details");if(d)d.open=!d.open}});</script>
+<script src="/audio-voix.js" defer></script>
 </body>
 </html>
