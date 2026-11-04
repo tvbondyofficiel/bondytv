@@ -1050,8 +1050,14 @@ function numerosView(onch){
 function vTok(){try{return sessionStorage.getItem('mod')||''}catch(e){return ''}}
 function vApi(opt){opt=opt||{};var o={headers:{'Authorization':'Bearer '+vTok()}};if(opt.body){o.method='POST';o.headers['Content-Type']='application/json';o.body=JSON.stringify(opt.body)}
  return fetch('/api/tribune-admin'+(opt.qs||''),o).then(function(r){if(opt.blob)return r.ok?r.blob():Promise.reject();return r.json().then(function(j){j.status=r.status;return j})})}
-function vLoad(){if(!vTok())return Promise.resolve();return vApi().then(function(j){if(j.error){S.verr=j.error==='refuse'?'Mot de passe refusé.':'Service indisponible.';if(j.error==='refuse'){try{sessionStorage.removeItem('mod')}catch(e){}}S.vdem=null;S.vn=0}else{S.verr='';S.vdem=(j.demandes||[]).filter(function(d){return d.statut==='attente'}).sort(function(a,b){return a.ts-b.ts});S.vn=S.vdem.length}render()}).catch(function(){S.verr='Pas de connexion.';render()})}
+function vLoad(){if(!vTok())return Promise.resolve();return vApi().then(function(j){if(j.error){S.verr=j.error==='refuse'?'Mot de passe refusé.':'Service indisponible.';if(j.error==='refuse'){try{sessionStorage.removeItem('mod')}catch(e){}}S.vdem=null;S.vn=0}else{S.verr='';S.vdem=(j.demandes||[]).filter(function(d){return d.statut==='attente'}).sort(function(a,b){return a.ts-b.ts});S.vart=(j.articles||[]).filter(function(a){return a.statut==='attente'}).sort(function(a,b){return a.ts-b.ts});S.vn=S.vdem.length}render()}).catch(function(){S.verr='Pas de connexion.';render()})}
 function vPiece(k,f){vApi({qs:'?piece='+encodeURIComponent(k)+(f?'&f=justif':''),blob:1}).then(function(b){window.open(URL.createObjectURL(b),'_blank')}).catch(function(){alert('Impossible d’ouvrir ce fichier.')})}
+function vImport(a,btn){
+ var base=slug(a.titre),id=base,n=1;while(articles().concat(caches()).some(function(x){return x.id===id}))id=base+'-'+(++n);
+ var done=function(path){caches().push({id:id,rubrique:a.rubrique||'Actu',etiquette:a.rubrique||'',titre:a.titre,chapo:a.chapo||'',texte_visible:'',texte:a.texte||'',visuel:path?'image':'none',image:path||'',image_description:'',credit:path?('Photo : '+a.nom):''});
+  vApi({body:{action:'importer_article',cle:a.cle}}).then(function(j){if(!j.ok){alert('Erreur : '+(j.error||j.status));if(btn)btn.disabled=false;return}try{say('Article ajouté à tes articles cachés ✓ Clique sur « Enregistrer » en haut, puis ouvre-le dans « Articles » pour le relire et le mettre en Visible.')}catch(e){}vLoad()})};
+ if(a.image){vApi({qs:'?img='+encodeURIComponent(a.cle),blob:1}).then(function(bl){var ext=/png/.test(a.image)?'png':/webp/.test(a.image)?'webp':'jpg';uploadFile(new File([bl],'redacteur.'+ext,{type:bl.type||a.image}),'images',function(p){done(p)})}).catch(function(){alert('Impossible de récupérer la photo.');if(btn)btn.disabled=false})}
+ else done('')}
 var V_ROLE={habitant:'Habitant',association:'Association',commerce:'Commerçant',elu:'Élu',videgrenier:'Vide-grenier'};
 function validerView(){
  var box=h('section',{});
@@ -1074,8 +1080,19 @@ function validerView(){
     r.mail?null:h('button',{class:'btn green',onclick:function(e){var b=e.target;navigator.clipboard.writeText(r.message).then(function(){b.textContent='Copié'})}},'Copier le message'),
     (!r.mail&&wa)?h('a',{class:'btn',href:wa,target:'_blank',rel:'noopener',style:'text-decoration:none;color:#12141c;display:inline-flex;align-items:center'},'Envoyer sur WhatsApp'):null,
     h('button',{class:'btn',onclick:function(){S.vres=null;render()}},'Fermer')))) }
- var L=S.vdem;
- if(!L.length)box.appendChild(h('div',{class:'vdCard'},h('h3',{},'Rien à valider'),h('p',{},'Toutes les demandes sont traitées. 👍')));
+ var L=S.vdem,AR=S.vart||[];
+ if(!L.length&&!AR.length)box.appendChild(h('div',{class:'vdCard'},h('h3',{},'Rien à valider'),h('p',{},'Toutes les demandes sont traitées. 👍')));
+ if(AR.length)box.appendChild(h('h3',{style:'margin:14px 0 6px;font:800 22px Barlow Condensed,sans-serif;text-transform:uppercase'},'Articles des rédacteurs ('+AR.length+')'));
+ AR.forEach(function(a){
+  box.appendChild(h('div',{class:'vdCard'},
+   h('h3',{},a.titre),
+   h('p',{},h('span',{class:'vdTag'},a.rubrique||'Article'),'Par '+a.nom+' · '+new Date(a.ts).toLocaleDateString('fr-FR',{day:'numeric',month:'long'})),
+   a.chapo?h('p',{style:'font-style:italic'},a.chapo):null,
+   h('details',{},h('summary',{style:'cursor:pointer;font-weight:700'},'Lire le texte ('+String(a.texte||'').length+' caractères)'),h('p',{style:'white-space:pre-wrap;margin-top:8px'},a.texte||'')),
+   h('div',{style:'display:flex;gap:8px;flex-wrap:wrap;margin-top:10px'},
+    a.image?h('button',{class:'btn',onclick:function(){vApi({qs:'?img='+encodeURIComponent(a.cle),blob:1}).then(function(b){window.open(URL.createObjectURL(b),'_blank')}).catch(function(){alert('Impossible d’ouvrir la photo.')})}},'Voir la photo'):null,
+    h('button',{class:'btn green',style:'font-weight:800',onclick:function(e){e.target.disabled=true;vImport(a,e.target)}},'✔ Mettre dans mes articles (caché)'),
+    h('button',{class:'btn red',onclick:function(){var m=prompt('Motif du refus (le rédacteur le verra) :');if(m===null)return;vApi({body:{action:'refuser',cle:a.cle,motif:m}}).then(function(j){if(j.ok)vLoad();else alert('Erreur : '+(j.error||j.status))})}},'✖ Refuser'))))});
  L.forEach(function(d){
   var pro=d.profil&&d.profil!=='habitant';
   box.appendChild(h('div',{class:'vdCard'},

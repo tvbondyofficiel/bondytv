@@ -2,13 +2,15 @@
 import { sha as sha0, normEmail } from "../_lib/vote.js";
 import { json, sha, clean, cleanLine, MAX_TITRE, MAX_TEXTE, MAX_IMAGE, estPro, normTel, typeFichier, parMois, ANNONCES_PAR_MOIS, codeHash, same, newToken, setCookie, session, cookieToken, sameOrigin, limit, listPrefix, validLink, SESSION_TTL } from "../_lib/tribune.js";
 
+const RUBRIQUES_ARTICLE = ["Balades et culture", "Vie locale", "Dossier", "Commerce", "Portrait", "Actu", "Sport", "Pratique", "Bondy en image", "Moment fort", "Publicité", "Vie politique"];
+
 export async function onRequestGet({ request, env }) {
   if (!env.VOTES) return json({ error: "non_branche" }, 503);
   const acc = await session(request, env);
   if (!acc) return json({ connecte: false });
   const mes = (await listPrefix(env, "tt:" + acc.id + ":")).sort((a, b) => b.ts - a.ts)
-    .map((t) => ({ type: t.type || "texte", titre: t.titre, texte: t.texte, lien: t.lien, statut: t.statut, motif: t.motif || "", image: !!t.image, ts: t.ts }));
-  return json({ connecte: true, role: acc.role || "elu", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, tribunes: mes, max_titre: MAX_TITRE, max_texte: MAX_TEXTE, par_mois: parMois(acc.role), annonces_par_mois: ANNONCES_PAR_MOIS });
+    .map((t) => ({ type: t.type || "texte", rubrique: t.rubrique || "", titre: t.titre, texte: t.texte, lien: t.lien, statut: t.statut, motif: t.motif || "", image: !!t.image, ts: t.ts }));
+  return json({ connecte: true, rubriques: RUBRIQUES_ARTICLE, role: acc.role || "elu", nom: acc.nom, structure: acc.structure || "", fonction: acc.fonction, groupe: acc.groupe, tribunes: mes, max_titre: MAX_TITRE, max_texte: MAX_TEXTE, par_mois: parMois(acc.role), annonces_par_mois: ANNONCES_PAR_MOIS });
 }
 
 export async function onRequestPost({ request, env }) {
@@ -55,6 +57,30 @@ export async function onRequestPost({ request, env }) {
 
   const acc = await session(request, env);
   if (!acc) return json({ error: "non_connecte" }, 401);
+
+  if (b.action === "article") {
+    if (acc.role !== "redacteur") return json({ error: "role" }, 403);
+    if (!(await limit(env, request, "article", 20, 3600))) return json({ error: "trop_de_tentatives" }, 429);
+    const titre = cleanLine(b.titre, 140), chapo = cleanLine(b.chapo, 300), texte = clean(b.texte, 15000);
+    const rubrique = String(b.rubrique || "");
+    if (!RUBRIQUES_ARTICLE.includes(rubrique)) return json({ error: "rubrique" }, 400);
+    if (titre.length < 3) return json({ error: "titre" }, 400);
+    if (texte.length < 100) return json({ error: "texte_article" }, 400);
+    if (!b.accord) return json({ error: "accord" }, 400);
+    let imgBuf = null, imgType = "";
+    if (img) {
+      if (img.size > MAX_IMAGE) return json({ error: "image_taille" }, 413);
+      imgBuf = await img.arrayBuffer();
+      imgType = typeFichier(new Uint8Array(imgBuf), false);
+      if (!imgType) return json({ error: "image_type" }, 415);
+    }
+    const ts = Date.now();
+    const suf = Array.from(crypto.getRandomValues(new Uint8Array(3))).map((x) => x.toString(16).padStart(2, "0")).join("");
+    const cle = "tt:" + acc.id + ":" + ts + "-" + suf;
+    await env.VOTES.put(cle, JSON.stringify({ cle, role: "redacteur", type: "article", nom: acc.nom, fonction: acc.fonction || "", rubrique, titre, chapo, texte, statut: "attente", ts, ...(imgBuf ? { image: imgType } : {}) }));
+    if (imgBuf) await env.VOTES.put("ti:" + cle.slice(3), imgBuf);
+    return json({ ok: true });
+  }
 
   if (b.action === "envoyer") {
     if (!(await limit(env, request, "send", 20, 3600))) return json({ error: "trop_de_tentatives" }, 429);

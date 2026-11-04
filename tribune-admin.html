@@ -42,6 +42,7 @@ html body .bt-fab{opacity:.92}
 <div hidden id="elu-bloc"><h2>Créer un compte</h2>
 <p class="m">Faites-le seulement après avoir vérifié son justificatif d'élu.</p>
 <div class="grid"><div><label>Prénom et nom<input id="n" placeholder="Prénom Nom"></label></div><div><label>Fonction<input id="f" placeholder="Conseiller municipal"></label></div><div><label>Groupe (facultatif)<input id="g" placeholder="Majorité, opposition…"></label></div></div>
+<label class="chk" style="display:flex;gap:8px;align-items:center;margin:10px 0"><input type="checkbox" id="red"> Compte rédacteur (il écrit des articles, seul Mohammed publie)</label>
 <div class="bar"><button class="g" id="mk">Créer le compte</button></div>
 <div id="new"></div></div>
 <h2>Textes et annonces</h2>
@@ -84,13 +85,13 @@ function showHab(j){var esp=j.role==="association"?"l'espace associations":j.rol
  var num=String(j.tel||"").replace(/\D/g,"");
  $("newh").innerHTML='<div class="code">Compte habitant prêt. Ce code ne sera plus affiché.<br>Identifiant : <b>'+e(j.id)+'</b><br>Code : <b>'+e(j.code)+'</b></div><pre>'+e(msg)+'</pre><div class="bar"><a href="https://wa.me/'+e(num)+'?text='+encodeURIComponent(msg)+'" target="_blank" rel="noopener"><button class="g" type="button">Envoyer par WhatsApp à '+e(j.tel)+'</button></a><a href="sms:'+e(j.tel)+'?&body='+encodeURIComponent(msg)+'"><button class="l" type="button">Envoyer par SMS</button></a><button class="l" id="cph" type="button">Copier le message</button></div>';
  $("cph").onclick=function(){navigator.clipboard.writeText(msg).then(function(){$("cph").textContent="Copié"})}}
-function showCode(id,code,nom){var msg="Bonjour "+nom+", voici votre accès à l'espace des élus de Bondy TV Magazine.\nAdresse : "+location.origin+"/elu.html\nIdentifiant : "+id+"\nCode : "+code+"\nGardez ce code pour vous. Vous écrivez votre tribune, nous la relisons, puis elle est publiée.";
+function showCode(id,code,nom,role){var red=role==="redacteur";var msg="Bonjour "+nom+", voici votre accès à l'espace "+(red?"des rédacteurs":"des élus")+" de Bondy TV Magazine.\nAdresse : "+location.origin+(red?"/redacteur.html":"/elu.html")+"\nIdentifiant : "+id+"\nCode : "+code+"\nGardez ce code pour vous. Vous écrivez votre "+(red?"article":"tribune")+", nous la relisons, puis elle est publiée.";
  $("new").innerHTML='<div class="code">Compte prêt. Ce code ne sera plus affiché : copiez le message maintenant.<br>Identifiant : <b>'+e(id)+'</b><br>Code : <b>'+e(code)+'</b></div><pre id="mm">'+e(msg)+'</pre><div class="bar"><button class="g" id="cp">Copier le message</button></div>';
  $("cp").onclick=function(){navigator.clipboard.writeText(msg).then(function(){$("cp").textContent="Copié"})}}
 $("go").onclick=function(){try{sessionStorage.setItem("mod",$("pw").value)}catch(x){}load()};
 $("pw").addEventListener("keydown",function(ev){if(ev.key==="Enter")$("go").click()});
 $("flt").onchange=draw;
-$("mk").onclick=function(){var nom=$("n").value.trim();api({action:"creer",nom:nom,fonction:$("f").value,groupe:$("g").value}).then(function(j){if(j.ok){showCode(j.id,j.code,nom);$("n").value=$("f").value=$("g").value="";load()}else alert(j.error==="existe"?"Un compte avec ce nom existe déjà.":j.error==="nom"?"Écrivez le prénom et le nom.":"Erreur : "+(j.error||j.status))})};
+$("mk").onclick=function(){var nom=$("n").value.trim();api({action:"creer",nom:nom,fonction:$("f").value,groupe:$("g").value,role:$("red").checked?"redacteur":""}).then(function(j){if(j.ok){showCode(j.id,j.code,nom,j.role);$("n").value=$("f").value=$("g").value="";load()}else alert(j.error==="existe"?"Un compte avec ce nom existe déjà.":j.error==="nom"?"Écrivez le prénom et le nom.":"Erreur : "+(j.error||j.status))})};
 $("tl").addEventListener("click",function(ev){var b=ev.target.closest("button");if(!b)return;var a=b.dataset.a,k=b.dataset.k,body={action:a,cle:k};
  if(a==="img"){fetch("/api/tribune-admin?img="+encodeURIComponent(k),{headers:{"Authorization":"Bearer "+tok()}}).then(function(r){if(!r.ok)throw 0;return r.blob()}).then(function(bl){window.open(URL.createObjectURL(bl),"_blank")}).catch(function(){alert("Impossible d'ouvrir l'image.")});return}
  if(a==="publier"){var ta=document.querySelector('textarea[data-t="'+k+'"]');body.texte=ta?ta.value:""}
