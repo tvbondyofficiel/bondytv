@@ -242,7 +242,7 @@ function blankLike(v){if(Array.isArray(v))return[];if(v&&typeof v==='object'){va
 function itemName(o,i){if(o&&typeof o==='object'){var ks=['titre','nom','numero','legende','texte'];for(var j=0;j<ks.length;j++)if(typeof o[ks[j]]==='string'&&o[ks[j]])return o[ks[j]].slice(0,60)}return 'Élément '+(i+1)}
 function imageWidget(obj,k,onch){
  var v=obj[k]||'';var th=h('div',{class:'th'},v?'':'Pas de photo');if(v)th.style.backgroundImage='url("'+v.replace(/"/g,'')+'")';
- var inp=h('input',{type:'file',accept:'image/*',style:'display:none',onchange:function(){var f=inp.files[0];if(!f)return;uploadFile(f,'images',function(p){obj[k]=p;onch();render()})}});
+ var inp=h('input',{type:'file',accept:'image/*',style:'display:none',onchange:function(){var f=inp.files[0];if(!f)return;uploadFile(f,'images',function(p){obj[k]=p;if(k==='image'&&('visuel' in obj)&&(!obj.visuel||obj.visuel==='none'))obj.visuel='image';onch();render()})}});
  return h('div',{class:'img'},th,h('div',{},h('div',{style:'font-size:14px;color:#555a69;margin-bottom:8px;word-break:break-all'},v||'Aucune photo choisie'),h('button',{type:'button',class:'btn',onclick:function(){inp.click()}},v?'Changer la photo':'Choisir une photo'),inp,v?h('button',{type:'button',class:'btn',style:'margin-left:8px',onclick:function(){obj[k]='';onch();render()}},'Retirer'):null))}
 function pdfWidget(obj,k,onch){
  var v=obj[k]||'';var isBook=(k==='fichier');var inp=h('input',{type:'file',accept:isBook?'application/pdf,application/epub+zip,.epub,.pdf':'application/pdf',style:'display:none',onchange:function(){var f=inp.files[0];if(!f)return;
