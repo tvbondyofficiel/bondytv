@@ -31,7 +31,7 @@
     if (pl.length) {
       var addLibres = function () {
         var nav = document.querySelector(".bar nav"); if (!nav) return;
-        var ref = null; nav.querySelectorAll("details.dd").forEach(function (x) { var s = x.querySelector("summary"); if (s && /compte/i.test(s.textContent)) ref = x; });
+        var ref = null; nav.querySelectorAll("details.dd").forEach(function (x) { var s = x.querySelector("summary"); if (s && /participer/i.test(s.textContent)) ref = x; });
         pl.forEach(function (x) {
           if (nav.querySelector('a.nav-libre[data-slug="' + x.slug + '"]')) return;
           var a = document.createElement("a"); a.className = "nav-home nav-libre"; a.setAttribute("data-slug", x.slug); a.href = "/page.html?p=" + encodeURIComponent(x.slug); a.textContent = x.titre || x.slug;
