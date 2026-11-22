@@ -564,7 +564,7 @@
       {
         "question": "J'attends un logement",
         "mots_cles": "logement logements hlm attente demande habitat appartement mal-logement",
-        "reponse": "Racontez votre situation sur la page [Parlons de votre logement](/logement.html). Des faits, sans insulte ni nom de particulier. Votre texte est relu avant d'être publié."
+        "reponse": "Racontez votre situation sur la page [Bondy raconte](/temoigner.html). Des faits, sans insulte ni nom de particulier. Votre texte est relu avant d'être publié."
       },
       {
         "question": "C'est quoi Bondy TV ?",
@@ -1685,9 +1685,7 @@
       "taille": "0,9 Mo"
     }
   ],
-  "pages_desactivees": [
-    "logement.html"
-  ],
+  "pages_desactivees": [],
   "mise_en_page": {
     "bouton_magazine": "gauche",
     "bouton_question": "centre",

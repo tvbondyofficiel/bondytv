@@ -19,5 +19,15 @@
 /reportages /temoigner.html 301
 /annonces.html / 301
 /annonces / 301
+/ecoute.html /temoigner.html 301
+/ecoute /temoigner.html 301
+/rejoindre.html /temoigner.html 301
+/rejoindre /temoigner.html 301
+/logement.html /temoigner.html 301
+/logement /temoigner.html 301
+/livre.html /numeros.html 301
+/livre /numeros.html 301
+/point-de-vue.html /articles.html 301
+/point-de-vue /articles.html 301
 /article/* /article.html 200
 /p/* /page.html 200
