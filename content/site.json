@@ -1293,6 +1293,23 @@
     {
       "lien_video": "",
       "texte_visible": "",
+      "pleine_largeur": false,
+      "image": "",
+      "image_description": "",
+      "credit": "",
+      "visuel": "none",
+      "image_portrait": false,
+      "affiche_entiere": false,
+      "id": "n2-edito-elus",
+      "rubrique": "Édito",
+      "etiquette": "Le mot de Mohammed",
+      "titre": "Être élu, ce n'est pas un titre, c'est un devoir",
+      "chapo": "Les élus sont là pour être auprès des Bondynois. On le leur rappelle.",
+      "texte": "Être élu, ce n'est pas un titre. C'est un devoir.\n\nUn élu de Bondy est choisi par les Bondynois, payé par les Bondynois, et il est là pour les Bondynois. Pas pour un badge, pas pour une photo, pas pour une indemnité. Pour être auprès de ceux qui l'ont élu, dans les rues, dans les cages d'escalier, dans les commerces, là où ça ne va pas.\n\nAujourd'hui, trop de Bondynois se sentent mis de côté. Ils souffrent, et personne ne vient. Ils voient passer des élus pendant les campagnes, puis ils ne les voient plus. Ce n'est pas normal.\n\nBondy est notre ville. C'est la ville des Bondynois. Chacun a le droit de savoir ce que fait celui qu'il a choisi, combien il touche, et si on le voit sur le terrain. C'est pour ça que Bondy TV publiera, élu par élu, leur fonction, leur délégation, leur indemnité et leurs présences. Les chiffres parleront.\n\nJe ne demande pas la perfection. Je demande de la conscience. Réveillons-nous ensemble : celui qui s'engage doit être là, pour de vrai, auprès des Bondynois.\n\n**Mohammed**"
+    },
+    {
+      "lien_video": "",
+      "texte_visible": "",
       "rubrique": "Commerce",
       "pleine_largeur": false,
       "titre": "DÉVELOPPEMENT ÉCONOMIQUE",
