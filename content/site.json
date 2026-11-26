@@ -1225,6 +1225,23 @@
     {
       "lien_video": "",
       "texte_visible": "",
+      "pleine_largeur": false,
+      "image": "",
+      "image_description": "",
+      "credit": "",
+      "visuel": "none",
+      "image_portrait": false,
+      "affiche_entiere": false,
+      "id": "n2-questions-mairie",
+      "rubrique": "Vie locale",
+      "etiquette": "Ce qui ne va pas à Bondy",
+      "titre": "Cinq questions que les Bondynois posent à la mairie",
+      "chapo": "Propreté, stationnement, sécurité, logement, commerces : on pose les questions, la mairie peut répondre.",
+      "texte": "Une nouvelle équipe municipale est en place depuis mars 2026, avec une large majorité : 34 sièges sur 45 pour la liste du maire, Stephen Hervé. Une large majorité donne de grands moyens d'agir. Elle donne aussi une grande responsabilité. Bondy TV pose donc des questions simples, au nom des habitants.\n\n**1. Propreté.** Dépôts sauvages, gravats, rues sales : c'est la plainte qui revient le plus souvent. Combien de passages de nettoyage par semaine, et dans quels quartiers ? Où signaler un dépôt, et sous quel délai est-il enlevé ?\n\n**2. Stationnement.** Double file, trottoirs bloqués, places prises sans règle. Quels contrôles sont prévus ? Et quelles places de plus pour les habitants et pour les clients des commerçants ?\n\n**3. Sécurité.** Dans une consultation menée en Seine-Saint-Denis, les enjeux de sécurité, de logement et de lien social reçoivent à Bondy un soutien supérieur à la moyenne. Qu'est-ce qui change concrètement dans les rues cette année : présence sur le terrain, éclairage, caméras ?\n\n**4. Logement.** Quels logements sont prévus, pour qui, et où ? Que fait la ville face à l'habitat dégradé ?\n\n**5. Commerces.** Les petites entreprises font vivre les rues de Bondy. Quelle aide pour celles qui démarrent : loyers, places de livraison, animation des rues, marchés ?\n\n**À vous la parole.** Une rue, une photo, une date : écrivez-nous ce que vous voyez près de chez vous, avec l'endroit exact. Nous en ferons les prochaines questions.\n\n**La mairie peut répondre ici.** Cette page lui est ouverte : chaque réponse sera publiée telle quelle, à côté de la question.\n\nSources : résultats officiels des municipales 2026 (Ministère de l'Intérieur) ; consultation « Quelles priorités pour votre ville de Seine-Saint-Denis ? » (Make.org, 2025)."
+    },
+    {
+      "lien_video": "",
+      "texte_visible": "",
       "rubrique": "Commerce",
       "pleine_largeur": false,
       "titre": "DÉVELOPPEMENT ÉCONOMIQUE",
