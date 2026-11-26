@@ -1276,6 +1276,23 @@
     {
       "lien_video": "",
       "texte_visible": "",
+      "pleine_largeur": false,
+      "image": "",
+      "image_description": "",
+      "credit": "",
+      "visuel": "none",
+      "image_portrait": false,
+      "affiche_entiere": false,
+      "id": "n2-elus-combien",
+      "rubrique": "Vie politique",
+      "etiquette": "Qui fait quoi",
+      "titre": "Les élus de Bondy : qui fait quoi, et combien ça coûte",
+      "chapo": "17 adjoints, 3 collaborateurs de cabinet. On réclame le tableau des indemnités et on publie fiche par fiche.",
+      "texte": "Un élu est payé par vos impôts pour être auprès de vous. À Bondy, combien sont-ils, que font-ils, et combien touchent-ils ? Ces informations sont publiques. Nous les réclamons, et nous les publierons nom par nom.\n\n**Ce que nous savons déjà.** Au conseil du 28 mars 2026, la majorité a désigné 17 adjoints au maire, de M. Alexandre Cote (1er adjoint) à M. Théo Fonseca (17e adjoint). Quatre de ces postes sont des délégués aux quartiers. Trois postes de collaborateurs de cabinet ont aussi été créés.\n\n**Ce que nous ne trouvons pas.** Dans la liste des délibérations du 28 mars publiée par la ville, aucune délibération ne fixe les indemnités des élus : ni montant, ni taux, ni tableau. Or la loi impose qu'une délibération sur les indemnités soit accompagnée d'un tableau annexe qui les récapitule tous.\n\n**Notre demande à la mairie.** Le tableau des indemnités de tous les élus, la liste des délégations de chaque adjoint, et le registre des présences aux conseils municipaux. Nous publierons leur réponse telle quelle. S'ils ne répondent pas, nous le dirons aussi.\n\n**La fiche de chaque élu.** Pour chacun : sa fonction, sa délégation, son indemnité, sa présence au conseil, ses votes. Chacun sera jugé sur ses actes, avec des chiffres que chaque Bondynois peut vérifier.\n\n**À vous de jouer.** Vous avez vu un élu dans votre quartier, ou vous l'attendez encore ? Écrivez-nous : le nom, l'endroit, la date.\n\nSources : liste des délibérations du conseil municipal de Bondy du 28 mars 2026 (ville-bondy.fr) ; Code général des collectivités territoriales, indemnités de fonction des élus locaux."
+    },
+    {
+      "lien_video": "",
+      "texte_visible": "",
       "rubrique": "Commerce",
       "pleine_largeur": false,
       "titre": "DÉVELOPPEMENT ÉCONOMIQUE",
