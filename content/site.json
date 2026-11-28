@@ -1327,6 +1327,23 @@
     {
       "lien_video": "",
       "texte_visible": "",
+      "pleine_largeur": false,
+      "image": "",
+      "image_description": "",
+      "credit": "",
+      "visuel": "none",
+      "image_portrait": false,
+      "affiche_entiere": false,
+      "id": "n2-bondy-5-faits",
+      "rubrique": "Balades et culture",
+      "etiquette": "Bondy en 5 faits",
+      "titre": "Bondy en 5 faits : ce que vous ne saviez peut-être pas",
+      "chapo": "Une forêt, un canal, une gare : cinq faits vérifiés sur notre ville.",
+      "texte": "Vous croyez connaître Bondy ? Voici cinq faits vérifiés, avec leurs sources.\n\n**1. Une ville dense, pleine d'habitants.** Bondy compte 50 595 habitants (chiffres de 2023) sur 5,47 km², soit environ 9 250 habitants au km². On les appelle les Bondynois et les Bondynoises.\n\n**2. Elle était une forêt.** Jusqu'au début du XIXe siècle, la ville était en grande partie recouverte par la forêt de Bondy. Cette forêt figure encore dans le blason de la commune : d'argent à la forêt terrassée de sinople.\n\n**3. Le canal de l'Ourcq l'a coupée en deux.** Une loi du 10 mai 1802 décide d'ouvrir une dérivation de la rivière Ourcq vers le bassin de la Villette. Le canal est achevé en 1822 et traverse aujourd'hui Bondy d'est en ouest. Il est bordé d'une piste cyclable.\n\n**4. Le train arrive en 1849.** La gare de Bondy ouvre en 1849 sur la ligne Paris-Est–Strasbourg. Elle est aujourd'hui desservie par le RER E. Le tram-train T4 relie Bondy à Aulnay-sous-Bois depuis novembre 2006.\n\n**5. Un bois de 10 hectares.** Le plus grand espace vert communal, le bois de Bondy, a été inauguré en 2005, tout au nord de la ville. Il s'étend sur 10 hectares et compte 1 250 arbres.\n\n**Et vous ?** Connaissez-vous un fait, une anecdote, une photo ancienne de votre rue ? Envoyez-nous votre histoire de Bondy, avec la date et le lieu : elle fera peut-être le prochain « 5 faits ».\n\nSources : Insee, populations de référence 2023 ; Wikipédia, Bondy ; areq.net, Bondy ; Tourisme 93, « Que visiter à Bondy » ; Wikipédia, Gare de Bondy ; Geneawiki, Bondy (blason)."
+    },
+    {
+      "lien_video": "",
+      "texte_visible": "",
       "rubrique": "Commerce",
       "pleine_largeur": false,
       "titre": "DÉVELOPPEMENT ÉCONOMIQUE",
